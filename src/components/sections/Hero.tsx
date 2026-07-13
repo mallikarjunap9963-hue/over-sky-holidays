@@ -25,8 +25,8 @@ export function Hero() {
           <div
             key={slide.id}
             className={`absolute inset-0 bg-cover bg-center transition-all duration-1000 ${currentSlide === index
-                ? "visible scale-100 opacity-100"
-                : "invisible scale-105 opacity-0"
+              ? "visible scale-100 opacity-100"
+              : "invisible scale-105 opacity-0"
               }`}
             style={{
               backgroundImage: `url("${slide.image}")`,
@@ -71,8 +71,8 @@ export function Hero() {
               type="button"
               onClick={() => setCurrentSlide(index)}
               className={`h-1.5 rounded-full transition-all ${currentSlide === index
-                  ? "w-10 bg-[#0b84d8]"
-                  : "w-5 bg-white/55 hover:bg-white"
+                ? "w-10 bg-[#0b84d8]"
+                : "w-5 bg-white/55 hover:bg-white"
                 }`}
               aria-label={`Go to slide ${index + 1}`}
             />
