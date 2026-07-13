@@ -1,4 +1,4 @@
-import React from 'react';
+import { ScrollReveal } from '../ui/ScrollReveal';
 
 export function WhyChooseUs() {
 
@@ -33,7 +33,7 @@ export function WhyChooseUs() {
 
         <div className="relative mx-auto max-w-[1320px]">
           {/* Section heading */}
-          <div className="text-center">
+          <ScrollReveal variant="fade-in-up" duration={1200} className="text-center">
             <div className="flex items-center justify-center gap-3">
               <span className="h-px w-8 bg-[#0b84d8]" />
 
@@ -47,7 +47,7 @@ export function WhyChooseUs() {
             <h2 className="mt-4 font-rubik text-[32px] font-bold leading-tight text-[#100c08] sm:text-[40px] lg:text-[46px]">
               Why Choose Open Sky Holidays
             </h2>
-          </div>
+          </ScrollReveal>
 
           {/* Feature cards */}
           <div className="mt-14 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
@@ -192,29 +192,35 @@ export function WhyChooseUs() {
                   </svg>
                 ),
               },
-            ].map((feature) => (
-              <article
+            ].map((feature, index) => (
+              <ScrollReveal
                 key={feature.title}
-                className={`group relative overflow-hidden rounded-[18px] border border-slate-200/80 ${feature.background} px-6 py-8 transition duration-300 hover:-translate-y-2 hover:border-[#0b84d8]/30 hover:shadow-[0_20px_45px_rgba(16,12,8,0.06)] sm:px-8`}
+                variant="fade-in-up"
+                delay={index * 100}
+                duration={1300}
               >
-                <div className="flex flex-col gap-6 sm:flex-row sm:items-center font-jost">
-                  <div
-                    className={`flex h-[100px] w-[100px] shrink-0 items-center justify-center rounded-full ${feature.iconBackground} ${feature.iconColor} transition duration-500 group-hover:rotate-[8deg] group-hover:scale-105`}
-                  >
-                    {feature.icon}
-                  </div>
+                <article
+                  className={`group relative overflow-hidden rounded-[18px] border border-slate-200/80 ${feature.background} px-6 py-8 transition duration-300 hover:-translate-y-2 hover:border-[#0b84d8]/30 hover:shadow-[0_20px_45px_rgba(16,12,8,0.06)] sm:px-8 h-full`}
+                >
+                  <div className="flex flex-col gap-6 sm:flex-row sm:items-center font-jost">
+                    <div
+                      className={`flex h-[100px] w-[100px] shrink-0 items-center justify-center rounded-full ${feature.iconBackground} ${feature.iconColor} transition duration-500 group-hover:rotate-[8deg] group-hover:scale-105`}
+                    >
+                      {feature.icon}
+                    </div>
 
-                  <div>
-                    <h3 className="font-rubik text-[21px] font-semibold leading-tight text-[#100c08] transition group-hover:text-[#0b84d8] sm:text-[22px]">
-                      {feature.title}
-                    </h3>
+                    <div>
+                      <h3 className="font-rubik text-[21px] font-semibold leading-tight text-[#100c08] transition group-hover:text-[#0b84d8] sm:text-[22px]">
+                        {feature.title}
+                      </h3>
 
-                    <p className="mt-4 text-[14px] leading-7 text-slate-600 sm:text-[15px]">
-                      {feature.description}
-                    </p>
+                      <p className="mt-4 text-[14px] leading-7 text-slate-600 sm:text-[15px]">
+                        {feature.description}
+                      </p>
+                    </div>
                   </div>
-                </div>
-              </article>
+                </article>
+              </ScrollReveal>
             ))}
           </div>
         </div>
@@ -223,3 +229,4 @@ export function WhyChooseUs() {
     </>
   );
 }
+

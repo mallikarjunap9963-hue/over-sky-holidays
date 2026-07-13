@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { ScrollReveal } from '../ui/ScrollReveal';
 
 export function AboutUs() {
   const [activeAboutTab, setActiveAboutTab] = useState<'mission' | 'customer'>('mission');
@@ -54,121 +55,131 @@ export function AboutUs() {
 
         <div className="relative mx-auto grid max-w-[1320px] items-start gap-12 lg:grid-cols-2 lg:gap-16">
           {/* ===== LEFT: TEXT CONTENT ===== */}
-          <div>
+          <div className="flex flex-col gap-6">
             {/* Section label */}
-            <div className="flex items-center gap-3">
-              <span className="h-[1px] w-8 bg-[#0b84d8]" />
+            <ScrollReveal variant="fade-in-left" delay={50} duration={1200}>
+              <div className="flex items-center gap-3">
+                <span className="h-[1px] w-8 bg-[#0b84d8]" />
 
-              <p className="font-satisfy text-[24px] font-normal text-[#0b84d8] capitalize">
-                About Us
-              </p>
+                <p className="font-satisfy text-[24px] font-normal text-[#0b84d8] capitalize">
+                  About Us
+                </p>
 
-              <span className="h-[1px] w-8 bg-[#0b84d8]" />
-            </div>
+                <span className="h-[1px] w-8 bg-[#0b84d8]" />
+              </div>
+            </ScrollReveal>
 
             {/* Main heading */}
-            <h2 className="mt-4 font-rubik text-[32px] font-bold leading-[1.15] tracking-[-0.02em] text-[#100c08] sm:text-[40px] lg:text-[46px]">
-              Let&apos;s know About Our Journey For Open Sky Holidays.
-            </h2>
+            <ScrollReveal variant="fade-in-left" delay={200} duration={1300}>
+              <h2 className="font-rubik text-[32px] font-bold leading-[1.15] tracking-[-0.02em] text-[#100c08] sm:text-[40px] lg:text-[46px]">
+                Let&apos;s know About Our Journey For Open Sky Holidays.
+              </h2>
+            </ScrollReveal>
 
             {/* Tab buttons */}
-            <div className="mt-8 flex flex-wrap gap-x-10 gap-y-4">
-              <button
-                type="button"
-                onClick={() => setActiveAboutTab('mission')}
-                className={`flex items-center gap-2.5 text-[15px] font-semibold transition ${activeAboutTab === 'mission' ? 'text-[#0b84d8]' : 'text-slate-500 hover:text-[#0b84d8]'
-                  }`}
-              >
-                <span className={activeAboutTab === 'mission' ? 'text-[#0b84d8]' : 'text-slate-400'}>
-                  <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="1.7" aria-hidden="true">
-                    <circle cx="12" cy="12" r="8" />
-                    <circle cx="12" cy="12" r="4" />
-                    <circle cx="12" cy="12" r="1" fill="currentColor" />
-                    <path d="m16 8 4-4M17 4h3v3" />
-                  </svg>
-                </span>
-                Mission &amp; Vision
-              </button>
+            <ScrollReveal variant="fade-in-left" delay={350} duration={1300}>
+              <div className="flex flex-wrap gap-x-10 gap-y-4">
+                <button
+                  type="button"
+                  onClick={() => setActiveAboutTab('mission')}
+                  className={`flex items-center gap-2.5 text-[15px] font-semibold transition ${activeAboutTab === 'mission' ? 'text-[#0b84d8]' : 'text-slate-500 hover:text-[#0b84d8]'
+                    }`}
+                >
+                  <span className={activeAboutTab === 'mission' ? 'text-[#0b84d8]' : 'text-slate-400'}>
+                    <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="1.7" aria-hidden="true">
+                      <circle cx="12" cy="12" r="8" />
+                      <circle cx="12" cy="12" r="4" />
+                      <circle cx="12" cy="12" r="1" fill="currentColor" />
+                      <path d="m16 8 4-4M17 4h3v3" />
+                    </svg>
+                  </span>
+                  Mission &amp; Vision
+                </button>
 
-              <button
-                type="button"
-                onClick={() => setActiveAboutTab('customer')}
-                className={`flex items-center gap-2.5 text-[15px] font-semibold transition ${activeAboutTab === 'customer' ? 'text-[#0b84d8]' : 'text-slate-500 hover:text-[#0b84d8]'
-                  }`}
-              >
-                <span className={activeAboutTab === 'customer' ? 'text-[#0b84d8]' : 'text-slate-400'}>
-                  <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="1.7" aria-hidden="true">
-                    <circle cx="12" cy="8" r="3.5" />
-                    <path d="M6 21v-2a6 6 0 0 1 12 0v2" />
-                    <path d="m5 6-2-2M19 6l2-2M12 3V1" />
-                    <path d="m8.5 13 3.5 2 3.5-2" />
-                  </svg>
-                </span>
-                Focus On Customer
-              </button>
-            </div>
+                <button
+                  type="button"
+                  onClick={() => setActiveAboutTab('customer')}
+                  className={`flex items-center gap-2.5 text-[15px] font-semibold transition ${activeAboutTab === 'customer' ? 'text-[#0b84d8]' : 'text-slate-500 hover:text-[#0b84d8]'
+                    }`}
+                >
+                  <span className={activeAboutTab === 'customer' ? 'text-[#0b84d8]' : 'text-slate-400'}>
+                    <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="1.7" aria-hidden="true">
+                      <circle cx="12" cy="8" r="3.5" />
+                      <path d="M6 21v-2a6 6 0 0 1 12 0v2" />
+                      <path d="m5 6-2-2M19 6l2-2M12 3V1" />
+                      <path d="m8.5 13 3.5 2 3.5-2" />
+                    </svg>
+                  </span>
+                  Focus On Customer
+                </button>
+              </div>
+            </ScrollReveal>
 
             {/* Tab content */}
-            <div className="mt-6 min-h-[160px] font-jost">
-              {activeAboutTab === 'mission' ? (
-                <p className="text-[15px] leading-[1.9] text-slate-600">
-                  Established in 2013, Open Sky Holidays is one of India&apos;s
-                  trusted travel agents and tour operators. Our mission is to make
-                  domestic and international travel simple, memorable and accessible
-                  through carefully planned tours, reliable services and complete
-                  customer support. We offer holiday packages, flight tickets, hotel
-                  bookings, passport guidance, visa assistance and MICE travel
-                  solutions.
-                </p>
-              ) : (
-                <p className="text-[15px] leading-[1.9] text-slate-600">
-                  Every traveler has different expectations, budgets and interests.
-                  Our team listens carefully and creates customized holiday packages
-                  for families, couples, groups and corporate travelers. From the
-                  first inquiry until the journey is completed, we provide safe
-                  arrangements and dependable travel assistance.
-                </p>
-              )}
-            </div>
+            <ScrollReveal variant="fade-in-left" delay={500} duration={1300}>
+              <div className="min-h-[160px] font-jost">
+                {activeAboutTab === 'mission' ? (
+                  <p className="text-[15px] leading-[1.9] text-slate-600">
+                    Established in 2013, Open Sky Holidays is one of India&apos;s
+                    trusted travel agents and tour operators. Our mission is to make
+                    domestic and international travel simple, memorable and accessible
+                    through carefully planned tours, reliable services and complete
+                    customer support. We offer holiday packages, flight tickets, hotel
+                    bookings, passport guidance, visa assistance and MICE travel
+                    solutions.
+                  </p>
+                ) : (
+                  <p className="text-[15px] leading-[1.9] text-slate-600">
+                    Every traveler has different expectations, budgets and interests.
+                    Our team listens carefully and creates customized holiday packages
+                    for families, couples, groups and corporate travelers. From the
+                    first inquiry until the journey is completed, we provide safe
+                    arrangements and dependable travel assistance.
+                  </p>
+                )}
+              </div>
+            </ScrollReveal>
 
             {/* Button + customer count */}
-            <div className="mt-8 flex flex-wrap items-center gap-8">
-              <a
-                href="#services"
-                className="btn-primary min-h-[52px] rounded-[5px] px-8 text-[15px] font-bold shadow-[0_12px_30px_rgba(11,132,216,0.2)]"
-              >
-                More About
-              </a>
+            <ScrollReveal variant="fade-in-left" delay={650} duration={1400}>
+              <div className="flex flex-wrap items-center gap-8">
+                <a
+                  href="#services"
+                  className="btn-primary min-h-[52px] rounded-[5px] px-8 text-[15px] font-bold shadow-[0_12px_30px_rgba(11,132,216,0.2)]"
+                >
+                  More About
+                </a>
 
-              <div className="flex items-center gap-3">
-                {/* Stacked avatars */}
-                <div className="flex -space-x-3">
-                  {[
-                    'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=100&q=80',
-                    'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=100&q=80',
-                    'https://images.unsplash.com/photo-1531123897727-8f129e1688ce?auto=format&fit=crop&w=100&q=80',
-                  ].map((src, i) => (
-                    <img
-                      key={src}
-                      src={src}
-                      alt={`Customer ${i + 1}`}
-                      className="h-11 w-11 rounded-full border-[3px] border-white object-cover shadow"
-                    />
-                  ))}
-                </div>
+                <div className="flex items-center gap-3">
+                  {/* Stacked avatars */}
+                  <div className="flex -space-x-3">
+                    {[
+                      'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=100&q=80',
+                      'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=100&q=80',
+                      'https://images.unsplash.com/photo-1531123897727-8f129e1688ce?auto=format&fit=crop&w=100&q=80',
+                    ].map((src, i) => (
+                      <img
+                        key={src}
+                        src={src}
+                        alt={`Customer ${i + 1}`}
+                        className="h-11 w-11 rounded-full border-[3px] border-white object-cover shadow"
+                      />
+                    ))}
+                  </div>
 
-                <div className="font-rubik">
-                  <p className="text-[20px] font-bold leading-none text-[#100c08]">
-                    {customerCount}+
-                  </p>
-                  <p className="mt-1 text-[13px] text-slate-500">Customer</p>
+                  <div className="font-rubik">
+                    <p className="text-[20px] font-bold leading-none text-[#100c08]">
+                      {customerCount}+
+                    </p>
+                    <p className="mt-1 text-[13px] text-slate-500">Customer</p>
+                  </div>
                 </div>
               </div>
-            </div>
+            </ScrollReveal>
           </div>
 
           {/* ===== RIGHT: IMAGE COLLAGE (matches reference exactly) ===== */}
-          <div className="relative">
+          <ScrollReveal variant="fade-in-right" delay={200} duration={1450} className="relative">
             <div className="grid grid-cols-2 gap-4">
               {/* LEFT column — one large tall image */}
               <div className="overflow-hidden rounded-[10px] shadow-md">
@@ -207,11 +218,10 @@ export function AboutUs() {
                 <path d="M50 0c3 31 16 44 50 50-34 5-47 19-50 50-4-31-17-45-50-50C33 44 46 31 50 0Z" />
               </svg>
             </div>
-          </div>
+          </ScrollReveal>
         </div>
       </section>
       {/* ================= ABOUT US SECTION END ================= */}
     </>
   );
 }
-

@@ -330,11 +330,11 @@ export function CategoryIcon({ className = "h-7 w-7" }: { className?: string }) 
   );
 }
 
-export function ChevronDownIcon() {
+export function ChevronDownIcon({ className = "h-5 w-5" }: { className?: string }) {
   return (
     <svg
       viewBox="0 0 24 24"
-      className="h-5 w-5"
+      className={className}
       fill="none"
       stroke="currentColor"
       strokeWidth="1.8"

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { slides } from '../../data';
-import { LocationIcon, ArrowLeftIcon, ArrowRightIcon } from '../icons/Icons';
 
+import { ScrollReveal } from '../ui/ScrollReveal';
 
 export function Hero() {
 
@@ -15,22 +15,12 @@ export function Hero() {
     return () => window.clearInterval(intervalId);
   }, []);
 
-  const previousSlide = () => {
-    setCurrentSlide((previous) =>
-      previous === 0 ? slides.length - 1 : previous - 1,
-    );
-  };
-
-  const nextSlide = () => {
-    setCurrentSlide((previous) => (previous + 1) % slides.length);
-  };
-
   const activeSlide = slides[currentSlide];
 
   return (
     <>
       {/* HERO SECTION */}
-        <div className="relative min-h-[620px] overflow-hidden rounded-[32px] bg-[#100c08] shadow-[0_30px_80px_rgba(16,12,8,0.22)] sm:min-h-[680px] lg:min-h-[720px]">
+        <div className="relative w-full h-[calc(100vh-128px)] md:h-[calc(100vh-138px)] overflow-hidden bg-[#100c08] shadow-[0_30px_80px_rgba(16,12,8,0.15)]">
           {slides.map((slide, index) => (
             <div
               key={slide.id}
@@ -49,35 +39,33 @@ export function Hero() {
 
           <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-black/10" />
 
-          <div className="relative z-10 mx-auto flex min-h-[620px] max-w-[1120px] flex-col items-center justify-center px-5 py-20 text-center sm:min-h-[680px] sm:px-8 lg:min-h-[720px] lg:px-10">
-            <div className="mb-7 flex min-w-[220px] items-center justify-center gap-2 bg-[#0b84d8] px-9 py-3 text-white [clip-path:polygon(8%_0,92%_0,100%_18%,94%_86%,8%_100%,0_80%)]">
-              <LocationIcon />
+          <div className="relative z-10 mx-auto flex h-full max-w-[1200px] flex-col items-center justify-center px-5 py-4 text-center sm:px-8 lg:px-10">
+            <ScrollReveal variant="fade-in-up" delay={400} duration={1450}>
+              <h1 className="max-w-none text-[26px] sm:text-[38px] lg:text-[48px] xl:text-[52px] font-extrabold leading-tight tracking-[-0.02em] text-white font-rubik whitespace-normal md:whitespace-nowrap">
+                {activeSlide.title}
+              </h1>
+            </ScrollReveal>
 
-              <span className="text-lg font-semibold font-rubik">
-                {activeSlide.location}
-              </span>
-            </div>
+            <ScrollReveal variant="fade-in-up" delay={650} duration={1500}>
+              <p className="mt-4 max-w-[680px] text-[13px] sm:text-[15.5px] font-normal leading-relaxed text-white/80 font-jost">
+                {activeSlide.description}
+              </p>
+            </ScrollReveal>
 
-            <h1 className="max-w-[920px] text-[42px] font-extrabold leading-[1.02] tracking-[-0.03em] text-white sm:text-[56px] lg:text-[72px] font-rubik">
-              {activeSlide.title}
-            </h1>
-
-            <p className="mt-7 max-w-[930px] text-[15px] font-medium leading-7 text-white/95 sm:text-[17px] sm:leading-8 font-jost">
-              {activeSlide.description}
-            </p>
-
-            <div className="mt-10 flex justify-center">
-              <a
-                href="#domestic-tours"
-                className="btn-primary min-h-[56px] min-w-[182px] rounded-[6px] shadow-[0_12px_30px_rgba(11,132,216,0.28)]"
-              >
-                Explore More
-              </a>
-            </div>
+            <ScrollReveal variant="fade-in-up" delay={900} duration={1550}>
+              <div className="mt-7 flex justify-center">
+                <a
+                  href="#domestic-tours"
+                  className="btn-primary min-h-[46px] sm:min-h-[52px] min-w-[150px] sm:min-w-[170px] rounded-[6px] text-sm sm:text-base shadow-[0_10px_24px_rgba(11,132,216,0.18)]"
+                >
+                  Explore More
+                </a>
+              </div>
+            </ScrollReveal>
           </div>
 
           {/* SLIDER DOTS */}
-          <div className="absolute bottom-9 left-1/2 z-20 hidden -translate-x-1/2 items-center gap-2 sm:flex">
+          <ScrollReveal variant="fade-in" delay={1150} duration={1500} className="absolute bottom-9 left-1/2 z-20 hidden -translate-x-1/2 items-center gap-2 sm:flex">
             {slides.map((slide, index) => (
               <button
                 key={slide.id}
@@ -91,10 +79,11 @@ export function Hero() {
                 aria-label={`Go to slide ${index + 1}`}
               />
             ))}
-          </div>
+          </ScrollReveal>
         </div>
 
         {/* BOOKING SEARCH PANEL */}
     </>
   );
 }
+

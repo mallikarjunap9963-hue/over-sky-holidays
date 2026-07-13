@@ -21,9 +21,11 @@ export default function App() {
       <TopBar />
       <Header />
       <main className="page-shell overflow-x-hidden">
-        <section id="home" className="px-3 pb-10 pt-2 sm:px-5 lg:px-8 lg:pb-16 lg:pt-4">
+        <section id="home" className="pb-10 lg:pb-16">
           <Hero />
-          <BookingSearch />
+          <div className="px-3 sm:px-5 lg:px-8">
+            <BookingSearch />
+          </div>
         </section>
         <AboutUs />
         <Destinations />

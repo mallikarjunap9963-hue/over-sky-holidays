@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { ScrollReveal } from '../ui/ScrollReveal';
 
 export function ContactUs() {
   const [submitted, setSubmitted] = useState(false);
@@ -30,7 +31,7 @@ export function ContactUs() {
 
       <div className="relative mx-auto max-w-[1140px]">
         {/* Section Heading */}
-        <div className="text-center mb-10">
+        <ScrollReveal variant="fade-in-up" duration={1200} className="text-center mb-10">
           <div className="flex items-center justify-center gap-3">
             <span className="h-px w-8 bg-[#0b84d8]" />
             <p className="font-satisfy text-[24px] font-normal text-[#0b84d8] capitalize">
@@ -41,13 +42,18 @@ export function ContactUs() {
           <h2 className="mt-3 font-rubik text-[34px] font-bold leading-tight text-[#100c08] sm:text-[44px]">
             Plan Your Next Adventure
           </h2>
-        </div>
+        </ScrollReveal>
 
         {/* 2-Column Split Premium Container Card */}
         <div className="grid overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-[0_20px_50px_rgba(16,12,8,0.05)] lg:grid-cols-12 items-stretch">
           
           {/* Left Column: Form Card (lg:col-span-7) */}
-          <div className="p-8 sm:p-10 lg:col-span-7 bg-white flex flex-col justify-center relative">
+          <ScrollReveal
+            variant="fade-in-left"
+            delay={150}
+            duration={1300}
+            className="p-8 sm:p-10 lg:col-span-7 bg-white flex flex-col justify-center relative h-full"
+          >
             <div className="absolute top-0 inset-x-0 h-1 rounded-t-2xl bg-[#0b84d8]" />
             
             {submitted ? (
@@ -155,10 +161,15 @@ export function ContactUs() {
                 </form>
               </div>
             )}
-          </div>
+          </ScrollReveal>
 
           {/* Right Column: Visual Image Panel + Overlay Info (lg:col-span-5) */}
-          <div className="relative min-h-[440px] lg:col-span-5 flex flex-col justify-between p-8 sm:p-10 text-white overflow-hidden bg-slate-900">
+          <ScrollReveal
+            variant="fade-in-right"
+            delay={300}
+            duration={1350}
+            className="relative min-h-[440px] lg:col-span-5 flex flex-col justify-between p-8 sm:p-10 text-white overflow-hidden bg-slate-900 h-full"
+          >
             {/* Background image */}
             <img
               src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=1200&q=90"
@@ -201,7 +212,7 @@ export function ContactUs() {
               </div>
             </div>
 
-          </div>
+          </ScrollReveal>
 
         </div>
 

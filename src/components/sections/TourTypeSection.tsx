@@ -1,4 +1,4 @@
-import React from 'react';
+import { ScrollReveal } from '../ui/ScrollReveal';
 
 const tourTypes = [
   {
@@ -43,7 +43,7 @@ export function TourTypeSection() {
   return (
     <section id="tour-types" className="px-5 py-12 sm:px-8 lg:px-10">
       <div className="mx-auto max-w-[1320px]">
-        <div className="mb-10 flex flex-col gap-4 text-center lg:mb-12 lg:text-left">
+        <ScrollReveal variant="fade-in-up" duration={1200} className="mb-10 flex flex-col gap-4 text-center lg:mb-12 lg:text-left">
           <div className="flex items-center justify-center gap-3 lg:justify-start">
             <span className="h-[1px] w-8 bg-[#0b84d8]" />
             <p className="text-[15px] font-semibold italic text-[#0b84d8]">Explore More</p>
@@ -55,31 +55,38 @@ export function TourTypeSection() {
           <p className="mx-auto max-w-[760px] text-[15px] leading-7 text-slate-600 lg:mx-0">
             Choose from our most loved travel styles and let us shape an itinerary that fits your travel mood, pace, and budget.
           </p>
-        </div>
+        </ScrollReveal>
 
         <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-          {tourTypes.map((tour) => (
-            <article
+          {tourTypes.map((tour, index) => (
+            <ScrollReveal
               key={tour.title}
-              className="group relative min-h-[260px] overflow-hidden rounded-[24px] shadow-[0_18px_45px_rgba(7,31,67,0.12)]"
+              variant="fade-in-up"
+              delay={index * 100}
+              duration={1300}
             >
-              <img
-                src={tour.image}
-                alt={tour.title}
-                className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent" />
-              <div className="relative flex h-full flex-col justify-end p-6 text-white">
-                <span className="mb-3 inline-flex w-fit rounded-full border border-white/30 bg-white/15 px-3 py-1 text-[12px] font-semibold uppercase tracking-[0.2em] backdrop-blur-sm">
-                  Open Sky Holidays
-                </span>
-                <h3 className="text-[24px] font-bold">{tour.title}</h3>
-                <p className="mt-2 text-[14px] leading-6 text-white/90">{tour.description}</p>
-              </div>
-            </article>
+              <article
+                className="group relative min-h-[260px] overflow-hidden rounded-[24px] shadow-[0_18px_45px_rgba(7,31,67,0.12)] h-full"
+              >
+                <img
+                  src={tour.image}
+                  alt={tour.title}
+                  className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent" />
+                <div className="relative flex h-full flex-col justify-end p-6 text-white">
+                  <span className="mb-3 inline-flex w-fit rounded-full border border-white/30 bg-white/15 px-3 py-1 text-[12px] font-semibold uppercase tracking-[0.2em] backdrop-blur-sm">
+                    Open Sky Holidays
+                  </span>
+                  <h3 className="text-[24px] font-bold">{tour.title}</h3>
+                  <p className="mt-2 text-[14px] leading-6 text-white/90">{tour.description}</p>
+                </div>
+              </article>
+            </ScrollReveal>
           ))}
         </div>
       </div>
     </section>
   );
 }
+

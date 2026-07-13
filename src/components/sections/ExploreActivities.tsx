@@ -2,7 +2,7 @@ import { useState } from 'react';
 import type { ActivityName } from '../../types';
 import { activityItems } from '../../data';
 import { ActivityIcon } from '../icons/Icons';
-
+import { ScrollReveal } from '../ui/ScrollReveal';
 
 export function ExploreActivities() {
 
@@ -35,7 +35,7 @@ export function ExploreActivities() {
 
         <div className="relative mx-auto max-w-[1320px]">
           {/* Heading */}
-          <div className="text-center">
+          <ScrollReveal variant="fade-in-up" duration={1200} className="text-center">
             <div className="flex items-center justify-center gap-3">
               <span className="h-px w-8 bg-[#0b84d8]" />
 
@@ -49,12 +49,12 @@ export function ExploreActivities() {
             <h2 className="mt-4 font-rubik text-[36px] font-bold leading-tight text-[#100c08] sm:text-[44px] lg:text-[52px]">
               Explore Your Activities
             </h2>
-          </div>
+          </ScrollReveal>
 
           {/* Main activity layout */}
           <div className="mt-14 grid items-center gap-10 lg:grid-cols-[340px_minmax(0,1fr)_260px] xl:gap-12">
             {/* Activity selector */}
-            <div className="grid grid-cols-2 gap-4 font-rubik">
+            <ScrollReveal variant="fade-in-left" delay={150} duration={1300} className="grid grid-cols-2 gap-4 font-rubik">
               {activityItems.map((activity) => {
                 const isActive = activeActivity === activity.name;
 
@@ -81,95 +81,107 @@ export function ExploreActivities() {
                   </button>
                 );
               })}
-            </div>
+            </ScrollReveal>
 
             {/* Active activity content */}
-            <div
-              key={selectedActivity.name}
-              className="animate-[activityFade_0.45s_ease-out] font-jost"
+            <ScrollReveal
+              variant="fade-in-up"
+              delay={300}
+              duration={1300}
             >
-              {/* Brush label */}
-              <div className="inline-flex min-w-[132px] items-center justify-center bg-[#0b84d8] px-7 py-2.5 text-white [clip-path:polygon(8%_5%,92%_0,100%_22%,93%_82%,8%_100%,0_75%)] font-rubik">
-                <p className="text-[14px] font-medium italic">
-                  {selectedActivity.badge}
+              <div
+                key={selectedActivity.name}
+                className="animate-[activityFade_0.45s_ease-out] font-jost"
+              >
+                {/* Brush label */}
+                <div className="inline-flex min-w-[132px] items-center justify-center bg-[#0b84d8] px-7 py-2.5 text-white [clip-path:polygon(8%_5%,92%_0,100%_22%,93%_82%,8%_100%,0_75%)] font-rubik">
+                  <p className="text-[14px] font-medium italic">
+                    {selectedActivity.badge}
+                  </p>
+                </div>
+
+                <h3 className="mt-5 max-w-[620px] font-rubik text-[28px] font-semibold leading-[1.35] text-[#100c08] sm:text-[32px]">
+                  {selectedActivity.title}
+                </h3>
+
+                <p className="mt-6 max-w-[650px] text-[14px] leading-7 text-slate-600 sm:text-[15px]">
+                  {selectedActivity.description}
                 </p>
-              </div>
 
-              <h3 className="mt-5 max-w-[620px] font-rubik text-[28px] font-semibold leading-[1.35] text-[#100c08] sm:text-[32px]">
-                {selectedActivity.title}
-              </h3>
+                {/* Features */}
+                <div className="mt-7 flex flex-wrap gap-x-7 gap-y-4">
+                  {selectedActivity.features.map((feature) => (
+                    <div key={feature} className="flex items-center gap-2.5">
+                      <span className="h-2.5 w-2.5 shrink-0 rounded-full bg-[#0b84d8]" />
 
-              <p className="mt-6 max-w-[650px] text-[14px] leading-7 text-slate-600 sm:text-[15px]">
-                {selectedActivity.description}
-              </p>
+                      <span className="text-[13px] font-semibold text-[#100c08] sm:text-[14px]">
+                        {feature}
+                      </span>
+                    </div>
+                  ))}
+                </div>
 
-              {/* Features */}
-              <div className="mt-7 flex flex-wrap gap-x-7 gap-y-4">
-                {selectedActivity.features.map((feature) => (
-                  <div key={feature} className="flex items-center gap-2.5">
-                    <span className="h-2.5 w-2.5 shrink-0 rounded-full bg-[#0b84d8]" />
+                {/* Actions */}
+                <div className="mt-9 flex flex-col gap-6 sm:flex-row sm:items-center">
+                  <a
+                    href="#contact"
+                    className="btn-primary min-h-[52px] w-fit rounded-[5px] px-8 text-[14px] font-bold"
+                  >
+                    Check Availability
+                  </a>
 
-                    <span className="text-[13px] font-semibold text-[#100c08] sm:text-[14px]">
-                      {feature}
+                  <button
+                    type="button"
+                    onClick={() => setVideoModalOpen(true)}
+                    className="group inline-flex w-fit items-center gap-3 text-[14px] font-semibold text-[#100c08] font-rubik"
+                    aria-label={`Watch ${selectedActivity.name} adventure`}
+                  >
+                    <span className="flex h-12 w-12 items-center justify-center rounded-full border border-[#100c08] transition group-hover:border-[#0b84d8] group-hover:bg-[#0b84d8] group-hover:text-white">
+                      <svg
+                        viewBox="0 0 24 24"
+                        className="ml-0.5 h-5 w-5"
+                        fill="currentColor"
+                        aria-hidden="true"
+                      >
+                        <path d="m8 5 11 7-11 7V5Z" />
+                      </svg>
                     </span>
+
+                    <span className="transition group-hover:text-[#0b84d8]">
+                      Watch Adventure
+                    </span>
+                  </button>
+                </div>
+              </div>
+            </ScrollReveal>
+
+            {/* Activity images */}
+            <ScrollReveal
+              variant="fade-in-right"
+              delay={450}
+              duration={1300}
+            >
+              <div
+                key={`${selectedActivity.name}-images`}
+                className="grid animate-[activityImageFade_0.5s_ease-out] gap-5 sm:grid-cols-2 lg:grid-cols-1"
+              >
+                {selectedActivity.images.map((image, index) => (
+                  <div
+                    key={image}
+                    className="group relative overflow-hidden rounded-[3px]"
+                  >
+                    <img
+                      src={image}
+                      alt={`${selectedActivity.name} adventure ${index + 1}`}
+                      loading="lazy"
+                      className="h-[190px] w-full object-cover transition duration-700 group-hover:scale-110 lg:h-[205px]"
+                    />
+
+                    <div className="absolute inset-0 bg-[#100c08]/5 transition group-hover:bg-transparent" />
                   </div>
                 ))}
               </div>
-
-              {/* Actions */}
-              <div className="mt-9 flex flex-col gap-6 sm:flex-row sm:items-center">
-                <a
-                  href="#contact"
-                  className="btn-primary min-h-[52px] w-fit rounded-[5px] px-8 text-[14px] font-bold"
-                >
-                  Check Availability
-                </a>
-
-                <button
-                  type="button"
-                  onClick={() => setVideoModalOpen(true)}
-                  className="group inline-flex w-fit items-center gap-3 text-[14px] font-semibold text-[#100c08] font-rubik"
-                  aria-label={`Watch ${selectedActivity.name} adventure`}
-                >
-                  <span className="flex h-12 w-12 items-center justify-center rounded-full border border-[#100c08] transition group-hover:border-[#0b84d8] group-hover:bg-[#0b84d8] group-hover:text-white">
-                    <svg
-                      viewBox="0 0 24 24"
-                      className="ml-0.5 h-5 w-5"
-                      fill="currentColor"
-                      aria-hidden="true"
-                    >
-                      <path d="m8 5 11 7-11 7V5Z" />
-                    </svg>
-                  </span>
-
-                  <span className="transition group-hover:text-[#0b84d8]">
-                    Watch Adventure
-                  </span>
-                </button>
-              </div>
-            </div>
-
-            {/* Activity images */}
-            <div
-              key={`${selectedActivity.name}-images`}
-              className="grid animate-[activityImageFade_0.5s_ease-out] gap-5 sm:grid-cols-2 lg:grid-cols-1"
-            >
-              {selectedActivity.images.map((image, index) => (
-                <div
-                  key={image}
-                  className="group relative overflow-hidden rounded-[3px]"
-                >
-                  <img
-                    src={image}
-                    alt={`${selectedActivity.name} adventure ${index + 1}`}
-                    loading="lazy"
-                    className="h-[190px] w-full object-cover transition duration-700 group-hover:scale-110 lg:h-[205px]"
-                  />
-
-                  <div className="absolute inset-0 bg-[#100c08]/5 transition group-hover:bg-transparent" />
-                </div>
-              ))}
-            </div>
+            </ScrollReveal>
           </div>
         </div>
 
@@ -219,3 +231,4 @@ export function ExploreActivities() {
     </>
   );
 }
+

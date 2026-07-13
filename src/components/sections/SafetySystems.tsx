@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { safetySlides } from '../../data';
-
+import { ScrollReveal } from '../ui/ScrollReveal';
 
 export function SafetySystems() {
 
@@ -24,8 +24,10 @@ export function SafetySystems() {
         <div className="relative mx-auto max-w-[1320px]">
           <div className="relative grid min-h-[650px] lg:grid-cols-2">
             {/* LEFT CONTENT */}
-            <div
-              className="relative flex items-center overflow-hidden bg-[#fdfaf7] px-5 py-16 sm:px-10 lg:px-16 xl:px-24"
+            <ScrollReveal
+              variant="fade-in-left"
+              duration={1300}
+              className="relative flex items-center overflow-hidden bg-[#fdfaf7] px-5 py-16 sm:px-10 lg:px-16 xl:px-24 h-full"
               style={{
                 backgroundImage:
                   "radial-gradient(circle at 20% 20%, rgba(11,132,216,0.08) 0 2px, transparent 2px), radial-gradient(circle at 75% 70%, rgba(11,132,216,0.06) 0 2px, transparent 2px)",
@@ -119,10 +121,14 @@ export function SafetySystems() {
                   </button>
                 </div>
               </div>
-            </div>
+            </ScrollReveal>
 
             {/* RIGHT IMAGE */}
-            <div className="relative min-h-[520px] overflow-hidden lg:min-h-[650px]">
+            <ScrollReveal
+              variant="fade-in-right"
+              duration={1400}
+              className="relative min-h-[520px] overflow-hidden lg:min-h-[650px] h-full"
+            >
               {safetySlides.map((slide, index) => (
                 <img
                   key={slide.id}
@@ -137,7 +143,7 @@ export function SafetySystems() {
               ))}
 
               <div className="absolute inset-0 bg-[#100c08]/10" />
-            </div>
+            </ScrollReveal>
           </div>
         </div>
       </section>
@@ -145,4 +151,5 @@ export function SafetySystems() {
     </>
   );
 }
+
 
