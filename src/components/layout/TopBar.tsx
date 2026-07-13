@@ -8,7 +8,7 @@ export function TopBar() {
     <>
       {/* TOP INFORMATION BAR */}
       <section className="bg-[#100c08] text-white">
-        <div className="mx-auto flex min-h-[58px] max-w-[1540px] items-center justify-between gap-6 px-5 sm:px-8 lg:px-10">
+        <div className="mx-auto flex min-h-[58px] max-w-[1540px] flex-col items-center justify-center gap-3 px-4 py-3 sm:flex-row sm:justify-between sm:gap-6 sm:px-8 sm:py-0 lg:px-10">
           <a
             href="mailto:info@openskyholidays.in"
             className="hidden items-center gap-3 lg:flex"
@@ -28,7 +28,7 @@ export function TopBar() {
             </span>
           </a>
 
-          <p className="flex-1 text-center text-[12px] font-medium sm:text-[15px] text-slate-200">
+          <p className="flex-1 text-center text-[12px] font-medium leading-6 text-slate-200 sm:text-[14px] lg:text-[15px]">
             The World Is Waiting. One Stop Destination For All Your Tours &
             Travels Needs.{" "}
             <a

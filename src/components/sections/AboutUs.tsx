@@ -184,7 +184,7 @@ export function AboutUs() {
               {/* LEFT column — one large tall image */}
               <div className="overflow-hidden rounded-[10px] shadow-md">
                 <img
-                  src="https://plus.unsplash.com/premium_photo-1677343210638-5d3ce6ddbf85?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dHJhdmVsfGVufDB8fDB8fHww"
+                  src="https://images.unsplash.com/photo-1527631746610-bca00a040d60?auto=format&fit=crop&w=800&q=85"
                   alt="Friends enjoying a mountain tour"
                   className="h-[380px] w-full object-cover transition duration-700 hover:scale-105 sm:h-[440px]"
                 />
