@@ -1,0 +1,28 @@
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: "Jost", "Segoe UI", Roboto, Arial, sans-serif;
+  background: #ffffff;
+  color: #787878;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+.page-shell {
+  background: transparent;
+}
+
+::selection {
+  background: rgba(99, 171, 69, 0.25);
+  color: #100C08;
+}
+
