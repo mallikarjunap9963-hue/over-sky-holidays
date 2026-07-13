@@ -5,13 +5,13 @@ import logo from '../../assets/logo-removebg-preview.png';
 const menuItems = [
   { label: "HOME", href: "#home" },
   { label: "ABOUT", href: "#about" },
-  { 
-    label: "TOURS", 
-    href: "#", 
+  {
+    label: "TOURS",
+    href: "#",
     dropdownItems: [
       { label: "Domestic Tours", href: "#domestic-tours" },
       { label: "International Tours", href: "#international-tours" }
-    ] 
+    ]
   },
   { label: "SERVICES", href: "#services" },
   { label: "CONTACT", href: "#contact" }
@@ -56,25 +56,22 @@ export function Header() {
     <>
       {/* MAIN NAVIGATION */}
       <header
-        className={`sticky top-0 z-50 bg-white transition-all duration-350 ease-out ${
-          scrolled ? 'shadow-[0_8px_30px_rgba(7,31,67,0.08)] bg-white/95 backdrop-blur-md' : 'shadow-none'
-        }`}
+        className={`sticky top-0 z-50 bg-white transition-all duration-350 ease-out ${scrolled ? 'shadow-[0_8px_30px_rgba(7,31,67,0.08)] bg-white/95 backdrop-blur-md' : 'shadow-none'
+          }`}
       >
         <div
-          className={`mx-auto flex max-w-[1540px] items-center justify-between gap-4 px-4 sm:px-6 lg:px-8 xl:px-10 transition-all duration-350 ease-out ${
-            scrolled ? 'min-h-[56px] md:min-h-[64px]' : 'min-h-[70px] md:min-h-[80px]'
-          }`}
+          className={`mx-auto flex max-w-[1540px] items-center justify-between gap-4 px-4 sm:px-6 lg:px-8 xl:px-10 transition-all duration-350 ease-out ${scrolled ? 'min-h-[64px] md:min-h-[72px]' : 'min-h-[70px] md:min-h-[80px]'
+            }`}
         >
           {/* Logo link */}
           <a href="#home" className="shrink-0 flex items-center">
             <img
               src={logo}
               alt="Open Sky Holidays"
-              className={`w-auto object-contain transition-all duration-350 ease-out ${
-                scrolled 
-                  ? 'h-[34px] sm:h-[40px] md:h-[46px] lg:h-[52px]' 
-                  : 'h-[42px] sm:h-[50px] md:h-[58px] lg:h-[68px]'
-              }`}
+              className={`w-auto object-contain transition-all duration-350 ease-out ${scrolled
+                ? 'h-[38px] sm:h-[44px] md:h-[50px] lg:h-[56px]'
+                : 'h-[42px] sm:h-[50px] md:h-[58px] lg:h-[68px]'
+                }`}
             />
           </a>
 
@@ -91,7 +88,7 @@ export function Header() {
                       {item.label}
                       <ChevronDownIcon className="h-4 w-4 transition-transform duration-250 group-hover:rotate-180 text-slate-500 group-hover:text-[#0b84d8]" />
                     </button>
-                    
+
                     {/* Dropdown menu panel */}
                     <div className="absolute left-1/2 -translate-x-1/2 top-full pt-4 w-56 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform -translate-y-2 group-hover:translate-y-0 z-50 pointer-events-none group-hover:pointer-events-auto">
                       <div className="bg-white border border-slate-100 rounded-lg shadow-[0_12px_30px_rgba(7,31,67,0.1)] p-2 flex flex-col gap-0.5">
@@ -114,11 +111,10 @@ export function Header() {
                 <a
                   key={item.label}
                   href={item.href}
-                  className={`flex items-center gap-1 whitespace-nowrap text-[13px] xl:text-[14.5px] font-semibold tracking-[0.02em] transition-colors duration-250 2xl:text-[15.5px] ${
-                    index === 0
-                      ? "text-[#0b84d8]"
-                      : "text-[#100c08] hover:text-[#0b84d8]"
-                  }`}
+                  className={`flex items-center gap-1 whitespace-nowrap text-[13px] xl:text-[14.5px] font-semibold tracking-[0.02em] transition-colors duration-250 2xl:text-[15.5px] ${index === 0
+                    ? "text-[#0b84d8]"
+                    : "text-[#100c08] hover:text-[#0b84d8]"
+                    }`}
                 >
                   {item.label}
                 </a>
@@ -189,17 +185,15 @@ export function Header() {
 
       {/* MOBILE NAVIGATION BACKDROP OVERLAY (Visible < 1280px / xl) */}
       <div
-        className={`fixed inset-0 z-40 bg-slate-900/40 backdrop-blur-sm transition-opacity duration-300 xl:hidden ${
-          mobileMenuOpen ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"
-        }`}
+        className={`fixed inset-0 z-40 bg-slate-900/40 backdrop-blur-sm transition-opacity duration-300 xl:hidden ${mobileMenuOpen ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"
+          }`}
         onClick={() => setMobileMenuOpen(false)}
       />
 
       {/* MOBILE NAVIGATION SIDE DRAWER PANEL (Visible < 1280px / xl) */}
       <div
-        className={`fixed top-0 right-0 z-50 h-full w-[310px] sm:w-[360px] max-w-full bg-white shadow-2xl transition-transform duration-350 ease-out xl:hidden flex flex-col ${
-          mobileMenuOpen ? "translate-x-0" : "translate-x-full"
-        }`}
+        className={`fixed top-0 right-0 z-50 h-full w-[310px] sm:w-[360px] max-w-full bg-white shadow-2xl transition-transform duration-350 ease-out xl:hidden flex flex-col ${mobileMenuOpen ? "translate-x-0" : "translate-x-full"
+          }`}
       >
         {/* Drawer Header */}
         <div className="flex items-center justify-between px-5 py-4 border-b border-slate-100">
@@ -207,7 +201,7 @@ export function Header() {
             <img
               src={logo}
               alt="Open Sky Holidays"
-              className="h-[48px] sm:h-[54px] w-auto object-contain"
+              className="h-[52px] sm:h-[54px] w-auto object-contain"
             />
           </a>
           <button
@@ -236,18 +230,16 @@ export function Header() {
                       className="flex items-center justify-between w-full rounded-lg px-4 py-3 text-[15px] font-semibold text-[#100c08] hover:bg-slate-50 hover:text-[#0b84d8] transition-all cursor-pointer focus:outline-none"
                     >
                       <span>{item.label}</span>
-                      <ChevronDownIcon 
-                        className={`h-4 w-4 text-slate-500 transition-transform duration-300 ${
-                          mobileToursOpen ? 'rotate-180 text-[#0b84d8]' : ''
-                        }`}
+                      <ChevronDownIcon
+                        className={`h-4 w-4 text-slate-500 transition-transform duration-300 ${mobileToursOpen ? 'rotate-180 text-[#0b84d8]' : ''
+                          }`}
                       />
                     </button>
 
                     {/* Dropdown collapsible panel */}
                     <div
-                      className={`overflow-hidden transition-all duration-300 ease-in-out pl-4 ${
-                        mobileToursOpen ? 'max-h-40 opacity-100 py-1' : 'max-h-0 opacity-0 pointer-events-none'
-                      }`}
+                      className={`overflow-hidden transition-all duration-300 ease-in-out pl-4 ${mobileToursOpen ? 'max-h-40 opacity-100 py-1' : 'max-h-0 opacity-0 pointer-events-none'
+                        }`}
                     >
                       <div className="flex flex-col gap-0.5 border-l border-slate-100 ml-4 pl-3">
                         {item.dropdownItems.map((subItem) => (

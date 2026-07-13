@@ -777,7 +777,7 @@ export const travelerReviews: TravelerReview[] = [
       "We booked our Maldives honeymoon through Open Sky Holidays. The resort was beautiful, the airport transfer was smooth and everything matched the promised package.",
     rating: 5,
     date: "June 10, 2026",
-    time: "03:45 PM",
+    time: "3:45 PM",
     avatar:
       "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=200&q=90",
   },
@@ -790,7 +790,7 @@ export const travelerReviews: TravelerReview[] = [
       "The Dubai package was very well organized. Visa assistance, flight guidance, hotel booking and desert safari arrangements were handled professionally.",
     rating: 5,
     date: "May 29, 2026",
-    time: "07:15 PM",
+    time: "7:15 PM",
     avatar:
       "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=90",
   },
@@ -816,7 +816,7 @@ export const travelerReviews: TravelerReview[] = [
       "Open Sky Holidays created a customized Manali and Shimla package for our group. The vehicle, accommodation and local sightseeing were arranged very well.",
     rating: 4,
     date: "May 12, 2026",
-    time: "05:40 PM",
+    time: "5:40 PM",
     avatar:
       "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=200&q=90",
   },
@@ -829,7 +829,7 @@ export const travelerReviews: TravelerReview[] = [
       "The Singapore and Malaysia tour was smooth from beginning to end. The team communicated clearly and helped us whenever we needed assistance.",
     rating: 5,
     date: "April 28, 2026",
-    time: "09:10 AM",
+    time: "9:10 AM",
     avatar:
       "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=200&q=90",
   },
@@ -842,7 +842,7 @@ export const travelerReviews: TravelerReview[] = [
       "Our Goa holiday was affordable and enjoyable. The hotel was close to the beach, and the sightseeing driver was friendly and punctual.",
     rating: 4,
     date: "April 17, 2026",
-    time: "06:50 PM",
+    time: "6:50 PM",
     avatar:
       "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=200&q=90",
   },
@@ -855,7 +855,7 @@ export const travelerReviews: TravelerReview[] = [
       "The passport and visa guidance was clear and helpful. Their team explained every document and kept us updated during the complete process.",
     rating: 5,
     date: "April 8, 2026",
-    time: "02:25 PM",
+    time: "2:25 PM",
     avatar:
       "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=90",
   },
