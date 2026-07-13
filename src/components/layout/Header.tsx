@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { navLinks } from '../../data';
-import { PhoneIcon, UserIcon, GridIcon, MenuIcon, CloseIcon } from '../icons/Icons';
+import { PhoneIcon, MenuIcon, CloseIcon } from '../icons/Icons';
 import logo from '../../assets/logo-removebg-preview.png';
 
 

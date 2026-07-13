@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { slides } from '../../data';
-import { LocationIcon, ArrowLeftIcon, ArrowRightIcon } from '../icons/Icons';
+import { LocationIcon } from '../icons/Icons';
 
 
 export function Hero() {
@@ -15,15 +15,6 @@ export function Hero() {
     return () => window.clearInterval(intervalId);
   }, []);
 
-  const previousSlide = () => {
-    setCurrentSlide((previous) =>
-      previous === 0 ? slides.length - 1 : previous - 1,
-    );
-  };
-
-  const nextSlide = () => {
-    setCurrentSlide((previous) => (previous + 1) % slides.length);
-  };
 
   const activeSlide = slides[currentSlide];
 
