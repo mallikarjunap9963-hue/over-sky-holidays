@@ -17,8 +17,8 @@ export function Footer() {
         <div className="absolute -right-32 bottom-10 h-96 w-96 rounded-full bg-white/5 blur-3xl" />
 
         {/* MAIN FOOTER */}
-        <div className="relative mx-auto max-w-[1320px] px-5 pb-12 pt-16 sm:px-8 lg:pt-20">
-          <div className="grid gap-12 md:grid-cols-2 xl:grid-cols-[1.25fr_0.75fr_0.9fr_1.1fr]">
+        <div className="relative mx-auto max-w-[1320px] px-4 pb-10 pt-12 sm:px-6 sm:pb-12 sm:pt-16 lg:px-8 lg:pt-20">
+          <div className="grid gap-8 sm:gap-10 md:grid-cols-2 xl:grid-cols-[1.25fr_0.75fr_0.9fr_1.1fr]">
             {/* COMPANY DETAILS */}
             <div>
               <a

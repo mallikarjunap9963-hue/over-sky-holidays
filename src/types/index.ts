@@ -14,13 +14,7 @@ export type NavLink = {
   dropdown?: boolean;
 };
 
-export type SearchTab = "Tour" | "Hotel" | "Visa" | "Activities" | "Transport";
 
-export type SearchSelectProps = {
-  label: string;
-  options: string[];
-  icon: ReactNode;
-};
 
 export type ExperienceTab = "Tour Packages" | "Hotel" | "Transport";
 
@@ -88,5 +82,19 @@ export type TravelerReview = {
   date: string;
   time: string;
   avatar: string;
+};
+
+
+export type SearchTab =
+  | "Tour"
+  | "Hotel"
+  | "Visa"
+  | "Activities"
+  | "Transport";
+
+export type SearchSelectProps = {
+  label: string;
+  options: string[];
+  icon: ReactNode;
 };
 

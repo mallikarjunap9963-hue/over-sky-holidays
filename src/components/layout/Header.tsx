@@ -23,12 +23,12 @@ export function Header() {
           scrolled ? 'shadow-[0_4px_24px_rgba(7,31,67,0.10)]' : 'shadow-none'
         }`}
       >
-        <div className="mx-auto flex min-h-[108px] max-w-[1540px] items-center justify-between gap-5 px-5 sm:px-8 lg:px-10">
+        <div className="mx-auto flex min-h-[92px] max-w-[1540px] items-center justify-between gap-3 px-3 py-3 sm:min-h-[100px] sm:gap-5 sm:px-6 sm:py-4 lg:px-10">
           <a href="#home" className="shrink-0">
             <img
               src={logo}
               alt="Open Sky Holidays"
-              className="h-[65px] w-auto object-contain sm:h-[72px] lg:h-[82px]"
+              className="h-[50px] w-auto object-contain sm:h-[60px] md:h-[68px] lg:h-[82px]"
             />
           </a>
 
@@ -90,7 +90,7 @@ export function Header() {
 
         {/* MOBILE NAVIGATION */}
         <div
-          className={`absolute left-0 top-full w-full border-t border-slate-100 bg-white shadow-xl transition-all duration-300 xl:hidden ${
+          className={`absolute left-0 top-full w-full max-h-[calc(100vh-88px)] overflow-y-auto border-t border-slate-100 bg-white shadow-xl transition-all duration-300 xl:hidden ${
             mobileMenuOpen
               ? "visible translate-y-0 opacity-100"
               : "invisible -translate-y-3 opacity-0"
