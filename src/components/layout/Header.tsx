@@ -1,20 +1,22 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { PhoneIcon, MenuIcon, CloseIcon, ChevronDownIcon } from '../icons/Icons';
 import logo from '../../assets/logo-removebg-preview.png';
 
 const menuItems = [
-  { label: "HOME", href: "#home" },
-  { label: "ABOUT", href: "#about" },
+  { label: "HOME", href: "/#home" },
+  { label: "ABOUT", href: "/#about" },
   {
     label: "TOURS",
     href: "#",
     dropdownItems: [
-      { label: "Domestic Tours", href: "#domestic-tours" },
-      { label: "International Tours", href: "#international-tours" }
+      { label: "Domestic Tours", href: "/#domestic-tours" },
+      { label: "International Tours", href: "/#international-tours" }
     ]
   },
-  { label: "SERVICES", href: "#services" },
-  { label: "CONTACT", href: "#contact" }
+  { label: "SERVICES", href: "/#services" },
+  { label: "BLOGS", href: "/blogs" },
+  { label: "CONTACT", href: "/contact" }
 ];
 
 export function Header() {
@@ -63,13 +65,13 @@ export function Header() {
           className="mx-auto flex max-w-[1540px] items-center justify-between gap-4 px-4 sm:px-6 lg:px-8 xl:px-10 transition-all duration-350 ease-out min-h-[70px] md:min-h-[80px]"
         >
           {/* Logo link */}
-          <a href="#home" className="shrink-0 flex items-center">
+          <Link to="/#home" className="shrink-0 flex items-center">
             <img
               src={logo}
               alt="Open Sky Holidays"
               className="w-auto object-contain transition-all duration-350 ease-out h-[70px] md:h-[80px]"
             />
-          </a>
+          </Link>
 
           {/* Desktop Navigation Link Menu (Visible >= 1280px / xl) */}
           <nav className="hidden items-center gap-5 xl:flex xl:gap-7 2xl:gap-10 font-jost">
@@ -89,13 +91,13 @@ export function Header() {
                     <div className="absolute left-1/2 -translate-x-1/2 top-full pt-4 w-56 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform -translate-y-2 group-hover:translate-y-0 z-50 pointer-events-none group-hover:pointer-events-auto">
                       <div className="bg-white border border-slate-100 rounded-lg shadow-[0_12px_30px_rgba(7,31,67,0.1)] p-2 flex flex-col gap-0.5">
                         {item.dropdownItems.map((subItem) => (
-                          <a
+                          <Link
                             key={subItem.label}
-                            href={subItem.href}
+                            to={subItem.href}
                             className="block rounded-md px-4 py-2.5 text-[13.5px] font-semibold text-[#100c08] hover:bg-[#0b84d8]/10 hover:text-[#0b84d8] transition-colors"
                           >
                             {subItem.label}
-                          </a>
+                          </Link>
                         ))}
                       </div>
                     </div>
@@ -104,16 +106,16 @@ export function Header() {
               }
 
               return (
-                <a
+                <Link
                   key={item.label}
-                  href={item.href}
+                  to={item.href}
                   className={`flex items-center gap-1 whitespace-nowrap text-[13px] xl:text-[14.5px] font-semibold tracking-[0.02em] transition-colors duration-250 2xl:text-[15.5px] ${index === 0
                     ? "text-[#0b84d8]"
                     : "text-[#100c08] hover:text-[#0b84d8]"
                     }`}
                 >
                   {item.label}
-                </a>
+                </Link>
               );
             })}
           </nav>
@@ -138,12 +140,12 @@ export function Header() {
 
             <div className="h-8 w-px bg-slate-200" />
 
-            <a
-              href="#contact"
+            <Link
+              to="/contact"
               className="btn-primary min-h-[42px] xl:min-h-[50px] rounded-[6px] px-5 xl:px-6 text-[13px] xl:text-[14px] font-bold shadow-[0_12px_24px_rgba(11,132,216,0.18)] font-rubik"
             >
               Book Now
-            </a>
+            </Link>
           </div>
 
           {/* Mobile & Tablet CTA Buttons + Hamburger Button (Visible < 1280px / xl) */}
@@ -158,12 +160,12 @@ export function Header() {
             </a>
 
             {/* Quick Book Now Button (Visible starting from sm / 640px width) */}
-            <a
-              href="#contact"
+            <Link
+              to="/contact"
               className="hidden sm:inline-flex btn-primary min-h-[38px] rounded-[6px] px-4 text-[12.5px] font-bold shadow-[0_8px_16px_rgba(11,132,216,0.12)] font-rubik items-center justify-center transition-all"
             >
               Book Now
-            </a>
+            </Link>
 
             {/* Hamburger / Menu toggle button */}
             <button
@@ -193,13 +195,13 @@ export function Header() {
       >
         {/* Drawer Header */}
         <div className="flex items-center justify-between px-5 py-4 border-b border-slate-100">
-          <a href="#home" className="flex items-center" onClick={() => setMobileMenuOpen(false)}>
+          <Link to="/#home" className="flex items-center" onClick={() => setMobileMenuOpen(false)}>
             <img
               src={logo}
               alt="Open Sky Holidays"
               className="h-[52px] sm:h-[54px] w-auto object-contain"
             />
-          </a>
+          </Link>
           <button
             type="button"
             onClick={() => {
@@ -239,9 +241,9 @@ export function Header() {
                     >
                       <div className="flex flex-col gap-0.5 border-l border-slate-100 ml-4 pl-3">
                         {item.dropdownItems.map((subItem) => (
-                          <a
+                          <Link
                             key={subItem.label}
-                            href={subItem.href}
+                            to={subItem.href}
                             onClick={() => {
                               setMobileToursOpen(false);
                               setMobileMenuOpen(false);
@@ -249,7 +251,7 @@ export function Header() {
                             className="block rounded-lg px-3 py-2 text-[14px] font-semibold text-[#100c08]/80 hover:bg-slate-50 hover:text-[#0b84d8] transition-colors"
                           >
                             {subItem.label}
-                          </a>
+                          </Link>
                         ))}
                       </div>
                     </div>
@@ -258,9 +260,9 @@ export function Header() {
               }
 
               return (
-                <a
+                <Link
                   key={item.label}
-                  href={item.href}
+                  to={item.href}
                   onClick={() => setMobileMenuOpen(false)}
                   className="flex items-center justify-between rounded-lg px-4 py-3 text-[15px] font-semibold text-[#100c08] transition-all hover:bg-slate-50 hover:text-[#0b84d8] group"
                 >
@@ -268,7 +270,7 @@ export function Header() {
                   <span className="opacity-0 -translate-x-2 text-[#0b84d8] transition-all group-hover:opacity-100 group-hover:translate-x-0">
                     ➔
                   </span>
-                </a>
+                </Link>
               );
             })}
           </nav>
@@ -294,8 +296,8 @@ export function Header() {
               </div>
             </a>
 
-            <a
-              href="#contact"
+            <Link
+              to="/contact"
               onClick={() => {
                 setMobileMenuOpen(false);
                 setMobileToursOpen(false);
@@ -303,7 +305,7 @@ export function Header() {
               className="btn-primary flex items-center justify-center w-full min-h-[48px] rounded-lg text-sm font-bold shadow-[0_12px_24px_rgba(11,132,216,0.15)] text-center cursor-pointer"
             >
               Book Now
-            </a>
+            </Link>
           </div>
         </div>
       </div>
