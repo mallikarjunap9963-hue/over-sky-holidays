@@ -7,7 +7,7 @@ export function PhenomenalDeals() {
       {/* ================= PHENOMENAL DEALS START ================= */}
       <section
         id="special-deals"
-        className="relative overflow-hidden bg-white px-5 py-12 sm:px-8"
+        className="relative overflow-hidden bg-white px-5 py-10 sm:px-8"
       >
         {/* Decorative background */}
         <div className="pointer-events-none absolute -left-32 top-10 h-80 w-80 rounded-full bg-[#0b84d8]/5 blur-3xl" />

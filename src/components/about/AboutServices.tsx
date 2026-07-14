@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { Link } from "react-router-dom"
 import { ScrollReveal } from "../ui/ScrollReveal"
 import { BookingModal } from "../ui/BookingModal"
 
@@ -367,14 +368,13 @@ export function AboutServices() {
               </p>
             </div>
 
-            <button
-              type="button"
-              onClick={() => setModalOpen(true)}
+            <Link
+              to="/contact"
               className="relative mt-5 inline-flex shrink-0 cursor-pointer items-center justify-center gap-2 rounded-full bg-[#fbb03b] px-6 py-3.5 font-rubik text-[12px] font-bold uppercase tracking-[0.1em] text-[#102f50] transition-all duration-300 hover:bg-white lg:mt-0"
             >
               Plan My Holiday
               <ArrowIcon />
-            </button>
+            </Link>
           </div>
         </ScrollReveal>
       </div>

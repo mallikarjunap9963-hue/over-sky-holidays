@@ -47,7 +47,7 @@ export function AboutUs() {
       <section
         ref={sectionRef}
         id="about"
-        className="relative overflow-hidden bg-white px-5 py-12 sm:px-8"
+        className="relative overflow-hidden bg-white px-5 py-10 sm:px-8"
       >
         <div className="pointer-events-none absolute inset-0">
           <div

@@ -7,7 +7,7 @@ export function WhyChooseUs() {
       {/* ================= WHY CHOOSE US SECTION START ================= */}
       <section
         id="why-choose-us"
-        className="relative overflow-hidden bg-white px-5 py-12 sm:px-8"
+        className="relative overflow-hidden bg-white px-5 py-10 sm:px-8"
       >
         {/* Decorative travel drawing */}
         <div className="pointer-events-none absolute right-0 top-0 hidden text-[#0b84d8]/[0.05] lg:block">

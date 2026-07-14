@@ -1,94 +1,131 @@
+import { Link } from 'react-router-dom';
+import { ScrollReveal } from '../ui/ScrollReveal';
+
 export function AboutHero() {
   return (
-    <section
-      id="about-hero"
-      className="relative flex items-center justify-center overflow-hidden"
-      style={{
-        minHeight: '320px',
-        background: 'linear-gradient(135deg, #0b84d8 0%, #100c08 60%, #1e1b18 100%)',
-      }}
-    >
-      {/* Decorative blobs */}
-      <div className="pointer-events-none absolute inset-0">
-        <div
-          className="absolute left-1/4 top-0 h-72 w-72 rounded-full opacity-20 blur-3xl"
-          style={{ background: '#fbb03b' }}
-        />
-        <div
-          className="absolute right-1/4 bottom-0 h-64 w-64 rounded-full opacity-20 blur-3xl"
-          style={{ background: '#0b84d8' }}
-        />
-        {/* Grid overlay */}
-        <div
-          className="absolute inset-0 opacity-[0.04]"
-          style={{
-            backgroundImage:
-              'linear-gradient(rgba(255,255,255,0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.6) 1px, transparent 1px)',
-            backgroundSize: '48px 48px',
-          }}
-        />
-      </div>
+    <>
+      {/* ================= PROFESSIONAL BREADCRUMB BANNER ================= */}
+      <section
+        id="about-hero"
+        className="relative isolate overflow-hidden bg-[#071f36]"
+      >
+        {/* Background Image */}
+        <div className="absolute inset-0 -z-20">
+          <img
+            src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=2000&q=90"
+            alt="Open Sky Holidays About Us Page"
+            className="h-full w-full object-cover object-center"
+          />
+        </div>
 
-      <div className="relative z-10 flex flex-col items-center gap-4 px-6 py-20 text-center sm:py-24">
-        {/* Breadcrumb */}
-        <div className="flex items-center gap-2 text-[13px] text-white/60">
-          <a
-            href="/"
-            className="transition-colors hover:text-white"
-            onClick={(e) => {
-              e.preventDefault();
-              window.location.hash = '';
-            }}
-          >
-            Home
-          </a>
+        {/* Dark Overlay */}
+        <div className="absolute inset-0 -z-10 bg-gradient-to-r from-[#071f36]/95 via-[#071f36]/82 to-[#0b84d8]/45" />
+
+        {/* Bottom Gradient */}
+        <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#071f36]/60 to-transparent" />
+
+        {/* Decorative Circle */}
+        <div className="pointer-events-none absolute -right-24 -top-28 h-[340px] w-[340px] rounded-full border border-white/10" />
+        <div className="pointer-events-none absolute -right-10 -top-16 h-[240px] w-[240px] rounded-full border border-white/10" />
+
+        {/* Decorative Dots */}
+        <div className="pointer-events-none absolute right-[8%] top-1/2 hidden -translate-y-1/2 grid-cols-6 gap-3 opacity-20 lg:grid">
+          {Array.from({ length: 36 }).map((_, index) => (
+            <span
+              key={index}
+              className="h-1.5 w-1.5 rounded-full bg-white"
+            />
+          ))}
+        </div>
+
+        <div className="relative mx-auto flex min-h-[220px] max-w-[1320px] items-center px-5 py-10 sm:min-h-[250px] sm:px-8 lg:min-h-[280px] lg:px-10">
+          <ScrollReveal variant="fade-in-up" duration={1000}>
+            <div className="max-w-[680px]">
+              {/* Small Label */}
+              <div className="mb-2 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 backdrop-blur-md">
+                <svg
+                  viewBox="0 0 24 24"
+                  className="h-4 w-4 text-[#fbb03b]"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                >
+                  <circle cx="12" cy="12" r="10" />
+                  <path d="M12 16v-4" />
+                  <path d="M12 8h.01" />
+                </svg>
+
+                <span className="font-jost text-[11px] font-bold uppercase tracking-[0.2em] text-white">
+                  Who We Are
+                </span>
+              </div>
+
+              {/* Page Title */}
+              <h1 className="font-rubik text-[38px] font-black leading-[1.08] text-white sm:text-[48px] lg:text-[58px]">
+                About Us
+              </h1>
+
+              {/* Description */}
+              <p className="mt-2.5 max-w-[570px] font-jost text-[14px] leading-7 text-white/75 sm:text-[15px]">
+                Crafting unforgettable journeys since 2013 — Your trusted travel partner for domestic & international adventures.
+              </p>
+
+              {/* Breadcrumb */}
+              <nav
+                aria-label="Breadcrumb"
+                className="mt-4.5 inline-flex items-center gap-2 rounded-xl border border-white/15 bg-[#071f36]/40 px-4 py-2.5 backdrop-blur-md"
+              >
+                <Link
+                  to="/"
+                  className="flex items-center gap-2 font-jost text-[13px] font-semibold text-white/75 transition-colors duration-300 hover:text-[#fbb03b]"
+                >
+                  <svg
+                    viewBox="0 0 24 24"
+                    className="h-4 w-4"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                  >
+                    <path d="m3 11 9-8 9 8" />
+                    <path d="M5 10v10h14V10" />
+                    <path d="M9 20v-6h6v6" />
+                  </svg>
+
+                  Home
+                </Link>
+
+                <svg
+                  viewBox="0 0 24 24"
+                  className="h-3.5 w-3.5 text-white/35"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                >
+                  <path d="m9 18 6-6-6-6" />
+                </svg>
+
+                <span className="font-jost text-[13px] font-semibold text-[#fbb03b]">
+                  About Us
+                </span>
+              </nav>
+            </div>
+          </ScrollReveal>
+        </div>
+
+        {/* Bottom White Curve */}
+        <div className="absolute -bottom-[1px] left-0 w-full overflow-hidden leading-none">
           <svg
-            viewBox="0 0 24 24"
-            className="h-3.5 w-3.5"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2.5"
+            viewBox="0 0 1440 55"
+            preserveAspectRatio="none"
+            className="block h-[30px] w-full sm:h-[42px] lg:h-[55px]"
           >
-            <polyline points="9 18 15 12 9 6" />
+            <path
+              d="M0,36 C260,58 420,3 720,27 C1010,50 1180,5 1440,25 L1440,55 L0,55 Z"
+              fill="white"
+            />
           </svg>
-          <span className="text-white/90">About Us</span>
         </div>
-
-        {/* Eyebrow */}
-        <div className="flex items-center gap-3">
-          <span className="h-px w-8 bg-[#fbb03b]" />
-          <p className="font-satisfy text-[24px] font-normal capitalize text-[#fbb03b]">
-            Who We Are
-          </p>
-          <span className="h-px w-8 bg-[#fbb03b]" />
-        </div>
-
-        {/* Headline */}
-        <h1 className="font-rubik text-[36px] font-extrabold leading-tight tracking-tight text-white sm:text-[48px] lg:text-[58px]">
-          About{' '}
-          <span
-            style={{
-              background: 'linear-gradient(90deg, #0b84d8, #fbb03b)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-            }}
-          >
-            Open Sky Holidays
-          </span>
-        </h1>
-
-        {/* Subheadline */}
-        <p className="max-w-[600px] font-jost text-[16px] leading-relaxed text-white/70">
-          Crafting unforgettable journeys since 2013 — Your trusted travel partner for domestic &amp; international adventures.
-        </p>
-      </div>
-
-      {/* Bottom wave */}
-      <div className="absolute bottom-0 left-0 right-0">
-        <svg viewBox="0 0 1440 48" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style={{ display: 'block', width: '100%', height: '48px' }}>
-          <path d="M0,48 C360,0 1080,0 1440,48 L1440,48 L0,48 Z" fill="white" />
-        </svg>
-      </div>
-    </section>
+      </section>
+    </>
   );
 }

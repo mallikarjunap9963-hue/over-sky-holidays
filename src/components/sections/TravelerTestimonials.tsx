@@ -50,7 +50,7 @@ export function TravelerTestimonials() {
   return (
     <section
       id="testimonials"
-      className="relative overflow-hidden bg-[#f7f4f0] px-5 py-16 sm:px-8 lg:py-20"
+      className="relative overflow-hidden bg-[#f7f4f0] px-5 py-10 sm:px-8"
     >
       {/* Background Decorations */}
       <div className="pointer-events-none absolute -left-40 top-10 h-[420px] w-[420px] rounded-full bg-[#0b84d8]/[0.06] blur-[100px]" />

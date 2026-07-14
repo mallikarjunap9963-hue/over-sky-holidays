@@ -41,7 +41,7 @@ const tourTypes = [
 
 export function TourTypeSection() {
   return (
-    <section id="tour-types" className="px-5 py-12 sm:px-8 lg:px-10">
+    <section id="tour-types" className="px-5 py-10 sm:px-8 lg:px-10">
       <div className="mx-auto max-w-[1320px]">
         <ScrollReveal variant="fade-in-up" duration={1200} className="mb-10 flex flex-col gap-4 text-center lg:mb-12 lg:text-left">
           <div className="flex items-center justify-center gap-3 lg:justify-start">
