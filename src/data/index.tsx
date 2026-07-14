@@ -409,7 +409,7 @@ export const attractionPackages: Record<AttractionTab, AttractionPackage[]> = {
       price: "₹18,999",
       oldPrice: "₹22,999",
       image:
-        "https://images.unsplash.com/photo-1524492412937-b28074a5d7da?auto=format&fit=crop&w=1400&q=90",
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQAU-OqSxux6x89KvcKqnGJBu7f37SA64bufk84cEOI8w&s=10",
     },
     {
       id: 4,
@@ -421,7 +421,7 @@ export const attractionPackages: Record<AttractionTab, AttractionPackage[]> = {
       price: "₹21,999",
       oldPrice: "₹26,999",
       image:
-        "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1400&q=90",
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwtL31HNRgyVoulZa7q9BsWr9IEHa0Rmjy47-5_eN7hQ&s=10",
     },
     {
       id: 5,
@@ -634,7 +634,7 @@ export const attractionPackages: Record<AttractionTab, AttractionPackage[]> = {
       price: "₹24,999",
       oldPrice: "₹29,999",
       image:
-        "https://images.unsplash.com/photo-1667849357658-16b7be3e52f7?auto=format&fit=crop&w=1400&q=90",
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJp7R6sA6aoO-Ja1jEthRN1gkH69Jv3yJ_pae8XNOcJw&s=10",
     },
     {
       id: 2,
@@ -658,7 +658,7 @@ export const attractionPackages: Record<AttractionTab, AttractionPackage[]> = {
       price: "₹9,999",
       oldPrice: "₹12,999",
       image:
-        "https://images.unsplash.com/photo-1545203106-a84483b8a106?auto=format&fit=crop&w=1400&q=90",
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSDVtq1AVHI4dsTBIAB8vibbJFK8TRdB8KyLIjHFCz5jQ&s=10",
     },
   ],
 };
