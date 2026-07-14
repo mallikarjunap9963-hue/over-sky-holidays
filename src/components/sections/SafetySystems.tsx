@@ -19,7 +19,7 @@ export function SafetySystems() {
       {/* ================= SAFETY SYSTEMS SECTION START ================= */}
       <section
         id="services"
-        className="relative overflow-hidden bg-white py-12"
+        className="relative overflow-hidden bg-white py-10"
       >
         <div className="relative mx-auto max-w-[1320px]">
           <div className="relative grid min-h-[650px] lg:grid-cols-2">

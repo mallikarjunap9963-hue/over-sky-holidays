@@ -55,7 +55,7 @@ export function Destinations() {
       {/* ================= DESIRED VACATION SPOTS START ================= */}
       <section
         id="destination"
-        className="relative overflow-hidden bg-white px-5 py-12 sm:px-8"
+        className="relative overflow-hidden bg-white px-5 py-10 sm:px-8"
       >
         <div className="pointer-events-none absolute -left-32 top-20 h-72 w-72 rounded-full bg-[#0b84d8]/5 blur-3xl" />
         <div className="pointer-events-none absolute bottom-0 right-0 h-80 w-80 rounded-full bg-[#fbb03b]/5 blur-3xl" />

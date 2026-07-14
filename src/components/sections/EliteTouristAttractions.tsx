@@ -53,7 +53,7 @@ export function EliteTouristAttractions() {
         onMouseLeave={() => setPauseAttractionSlider(false)}
         onTouchStart={() => setPauseAttractionSlider(true)}
         onTouchEnd={() => setPauseAttractionSlider(false)}
-        className="relative overflow-hidden bg-[#fbf8f2] px-5 py-12 sm:px-8"
+        className="relative overflow-hidden bg-[#fbf8f2] px-5 py-10 sm:px-8"
       >
         {/* Left decorative landmark */}
         <div className="pointer-events-none absolute -left-12 top-0 hidden text-[#0b84d8]/[0.07] lg:block">

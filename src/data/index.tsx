@@ -367,7 +367,7 @@ export const attractionTabs: {
         "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1400&q=90",
     },
     {
-      name: "Temples",
+      name: "Pilgrimage",
       image:
         "https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&w=1400&q=90",
     },
@@ -623,7 +623,7 @@ export const attractionPackages: Record<AttractionTab, AttractionPackage[]> = {
     },
   ],
 
-  Temples: [
+  Pilgrimage: [
     {
       id: 1,
       duration: "6 DAYS / 5 NIGHTS",

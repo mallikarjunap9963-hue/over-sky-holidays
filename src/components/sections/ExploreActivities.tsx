@@ -15,7 +15,7 @@ export function ExploreActivities() {
       {/* ================= EXPLORE ACTIVITIES START ================= */}
       <section
         id="activities"
-        className="relative overflow-hidden bg-white px-5 py-12 sm:px-8"
+        className="relative overflow-hidden bg-white px-5 py-10 sm:px-8"
       >
         {/* Decorative world background */}
         <div className="pointer-events-none absolute inset-0 opacity-[0.035]">
