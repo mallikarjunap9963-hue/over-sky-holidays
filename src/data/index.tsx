@@ -9,7 +9,7 @@ export const slides: HeroSlide[] = [
     description:
       "One stop destination for all your Tours & Travels needs. Discover unforgettable domestic and international holidays with complete travel support.",
     image:
-      "https://keralataxi.westernholidays.in/wp-content/uploads/2026/02/travel-tourism-kerala-background-houseboat-kerala-backwaters-kerala-india-2048x1365.jpg",
+      "/hero.jpg",
   },
   {
     id: 2,
@@ -18,7 +18,7 @@ export const slides: HeroSlide[] = [
     description:
       "Explore beautiful destinations, relaxing stays and customized holiday packages planned around your travel needs and budget.",
     image:
-      "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=2000&q=90",
+      "/hero2.jpg",
   },
   {
     id: 3,
@@ -27,7 +27,7 @@ export const slides: HeroSlide[] = [
     description:
       "Enjoy complete travel solutions including tours, flight tickets, hotel booking, passport support and visa assistance.",
     image:
-      "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=2000&q=90",
+      "/hero3.avif"
   },
 ];
 
