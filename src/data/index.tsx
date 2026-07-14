@@ -646,7 +646,7 @@ export const attractionPackages: Record<AttractionTab, AttractionPackage[]> = {
       price: "₹6,999",
       oldPrice: "₹8,999",
       image:
-        "https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&w=1400&q=90",
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTcQTqFF4BxRL9z-HhKkl2fhLmSqTtHZ9Ze0U9_Rq2u8g&s=10",
     },
     {
       id: 3,
