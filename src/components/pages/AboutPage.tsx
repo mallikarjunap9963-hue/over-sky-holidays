@@ -5,7 +5,6 @@ import { AboutStats } from '../about/AboutStats';
 import { AboutServices } from '../about/AboutServices';
 import { AboutWhyUs } from '../about/AboutWhyUs';
 import { AboutValues } from '../about/AboutValues';
-import { AboutTeam } from '../about/AboutTeam';
 
 /**
  * AboutPage — assembles all About Us section components in order.
@@ -35,8 +34,6 @@ export function AboutPage() {
       {/* 7. Core Values */}
       <AboutValues />
 
-      {/* 8. Our Team */}
-      <AboutTeam />
     </>
   );
 }
