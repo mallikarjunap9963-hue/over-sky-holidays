@@ -92,8 +92,8 @@ export type SearchTab =
   | "Activities"
   | "Transport"
   | "Domestic"
-  | "International"
-  | "Flight Tickets"
+  | "Interanational"
+  | "Fligh Tickets"
   | "Passport";
 
 export type SearchSelectProps = {
