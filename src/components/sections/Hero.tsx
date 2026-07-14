@@ -10,7 +10,7 @@ export function Hero() {
   useEffect(() => {
     const intervalId = window.setInterval(() => {
       setCurrentSlide((previous) => (previous + 1) % slides.length);
-    }, 6000);
+    }, 3000);
 
     return () => window.clearInterval(intervalId);
   }, []);

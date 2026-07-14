@@ -8,7 +8,7 @@ import { SearchSelect } from '../ui/SearchSelect';
 
 export function BookingSearch() {
 
-  const [activeSearchTab, setActiveSearchTab] = useState<SearchTab>("Tour");
+  const [activeSearchTab, setActiveSearchTab] = useState<SearchTab>("Domestic");
 
   const handleSearch = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();

@@ -90,7 +90,11 @@ export type SearchTab =
   | "Hotel"
   | "Visa"
   | "Activities"
-  | "Transport";
+  | "Transport"
+  | "Domestic"
+  | "Interanational"
+  | "Fligh Tickets"
+  | "Passport";
 
 export type SearchSelectProps = {
   label: string;

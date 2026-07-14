@@ -5,28 +5,26 @@ export const slides: HeroSlide[] = [
   {
     id: 1,
     location: "Italy",
-    title: "Let's journey and discover a place.",
-    description:
-      "One stop destination for all your Tours & Travels needs. Discover unforgettable domestic and international holidays with complete travel support.",
+    title: "Luxury Meets Vibrant City Life",
+    description: "Experience the perfect blend of tropical paradise and urban excitement. Relax in the crystal-clear waters of the Maldives, then explore the vibrant streets, magnificent temples, and world-class shopping of Bangkok.",
     image:
       "/hero.jpg",
   },
   {
     id: 2,
     location: "Maldives",
-    title: "The world is waiting for you.",
+    title: "Where Spirituality Meets the Himalayas",
     description:
-      "Explore beautiful destinations, relaxing stays and customized holiday packages planned around your travel needs and budget.",
+      "Discover the peaceful banks of the Ganges in Rishikesh and seek divine blessings at the sacred Badrinath Temple. Experience breathtaking Himalayan landscapes, ancient traditions, and an unforgettable spiritual journey.",
     image:
       "/hero2.jpg",
   },
   {
     id: 3,
     location: "Manali",
-    title: "Travel farther. Experience more.",
+    title: "Luxury Meets Himalayan Serenity",
     description:
-      "Enjoy complete travel solutions including tours, flight tickets, hotel booking, passport support and visa assistance.",
-    image:
+      "Experience the perfect contrast of modern luxury and timeless tranquility. Explore Dubai's iconic skyline, world-class attractions, and desert adventures before discovering Bhutan's peaceful monasteries, breathtaking mountains, and rich cultural heritage.", image:
       "/hero3.avif"
   },
 ];
@@ -63,11 +61,11 @@ export const navLinks: NavLink[] = [
 ];
 
 export const searchTabs: SearchTab[] = [
-  "Tour",
-  "Hotel",
+  "Domestic",
+  "Interanational",
   "Visa",
-  "Activities",
-  "Transport",
+  "Flight Tickets",
+  "Passport",
 ];
 
 export const socialLinks = [

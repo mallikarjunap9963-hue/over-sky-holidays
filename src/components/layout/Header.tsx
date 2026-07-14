@@ -60,18 +60,14 @@ export function Header() {
           }`}
       >
         <div
-          className={`mx-auto flex max-w-[1540px] items-center justify-between gap-4 px-4 sm:px-6 lg:px-8 xl:px-10 transition-all duration-350 ease-out ${scrolled ? 'min-h-[64px] md:min-h-[72px]' : 'min-h-[70px] md:min-h-[80px]'
-            }`}
+          className="mx-auto flex max-w-[1540px] items-center justify-between gap-4 px-4 sm:px-6 lg:px-8 xl:px-10 transition-all duration-350 ease-out min-h-[70px] md:min-h-[80px]"
         >
           {/* Logo link */}
           <a href="#home" className="shrink-0 flex items-center">
             <img
               src={logo}
               alt="Open Sky Holidays"
-              className={`w-auto object-contain transition-all duration-350 ease-out ${scrolled
-                ? 'h-[38px] sm:h-[44px] md:h-[50px] lg:h-[56px]'
-                : 'h-[42px] sm:h-[50px] md:h-[58px] lg:h-[68px]'
-                }`}
+              className="w-auto object-contain transition-all duration-350 ease-out h-[70px] md:h-[80px]"
             />
           </a>
 
