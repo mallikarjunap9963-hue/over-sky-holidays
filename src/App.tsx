@@ -21,7 +21,7 @@ export default function App() {
       <TopBar />
       <Header />
       <main className="page-shell overflow-x-hidden">
-        <section id="home" className="pb-10 lg:pb-16">
+        <section id="home" className="relative">
           <Hero />
           <div className="px-3 sm:px-5 lg:px-8">
             <BookingSearch />

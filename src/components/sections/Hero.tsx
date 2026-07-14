@@ -20,7 +20,7 @@ export function Hero() {
   return (
     <>
       {/* HERO SECTION */}
-      <div className="relative w-full h-[calc(100vh-212px)] lg:h-[calc(100vh-222px)] min-h-[480px] lg:min-h-[320px] overflow-hidden bg-[#100c08] shadow-[0_30px_80px_rgba(16,12,8,0.15)]">
+      <div className="relative w-full h-[calc(100vh-212px)] lg:h-[calc(100vh-199px)] min-h-[480px] lg:min-h-[320px] overflow-hidden bg-[#100c08] shadow-[0_30px_80px_rgba(16,12,8,0.15)]">
         {slides.map((slide, index) => (
           <div
             key={slide.id}
