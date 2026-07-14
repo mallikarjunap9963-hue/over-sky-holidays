@@ -7,12 +7,7 @@ export function PopupContact() {
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
-    email: '',
-    travelDate: '',
-    destination: '',
-    travelers: '',
-    tourType: '',
-    message: ''
+    email: ''
   });
 
   // Automatically trigger popup on page load/refresh after a short delay
@@ -36,24 +31,11 @@ export function PopupContact() {
         setFormData({
           name: '',
           phone: '',
-          email: '',
-          travelDate: '',
-          destination: '',
-          travelers: '',
-          tourType: '',
-          message: ''
+          email: ''
         });
       }, 500);
     }, 3500);
   };
-
-  const destinationsList = [
-    "Goa", "Kullu & Manali", "Ooty & Kodaikanal", "Kerala", "Delhi & Agra", 
-    "Darjeeling & Nainital", "Rishikesh & Haridwar", "Kedarnath & Badrinath", 
-    "Meghalaya", "Tirupati Balaji", "Maldives", "Nepal & Bhutan", 
-    "Bangkok", "Dubai", "Singapore", "Sri Lanka", "Andaman & Nicobar Islands", 
-    "Bali", "USA", "United Kingdom (UK)", "Vietnam & Cambodia", "Hong Kong"
-  ];
 
   return (
     <AnimatePresence>
@@ -133,190 +115,66 @@ export function PopupContact() {
                   </p>
 
                   {/* Form Fields */}
-                  <form onSubmit={handleSubmit} className="mt-5 space-y-2.5">
+                  <form onSubmit={handleSubmit} className="mt-5 space-y-4">
                     
-                    {/* Name & Phone Row */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                      {/* Name Input */}
-                      <div className="relative group">
-                        <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-[#0b84d8] transition-colors z-10">
-                          <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                          </svg>
-                        </span>
-                        <input
-                          type="text"
-                          required
-                          value={formData.name}
-                          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                          placeholder="Your Name *"
-                          className="w-full h-[38px] pl-9.5 pr-3 rounded-lg border border-slate-200 bg-slate-50/50 text-[#100c08] placeholder:text-slate-500 outline-none focus:border-[#0b84d8] focus:bg-white focus:ring-4 focus:ring-[#0b84d8]/5 transition-all text-[13px]"
-                        />
-                      </div>
-
-                      {/* Phone Number Input */}
-                      <div className="relative group">
-                        <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-[#0b84d8] transition-colors z-10">
-                          <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.94.725l.548 2.2a1 1 0 01-.321.988l-1.305.98a10.582 10.582 0 004.872 4.872l.98-1.305a1 1 0 01.988-.321l2.2.548a1 1 0 01.725.94V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                          </svg>
-                        </span>
-                        <input
-                          type="tel"
-                          required
-                          value={formData.phone}
-                          onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                          placeholder="Phone Number *"
-                          className="w-full h-[38px] pl-9.5 pr-3 rounded-lg border border-slate-200 bg-slate-50/50 text-[#100c08] placeholder:text-slate-500 outline-none focus:border-[#0b84d8] focus:bg-white focus:ring-4 focus:ring-[#0b84d8]/5 transition-all text-[13px]"
-                        />
-                      </div>
-                    </div>
-
-                    {/* Email & Date Row */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                      {/* Email Address */}
-                      <div className="relative group">
-                        <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-[#0b84d8] transition-colors z-10">
-                          <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                          </svg>
-                        </span>
-                        <input
-                          type="email"
-                          required
-                          value={formData.email}
-                          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                          placeholder="Email Address *"
-                          className="w-full h-[38px] pl-9.5 pr-3 rounded-lg border border-slate-200 bg-slate-50/50 text-[#100c08] placeholder:text-slate-500 outline-none focus:border-[#0b84d8] focus:bg-white focus:ring-4 focus:ring-[#0b84d8]/5 transition-all text-[13px]"
-                        />
-                      </div>
-
-                      {/* Travel Date */}
-                      <div className="relative group">
-                        <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-[#0b84d8] transition-colors z-10">
-                          <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                          </svg>
-                        </span>
-                        <input
-                          type="text"
-                          onFocus={(e) => (e.target.type = "date")}
-                          onBlur={(e) => {
-                            if (!e.target.value) e.target.type = "text";
-                          }}
-                          value={formData.travelDate}
-                          onChange={(e) => setFormData({ ...formData, travelDate: e.target.value })}
-                          placeholder="Travel Date *"
-                          className="w-full h-[38px] pl-9.5 pr-3 rounded-lg border border-slate-200 bg-slate-50/50 text-[#100c08] placeholder:text-slate-500 outline-none focus:border-[#0b84d8] focus:bg-white focus:ring-4 focus:ring-[#0b84d8]/5 transition-all text-[13px]"
-                        />
-                      </div>
-                    </div>
-
-                    {/* Destination Dropdown */}
+                    {/* Name Input */}
                     <div className="relative group">
-                      <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-[#0b84d8] transition-colors z-10 pointer-events-none">
+                      <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-[#0b84d8] transition-colors z-10">
                         <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                          <circle cx="12" cy="10" r="2" />
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                         </svg>
                       </span>
-                      <select
-                        value={formData.destination}
-                        onChange={(e) => setFormData({ ...formData, destination: e.target.value })}
-                        className="w-full h-[38px] pl-9.5 pr-10 rounded-lg border border-slate-200 bg-slate-50/50 text-[#100c08] outline-none focus:border-[#0b84d8] focus:bg-white focus:ring-4 focus:ring-[#0b84d8]/5 transition-all text-[13px] appearance-none cursor-pointer"
-                      >
-                        <option value="">Destination</option>
-                        {destinationsList.map((dest) => (
-                          <option key={dest} value={dest}>
-                            {dest}
-                          </option>
-                        ))}
-                      </select>
-                      <span className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none">
-                        <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-                        </svg>
-                      </span>
+                      <input
+                        type="text"
+                        required
+                        value={formData.name}
+                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                        placeholder="Your Name *"
+                        className="w-full h-[42px] pl-9.5 pr-3 rounded-lg border border-slate-200 bg-slate-50/50 text-[#100c08] placeholder:text-slate-500 outline-none focus:border-[#0b84d8] focus:bg-white focus:ring-4 focus:ring-[#0b84d8]/5 transition-all text-[14px]"
+                      />
                     </div>
 
-                    {/* Travelers & Tour Type Row */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                      {/* No. of Travelers */}
-                      <div className="relative group">
-                        <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-[#0b84d8] transition-colors z-10 pointer-events-none">
-                          <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                          </svg>
-                        </span>
-                        <select
-                          value={formData.travelers}
-                          onChange={(e) => setFormData({ ...formData, travelers: e.target.value })}
-                          className="w-full h-[38px] pl-9.5 pr-10 rounded-lg border border-slate-200 bg-slate-50/50 text-[#100c08] outline-none focus:border-[#0b84d8] focus:bg-white focus:ring-4 focus:ring-[#0b84d8]/5 transition-all text-[13px] appearance-none cursor-pointer"
-                        >
-                          <option value="">No. of Travelers</option>
-                          <option value="1">1 Traveler</option>
-                          <option value="2">2 Travelers</option>
-                          <option value="3-5">3 - 5 Travelers</option>
-                          <option value="6+">6+ Travelers</option>
-                        </select>
-                        <span className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none">
-                          <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-                          </svg>
-                        </span>
-                      </div>
-
-                      {/* Tour Type */}
-                      <div className="relative group">
-                        <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-[#0b84d8] transition-colors z-10 pointer-events-none">
-                          <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                          </svg>
-                        </span>
-                        <select
-                          value={formData.tourType}
-                          onChange={(e) => setFormData({ ...formData, tourType: e.target.value })}
-                          className="w-full h-[38px] pl-9.5 pr-10 rounded-lg border border-slate-200 bg-slate-50/50 text-[#100c08] outline-none focus:border-[#0b84d8] focus:bg-white focus:ring-4 focus:ring-[#0b84d8]/5 transition-all text-[13px] appearance-none cursor-pointer"
-                        >
-                          <option value="">Tour Type</option>
-                          <option value="Domestic">Domestic Tour</option>
-                          <option value="International">International Tour</option>
-                          <option value="Islands">Islands Tour</option>
-                          <option value="Pilgrimage">Pilgrimage Yatra</option>
-                          <option value="Honeymoon">Honeymoon Tour</option>
-                          <option value="Family">Family Tour</option>
-                        </select>
-                        <span className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none">
-                          <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-                          </svg>
-                        </span>
-                      </div>
-                    </div>
-
-                    {/* Requirements Textarea */}
+                    {/* Email Input */}
                     <div className="relative group">
-                      <span className="absolute left-3 top-2.5 text-slate-400 group-focus-within:text-[#0b84d8] transition-colors z-10">
+                      <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-[#0b84d8] transition-colors z-10">
                         <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                         </svg>
                       </span>
-                      <textarea
-                        value={formData.message}
-                        onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                        placeholder="Additional Requirements / Message"
-                        rows={1.5}
-                        className="w-full pl-9.5 pr-3 py-1.5 rounded-lg border border-slate-200 bg-slate-50/50 text-[#100c08] placeholder:text-slate-500 outline-none focus:border-[#0b84d8] focus:bg-white focus:ring-4 focus:ring-[#0b84d8]/5 transition-all text-[13px] resize-none"
+                      <input
+                        type="email"
+                        required
+                        value={formData.email}
+                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                        placeholder="Email Address *"
+                        className="w-full h-[42px] pl-9.5 pr-3 rounded-lg border border-slate-200 bg-slate-50/50 text-[#100c08] placeholder:text-slate-500 outline-none focus:border-[#0b84d8] focus:bg-white focus:ring-4 focus:ring-[#0b84d8]/5 transition-all text-[14px]"
+                      />
+                    </div>
+
+                    {/* Phone Number Input */}
+                    <div className="relative group">
+                      <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-[#0b84d8] transition-colors z-10">
+                        <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.94.725l.548 2.2a1 1 0 01-.321.988l-1.305.98a10.582 10.582 0 004.872 4.872l.98-1.305a1 1 0 01.988-.321l2.2.548a1 1 0 01.725.94V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                        </svg>
+                      </span>
+                      <input
+                        type="tel"
+                        required
+                        value={formData.phone}
+                        onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                        placeholder="Phone Number *"
+                        className="w-full h-[42px] pl-9.5 pr-3 rounded-lg border border-slate-200 bg-slate-50/50 text-[#100c08] placeholder:text-slate-500 outline-none focus:border-[#0b84d8] focus:bg-white focus:ring-4 focus:ring-[#0b84d8]/5 transition-all text-[14px]"
                       />
                     </div>
 
                     {/* Submit Button */}
                     <button
                       type="submit"
-                      className="w-full h-[38px] rounded-lg bg-[#0b84d8] hover:bg-[#0975c0] text-white font-bold text-[13.5px] flex items-center justify-center gap-2 transition duration-300 hover:-translate-y-0.5 active:translate-y-0 shadow-md shadow-[#0b84d8]/15 cursor-pointer font-rubik"
+                      className="w-full h-[42px] mt-2 rounded-lg bg-[#0b84d8] hover:bg-[#0975c0] text-white font-bold text-[14px] flex items-center justify-center gap-2 transition duration-300 hover:-translate-y-0.5 active:translate-y-0 shadow-md shadow-[#0b84d8]/15 cursor-pointer font-rubik"
                     >
                       <span>SUBMIT ENQUIRY</span>
-                      <svg className="h-3.5 w-3.5 transform rotate-45" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
+                      <svg className="h-4 w-4 transform rotate-45" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
                       </svg>
                     </button>

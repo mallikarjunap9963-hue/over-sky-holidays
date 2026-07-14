@@ -1,11 +1,11 @@
-import { AboutHero } from '../about/AboutHero';
-import { AboutStory } from '../about/AboutStory';
-import { AboutMissionVision } from '../about/AboutMissionVision';
-import { AboutStats } from '../about/AboutStats';
-import { AboutServices } from '../about/AboutServices';
-import { AboutWhyUs } from '../about/AboutWhyUs';
-import { AboutValues } from '../about/AboutValues';
-import { AboutTeam } from '../about/AboutTeam';
+import { AboutHero } from '../components/about/AboutHero';
+import { AboutStory } from '../components/about/AboutStory';
+import { AboutMissionVision } from '../components/about/AboutMissionVision';
+import { AboutStats } from '../components/about/AboutStats';
+import { AboutServices } from '../components/about/AboutServices';
+import { AboutWhyUs } from '../components/about/AboutWhyUs';
+import { AboutValues } from '../components/about/AboutValues';
+import { AboutTeam } from '../components/about/AboutTeam';
 
 /**
  * AboutPage — assembles all About Us section components in order.
