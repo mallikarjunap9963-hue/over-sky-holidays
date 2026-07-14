@@ -39,7 +39,7 @@ export type SafetySlide = {
   image: string;
 };
 
-export type AttractionTab = "Kerala" | "Dubai" | "Maldives" | "Singapore" | "Kashmir";
+export type AttractionTab = "Domestic" | "International" | "Islands" | "Temples";
 
 export type AttractionPackage = {
   id: number;

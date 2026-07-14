@@ -4,7 +4,7 @@ import logo from '../../assets/logo-removebg-preview.png';
 
 const menuItems = [
   { label: "HOME", href: "#home" },
-  { label: "ABOUT", href: "#about" },
+  { label: "ABOUT", href: "#about-us" },
   {
     label: "TOURS",
     href: "#",

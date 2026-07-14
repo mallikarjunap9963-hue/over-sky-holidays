@@ -66,7 +66,7 @@ export function Footer() {
               <ul className="mt-6 space-y-3.5">
                 {[
                   ["Home", "#home"],
-                  ["About Us", "#about"],
+                  ["About Us", "#about-us"],
                   ["Domestic Tours", "#domestic-tours"],
                   ["International Tours", "#international-tours"],
                   ["Services", "#services"],

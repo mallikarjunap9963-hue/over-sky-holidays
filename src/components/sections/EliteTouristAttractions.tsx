@@ -2,12 +2,14 @@ import { useState, useEffect } from 'react';
 import type { AttractionTab } from '../../types';
 import { attractionTabs, attractionPackages } from '../../data';
 import { ScrollReveal } from '../ui/ScrollReveal';
+import { BookingModal } from '../ui/BookingModal';
 
 export function EliteTouristAttractions() {
 
-  const [activeAttractionTab, setActiveAttractionTab] = useState<AttractionTab>("Kerala");
+  const [activeAttractionTab, setActiveAttractionTab] = useState<AttractionTab>("Domestic");
   const [attractionSlide, setAttractionSlide] = useState(0);
   const [pauseAttractionSlider, setPauseAttractionSlider] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
     if (pauseAttractionSlider) return;
@@ -114,7 +116,7 @@ export function EliteTouristAttractions() {
           </ScrollReveal>
 
           {/* Destination tabs */}
-          <ScrollReveal variant="fade-in-up" delay={200} duration={1300} className="mx-auto mt-12 grid max-w-[930px] overflow-hidden rounded-[8px] border border-slate-200 bg-white sm:grid-cols-2 lg:grid-cols-5 font-rubik">
+          <ScrollReveal variant="fade-in-up" delay={200} duration={1300} className="mx-auto mt-12 grid max-w-[850px] overflow-hidden rounded-[8px] border border-slate-200 bg-white grid-cols-2 sm:grid-cols-4 font-rubik">
             {attractionTabs.map((tab) => {
               const isActive = activeAttractionTab === tab.name;
 
@@ -151,7 +153,7 @@ export function EliteTouristAttractions() {
           {/* Package cards */}
           <div
             key={`${activeAttractionTab}-${attractionSlide}`}
-            className="mt-12 grid animate-[attractionSlideIn_0.55s_ease-out] gap-6 md:grid-cols-2 xl:grid-cols-3"
+            className="mt-12 grid animate-[attractionSlideIn_0.55s_ease-out] gap-8 md:grid-cols-2 lg:grid-cols-3"
           >
             {visibleAttractionPackages.map((item, index) => (
               <ScrollReveal
@@ -161,113 +163,51 @@ export function EliteTouristAttractions() {
                 duration={1300}
               >
                 <article
-                  className="group overflow-hidden rounded-[10px] border border-slate-200/80 bg-white p-3 shadow-[0_10px_30px_rgba(16,12,8,0.03)] transition duration-300 hover:-translate-y-2 hover:shadow-[0_22px_48px_rgba(16,12,8,0.08)] h-full"
+                  className="group overflow-hidden rounded-[12px] border border-slate-200/70 bg-white p-3 shadow-[0_8px_24px_rgba(16,12,8,0.03)] transition duration-300 hover:-translate-y-1.5 hover:shadow-[0_16px_36px_rgba(16,12,8,0.07)] h-full flex flex-col cursor-pointer"
+                  onClick={() => setModalOpen(true)}
                 >
-                  <div className="relative overflow-hidden rounded-[8px]">
+                  {/* Shorter landscape image on top */}
+                  <div className="relative overflow-hidden rounded-[8px] aspect-[16/10] w-full">
                     <img
                       src={item.image}
                       alt={item.title}
                       loading="lazy"
-                      className="h-[245px] w-full object-cover transition duration-700 group-hover:scale-110"
+                      className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                     />
+                    <div className="absolute inset-0 bg-black/5" />
+                  </div>
 
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
-
-                    <span className="absolute left-0 top-4 bg-[#100c08] px-4 py-2 text-[10px] font-bold uppercase tracking-[0.04em] text-white font-rubik">
-                      {item.duration}
+                  {/* Text details below */}
+                  <div className="px-1 pb-1 pt-4 flex flex-col flex-grow font-jost">
+                    {/* Country name */}
+                    <span className="text-[10px] font-bold uppercase tracking-[0.08em] text-[#0b84d8] font-rubik">
+                      {item.country}
                     </span>
 
-                    <div className="absolute left-0 top-[58px] flex flex-wrap font-rubik">
-                      <span className="flex items-center gap-1.5 bg-white px-3 py-2 text-[9px] font-semibold uppercase text-[#0b84d8]">
+                    {/* Place Name */}
+                    <h3 className="mt-1 font-rubik text-[20px] font-bold leading-snug text-[#100c08] transition duration-300 group-hover:text-[#0b84d8]">
+                      {item.title}
+                    </h3>
+
+                    {/* Duration label */}
+                    <p className="mt-1 text-[13px] font-medium text-slate-500">
+                      {item.duration}
+                    </p>
+
+                    {/* Footer Book Button */}
+                    <div className="mt-auto pt-4 flex items-center justify-end border-t border-slate-100">
+                      <span className="font-rubik text-[12px] font-bold uppercase tracking-widest text-[#0b84d8] transition duration-300 flex items-center gap-1 group-hover:translate-x-1">
+                        Book Now
                         <svg
                           viewBox="0 0 24 24"
                           className="h-3.5 w-3.5"
                           fill="none"
                           stroke="currentColor"
-                          strokeWidth="2"
-                          aria-hidden="true"
-                        >
-                          <path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z" />
-                          <circle cx="12" cy="10" r="2.5" />
-                        </svg>
-
-                        {item.country}
-                      </span>
-
-                      <span className="bg-white px-3 py-2 text-[9px] font-semibold uppercase text-[#100c08]">
-                        {item.tourType}
-                      </span>
-                    </div>
-                  </div>
-
-                  <div className="px-3 pb-2 pt-5 font-jost">
-                    <h3 className="min-h-[62px] font-rubik text-[19px] font-semibold leading-[1.45] text-[#100c08] transition group-hover:text-[#0b84d8]">
-                      {item.title}
-                    </h3>
-
-                    <div className="mt-5 flex min-h-[48px] flex-wrap items-center gap-x-2 gap-y-2 border-b border-dashed border-slate-300 pb-2">
-                      {item.locations.map((location, index) => (
-                        <span
-                          key={location}
-                          className="flex items-center gap-2 text-[9px] font-medium uppercase tracking-[0.03em] text-slate-500"
-                        >
-                          {index !== 0 && (
-                            <svg
-                              viewBox="0 0 24 24"
-                              className="h-3 w-3 text-[#0b84d8]"
-                              fill="none"
-                              stroke="currentColor"
-                              strokeWidth="2"
-                              aria-hidden="true"
-                            >
-                              <path d="M5 12h14M13 6l6 6-6 6" />
-                            </svg>
-                          )}
-
-                          {location}
-                        </span>
-                      ))}
-                    </div>
-
-                    <div className="mt-5 flex items-end justify-between gap-4">
-                      <div>
-                        <p className="text-[11px] font-medium text-slate-500">
-                          Starting From:
-                        </p>
-
-                        <div className="mt-1 flex items-center gap-2">
-                          <p className="font-rubik text-[24px] font-bold leading-none text-[#0b84d8]">
-                            {item.price}
-                          </p>
-
-                          {item.oldPrice && (
-                            <p className="text-[12px] text-slate-400 line-through">
-                              {item.oldPrice}
-                            </p>
-                          )}
-                        </div>
-
-                        <p className="mt-2 text-[9px] font-medium uppercase tracking-wide text-slate-400">
-                          Taxes Incl / Person
-                        </p>
-                      </div>
-
-                      <a
-                        href="#contact"
-                        className="btn-primary min-h-[42px] shrink-0 rounded-[5px] px-5 text-[12px] font-bold text-white shadow-none"
-                      >
-                        Book A Trip
-                        <svg
-                          viewBox="0 0 24 24"
-                          className="ml-2 h-4 w-4"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          aria-hidden="true"
+                          strokeWidth="2.5"
                         >
                           <path d="M5 12h14M13 6l6 6-6 6" />
                         </svg>
-                      </a>
+                      </span>
                     </div>
                   </div>
                 </article>
@@ -329,6 +269,7 @@ export function EliteTouristAttractions() {
         </div>
       </section>
       {/* ================= ELITE TOURIST ATTRACTIONS END ================= */}
+      <BookingModal isOpen={modalOpen} onClose={() => setModalOpen(false)} />
     </>
   );
 }
