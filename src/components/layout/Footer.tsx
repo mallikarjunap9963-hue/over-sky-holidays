@@ -1,7 +1,7 @@
+import { Link } from 'react-router-dom';
 import { socialLinks } from '../../data';
 import { PhoneIcon, LocationIcon } from '../icons/Icons';
 import logo from '../../assets/logo-removebg-preview.png';
-
 
 export function Footer() {
 
@@ -21,8 +21,8 @@ export function Footer() {
           <div className="grid gap-8 sm:gap-10 md:grid-cols-2 xl:grid-cols-[1.25fr_0.75fr_0.9fr_1.1fr]">
             {/* COMPANY DETAILS */}
             <div>
-              <a
-                href="#home"
+              <Link
+                to="/#home"
                 className="inline-flex rounded-[12px] bg-white px-4 py-3"
               >
                 <img
@@ -30,7 +30,7 @@ export function Footer() {
                   alt="Open Sky Holidays"
                   className="h-[66px] w-auto object-contain"
                 />
-              </a>
+              </Link>
 
               <p className="mt-6 max-w-[360px] text-[14px] leading-7 text-white/80">
                 Established since 2013, Open Sky Holidays provides complete
@@ -65,21 +65,22 @@ export function Footer() {
 
               <ul className="mt-6 space-y-3.5">
                 {[
-                  ["Home", "#home"],
-                  ["About Us", "#about-us"],
-                  ["Domestic Tours", "#domestic-tours"],
-                  ["International Tours", "#international-tours"],
-                  ["Services", "#services"],
-                  ["Contact Us", "#contact"],
+                  ["Home", "/#home"],
+                  ["About Us", "/about"],
+                  ["Domestic Tours", "/#domestic-tours"],
+                  ["International Tours", "/#international-tours"],
+                  ["Services", "/#services"],
+                  ["Blogs", "/blogs"],
+                  ["Contact Us", "/contact"],
                 ].map(([label, href]) => (
                   <li key={label}>
-                    <a
-                      href={href}
+                    <Link
+                      to={href}
                       className="group flex items-center gap-3 text-[14px] text-white/80 transition hover:translate-x-1 hover:text-[#fbb03b]"
                     >
                       <span className="h-1.5 w-1.5 rounded-full bg-[#fbb03b] transition group-hover:bg-[#fbb03b]" />
                       {label}
-                    </a>
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -103,13 +104,13 @@ export function Footer() {
                   "Singapore & Malaysia",
                 ].map((tour) => (
                   <li key={tour}>
-                    <a
-                      href="#tours"
+                    <Link
+                      to="/#tours"
                       className="group flex items-center gap-3 text-[14px] text-white/80 transition hover:translate-x-1 hover:text-[#fbb03b]"
                     >
                       <span className="h-1.5 w-1.5 rounded-full bg-[#fbb03b] transition group-hover:bg-[#fbb03b]" />
                       {tour}
-                    </a>
+                    </Link>
                   </li>
                 ))}
               </ul>

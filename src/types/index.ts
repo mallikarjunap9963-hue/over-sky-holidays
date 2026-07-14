@@ -92,7 +92,7 @@ export type SearchTab =
   | "Activities"
   | "Transport"
   | "Domestic"
-  | "Interanational"
+  | "International"
   | "Flight Tickets"
   | "Passport";
 
@@ -100,5 +100,16 @@ export type SearchSelectProps = {
   label: string;
   options: string[];
   icon: ReactNode;
+};
+
+export type BlogPost = {
+  id: number;
+  title: string;
+  excerpt: string;
+  date: string;
+  author: string;
+  category: string;
+  imageUrl: string;
+  readTime: string;
 };
 

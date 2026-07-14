@@ -1,5 +1,5 @@
 import * as Icons from '../components/icons/Icons';
-import type { HeroSlide, NavLink, SearchTab, ExperienceTab, ExperienceItem, SafetySlide, AttractionTab, AttractionPackage, ActivityItem, ReviewSource, TravelerReview } from '../types';
+import type { HeroSlide, NavLink, SearchTab, ExperienceTab, ExperienceItem, SafetySlide, AttractionTab, AttractionPackage, ActivityItem, ReviewSource, TravelerReview, BlogPost } from '../types';
 
 export const slides: HeroSlide[] = [
   {
@@ -62,7 +62,7 @@ export const navLinks: NavLink[] = [
 
 export const searchTabs: SearchTab[] = [
   "Domestic",
-  "Interanational",
+  "International",
   "Visa",
   "Flight Tickets",
   "Passport",
@@ -879,6 +879,45 @@ export const travelerReviews: TravelerReview[] = [
     time: "2:25 PM",
     avatar:
       "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=90",
+  },
+];
+
+export const blogPosts: BlogPost[] = [
+  {
+    id: 1,
+    title: "Top 10 Must-Visit Destinations In India For 2026",
+    excerpt:
+      "From the backwaters of Kerala to the snow-capped peaks of Kashmir, explore the most breathtaking destinations India has to offer this year.",
+    date: "July 10, 2026",
+    author: "Open Sky Team",
+    category: "Destination Guide",
+    imageUrl:
+      "https://images.unsplash.com/photo-1524492412937-b28074a5d7da?auto=format&fit=crop&w=800&q=85",
+    readTime: "5 min read",
+  },
+  {
+    id: 2,
+    title: "How To Plan A Budget-Friendly International Trip",
+    excerpt:
+      "Traveling abroad doesn't have to be expensive. Learn smart booking strategies, visa tips and money-saving hacks for your next international holiday.",
+    date: "July 5, 2026",
+    author: "Priya Reddy",
+    category: "Travel Tips",
+    imageUrl:
+      "https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=800&q=85",
+    readTime: "7 min read",
+  },
+  {
+    id: 3,
+    title: "Best Honeymoon Spots: Maldives vs Bali vs Switzerland",
+    excerpt:
+      "Choosing the perfect honeymoon destination can be overwhelming. We compare three of the world's most romantic getaways to help you decide.",
+    date: "June 28, 2026",
+    author: "Sneha Patel",
+    category: "Honeymoon",
+    imageUrl:
+      "https://images.unsplash.com/photo-1573843981267-be1999ff37cd?auto=format&fit=crop&w=800&q=85",
+    readTime: "6 min read",
   },
 ];
 

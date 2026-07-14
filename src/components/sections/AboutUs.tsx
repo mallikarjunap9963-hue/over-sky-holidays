@@ -1,33 +1,51 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { ScrollReveal } from '../ui/ScrollReveal';
 
 export function AboutUs() {
   const [activeAboutTab, setActiveAboutTab] = useState<'mission' | 'customer'>('mission');
   const [customerCount, setCustomerCount] = useState(0);
+  const sectionRef = useRef<HTMLElement>(null);
+  const hasAnimated = useRef(false);
 
   useEffect(() => {
-    const duration = 1400;
-    const frameDuration = 1000 / 60;
-    const totalFrames = Math.round(duration / frameDuration);
-    let frame = 0;
+    const sectionEl = sectionRef.current;
+    if (!sectionEl) return;
 
-    const counter = window.setInterval(() => {
-      frame += 1;
-      const progress = Math.min(frame / totalFrames, 1);
-      setCustomerCount(Math.round(progress * 650));
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+        if (entry.isIntersecting && !hasAnimated.current) {
+          hasAnimated.current = true;
 
-      if (progress === 1) {
-        window.clearInterval(counter);
-      }
-    }, frameDuration);
+          const duration = 1400;
+          const frameDuration = 1000 / 60;
+          const totalFrames = Math.round(duration / frameDuration);
+          let frame = 0;
 
-    return () => window.clearInterval(counter);
+          const counter = window.setInterval(() => {
+            frame += 1;
+            const progress = Math.min(frame / totalFrames, 1);
+            setCustomerCount(Math.round(progress * 10200));
+
+            if (progress === 1) {
+              window.clearInterval(counter);
+            }
+          }, frameDuration);
+        }
+      },
+      { threshold: 0.3 }
+    );
+
+    observer.observe(sectionEl);
+
+    return () => observer.disconnect();
   }, []);
 
   return (
     <>
       {/* ================= ABOUT US SECTION START ================= */}
       <section
+        ref={sectionRef}
         id="about"
         className="relative overflow-hidden bg-white px-5 py-12 sm:px-8"
       >
@@ -221,7 +239,6 @@ export function AboutUs() {
           </ScrollReveal>
         </div>
       </section>
-      {/* ================= ABOUT US SECTION END ================= */}
     </>
   );
 }
