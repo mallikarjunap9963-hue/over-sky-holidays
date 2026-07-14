@@ -116,7 +116,7 @@ export function AboutMissionVision() {
             <div className="inline-flex items-center justify-center gap-2">
               <span className="h-[2px] w-7 bg-[#fbb03b]" />
 
-              <p className="font-rubik text-[12px] font-bold uppercase tracking-[0.2em] text-[#0b84d8] sm:text-[13px]">
+              <p className="font-satisfy text-[24px] font-normal capitalize text-[#0b84d8] sm:text-[27px]">
                 Our Purpose
               </p>
 

@@ -43,7 +43,7 @@ export function AboutValues() {
           <ScrollReveal variant="fade-in-up" delay={50} duration={1200}>
             <div className="flex items-center justify-center gap-2">
               <span className="h-[1.5px] w-6 bg-[#0b84d8]" />
-              <p className="font-rubik text-[13px] font-bold uppercase tracking-widest text-[#0b84d8]">
+              <p className="font-satisfy text-[24px] font-normal capitalize text-[#0b84d8]">
                 Our Core Values
               </p>
               <span className="h-[1.5px] w-6 bg-[#0b84d8]" />

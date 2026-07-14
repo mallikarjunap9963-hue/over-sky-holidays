@@ -57,7 +57,7 @@ export function AboutHero() {
         {/* Eyebrow */}
         <div className="flex items-center gap-3">
           <span className="h-px w-8 bg-[#fbb03b]" />
-          <p className="font-rubik text-[13px] font-bold uppercase tracking-[0.2em] text-[#fbb03b]">
+          <p className="font-satisfy text-[24px] font-normal capitalize text-[#fbb03b]">
             Who We Are
           </p>
           <span className="h-px w-8 bg-[#fbb03b]" />

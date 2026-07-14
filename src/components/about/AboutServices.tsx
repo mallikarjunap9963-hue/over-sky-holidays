@@ -300,7 +300,7 @@ export function AboutServices() {
               <div className="flex items-center gap-3">
                 <span className="h-[2px] w-8 bg-[#fbb03b]" />
 
-                <p className="font-rubik text-[12px] font-bold uppercase tracking-[0.2em] text-[#0b84d8] sm:text-[13px]">
+                <p className="font-satisfy text-[24px] font-normal capitalize text-[#0b84d8] sm:text-[27px]">
                   What We Offer
                 </p>
               </div>
