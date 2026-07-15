@@ -112,6 +112,20 @@ export function DomesticToursPage() {
             </div>
           </ScrollReveal>
         </div>
+
+        {/* Bottom White Curve */}
+        <div className="absolute -bottom-[1px] left-0 w-full overflow-hidden leading-none">
+          <svg
+            viewBox="0 0 1440 55"
+            preserveAspectRatio="none"
+            className="block h-[30px] w-full sm:h-[42px] lg:h-[55px]"
+          >
+            <path
+              d="M0,36 C260,58 420,3 720,27 C1010,50 1180,5 1440,25 L1440,55 L0,55 Z"
+              fill="#f8fafc"
+            />
+          </svg>
+        </div>
       </section>
 
       {/* TOUR GRID LIST */}

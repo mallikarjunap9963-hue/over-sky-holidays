@@ -106,6 +106,13 @@ export default function TourDetailsPage() {
       ? "Tour Package"
       : `${formatCategoryName(type || "")} Tour`
 
+  const categoryLink =
+    type?.toLowerCase() === "domestic"
+      ? "/tours/domestic"
+      : type?.toLowerCase() === "international"
+      ? "/tours/international"
+      : "/";
+
   /*
    * The existing data appears to contain destination attractions
    * inside detail.highlights. We use those as Places Covered.
@@ -276,27 +283,56 @@ export default function TourDetailsPage() {
         <div className="relative mx-auto flex min-h-[570px] max-w-[1320px] flex-col px-5 pb-20 pt-7 sm:px-8 lg:min-h-[620px] lg:px-10 lg:pb-24">
           {/* Top Row */}
           <div className="flex items-start justify-between gap-6 font-jost">
-            <nav className="flex flex-wrap items-center gap-2 text-sm font-medium text-white">
+            <nav
+              aria-label="Breadcrumb"
+              className="inline-flex items-center gap-2 rounded-xl border border-white/15 bg-[#071f36]/40 px-4 py-2.5 backdrop-blur-md font-jost"
+            >
               <Link
                 to="/"
-                className="flex items-center gap-2 transition hover:text-[#ffbd2e]"
+                className="flex items-center gap-2 text-[13px] font-semibold text-white/75 transition-colors duration-300 hover:text-[#fbb03b]"
               >
-                <Home size={18} />
+                <svg
+                  viewBox="0 0 24 24"
+                  className="h-4 w-4"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                >
+                  <path d="m3 11 9-8 9 8" />
+                  <path d="M5 10v10h14V10" />
+                  <path d="M9 20v-6h6v6" />
+                </svg>
                 Home
               </Link>
 
-              <ChevronRight size={16} className="text-white/60" />
+              <svg
+                viewBox="0 0 24 24"
+                className="h-3.5 w-3.5 text-white/35"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+              >
+                <path d="m9 18 6-6-6-6" />
+              </svg>
 
               <Link
-                to="/"
-                className="transition hover:text-[#ffbd2e]"
+                to={categoryLink}
+                className="text-[13px] font-semibold text-white/75 transition-colors duration-300 hover:text-[#fbb03b]"
               >
                 {categoryLabel}
               </Link>
 
-              <ChevronRight size={16} className="text-white/60" />
+              <svg
+                viewBox="0 0 24 24"
+                className="h-3.5 w-3.5 text-white/35"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+              >
+                <path d="m9 18 6-6-6-6" />
+              </svg>
 
-              <span className="max-w-[180px] truncate text-white/80 sm:max-w-none">
+              <span className="text-[13px] font-semibold text-white max-w-[180px] truncate sm:max-w-none">
                 {tourName}
               </span>
             </nav>
