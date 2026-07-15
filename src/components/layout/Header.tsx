@@ -14,14 +14,22 @@ const menuItems = [
       { label: "International Tours", href: "/#international-tours" }
     ]
   },
-  { label: "SERVICES", href: "/#services" },
+  {
+    label: "SERVICES",
+    href: "#",
+    dropdownItems: [
+      { label: "Visa", href: "/services/visa" },
+      { label: "Flight Tickets", href: "/services/flight-tickets" },
+      { label: "Passport", href: "/services/passport" }
+    ]
+  },
   { label: "BLOGS", href: "/blogs" },
   { label: "CONTACT", href: "/contact" }
 ];
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [mobileToursOpen, setMobileToursOpen] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -35,7 +43,7 @@ export function Header() {
     const handleResize = () => {
       if (window.innerWidth >= 1280) {
         setMobileMenuOpen(false);
-        setMobileToursOpen(false);
+        setOpenDropdown(null);
       }
     };
     window.addEventListener('resize', handleResize);
@@ -206,7 +214,7 @@ export function Header() {
             type="button"
             onClick={() => {
               setMobileMenuOpen(false);
-              setMobileToursOpen(false);
+              setOpenDropdown(null);
             }}
             className="p-1.5 text-slate-500 hover:text-[#0b84d8] hover:bg-slate-50 rounded-full transition-colors focus:outline-none"
             aria-label="Close menu"
@@ -220,23 +228,24 @@ export function Header() {
           <nav className="flex flex-col gap-1 font-jost">
             {menuItems.map((item) => {
               if (item.dropdownItems) {
+                const isOpen = openDropdown === item.label;
                 return (
                   <div key={item.label} className="flex flex-col">
                     <button
                       type="button"
-                      onClick={() => setMobileToursOpen((prev) => !prev)}
+                      onClick={() => setOpenDropdown(isOpen ? null : item.label)}
                       className="flex items-center justify-between w-full rounded-lg px-4 py-3 text-[15px] font-semibold text-[#100c08] hover:bg-slate-50 hover:text-[#0b84d8] transition-all cursor-pointer focus:outline-none"
                     >
                       <span>{item.label}</span>
                       <ChevronDownIcon
-                        className={`h-4 w-4 text-slate-500 transition-transform duration-300 ${mobileToursOpen ? 'rotate-180 text-[#0b84d8]' : ''
+                        className={`h-4 w-4 text-slate-500 transition-transform duration-300 ${isOpen ? 'rotate-180 text-[#0b84d8]' : ''
                           }`}
                       />
                     </button>
 
                     {/* Dropdown collapsible panel */}
                     <div
-                      className={`overflow-hidden transition-all duration-300 ease-in-out pl-4 ${mobileToursOpen ? 'max-h-40 opacity-100 py-1' : 'max-h-0 opacity-0 pointer-events-none'
+                      className={`overflow-hidden transition-all duration-300 ease-in-out pl-4 ${isOpen ? 'max-h-40 opacity-100 py-1' : 'max-h-0 opacity-0 pointer-events-none'
                         }`}
                     >
                       <div className="flex flex-col gap-0.5 border-l border-slate-100 ml-4 pl-3">
@@ -245,7 +254,7 @@ export function Header() {
                             key={subItem.label}
                             to={subItem.href}
                             onClick={() => {
-                              setMobileToursOpen(false);
+                              setOpenDropdown(null);
                               setMobileMenuOpen(false);
                             }}
                             className="block rounded-lg px-3 py-2 text-[14px] font-semibold text-[#100c08]/80 hover:bg-slate-50 hover:text-[#0b84d8] transition-colors"
@@ -300,7 +309,7 @@ export function Header() {
               to="/contact"
               onClick={() => {
                 setMobileMenuOpen(false);
-                setMobileToursOpen(false);
+                setOpenDropdown(null);
               }}
               className="btn-primary flex items-center justify-center w-full min-h-[48px] rounded-lg text-sm font-bold shadow-[0_12px_24px_rgba(11,132,216,0.15)] text-center cursor-pointer"
             >

@@ -33,8 +33,6 @@ export function AboutPage() {
 
       {/* 7. Core Valuesr */}
       <AboutValues />
-
-
     </>
   )
 }

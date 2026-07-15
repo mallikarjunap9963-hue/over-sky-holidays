@@ -9,7 +9,7 @@ export function Footer() {
     <>
       <footer
         id="contact"
-        className="relative overflow-hidden bg-[#0b84d8] text-white font-jost"
+        className="relative overflow-hidden bg-[#071f36] text-white font-jost"
       >
         {/* DECORATIVE BACKGROUND */}
         <div className="absolute -left-32 top-24 h-80 w-80 rounded-full border border-white/5" />
@@ -202,7 +202,7 @@ export function Footer() {
         </div>
 
         {/* COPYRIGHT BAR */}
-        <div className="relative border-t border-white/10 bg-[#086caf]">
+        <div className="relative border-t border-white/10 bg-black/20">
           <div className="mx-auto flex max-w-[1320px] flex-col items-center justify-between gap-4 px-5 py-5 text-center sm:px-8 md:flex-row md:text-left">
             <p className="text-[13px] text-white/85">
               © {new Date().getFullYear()} Open Sky Holidays. All Rights
