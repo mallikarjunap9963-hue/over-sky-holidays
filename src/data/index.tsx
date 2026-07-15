@@ -894,6 +894,19 @@ export const blogPosts: BlogPost[] = [
     imageUrl:
       "https://images.unsplash.com/photo-1524492412937-b28074a5d7da?auto=format&fit=crop&w=800&q=85",
     readTime: "5 min read",
+    content: `
+      <h2>1. The Backwaters of Kerala</h2>
+      <p>Kerala, often referred to as "God's Own Country," offers a serene escape. Cruising through the tranquil backwaters in a traditional houseboat is an experience you simply cannot miss in 2026. Enjoy the lush greenery, spot local wildlife, and indulge in authentic South Indian coastal cuisine.</p>
+      
+      <h2>2. Snow-Capped Peaks of Kashmir</h2>
+      <p>Kashmir remains a paradise on earth. The majestic valleys of Gulmarg and Pahalgam provide the perfect backdrop for romantic getaways or thrilling ski adventures. In 2026, improved accessibility makes reaching these pristine locations easier than ever.</p>
+
+      <h2>3. The Royal Heritage of Rajasthan</h2>
+      <p>Step back in time by visiting the magnificent forts and palaces of Jaipur, Udaipur, and Jodhpur. Experience the vibrant culture, rich history, and the warm hospitality of the desert state.</p>
+
+      <h2>4. The Spiritual Aura of Varanasi</h2>
+      <p>Witnessing the Ganga Aarti at dusk in Varanasi is a spiritually uplifting experience. The ancient city's narrow winding lanes, ghats, and historical significance make it a profound stop for any traveler.</p>
+    `,
   },
   {
     id: 2,
@@ -906,6 +919,19 @@ export const blogPosts: BlogPost[] = [
     imageUrl:
       "https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=800&q=85",
     readTime: "7 min read",
+    content: `
+      <h2>1. Book Your Flights in Advance</h2>
+      <p>The golden rule for budget international travel is booking your flights early. Monitor prices using flight comparison tools and set up price alerts. Often, booking 3-4 months in advance can save you hundreds of dollars.</p>
+      
+      <h2>2. Be Flexible With Your Dates and Destinations</h2>
+      <p>If you can be flexible with your travel dates, you can take advantage of shoulder season pricing. Sometimes flying on a Tuesday instead of a Friday can significantly drop your ticket price. Also, consider secondary airports or less popular but equally beautiful destinations.</p>
+
+      <h2>3. Master the Art of Packing Light</h2>
+      <p>Many budget airlines charge hefty fees for checked baggage. By packing light and traveling with just a carry-on, you avoid these extra fees and gain the mobility to navigate public transit easily.</p>
+
+      <h2>4. Embrace Local Street Food and Public Transport</h2>
+      <p>Eating where the locals eat is not only cheaper but often far more delicious and authentic than tourist trap restaurants. Similarly, utilizing local buses and trains instead of taxis will drastically reduce your daily expenditures.</p>
+    `,
   },
   {
     id: 3,
@@ -918,6 +944,75 @@ export const blogPosts: BlogPost[] = [
     imageUrl:
       "https://images.unsplash.com/photo-1573843981267-be1999ff37cd?auto=format&fit=crop&w=800&q=85",
     readTime: "6 min read",
+    content: `
+      <h2>The Maldives: Overwater Luxury</h2>
+      <p>If your idea of a perfect honeymoon involves stepping directly from your villa into crystal-clear turquoise waters, the Maldives is unparalleled. It offers ultimate privacy, world-class diving, and private dining on secluded sandbanks. It is ideal for couples looking for pure relaxation and luxury.</p>
+      
+      <h2>Bali: Culture Meets Tropical Paradise</h2>
+      <p>Bali is incredibly diverse. You can spend a few days in the lush jungles of Ubud exploring temples and rice terraces, and then head down to Seminyak or Uluwatu for vibrant beach clubs and stunning sunsets. It offers a fantastic mix of culture, adventure, and relaxation, usually at a more affordable price point than the Maldives.</p>
+
+      <h2>Switzerland: A Alpine Fairytale</h2>
+      <p>For couples who prefer cozying up by a fireplace after a day of exploring snowy peaks, Switzerland is the ultimate destination. Imagine panoramic train rides, indulging in world-class chocolate and cheese, and exploring charming villages like Zermatt and Lucerne. It's a highly romantic, picture-perfect destination year-round.</p>
+
+      <h2>The Verdict</h2>
+      <p>The choice ultimately depends on your style as a couple. Choose the Maldives for absolute secluded luxury, Bali for a mix of tropical beaches and vibrant culture, and Switzerland for breathtaking alpine scenery and adventure.</p>
+    `,
+  },
+  {
+    id: 4,
+    title: "Adventure Travel: Exploring India's Hidden Northeast",
+    excerpt:
+      "From the living root bridges of Meghalaya to the monasteries of Arunachal Pradesh, discover why Northeast India is the next big adventure travel destination.",
+    date: "June 20, 2026",
+    author: "Arjun Kumar",
+    category: "Adventure",
+    imageUrl:
+      "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=800&q=85",
+    readTime: "6 min read",
+    content: `
+      <h2>The Living Root Bridges of Meghalaya</h2>
+      <p>Meghalaya's living root bridges are a marvel of bioengineering. Grown over centuries by the Khasi people, these natural wonders are found deep in the subtropical forests and are a must-visit for any adventure traveler.</p>
+
+      <h2>Arunachal Pradesh's Monasteries</h2>
+      <p>Tawang Monastery, the largest in India, sits at over 10,000 feet and offers breathtaking views of the Himalayas. The journey itself through winding mountain roads is an adventure worth undertaking.</p>
+    `,
+  },
+  {
+    id: 5,
+    title: "Family-Friendly Guide To Dubai: Tips For Traveling With Kids",
+    excerpt:
+      "Planning a family trip to Dubai? Here's everything you need to know about kid-friendly attractions, dining options and smart travel tips for families.",
+    date: "June 14, 2026",
+    author: "Sneha Patel",
+    category: "Family Travel",
+    imageUrl:
+      "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=800&q=85",
+    readTime: "8 min read",
+    content: `
+      <h2>Top Attractions for Families</h2>
+      <p>Dubai offers an incredible range of family-friendly attractions. From the magical IMG Worlds of Adventure to the Dubai Aquarium & Underwater Zoo, there's something to amaze every age group.</p>
+
+      <h2>Smart Tips for Traveling with Kids</h2>
+      <p>Plan your outdoor activities for the cooler morning hours, keep hydration supplies handy, and take advantage of the excellent public transport system including the Dubai Metro and water taxis.</p>
+    `,
+  },
+  {
+    id: 6,
+    title: "Complete Visa Guide For First-Time International Travelers",
+    excerpt:
+      "Navigating the visa process can be daunting. Our step-by-step guide covers everything from documentation to common mistakes to avoid for a smooth application.",
+    date: "June 8, 2026",
+    author: "Open Sky Team",
+    category: "Travel Tips",
+    imageUrl:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSuKt6SaXN0uB94ElIvDvt1uD5NycmLpT__IqTlsfHeA&s=10",
+    readTime: "9 min read",
+    content: `
+      <h2>Understanding Visa Types</h2>
+      <p>Before applying, understand the type of visa you need — tourist, business, or transit. Each has different requirements and processing times. Research your destination country's specific rules well in advance.</p>
+
+      <h2>Common Mistakes to Avoid</h2>
+      <p>Incomplete documentation, incorrect passport validity, and last-minute applications are the top reasons for visa rejections. Start your application at least 6-8 weeks before your travel date.</p>
+    `,
   },
 ];
-

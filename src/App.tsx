@@ -8,6 +8,7 @@ import { Contact } from "./pages/Contact";
 import { PopupContact } from "./components/ui/PopupContact";
 import { BlogsPage } from "./pages/BlogsPage";
 import { AboutPage } from "./components/pages/AboutPage";
+import { BlogDetailsPage } from "./pages/BlogDetailsPage";
 
 function Layout() {
   return (
@@ -31,6 +32,7 @@ export default function App() {
         <Route path="about" element={<AboutPage />} />
         <Route path="contact" element={<Contact />} />
         <Route path="blogs" element={<BlogsPage />} />
+        <Route path="blogs/:id" element={<BlogDetailsPage />} />
       </Route>
     </Routes>
   );

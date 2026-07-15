@@ -31,9 +31,10 @@ export function AboutPage() {
       {/* 6. Why Choose Us */}
       <AboutWhyUs />
 
-      {/* 7. Core Values */}
+      {/* 7. Core Valuesr */}
       <AboutValues />
 
+
     </>
-  );
+  )
 }
