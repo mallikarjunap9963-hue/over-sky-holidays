@@ -34,3 +34,35 @@ export type TourPackage = {
     places: TourPlace[]
     highlights: TourHighlight[]
 }
+
+export type BookingFormData = {
+  fullName: string
+  mobile: string
+  email: string
+  travelDate: string
+  travelers: string
+}
+
+export type BookingFormProps = {
+  tourName: string
+  form: BookingFormData
+  submitted: boolean
+  onChange: (
+    field: keyof BookingFormData,
+    value: string
+  ) => void
+  onSubmit: (event: React.FormEvent<HTMLFormElement>) => void
+  onReset: () => void
+}
+
+export type BookingFieldProps = {
+  label: string
+  icon: React.ReactNode
+  children: React.ReactNode
+}
+
+export type HeroInfoProps = {
+  icon: React.ReactNode
+  value: string
+  label: string
+}

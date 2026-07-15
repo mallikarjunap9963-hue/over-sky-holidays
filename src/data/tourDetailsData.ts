@@ -578,7 +578,7 @@ export function getTourDetailInfo(
   durationStr: string,
   _priceStr: string,
   country: string,
-  imageStr: string
+  _imageStr: string
 ): TourDetailInfo {
   const key = `${type.toLowerCase()}-${id}`;
 
