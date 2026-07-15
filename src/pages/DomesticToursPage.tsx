@@ -1,5 +1,5 @@
 import { Link, useSearchParams } from "react-router-dom"
-import { MapPin, Calendar, ArrowRight } from "lucide-react"
+import { MapPin, ArrowRight } from "lucide-react"
 import { attractionPackages } from "../data"
 import { ScrollReveal } from "../components/ui/ScrollReveal"
 
