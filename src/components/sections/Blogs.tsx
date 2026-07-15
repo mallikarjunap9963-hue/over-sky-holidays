@@ -232,7 +232,7 @@ function BlogCard({ post, index }: { post: typeof blogPosts[0]; index: number })
 
           {/* Read More link */}
           <Link
-            to="/blogs"
+            to={`/blogs/${post.id}`}
             className="mt-4 inline-flex items-center gap-2 font-rubik text-[13.5px] font-semibold text-[#0b84d8]"
           >
             Read More
@@ -364,31 +364,7 @@ export function Blogs() {
             ))}
           </div>
 
-          {/* Bottom CTA with spring animation */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.8, duration: 0.6, ease: 'easeOut' }}
-            className="mt-12 text-center"
-          >
-            <Link
-              to="/blogs"
-              className="btn-primary inline-flex rounded-full min-h-[52px] items-center justify-center px-9 text-[14px] font-bold shadow-[0_12px_30px_rgba(11,132,216,0.22)]"
-            >
-              View All Blog Posts
-              <svg
-                viewBox="0 0 24 24"
-                className="ml-3 h-5 w-5"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                aria-hidden="true"
-              >
-                <path d="M5 12h14M13 6l6 6-6 6" />
-              </svg>
-            </Link>
-          </motion.div>
+
         </div>
       </section>
       {/* ================= BLOGS SECTION END ================= */}

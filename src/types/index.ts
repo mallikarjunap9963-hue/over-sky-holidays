@@ -111,6 +111,7 @@ export type BlogPost = {
   category: string;
   imageUrl: string;
   readTime: string;
+  content?: string;
 };
 
 export interface ItineraryDay {
