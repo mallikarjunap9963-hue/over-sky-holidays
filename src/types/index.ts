@@ -100,6 +100,8 @@ export type SearchSelectProps = {
   label: string;
   options: string[];
   icon: ReactNode;
+  value?: string;
+  onChange?: (e: React.ChangeEvent<HTMLSelectElement>) => void;
 };
 
 export type BlogPost = {

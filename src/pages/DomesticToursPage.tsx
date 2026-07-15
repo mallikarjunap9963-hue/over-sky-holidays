@@ -1,10 +1,18 @@
-import { Link } from "react-router-dom"
+import { Link, useSearchParams } from "react-router-dom"
 import { MapPin, Calendar, ArrowRight } from "lucide-react"
 import { attractionPackages } from "../data"
 import { ScrollReveal } from "../components/ui/ScrollReveal"
 
 export function DomesticToursPage() {
-  const domesticTours = attractionPackages.Domestic
+  const [searchParams] = useSearchParams();
+  const searchDestination = searchParams.get("destination");
+  
+  let domesticTours = attractionPackages.Domestic;
+  if (searchDestination) {
+    domesticTours = domesticTours.filter(
+      (tour) => tour.title.toLowerCase() === searchDestination.toLowerCase()
+    );
+  }
 
   return (
     <main className="min-h-screen bg-slate-50/50 font-jost">

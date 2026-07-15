@@ -196,15 +196,15 @@ function FeaturedServiceCard({
             {service.description}
           </p>
 
-          <a
-            href="#contact"
+          <Link
+            to="/contact"
             className="mt-5 inline-flex items-center gap-2 font-rubik text-[12px] font-bold uppercase tracking-[0.1em] text-white transition-colors duration-300 hover:text-[#fbb03b]"
           >
             Explore Service
             <span className="transition-transform duration-300 group-hover:translate-x-1">
               <ArrowIcon />
             </span>
-          </a>
+          </Link>
         </div>
       </article>
     </ScrollReveal>
@@ -254,13 +254,13 @@ function CompactServiceCard({
             {service.description}
           </p>
 
-          <a
-            href="#contact"
+          <Link
+            to="/contact"
             aria-label={`Learn more about ${service.title}`}
             className="mt-4 inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/30 text-white transition-all duration-300 hover:border-[#fbb03b] hover:bg-[#fbb03b] hover:text-[#102f50]"
           >
             <ArrowIcon />
-          </a>
+          </Link>
         </div>
       </article>
     </ScrollReveal>

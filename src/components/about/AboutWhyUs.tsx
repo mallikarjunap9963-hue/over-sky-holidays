@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { ScrollReveal } from '../ui/ScrollReveal';
 
 const reasons = [
@@ -96,15 +97,8 @@ export function AboutWhyUs() {
 
             {/* CTA */}
             <ScrollReveal variant="fade-in-left" delay={850} duration={1200}>
-              <a
-                href="#contact-us"
-                onClick={(e) => {
-                  e.preventDefault();
-                  window.location.hash = '';
-                  setTimeout(() => {
-                    document.getElementById('contact-us')?.scrollIntoView({ behavior: 'smooth' });
-                  }, 100);
-                }}
+              <Link
+                to="/contact"
                 className="mt-2 inline-flex w-fit items-center gap-2 rounded-full px-7 py-3 font-rubik text-[14px] font-bold text-white transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5"
                 style={{ background: 'linear-gradient(135deg, #0b84d8, #0066b0)' }}
               >
@@ -113,7 +107,7 @@ export function AboutWhyUs() {
                   <line x1="5" y1="12" x2="19" y2="12" />
                   <polyline points="12 5 19 12 12 19" />
                 </svg>
-              </a>
+              </Link>
             </ScrollReveal>
           </div>
 

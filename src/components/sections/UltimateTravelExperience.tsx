@@ -206,8 +206,8 @@ export function UltimateTravelExperience() {
                             </svg>
                           </span>
                         ) : (
-                          <a
-                            href="#contact"
+                          <Link
+                            to="/contact"
                             className="btn-primary min-h-[40px] shrink-0 rounded-[4px] px-4 text-[12px] font-bold text-white"
                           >
                             Book A Trip
@@ -221,7 +221,7 @@ export function UltimateTravelExperience() {
                             >
                               <path d="M5 12h14M13 6l6 6-6 6" />
                             </svg>
-                          </a>
+                          </Link>
                         )}
                       </div>
                     </div>
@@ -233,8 +233,8 @@ export function UltimateTravelExperience() {
 
           {/* VIEW ALL BUTTON */}
           <ScrollReveal variant="fade-in-up" delay={300} duration={1300} className="mt-12 text-center">
-            <a
-              href="#domestic-tours"
+            <Link
+              to="/tours/domestic"
               className="btn-primary min-h-[52px] rounded-[5px] px-8 text-[14px] font-bold"
             >
               View All Packages
@@ -248,7 +248,7 @@ export function UltimateTravelExperience() {
               >
                 <path d="M5 12h14M13 6l6 6-6 6" />
               </svg>
-            </a>
+            </Link>
           </ScrollReveal>
         </div>
       </section>

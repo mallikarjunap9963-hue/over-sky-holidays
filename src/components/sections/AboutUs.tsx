@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { ScrollReveal } from '../ui/ScrollReveal';
 
 export function AboutUs() {
@@ -161,12 +162,12 @@ export function AboutUs() {
             {/* Button + customer count */}
             <ScrollReveal variant="fade-in-left" delay={650} duration={1400}>
               <div className="flex flex-wrap items-center gap-8">
-                <a
-                  href="#services"
+                <Link
+                  to="/about"
                   className="btn-primary min-h-[52px] rounded-[5px] px-8 text-[15px] font-bold shadow-[0_12px_30px_rgba(11,132,216,0.2)]"
                 >
                   More About
-                </a>
+                </Link>
 
                 <div className="flex items-center gap-3">
                   {/* Stacked avatars */}

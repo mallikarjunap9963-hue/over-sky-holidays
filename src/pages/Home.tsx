@@ -22,8 +22,8 @@ export function Home() {
       </section>
       <AboutUs />
       <Destinations />
-      <SafetySystems />
       <EliteTouristAttractions />
+      <SafetySystems />
       <WhyChooseUs />
       <ExploreActivities />
       <PhenomenalDeals />

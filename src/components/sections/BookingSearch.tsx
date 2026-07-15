@@ -1,18 +1,53 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import type { FormEvent } from 'react';
 import type { SearchTab } from '../../types';
-import { searchTabs } from '../../data';
+import { searchTabs, attractionPackages } from '../../data';
 import { LocationIcon, BookingTabIcon, ClockIcon, CategoryIcon } from '../icons/Icons';
 import { SearchSelect } from '../ui/SearchSelect';
 
 
 export function BookingSearch() {
-
+  const navigate = useNavigate();
   const [activeSearchTab, setActiveSearchTab] = useState<SearchTab>("Domestic");
+  const [destination, setDestination] = useState<string>("Select Destination");
 
   const handleSearch = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    if (activeSearchTab === "Domestic" || activeSearchTab === "International") {
+      const type = activeSearchTab.toLowerCase();
+      let url = `/tours/${type}`;
+      if (destination && destination !== "Select Destination") {
+        url += `?destination=${encodeURIComponent(destination)}`;
+      }
+      navigate(url);
+    }
   };
+
+  // Determine dynamic options based on the active tab
+  let destinationOptions = ["Select Destination"];
+  if (activeSearchTab === "Domestic") {
+    destinationOptions = [
+      "Select Destination",
+      ...attractionPackages.Domestic.map((tour) => tour.title),
+    ];
+  } else if (activeSearchTab === "International") {
+    destinationOptions = [
+      "Select Destination",
+      ...attractionPackages.International.map((tour) => tour.title),
+    ];
+  } else {
+    // Fallback options if it's Visa, Flight Tickets, etc.
+    destinationOptions = [
+      "Select Destination",
+      "Goa",
+      "Kullu - Manali & Shimla",
+      "Kerala",
+      "Dubai",
+      "Maldives",
+      "Singapore & Malaysia",
+    ];
+  }
 
   return (
     <>
@@ -44,15 +79,9 @@ export function BookingSearch() {
         >
           <SearchSelect
             label="Destination"
-            options={[
-              "Select Destination",
-              "Goa",
-              "Kullu - Manali & Shimla",
-              "Kerala",
-              "Dubai",
-              "Maldives",
-              "Singapore & Malaysia",
-            ]}
+            options={destinationOptions}
+            value={destination}
+            onChange={(e) => setDestination(e.target.value)}
             icon={<LocationIcon className="h-7 w-7 text-[#0b84d8]" />}
           />
 

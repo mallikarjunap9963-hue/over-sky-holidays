@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { slides } from '../../data';
 
 import { ScrollReveal } from '../ui/ScrollReveal';
@@ -53,12 +54,12 @@ export function Hero() {
 
           <ScrollReveal variant="fade-in-up" delay={900} duration={1550}>
             <div className="mt-7 flex justify-center">
-              <a
-                href="#domestic-tours"
+              <Link
+                to="/tours/domestic"
                 className="btn-primary min-h-[46px] sm:min-h-[52px] min-w-[150px] sm:min-w-[170px] rounded-[6px] text-sm sm:text-base shadow-[0_10px_24px_rgba(11,132,216,0.18)]"
               >
                 Explore More
-              </a>
+              </Link>
             </div>
           </ScrollReveal>
         </div>

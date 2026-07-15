@@ -1,6 +1,9 @@
 import * as Icons from '../components/icons/Icons';
 import type { HeroSlide, NavLink, SearchTab, ExperienceTab, ExperienceItem, SafetySlide, AttractionTab, AttractionPackage, ActivityItem, ReviewSource, TravelerReview, BlogPost } from '../types';
 
+import homePageFacilityImg from '../assets/home page facilty.png';
+import homePageAssistanceImg from '../assets/home page assitence.png';
+
 export const slides: HeroSlide[] = [
   {
     id: 1,
@@ -325,8 +328,7 @@ export const safetySlides: SafetySlide[] = [
       "Transportation Security",
       "Local Knowledge Guide",
     ],
-    image:
-      "https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?auto=format&fit=crop&w=2000&q=90",
+    image: homePageFacilityImg,
   },
   {
     id: 2,
@@ -342,8 +344,7 @@ export const safetySlides: SafetySlide[] = [
       "Transparent Travel Guidance",
       "Domestic and International Support",
     ],
-    image:
-      "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=2000&q=90",
+    image: homePageAssistanceImg,
   },
 ];
 
@@ -399,7 +400,7 @@ export const attractionPackages: Record<AttractionTab, AttractionPackage[]> = {
       price: "₹18,999",
       oldPrice: "₹22,999",
       image:
-        "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1400&q=90",
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsWp7AFJh6O7b3Hhlh1lkcCRGyf0UtX5i19KGdA1nN6Q&s=10",
     },
     {
       id: 4,
@@ -447,7 +448,7 @@ export const attractionPackages: Record<AttractionTab, AttractionPackage[]> = {
       price: "₹27,999",
       oldPrice: "₹32,999",
       image:
-        "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1400&q=90",
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnvKi5jmUAXtwRVFxdXTnqbxmyEVxHFuzbZA7mO5RvHA&s=10",
     },
     {
       id: 8,
@@ -459,7 +460,7 @@ export const attractionPackages: Record<AttractionTab, AttractionPackage[]> = {
       price: "₹26,999",
       oldPrice: "₹31,999",
       image:
-        "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=1400&q=85",
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQyd9JmrMmwza-bZJIOHXztA2bafOWl_oUw_NUi9fvwuA&s=10",
     },
     {
       id: 9,
@@ -471,7 +472,7 @@ export const attractionPackages: Record<AttractionTab, AttractionPackage[]> = {
       price: "₹23,999",
       oldPrice: "₹28,999",
       image:
-        "https://images.unsplash.com/photo-1477584305850-385010d8a436?auto=format&fit=crop&w=1400&q=90",
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMj-RJTnRLMhZafT1KtjKf9ze-5-aj4PJn5TDBGzuVJA&s=10",
     },
     {
       id: 10,
@@ -507,7 +508,7 @@ export const attractionPackages: Record<AttractionTab, AttractionPackage[]> = {
       price: "₹24,999",
       oldPrice: "₹29,999",
       image:
-        "https://images.unsplash.com/photo-1596700431872-46487e49fa3e?auto=format&fit=crop&w=1400&q=90",
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQAk3ajgEQ43baqp0slnWXmB1ioFvjCfdGzH3ltIAWCBg&s=10",
     },
     {
       id: 13,
@@ -519,7 +520,7 @@ export const attractionPackages: Record<AttractionTab, AttractionPackage[]> = {
       price: "₹6,999",
       oldPrice: "₹8,999",
       image:
-        "https://images.unsplash.com/photo-1610116306796-6fea9f4fae38?auto=format&fit=crop&w=1400&q=90",
+        "https://encrypted-tbn0.gstatic.com/licensed-image?q=tbn:ANd9GcTCVjo4GQCJp8NUh06C9bBaITU33WQ3hUHEVibUNygmp3_t-r-uw17TGZlWx1_I_7ET2pc0sh3Vd2jyffliRc3CR6M&s=19",
     },
     {
       id: 14,
@@ -531,7 +532,7 @@ export const attractionPackages: Record<AttractionTab, AttractionPackage[]> = {
       price: "₹9,999",
       oldPrice: "₹12,999",
       image:
-        "https://images.unsplash.com/photo-1598977123418-45f04b61b9b4?auto=format&fit=crop&w=1400&q=90",
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT717sJbTwj02-FZSuMu_ICE7UkaDpxWSrTL8o5ycaj6g&s=10",
     },
   ],
 
@@ -618,7 +619,7 @@ export const attractionPackages: Record<AttractionTab, AttractionPackage[]> = {
       price: "₹42,999",
       oldPrice: "₹49,999",
       image:
-        "https://images.unsplash.com/photo-1538485399081-7c8973a27ca1?auto=format&fit=crop&w=1400&q=90",
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQW0PB012LeRjqOfhGezEO_CWABsL2CDpg3pNrxrVRJXQ&s=10",
     },
     {
       id: 8,

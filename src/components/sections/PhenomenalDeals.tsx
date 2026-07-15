@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { ScrollReveal } from '../ui/ScrollReveal';
 
 export function PhenomenalDeals() {
@@ -68,12 +69,12 @@ export function PhenomenalDeals() {
                     Discover Great Deals
                   </p>
 
-                  <a
-                    href="#contact"
+                  <Link
+                    to="/contact"
                     className="mt-6 inline-flex min-h-[44px] items-center justify-center rounded-[5px] bg-white px-6 text-[13px] font-bold text-[#0b84d8] transition hover:-translate-y-1 hover:bg-[#100c08] hover:text-white font-rubik"
                   >
                     Book Now
-                  </a>
+                  </Link>
                 </div>
               </article>
             </ScrollReveal>
@@ -152,12 +153,12 @@ export function PhenomenalDeals() {
                       2 Countries &amp; 15 Locations
                     </p>
 
-                    <a
-                      href="#contact"
+                    <Link
+                      to="/contact"
                       className="mt-6 inline-flex min-h-[44px] w-fit items-center justify-center rounded-[5px] bg-[#fbb03b] px-6 text-[13px] font-bold text-[#100c08] transition hover:-translate-y-1 hover:bg-white hover:text-[#100c08] font-rubik"
                     >
                       Book Now
-                    </a>
+                    </Link>
                   </div>
                 </article>
               </ScrollReveal>
@@ -188,12 +189,12 @@ export function PhenomenalDeals() {
                       </p>
                     </div>
 
-                    <a
-                      href="#contact"
+                    <Link
+                      to="/contact"
                       className="mt-8 inline-flex min-h-[43px] shrink-0 items-center justify-center rounded-[5px] bg-[#100c08] px-6 text-[13px] font-bold text-white transition hover:-translate-y-1 hover:bg-[#0b84d8] font-rubik"
                     >
                       Book Now
-                    </a>
+                    </Link>
                   </div>
                 </div>
 
@@ -217,8 +218,8 @@ export function PhenomenalDeals() {
 
           {/* Bottom CTA */}
           <ScrollReveal variant="fade-in-up" delay={700} duration={1300} className="mt-12 text-center">
-            <a
-              href="#tours"
+            <Link
+              to="/tours/domestic"
               className="btn-primary rounded-full min-h-[52px] px-9 text-[14px] font-bold shadow-[0_12px_30px_rgba(11,132,216,0.22)]"
             >
               View All Special Offers
@@ -232,7 +233,7 @@ export function PhenomenalDeals() {
               >
                 <path d="M5 12h14M13 6l6 6-6 6" />
               </svg>
-            </a>
+            </Link>
           </ScrollReveal>
         </div>
       </section>

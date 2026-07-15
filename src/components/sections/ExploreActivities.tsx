@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import type { ActivityName } from '../../types';
 import { activityItems } from '../../data';
 import { ActivityIcon } from '../icons/Icons';
@@ -123,12 +124,12 @@ export function ExploreActivities() {
 
                 {/* Actions */}
                 <div className="mt-9 flex flex-col gap-6 sm:flex-row sm:items-center">
-                  <a
-                    href="#contact"
+                  <Link
+                    to="/contact"
                     className="btn-primary min-h-[52px] w-fit rounded-[5px] px-8 text-[14px] font-bold"
                   >
                     Check Availability
-                  </a>
+                  </Link>
 
                   <button
                     type="button"

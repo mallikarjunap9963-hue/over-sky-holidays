@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { ScrollReveal } from '../ui/ScrollReveal';
 
 const destinationCards = [
@@ -5,7 +6,7 @@ const destinationCards = [
     title: 'Goa',
     image:
       'https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=900&q=85',
-    href: '#domestic-tours',
+    href: '/tours/domestic',
     layoutClass: 'lg:col-span-4 md:col-span-6',
     tours: '30 Tours',
   },
@@ -13,7 +14,7 @@ const destinationCards = [
     title: 'Dubai',
     image:
       'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1200&q=85',
-    href: '#international-tours',
+    href: '/tours/international',
     layoutClass: 'lg:col-span-4 md:col-span-6',
     tours: '25 Tours',
   },
@@ -21,7 +22,7 @@ const destinationCards = [
     title: 'Maldives',
     image:
       'https://images.unsplash.com/photo-1573843981267-be1999ff37cd?auto=format&fit=crop&w=1000&q=85',
-    href: '#international-tours',
+    href: '/tours/international',
     layoutClass: 'lg:col-span-4 md:col-span-6',
     tours: '20 Tours',
   },
@@ -29,7 +30,7 @@ const destinationCards = [
     title: 'Jammu & Kashmir',
     image:
       'https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1200&q=85',
-    href: '#domestic-tours',
+    href: '/tours/domestic',
     layoutClass: 'lg:col-span-5 md:col-span-6',
     tours: '18 Tours',
   },
@@ -37,7 +38,7 @@ const destinationCards = [
     title: 'Singapore',
     image:
       'https://images.unsplash.com/photo-1525625293386-3f8f99389edd?auto=format&fit=crop&w=900&q=85',
-    href: '#international-tours',
+    href: '/tours/international',
     layoutClass: 'lg:col-span-3 md:col-span-6',
     tours: '15 Tours',
   },
@@ -78,8 +79,8 @@ export function Destinations() {
                 duration={1200}
                 className={destination.layoutClass}
               >
-                <a
-                  href={destination.href}
+                <Link
+                  to={destination.href}
                   className="group relative block min-h-[320px] sm:min-h-[380px] overflow-hidden rounded-[16px] shadow-md transition-shadow hover:shadow-xl h-full"
                 >
                   <img
@@ -112,7 +113,7 @@ export function Destinations() {
                       {destination.title}
                     </h3>
                   </div>
-                </a>
+                </Link>
               </ScrollReveal>
             ))}
 
@@ -145,12 +146,12 @@ export function Destinations() {
                   Of Our All <br /> Destination
                 </h3>
 
-                <a
-                  href="#tours"
+                <Link
+                  to="/tours/domestic"
                   className="mt-8 rounded-[4px] bg-[#5da747] px-8 py-3.5 text-[15px] font-bold text-white transition hover:bg-[#4d9039] shadow-md hover:shadow-lg"
                 >
                   View All Destination
-                </a>
+                </Link>
               </div>
             </ScrollReveal>
           </div>

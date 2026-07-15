@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { socialLinks } from "../../data";
 import { MailIcon } from "../icons/Icons";
 
@@ -29,12 +30,12 @@ export function TopBar() {
           <p className="flex-1 text-center text-[11px] font-medium leading-5 text-slate-200 sm:text-[12px] lg:text-[13px]">
             The World Is Waiting. One Stop Destination For All Your Tours &
             Travels Needs.
-            <a
-              href="#tours"
+            <Link
+              to="/tours/domestic"
               className="ml-1 font-semibold text-[#fbb03b] underline underline-offset-2 transition-colors hover:text-[#0b84d8]"
             >
               Book Your Tour
-            </a>
+            </Link>
           </p>
 
           {/* Social Icons */}
