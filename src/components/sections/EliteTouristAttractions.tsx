@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import type { AttractionTab } from '../../types';
 import { attractionTabs, attractionPackages } from '../../data';
 import { ScrollReveal } from '../ui/ScrollReveal';
@@ -55,6 +56,10 @@ export function EliteTouristAttractions() {
         onTouchEnd={() => setPauseAttractionSlider(false)}
         className="relative overflow-hidden bg-[#fbf8f2] px-5 py-10 sm:px-8"
       >
+        {/* Anchor targets for header routing */}
+        <div id="domestic-tours" className="absolute top-0 left-0" />
+        <div id="international-tours" className="absolute top-0 left-0" />
+
         {/* Left decorative landmark */}
         <div className="pointer-events-none absolute -left-12 top-0 hidden text-[#0b84d8]/[0.07] lg:block">
           <svg
@@ -125,7 +130,7 @@ export function EliteTouristAttractions() {
                   key={tab.name}
                   type="button"
                   onClick={() => selectAttractionTab(tab.name)}
-                  className={`relative min-h-[66px] overflow-hidden border-b border-[#dce6df] px-6 text-[15px] font-bold transition last:border-b-0 sm:border-r lg:border-b-0 ${
+                  className={`relative min-h-[66px] overflow-hidden border-b border-[#dce6df] px-6 text-[15px] font-bold tracking-wide transition last:border-b-0 sm:border-r lg:border-b-0 cursor-pointer ${
                     isActive
                       ? "text-white"
                       : "bg-white text-[#100c08] hover:bg-[#f0f9ff] hover:text-[#0b84d8]"
@@ -162,9 +167,9 @@ export function EliteTouristAttractions() {
                 delay={index * 100}
                 duration={1300}
               >
-                <article
+                <Link
+                  to={`/tour/${activeAttractionTab.toLowerCase()}/${item.id}`}
                   className="group overflow-hidden rounded-[12px] border border-slate-200/70 bg-white p-3 shadow-[0_8px_24px_rgba(16,12,8,0.03)] transition duration-300 hover:-translate-y-1.5 hover:shadow-[0_16px_36px_rgba(16,12,8,0.07)] h-full flex flex-col cursor-pointer"
-                  onClick={() => setModalOpen(true)}
                 >
                   {/* Shorter landscape image on top */}
                   <div className="relative overflow-hidden rounded-[8px] aspect-[16/10] w-full">
@@ -194,10 +199,10 @@ export function EliteTouristAttractions() {
                       {item.duration}
                     </p>
 
-                    {/* Footer Book Button */}
+                    {/* Footer Explore Button */}
                     <div className="mt-auto pt-4 flex items-center justify-end border-t border-slate-100">
                       <span className="font-rubik text-[12px] font-bold uppercase tracking-widest text-[#0b84d8] transition duration-300 flex items-center gap-1 group-hover:translate-x-1">
-                        Book Now
+                        Explore
                         <svg
                           viewBox="0 0 24 24"
                           className="h-3.5 w-3.5"
@@ -210,7 +215,7 @@ export function EliteTouristAttractions() {
                       </span>
                     </div>
                   </div>
-                </article>
+                </Link>
               </ScrollReveal>
             ))}
           </div>

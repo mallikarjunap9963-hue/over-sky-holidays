@@ -113,3 +113,50 @@ export type BlogPost = {
   readTime: string;
 };
 
+export interface ItineraryDay {
+  day: number;
+  title: string;
+  description: string;
+  image: string;
+  points: string[];
+}
+
+export interface TourHighlight {
+  title: string;
+  image: string;
+}
+
+export interface TourHotel {
+  name: string;
+  location: string;
+  rating: number;
+  image: string;
+  tags: string[];
+}
+
+export interface TourFAQ {
+  question: string;
+  answer: string;
+}
+
+export interface TourDetailInfo {
+  about: string;
+  highlights: TourHighlight[];
+  itinerary: ItineraryDay[];
+  inclusions: string[];
+  exclusions: string[];
+  hotels: TourHotel[];
+  gallery: string[];
+  faqs: TourFAQ[];
+  bestTime: string;
+  packageType: string;
+  rating: number;
+  reviewsCount: number;
+  happyTravelers: string;
+  features: {
+    icon: string;
+    label: string;
+  }[];
+}
+
+

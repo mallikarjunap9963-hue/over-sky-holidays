@@ -96,8 +96,8 @@ export const experienceItems: Record<ExperienceTab, ExperienceItem[]> = {
       duration: "4 DAYS / 3 NIGHTS",
       country: "INDIA",
       type: "GOA TOUR",
-      title: "Discover Goa's Beaches, Culture And Coastal Beauty.",
-      locations: ["North Goa", "South Goa", "Calangute", "Panaji"],
+      title: "Goa Tour Package",
+      locations: ["Anjuna Beach", "Baga Beach", "Old Goa Church", "Fort Aguada", "Night Life"],
       price: "₹19,999",
       oldPrice: "₹24,999",
       image:
@@ -105,11 +105,11 @@ export const experienceItems: Record<ExperienceTab, ExperienceItem[]> = {
     },
     {
       id: 2,
-      duration: "6 DAYS / 5 NIGHTS",
+      duration: "4 DAYS / 3 NIGHTS",
       country: "INDIA",
       type: "HILL TOUR",
-      title: "Explore Kullu, Manali And Shimla's Mountain Beauty.",
-      locations: ["Kullu", "Manali", "Solang Valley", "Shimla"],
+      title: "Kullu Manali + Shimla",
+      locations: ["Hadimba Temple", "Solang Valley", "Mall Road", "Jakhoo Temple", "Kufri"],
       price: "₹29,999",
       oldPrice: "₹34,999",
       image:
@@ -120,8 +120,8 @@ export const experienceItems: Record<ExperienceTab, ExperienceItem[]> = {
       duration: "5 DAYS / 4 NIGHTS",
       country: "INDIA",
       type: "KERALA TOUR",
-      title: "Experience Kerala Backwaters, Hills And Green Landscapes.",
-      locations: ["Kochi", "Munnar", "Thekkady", "Alleppey"],
+      title: "Kerala Backwaters & Hills",
+      locations: ["Munnar", "Alleppey", "Thekkady", "Kochi Fort", "Wayanad"],
       price: "₹24,999",
       oldPrice: "₹29,999",
       image:
@@ -129,11 +129,11 @@ export const experienceItems: Record<ExperienceTab, ExperienceItem[]> = {
     },
     {
       id: 4,
-      duration: "5 DAYS / 4 NIGHTS",
+      duration: "4 DAYS / 3 NIGHTS",
       country: "UAE",
       type: "DUBAI TOUR",
-      title: "Experience Dubai's Skyline, Desert And Luxury Attractions.",
-      locations: ["Dubai City", "Burj Khalifa", "Desert Safari", "Marina"],
+      title: "Dubai Tour Package",
+      locations: ["Dhow Cruise", "Desert Safari", "Dubai Mall", "Burj Khalifa", "Dubai Frame"],
       price: "₹39,999",
       oldPrice: "₹45,999",
       image:
@@ -141,11 +141,11 @@ export const experienceItems: Record<ExperienceTab, ExperienceItem[]> = {
     },
     {
       id: 5,
-      duration: "6 DAYS / 5 NIGHTS",
+      duration: "5 DAYS / 4 NIGHTS",
       country: "ASIA",
       type: "SINGAPORE TOUR",
-      title: "Enjoy Singapore And Malaysia's Modern City Attractions.",
-      locations: ["Singapore", "Sentosa", "Kuala Lumpur", "Genting"],
+      title: "Singapore + Malaysia",
+      locations: ["Genting Skyway", "Batu Caves", "Gardens by the Bay", "Sentosa", "Universal Studios"],
       price: "₹49,999",
       oldPrice: "₹56,999",
       image:
@@ -156,8 +156,8 @@ export const experienceItems: Record<ExperienceTab, ExperienceItem[]> = {
       duration: "5 DAYS / 4 NIGHTS",
       country: "MALDIVES",
       type: "ISLAND TOUR",
-      title: "Relax In Maldives With Beaches, Resorts And Blue Lagoons.",
-      locations: ["Male", "Island Resort", "Beach Villa", "Water Activities"],
+      title: "Maldives Island Getaway",
+      locations: ["Kanuhura Island", "Embudhu Finolhu Island", "Baros Island", "Maafushi", "Male City"],
       price: "₹54,999",
       oldPrice: "₹62,999",
       image:
@@ -377,11 +377,11 @@ export const attractionPackages: Record<AttractionTab, AttractionPackage[]> = {
   Domestic: [
     {
       id: 1,
-      duration: "6 DAYS / 5 NIGHTS",
+      duration: "4 Nights / 5 Days",
       country: "INDIA",
       tourType: "KERALA TOUR",
       title: "Kerala",
-      locations: ["Munnar", "Thekkady", "Alleppey", "Kochi"],
+      locations: ["Munnar", "Alleppey", "Thekkady", "Kochi Fort", "Wayanad"],
       price: "₹29,999",
       oldPrice: "₹34,999",
       image:
@@ -389,11 +389,11 @@ export const attractionPackages: Record<AttractionTab, AttractionPackage[]> = {
     },
     {
       id: 2,
-      duration: "6 DAYS / 5 NIGHTS",
+      duration: "3 Nights / 4 Days",
       country: "INDIA",
       tourType: "J&K & SRINAGAR",
-      title: "Kashmir & Srinagar",
-      locations: ["Srinagar", "Gulmarg", "Pahalgam", "Sonmarg"],
+      title: "Jammu Kashmir + Srinagar",
+      locations: ["Tulip Garden", "Ropeway", "River Rafting", "Gulmarg", "Dal Lake", "Shankaracharya Hill"],
       price: "₹32,999",
       oldPrice: "₹38,999",
       image:
@@ -401,11 +401,11 @@ export const attractionPackages: Record<AttractionTab, AttractionPackage[]> = {
     },
     {
       id: 3,
-      duration: "5 DAYS / 4 NIGHTS",
+      duration: "3 Nights / 4 Days",
       country: "INDIA",
       tourType: "GOA BEACH TOUR",
       title: "Goa",
-      locations: ["Calangute", "Panaji", "Baga", "Old Goa"],
+      locations: ["Anjuna Beach", "Baga Beach", "Old Goa Church", "Fort Aguada", "Night Life"],
       price: "₹18,999",
       oldPrice: "₹22,999",
       image:
@@ -413,11 +413,11 @@ export const attractionPackages: Record<AttractionTab, AttractionPackage[]> = {
     },
     {
       id: 4,
-      duration: "5 DAYS / 4 NIGHTS",
+      duration: "3 Nights / 4 Days",
       country: "INDIA",
       tourType: "KULLU & MANALI",
-      title: "Kullu & Manali",
-      locations: ["Manali", "Kullu", "Solang Valley", "Hadimba Temple"],
+      title: "Kullu Manali + Shimla",
+      locations: ["Hadimba Temple", "Solang Valley", "Mall Road", "Jakhoo Temple", "Kufri"],
       price: "₹21,999",
       oldPrice: "₹26,999",
       image:
@@ -425,11 +425,11 @@ export const attractionPackages: Record<AttractionTab, AttractionPackage[]> = {
     },
     {
       id: 5,
-      duration: "4 DAYS / 3 NIGHTS",
+      duration: "3 Nights / 4 Days",
       country: "INDIA",
       tourType: "GOLDEN TRIANGLE",
       title: "Delhi & Agra",
-      locations: ["Delhi", "Agra", "Taj Mahal", "Red Fort"],
+      locations: ["Akshardham", "Lotus Temple", "Rashtrapati Bhavan", "Qutub Minar", "India Gate", "Red Fort"],
       price: "₹15,999",
       oldPrice: "₹19,999",
       image:
@@ -437,11 +437,11 @@ export const attractionPackages: Record<AttractionTab, AttractionPackage[]> = {
     },
     {
       id: 6,
-      duration: "5 DAYS / 4 NIGHTS",
+      duration: "3 Nights / 4 Days",
       country: "INDIA",
       tourType: "SOUTHERN HILLS",
-      title: "Ooty & Kodaikanal",
-      locations: ["Ooty", "Kodaikanal", "Coonoor", "Pine Forest"],
+      title: "Ooty + Mysore",
+      locations: ["Botanical Garden", "Needle View Point", "Ooty National Park", "Srirangapatna", "Brindavan Gardens"],
       price: "₹19,999",
       oldPrice: "₹24,999",
       image:
@@ -449,11 +449,11 @@ export const attractionPackages: Record<AttractionTab, AttractionPackage[]> = {
     },
     {
       id: 7,
-      duration: "6 DAYS / 5 NIGHTS",
+      duration: "3 Nights / 4 Days",
       country: "INDIA",
       tourType: "EASTERN HIMALAYAS",
-      title: "Darjeeling & Nainital",
-      locations: ["Darjeeling", "Nainital", "Tiger Hill", "Naini Lake"],
+      title: "Nainital + Uttarakhand",
+      locations: ["Naini Lake", "Naina Devi Temple", "Ropeway", "Mussoorie", "Chopta"],
       price: "₹27,999",
       oldPrice: "₹32,999",
       image:
@@ -461,26 +461,50 @@ export const attractionPackages: Record<AttractionTab, AttractionPackage[]> = {
     },
     {
       id: 8,
-      duration: "5 DAYS / 4 NIGHTS",
+      duration: "3 Nights / 4 Days",
       country: "INDIA",
       tourType: "NORTH EAST HYBRID",
       title: "Meghalaya",
-      locations: ["Shillong", "Cherrapunji", "Mawlynnong", "Dawki Lake"],
+      locations: ["Shillong", "Double Decker Root Bridge", "Cherrapunji", "Elephant Falls", "Jaintia Hills"],
       price: "₹26,999",
       oldPrice: "₹31,999",
       image:
         "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=1400&q=85",
+    },
+    {
+      id: 9,
+      duration: "3 Nights / 4 Days",
+      country: "INDIA",
+      tourType: "RAJASTHAN ROYAL",
+      title: "Rajasthan",
+      locations: ["Jaipur", "Udaipur", "Jaisalmer", "Mount Abu", "Jodhpur"],
+      price: "₹23,999",
+      oldPrice: "₹28,999",
+      image:
+        "https://images.unsplash.com/photo-1477584305850-385010d8a436?auto=format&fit=crop&w=1400&q=90",
+    },
+    {
+      id: 10,
+      duration: "3 Nights / 4 Days",
+      country: "INDIA",
+      tourType: "HILL TOUR",
+      title: "Kodaikanal + Darjeeling",
+      locations: ["Kodaikanal Lake", "Trekking", "Dolphin Nose", "Batasia Loop", "Tiger Hill"],
+      price: "₹24,999",
+      oldPrice: "₹29,999",
+      image:
+        "https://images.unsplash.com/photo-1593693411515-c20261bcad6e?auto=format&fit=crop&w=1400&q=90",
     },
   ],
 
   International: [
     {
       id: 1,
-      duration: "5 DAYS / 4 NIGHTS",
+      duration: "3 Nights / 4 Days",
       country: "UAE",
       tourType: "DUBAI TOUR",
       title: "Dubai",
-      locations: ["Dubai City", "Burj Khalifa", "Desert Safari", "Marina"],
+      locations: ["Dhow Cruise", "Desert Safari", "Dubai Mall", "Burj Khalifa", "Dubai Frame"],
       price: "₹39,999",
       oldPrice: "₹45,999",
       image:
@@ -488,11 +512,11 @@ export const attractionPackages: Record<AttractionTab, AttractionPackage[]> = {
     },
     {
       id: 2,
-      duration: "6 DAYS / 5 NIGHTS",
+      duration: "4 Nights / 5 Days",
       country: "SINGAPORE",
       tourType: "CITY TOUR",
-      title: "Singapore",
-      locations: ["Marina Bay", "Sentosa", "Universal Studios", "Gardens By The Bay"],
+      title: "Singapore + Malaysia",
+      locations: ["Genting Skyway", "Batu Caves", "Gardens by the Bay", "Sentosa", "Universal Studios"],
       price: "₹49,999",
       oldPrice: "₹57,999",
       image:
@@ -500,11 +524,11 @@ export const attractionPackages: Record<AttractionTab, AttractionPackage[]> = {
     },
     {
       id: 3,
-      duration: "5 DAYS / 4 NIGHTS",
+      duration: "3 Nights / 4 Days",
       country: "THAILAND",
       tourType: "BANGKOK LEISURE",
       title: "Bangkok",
-      locations: ["Bangkok", "Pattaya", "Coral Island", "Safari World"],
+      locations: ["Bangkok City", "Pattaya", "Phuket", "James Bond Island", "Night Life"],
       price: "₹28,999",
       oldPrice: "₹33,999",
       image:
@@ -512,11 +536,11 @@ export const attractionPackages: Record<AttractionTab, AttractionPackage[]> = {
     },
     {
       id: 4,
-      duration: "6 DAYS / 5 NIGHTS",
-      country: "HIMALAYAN COOP",
-      tourType: "NEPAL & BHUTAN",
-      title: "Nepal & Bhutan",
-      locations: ["Kathmandu", "Pokhara", "Thimphu", "Paro"],
+      duration: "5 Nights / 6 Days",
+      country: "NEPAL",
+      tourType: "NEPAL TOUR",
+      title: "Nepal",
+      locations: ["Muktinath", "Pashupatinath", "Pokhara", "Chitwan", "Lumbini"],
       price: "₹36,999",
       oldPrice: "₹42,999",
       image:
@@ -570,16 +594,40 @@ export const attractionPackages: Record<AttractionTab, AttractionPackage[]> = {
       image:
         "https://images.unsplash.com/photo-1518684079-3c830dcef090?auto=format&fit=crop&w=1400&q=90",
     },
+    {
+      id: 9,
+      duration: "5 Nights / 6 Days",
+      country: "GREECE",
+      tourType: "SANTORINI ESCAPE",
+      title: "Santorini Escape",
+      locations: ["Oia Sunset", "Blue Dome Churches", "Red Beach", "Wine Tasting", "Catamaran Cruise"],
+      price: "₹1,24,999",
+      oldPrice: "₹1,49,999",
+      image:
+        "https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?auto=format&fit=crop&w=1200&q=90",
+    },
+    {
+      id: 10,
+      duration: "5 Nights / 6 Days",
+      country: "BHUTAN",
+      tourType: "BHUTAN TOUR",
+      title: "Bhutan",
+      locations: ["Thimphu", "Jakar", "Wangdue Phodrang", "Paro Chhu", "Trongsa"],
+      price: "₹34,999",
+      oldPrice: "₹39,999",
+      image:
+        "https://images.unsplash.com/photo-1526495124232-a04e1849168c?auto=format&fit=crop&w=1400&q=90",
+    },
   ],
 
   Islands: [
     {
       id: 1,
-      duration: "5 DAYS / 4 NIGHTS",
+      duration: "4 Nights / 5 Days",
       country: "MALDIVES",
       tourType: "ISLAND RESORT",
       title: "Maldives",
-      locations: ["Male", "Island Resort", "Beach Villa", "Water Sports"],
+      locations: ["Kanuhura Island", "Embudhu Finolhu Island", "Baros Island", "Maafushi", "Male City"],
       price: "₹54,999",
       oldPrice: "₹62,999",
       image:
@@ -611,11 +659,11 @@ export const attractionPackages: Record<AttractionTab, AttractionPackage[]> = {
     },
     {
       id: 4,
-      duration: "5 DAYS / 4 NIGHTS",
+      duration: "5 Nights / 6 Days",
       country: "SRI LANKA",
       tourType: "ISLAND ESCAPE",
       title: "Sri Lanka",
-      locations: ["Colombo", "Kandy", "Bentota", "Galle"],
+      locations: ["Nuwara Eliya", "Kandy", "Colombo", "Trincomalee", "Yala National Park"],
       price: "₹29,999",
       oldPrice: "₹34,999",
       image:
@@ -626,11 +674,11 @@ export const attractionPackages: Record<AttractionTab, AttractionPackage[]> = {
   Pilgrimage: [
     {
       id: 1,
-      duration: "6 DAYS / 5 NIGHTS",
+      duration: "6 Nights / 7 Days",
       country: "INDIA",
       tourType: "CHAR DHAM YATRA",
-      title: "Kedarnath & Badrinath",
-      locations: ["Haridwar", "Rishikesh", "Kedarnath", "Badrinath"],
+      title: "Rishikesh + Kedarnath + Badrinath",
+      locations: ["Gangotri", "Yamunotri", "Dev Prayag", "Vishnu Prayag", "Surya Kund", "Rudra Prayag"],
       price: "₹24,999",
       oldPrice: "₹29,999",
       image:
@@ -638,11 +686,11 @@ export const attractionPackages: Record<AttractionTab, AttractionPackage[]> = {
     },
     {
       id: 2,
-      duration: "3 DAYS / 2 NIGHTS",
+      duration: "3 Nights / 4 Days",
       country: "INDIA",
       tourType: "BALAJI DARSHAN",
-      title: "Tirupati Balaji",
-      locations: ["Tirupati", "Tirumala Temple", "Padmavathi Temple"],
+      title: "Tirupathi",
+      locations: ["Tiruchanur Temple", "Srikalahasti", "Kanipakam Temple", "Golden Temple, Vellore", "Srinivasa Mangapuram"],
       price: "₹6,999",
       oldPrice: "₹8,999",
       image:
