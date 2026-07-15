@@ -23,8 +23,8 @@ export function Home() {
       <AboutUs />
       <Destinations />
       <SafetySystems />
-      <WhyChooseUs />
       <EliteTouristAttractions />
+      <WhyChooseUs />
       <ExploreActivities />
       <PhenomenalDeals />
       <TravelerTestimonials />

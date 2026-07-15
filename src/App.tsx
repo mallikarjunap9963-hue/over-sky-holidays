@@ -1,39 +1,45 @@
-import { Routes, Route, Outlet } from "react-router-dom";
+import { useEffect } from 'react';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import "./App.css";
+
 import { TopBar } from "./components/layout/TopBar";
 import { Header } from "./components/layout/Header";
 import { Footer } from "./components/layout/Footer";
-import { Home } from "./pages/Home";
-import { Contact } from "./pages/Contact";
 import { PopupContact } from "./components/ui/PopupContact";
-import { BlogsPage } from "./pages/BlogsPage";
-import { AboutPage } from "./components/pages/AboutPage";
-import { BlogDetailsPage } from "./pages/BlogDetailsPage";
 
-function Layout() {
-  return (
-    <div className="min-h-screen bg-transparent text-[#111827]">
-      <TopBar />
-      <Header />
-      <PopupContact />
-      <main className="page-shell overflow-x-hidden">
-        <Outlet />
-      </main>
-      <Footer />
-    </div>
-  );
+import { Home } from "./pages/Home";
+import { AboutPage } from "./pages/AboutPage";
+import { BlogsPage } from "./pages/BlogsPage";
+import { BlogDetailsPage } from "./pages/BlogDetailsPage";
+import { Contact } from "./pages/Contact";
+
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }, [pathname]);
+
+  return null;
 }
 
 export default function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Layout />}>
-        <Route index element={<Home />} />
-        <Route path="about" element={<AboutPage />} />
-        <Route path="contact" element={<Contact />} />
-        <Route path="blogs" element={<BlogsPage />} />
-        <Route path="blogs/:id" element={<BlogDetailsPage />} />
-      </Route>
-    </Routes>
+    <div className="min-h-screen bg-transparent text-[#111827]">
+      <ScrollToTop />
+      <TopBar />
+      <Header />
+      <PopupContact />
+      <main className="page-shell overflow-x-hidden">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/blogs" element={<BlogsPage />} />
+          <Route path="/blogs/:id" element={<BlogDetailsPage />} />
+          <Route path="/contact" element={<Contact variant="full" />} />
+        </Routes>
+      </main>
+      <Footer />
+    </div>
   );
 }
