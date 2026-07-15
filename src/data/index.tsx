@@ -361,16 +361,6 @@ export const attractionTabs: {
       image:
         "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1400&q=90",
     },
-    {
-      name: "Islands",
-      image:
-        "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1400&q=90",
-    },
-    {
-      name: "Pilgrimage",
-      image:
-        "https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&w=1400&q=90",
-    },
   ];
 
 export const attractionPackages: Record<AttractionTab, AttractionPackage[]> = {
@@ -409,7 +399,7 @@ export const attractionPackages: Record<AttractionTab, AttractionPackage[]> = {
       price: "₹18,999",
       oldPrice: "₹22,999",
       image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQAU-OqSxux6x89KvcKqnGJBu7f37SA64bufk84cEOI8w&s=10",
+        "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1400&q=90",
     },
     {
       id: 4,
@@ -421,7 +411,7 @@ export const attractionPackages: Record<AttractionTab, AttractionPackage[]> = {
       price: "₹21,999",
       oldPrice: "₹26,999",
       image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwtL31HNRgyVoulZa7q9BsWr9IEHa0Rmjy47-5_eN7hQ&s=10",
+        "https://images.unsplash.com/photo-1605649487212-47bdab064df7?auto=format&fit=crop&w=1400&q=90",
     },
     {
       id: 5,
@@ -494,6 +484,54 @@ export const attractionPackages: Record<AttractionTab, AttractionPackage[]> = {
       oldPrice: "₹29,999",
       image:
         "https://images.unsplash.com/photo-1593693411515-c20261bcad6e?auto=format&fit=crop&w=1400&q=90",
+    },
+    {
+      id: 11,
+      duration: "6 DAYS / 5 NIGHTS",
+      country: "INDIA",
+      tourType: "ANDAMAN TOUR",
+      title: "Andaman & Nicobar Islands",
+      locations: ["Port Blair", "Havelock Island", "Neil Island", "Radhanagar"],
+      price: "₹24,999",
+      oldPrice: "₹29,999",
+      image:
+        "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?auto=format&fit=crop&w=1400&q=90",
+    },
+    {
+      id: 12,
+      duration: "6 Nights / 7 Days",
+      country: "INDIA",
+      tourType: "CHAR DHAM YATRA",
+      title: "Rishikesh + Kedarnath + Badrinath",
+      locations: ["Gangotri", "Yamunotri", "Dev Prayag", "Vishnu Prayag", "Surya Kund", "Rudra Prayag"],
+      price: "₹24,999",
+      oldPrice: "₹29,999",
+      image:
+        "https://images.unsplash.com/photo-1596700431872-46487e49fa3e?auto=format&fit=crop&w=1400&q=90",
+    },
+    {
+      id: 13,
+      duration: "3 Nights / 4 Days",
+      country: "INDIA",
+      tourType: "BALAJI DARSHAN",
+      title: "Tirupathi",
+      locations: ["Tiruchanur Temple", "Srikalahasti", "Kanipakam Temple", "Golden Temple, Vellore", "Srinivasa Mangapuram"],
+      price: "₹6,999",
+      oldPrice: "₹8,999",
+      image:
+        "https://images.unsplash.com/photo-1610116306796-6fea9f4fae38?auto=format&fit=crop&w=1400&q=90",
+    },
+    {
+      id: 14,
+      duration: "4 DAYS / 3 NIGHTS",
+      country: "INDIA",
+      tourType: "GANGES YATRA",
+      title: "Rishikesh & Haridwar",
+      locations: ["Haridwar", "Rishikesh", "Ganga Aarti", "Laxman Jhula"],
+      price: "₹9,999",
+      oldPrice: "₹12,999",
+      image:
+        "https://images.unsplash.com/photo-1598977123418-45f04b61b9b4?auto=format&fit=crop&w=1400&q=90",
     },
   ],
 
@@ -618,11 +656,8 @@ export const attractionPackages: Record<AttractionTab, AttractionPackage[]> = {
       image:
         "https://images.unsplash.com/photo-1526495124232-a04e1849168c?auto=format&fit=crop&w=1400&q=90",
     },
-  ],
-
-  Islands: [
     {
-      id: 1,
+      id: 11,
       duration: "4 Nights / 5 Days",
       country: "MALDIVES",
       tourType: "ISLAND RESORT",
@@ -634,19 +669,7 @@ export const attractionPackages: Record<AttractionTab, AttractionPackage[]> = {
         "https://images.unsplash.com/photo-1573843981267-be1999ff37cd?auto=format&fit=crop&w=1400&q=90",
     },
     {
-      id: 2,
-      duration: "6 DAYS / 5 NIGHTS",
-      country: "INDIA",
-      tourType: "ANDAMAN TOUR",
-      title: "Andaman & Nicobar Islands",
-      locations: ["Port Blair", "Havelock Island", "Neil Island", "Radhanagar"],
-      price: "₹24,999",
-      oldPrice: "₹29,999",
-      image:
-        "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?auto=format&fit=crop&w=1400&q=90",
-    },
-    {
-      id: 3,
+      id: 12,
       duration: "6 DAYS / 5 NIGHTS",
       country: "INDONESIA",
       tourType: "BALI TROPICAL",
@@ -658,7 +681,7 @@ export const attractionPackages: Record<AttractionTab, AttractionPackage[]> = {
         "https://images.unsplash.com/photo-1540202404-a2f29016b523?auto=format&fit=crop&w=1400&q=90",
     },
     {
-      id: 4,
+      id: 13,
       duration: "5 Nights / 6 Days",
       country: "SRI LANKA",
       tourType: "ISLAND ESCAPE",
@@ -668,45 +691,6 @@ export const attractionPackages: Record<AttractionTab, AttractionPackage[]> = {
       oldPrice: "₹34,999",
       image:
         "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1400&q=90",
-    },
-  ],
-
-  Pilgrimage: [
-    {
-      id: 1,
-      duration: "6 Nights / 7 Days",
-      country: "INDIA",
-      tourType: "CHAR DHAM YATRA",
-      title: "Rishikesh + Kedarnath + Badrinath",
-      locations: ["Gangotri", "Yamunotri", "Dev Prayag", "Vishnu Prayag", "Surya Kund", "Rudra Prayag"],
-      price: "₹24,999",
-      oldPrice: "₹29,999",
-      image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJp7R6sA6aoO-Ja1jEthRN1gkH69Jv3yJ_pae8XNOcJw&s=10",
-    },
-    {
-      id: 2,
-      duration: "3 Nights / 4 Days",
-      country: "INDIA",
-      tourType: "BALAJI DARSHAN",
-      title: "Tirupathi",
-      locations: ["Tiruchanur Temple", "Srikalahasti", "Kanipakam Temple", "Golden Temple, Vellore", "Srinivasa Mangapuram"],
-      price: "₹6,999",
-      oldPrice: "₹8,999",
-      image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTcQTqFF4BxRL9z-HhKkl2fhLmSqTtHZ9Ze0U9_Rq2u8g&s=10",
-    },
-    {
-      id: 3,
-      duration: "4 DAYS / 3 NIGHTS",
-      country: "INDIA",
-      tourType: "GANGES YATRA",
-      title: "Rishikesh & Haridwar",
-      locations: ["Haridwar", "Rishikesh", "Ganga Aarti", "Laxman Jhula"],
-      price: "₹9,999",
-      oldPrice: "₹12,999",
-      image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSDVtq1AVHI4dsTBIAB8vibbJFK8TRdB8KyLIjHFCz5jQ&s=10",
     },
   ],
 };

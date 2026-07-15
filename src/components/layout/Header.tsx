@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { PhoneIcon, MenuIcon, CloseIcon, ChevronDownIcon } from '../icons/Icons';
 import logo from '../../assets/logo-removebg-preview.png';
 
@@ -10,8 +10,8 @@ const menuItems = [
     label: "TOURS",
     href: "#",
     dropdownItems: [
-      { label: "Domestic Tours", href: "/#domestic-tours" },
-      { label: "International Tours", href: "/#international-tours" }
+      { label: "Domestic Tours", href: "/tours/domestic" },
+      { label: "International Tours", href: "/tours/international" }
     ]
   },
   {
@@ -31,6 +31,27 @@ export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const [scrolled, setScrolled] = useState(false);
+  const { pathname } = useLocation();
+
+  const isPathActive = (href: string) => {
+    if (href === "/#home" || href === "/") {
+      return pathname === "/" || pathname === "/#home";
+    }
+    if (href === "/tours/domestic") {
+      return pathname.startsWith("/tours/domestic") || pathname.includes("/tour/domestic/");
+    }
+    if (href === "/tours/international") {
+      return pathname.startsWith("/tours/international") || pathname.includes("/tour/international/");
+    }
+    return pathname.startsWith(href);
+  };
+
+  const isParentActive = (item: typeof menuItems[number]) => {
+    if (item.dropdownItems) {
+      return item.dropdownItems.some(subItem => isPathActive(subItem.href));
+    }
+    return isPathActive(item.href);
+  };
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 10);
@@ -81,43 +102,53 @@ export function Header() {
             />
           </Link>
 
-          {/* Desktop Navigation Link Menu (Visible >= 1280px / xl) */}
           <nav className="hidden items-center gap-5 xl:flex xl:gap-7 2xl:gap-10 font-jost">
-            {menuItems.map((item, index) => {
+            {menuItems.map((item) => {
               if (item.dropdownItems) {
+                const parentActive = isParentActive(item);
                 return (
                   <div key={item.label} className="relative group flex items-center h-full py-4">
                     <button
                       type="button"
-                      className="flex items-center gap-1.5 whitespace-nowrap text-[13px] xl:text-[14.5px] font-semibold tracking-[0.02em] text-[#100c08] hover:text-[#0b84d8] transition-colors duration-250 cursor-pointer focus:outline-none"
+                      className={`flex items-center gap-1.5 whitespace-nowrap text-[13px] xl:text-[14.5px] font-semibold tracking-[0.02em] transition-colors duration-250 cursor-pointer focus:outline-none ${parentActive
+                        ? "text-[#0b84d8]"
+                        : "text-[#100c08] hover:text-[#0b84d8]"
+                        }`}
                     >
                       {item.label}
-                      <ChevronDownIcon className="h-4 w-4 transition-transform duration-250 group-hover:rotate-180 text-slate-500 group-hover:text-[#0b84d8]" />
+                      <ChevronDownIcon className={`h-4 w-4 transition-transform duration-250 group-hover:rotate-180 text-slate-500 group-hover:text-[#0b84d8] ${parentActive ? 'text-[#0b84d8]' : ''}`} />
                     </button>
 
                     {/* Dropdown menu panel */}
                     <div className="absolute left-1/2 -translate-x-1/2 top-full pt-4 w-56 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform -translate-y-2 group-hover:translate-y-0 z-50 pointer-events-none group-hover:pointer-events-auto">
                       <div className="bg-white border border-slate-100 rounded-lg shadow-[0_12px_30px_rgba(7,31,67,0.1)] p-2 flex flex-col gap-0.5">
-                        {item.dropdownItems.map((subItem) => (
-                          <Link
-                            key={subItem.label}
-                            to={subItem.href}
-                            className="block rounded-md px-4 py-2.5 text-[13.5px] font-semibold text-[#100c08] hover:bg-[#0b84d8]/10 hover:text-[#0b84d8] transition-colors"
-                          >
-                            {subItem.label}
-                          </Link>
-                        ))}
+                        {item.dropdownItems.map((subItem) => {
+                          const subActive = isPathActive(subItem.href);
+                          return (
+                            <Link
+                              key={subItem.label}
+                              to={subItem.href}
+                              className={`block rounded-md px-4 py-2.5 text-[13.5px] font-semibold transition-colors ${subActive
+                                ? "bg-[#0b84d8]/10 text-[#0b84d8]"
+                                : "text-[#100c08] hover:bg-[#0b84d8]/10 hover:text-[#0b84d8]"
+                                }`}
+                            >
+                              {subItem.label}
+                            </Link>
+                          );
+                        })}
                       </div>
                     </div>
                   </div>
                 );
               }
 
+              const linkActive = isPathActive(item.href);
               return (
                 <Link
                   key={item.label}
                   to={item.href}
-                  className={`flex items-center gap-1 whitespace-nowrap text-[13px] xl:text-[14.5px] font-semibold tracking-[0.02em] transition-colors duration-250 2xl:text-[15.5px] ${index === 0
+                  className={`flex items-center gap-1 whitespace-nowrap text-[13px] xl:text-[14.5px] font-semibold tracking-[0.02em] transition-colors duration-250 2xl:text-[15.5px] ${linkActive
                     ? "text-[#0b84d8]"
                     : "text-[#100c08] hover:text-[#0b84d8]"
                     }`}
@@ -229,17 +260,20 @@ export function Header() {
             {menuItems.map((item) => {
               if (item.dropdownItems) {
                 const isOpen = openDropdown === item.label;
+                const parentActive = isParentActive(item);
                 return (
                   <div key={item.label} className="flex flex-col">
                     <button
                       type="button"
                       onClick={() => setOpenDropdown(isOpen ? null : item.label)}
-                      className="flex items-center justify-between w-full rounded-lg px-4 py-3 text-[15px] font-semibold text-[#100c08] hover:bg-slate-50 hover:text-[#0b84d8] transition-all cursor-pointer focus:outline-none"
+                      className={`flex items-center justify-between w-full rounded-lg px-4 py-3 text-[15px] font-semibold transition-all cursor-pointer focus:outline-none ${parentActive
+                        ? "bg-[#0b84d8]/10 text-[#0b84d8]"
+                        : "text-[#100c08] hover:bg-slate-50 hover:text-[#0b84d8]"
+                        }`}
                     >
                       <span>{item.label}</span>
                       <ChevronDownIcon
-                        className={`h-4 w-4 text-slate-500 transition-transform duration-300 ${isOpen ? 'rotate-180 text-[#0b84d8]' : ''
-                          }`}
+                        className={`h-4 w-4 text-slate-500 transition-transform duration-300 ${isOpen ? 'rotate-180 text-[#0b84d8]' : ''} ${parentActive ? 'text-[#0b84d8]' : ''}`}
                       />
                     </button>
 
@@ -249,31 +283,41 @@ export function Header() {
                         }`}
                     >
                       <div className="flex flex-col gap-0.5 border-l border-slate-100 ml-4 pl-3">
-                        {item.dropdownItems.map((subItem) => (
-                          <Link
-                            key={subItem.label}
-                            to={subItem.href}
-                            onClick={() => {
-                              setOpenDropdown(null);
-                              setMobileMenuOpen(false);
-                            }}
-                            className="block rounded-lg px-3 py-2 text-[14px] font-semibold text-[#100c08]/80 hover:bg-slate-50 hover:text-[#0b84d8] transition-colors"
-                          >
-                            {subItem.label}
-                          </Link>
-                        ))}
+                        {item.dropdownItems.map((subItem) => {
+                          const subActive = isPathActive(subItem.href);
+                          return (
+                            <Link
+                              key={subItem.label}
+                              to={subItem.href}
+                              onClick={() => {
+                                setOpenDropdown(null);
+                                setMobileMenuOpen(false);
+                              }}
+                              className={`block rounded-lg px-3 py-2 text-[14px] font-semibold transition-colors ${subActive
+                                ? "bg-[#0b84d8]/10 text-[#0b84d8]"
+                                : "text-[#100c08]/80 hover:bg-slate-50 hover:text-[#0b84d8]"
+                                }`}
+                            >
+                              {subItem.label}
+                            </Link>
+                          );
+                        })}
                       </div>
                     </div>
                   </div>
                 );
               }
 
+              const linkActive = isPathActive(item.href);
               return (
                 <Link
                   key={item.label}
                   to={item.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center justify-between rounded-lg px-4 py-3 text-[15px] font-semibold text-[#100c08] transition-all hover:bg-slate-50 hover:text-[#0b84d8] group"
+                  className={`flex items-center justify-between rounded-lg px-4 py-3 text-[15px] font-semibold transition-all group ${linkActive
+                    ? "bg-[#0b84d8]/10 text-[#0b84d8]"
+                    : "text-[#100c08] hover:bg-slate-50 hover:text-[#0b84d8]"
+                    }`}
                 >
                   <span>{item.label}</span>
                   <span className="opacity-0 -translate-x-2 text-[#0b84d8] transition-all group-hover:opacity-100 group-hover:translate-x-0">

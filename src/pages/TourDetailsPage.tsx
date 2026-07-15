@@ -240,8 +240,8 @@ export default function TourDetailsPage() {
 
   if (!tour || !detail) {
     return (
-      <main className="flex min-h-[70vh] flex-col items-center justify-center bg-white px-5 text-center">
-        <h1 className="text-3xl font-black text-[#09255b]">
+      <main className="flex min-h-[70vh] flex-col items-center justify-center bg-white px-5 text-center font-jost">
+        <h1 className="text-3xl font-black text-[#09255b] font-rubik">
           Tour Package Not Found
         </h1>
 
@@ -275,7 +275,7 @@ export default function TourDetailsPage() {
 
         <div className="relative mx-auto flex min-h-[570px] max-w-[1320px] flex-col px-5 pb-20 pt-7 sm:px-8 lg:min-h-[620px] lg:px-10 lg:pb-24">
           {/* Top Row */}
-          <div className="flex items-start justify-between gap-6 font-rubik">
+          <div className="flex items-start justify-between gap-6 font-jost">
             <nav className="flex flex-wrap items-center gap-2 text-sm font-medium text-white">
               <Link
                 to="/"
@@ -323,7 +323,7 @@ export default function TourDetailsPage() {
 
             <div className="mt-5 h-1.5 w-20 rounded-full bg-[#ffb400]" />
 
-            <p className="mt-6 max-w-xl text-base leading-7 text-white/90 md:text-lg">
+            <p className="mt-6 max-w-xl text-base leading-7 text-white/90 md:text-lg font-jost">
               {detail.about}
             </p>
 
@@ -357,7 +357,7 @@ export default function TourDetailsPage() {
             <section>
               <SectionHeading title="About This Tour" />
 
-              <p className="max-w-3xl text-[15px] leading-8 text-slate-600 md:text-base">
+              <p className="max-w-3xl text-[15px] leading-8 text-slate-600 md:text-base font-jost">
                 {detail.about}
               </p>
             </section>
@@ -381,11 +381,11 @@ export default function TourDetailsPage() {
                         </div>
 
                         <div>
-                          <h3 className="text-sm font-black text-[#09255b] font-rubik">
+                          <h3 className="text-[15.5px] font-black text-[#09255b] font-rubik">
                             {item.title}
                           </h3>
 
-                          <p className="mt-1.5 text-xs leading-5 text-slate-600">
+                          <p className="mt-1.5 text-[13px] leading-relaxed text-slate-600 font-jost">
                             {item.description}
                           </p>
                         </div>
@@ -450,11 +450,11 @@ export default function TourDetailsPage() {
                     </div>
 
                     <div className="p-4">
-                      <h3 className="font-black text-[#09255b] font-rubik">
+                      <h3 className="text-lg font-black text-[#09255b] font-rubik">
                         {place.name}
                       </h3>
 
-                      <p className="mt-2 line-clamp-3 text-xs leading-5 text-slate-600">
+                      <p className="mt-2 line-clamp-3 text-[13.5px] leading-relaxed text-slate-600 font-jost">
                         {place.description}
                       </p>
                     </div>
@@ -583,7 +583,7 @@ export default function TourDetailsPage() {
                       {highlight.title}
                     </h3>
 
-                    <p className="mt-1 text-xs leading-5 text-slate-600">
+                    <p className="mt-1 text-xs leading-5 text-slate-600 font-jost">
                       {highlight.description}
                     </p>
                   </div>
@@ -678,7 +678,7 @@ function BookingForm({
               Enquiry Submitted
             </h2>
 
-            <p className="mt-3 text-sm leading-6 text-slate-600">
+            <p className="mt-3 text-sm leading-6 text-slate-600 font-jost">
               Thank you for enquiring about the {tourName} tour.
               Our travel executive will contact you shortly.
             </p>
@@ -711,7 +711,7 @@ function BookingForm({
                     onChange("fullName", event.target.value)
                   }
                   placeholder="Enter your full name"
-                  className="h-12 w-full bg-transparent text-sm text-slate-800 outline-none placeholder:text-slate-400"
+                  className="h-12 w-full bg-transparent text-sm text-slate-800 outline-none placeholder:text-slate-400 font-jost"
                 />
               </BookingField>
 
@@ -728,7 +728,7 @@ function BookingForm({
                     onChange("mobile", event.target.value)
                   }
                   placeholder="Enter your mobile number"
-                  className="h-12 w-full bg-transparent text-sm text-slate-800 outline-none placeholder:text-slate-400"
+                  className="h-12 w-full bg-transparent text-sm text-slate-800 outline-none placeholder:text-slate-400 font-jost"
                 />
               </BookingField>
 
@@ -744,7 +744,7 @@ function BookingForm({
                     onChange("email", event.target.value)
                   }
                   placeholder="Enter your email address"
-                  className="h-12 w-full bg-transparent text-sm text-slate-800 outline-none placeholder:text-slate-400"
+                  className="h-12 w-full bg-transparent text-sm text-slate-800 outline-none placeholder:text-slate-400 font-jost"
                 />
               </BookingField>
 
@@ -759,7 +759,7 @@ function BookingForm({
                   onChange={(event) =>
                     onChange("travelDate", event.target.value)
                   }
-                  className="h-12 w-full bg-transparent text-sm text-slate-700 outline-none"
+                  className="h-12 w-full bg-transparent text-sm text-slate-700 outline-none font-jost"
                 />
               </BookingField>
 
@@ -772,7 +772,7 @@ function BookingForm({
                   onChange={(event) =>
                     onChange("travelers", event.target.value)
                   }
-                  className="h-12 w-full cursor-pointer bg-transparent text-sm text-slate-700 outline-none"
+                  className="h-12 w-full cursor-pointer bg-transparent text-sm text-slate-700 outline-none font-jost"
                 >
                   {Array.from(
                     { length: 10 },
@@ -793,7 +793,7 @@ function BookingForm({
               </button>
             </form>
 
-            <p className="mt-5 flex items-center justify-center gap-2 text-xs font-medium text-slate-500">
+            <p className="mt-5 flex items-center justify-center gap-2 text-xs font-medium text-slate-500 font-jost">
               <ShieldCheck size={17} className="text-[#0874cb]" />
               Your details are safe with us
             </p>

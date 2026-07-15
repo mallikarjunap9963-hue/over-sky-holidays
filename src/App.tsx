@@ -15,6 +15,8 @@ import { BlogDetailsPage } from "./pages/BlogDetailsPage";
 import { Contact } from "./pages/Contact";
 import TourDetailsPage from "./pages/TourDetailsPage";
 import { ServicePage } from "./pages/ServicePage";
+import { DomesticToursPage } from "./pages/DomesticToursPage";
+import { InternationalToursPage } from "./pages/InternationalToursPage";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -39,6 +41,8 @@ export default function App() {
           <Route path="/" element={<Home />} />
           <Route path="/tour/:type/:id" element={<TourDetailsPage />} />
           <Route path="/tour-details/:id" element={<TourDetailsPage />} />
+          <Route path="/tours/domestic" element={<DomesticToursPage />} />
+          <Route path="/tours/international" element={<InternationalToursPage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/blogs" element={<BlogsPage />} />
           <Route path="/blogs/:id" element={<BlogDetailsPage />} />

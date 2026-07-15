@@ -121,7 +121,7 @@ export function EliteTouristAttractions() {
           </ScrollReveal>
 
           {/* Destination tabs */}
-          <ScrollReveal variant="fade-in-up" delay={200} duration={1300} className="mx-auto mt-12 grid max-w-[850px] overflow-hidden rounded-[8px] border border-slate-200 bg-white grid-cols-2 sm:grid-cols-4 font-rubik">
+          <ScrollReveal variant="fade-in-up" delay={200} duration={1300} className="mx-auto mt-12 grid max-w-[450px] overflow-hidden rounded-[8px] border border-slate-200 bg-white grid-cols-2 sm:grid-cols-2 font-rubik">
             {attractionTabs.map((tab) => {
               const isActive = activeAttractionTab === tab.name;
 
@@ -243,12 +243,12 @@ export function EliteTouristAttractions() {
             </div>
 
             <div className="text-center">
-              <a
-                href="#tours"
-                className="btn-primary rounded-full min-h-[52px] px-9 text-[14px] font-bold shadow-[0_12px_28px_rgba(11,132,216,0.25)]"
+              <Link
+                to={activeAttractionTab === "Domestic" ? "/tours/domestic" : "/tours/international"}
+                className="btn-primary rounded-full min-h-[52px] px-9 text-[14px] font-bold shadow-[0_12px_28px_rgba(11,132,216,0.25)] inline-flex items-center justify-center"
               >
                 View All Packages
-              </a>
+              </Link>
             </div>
 
             <div className="flex justify-center sm:justify-end">

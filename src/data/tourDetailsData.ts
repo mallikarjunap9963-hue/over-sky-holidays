@@ -85,8 +85,8 @@ export const handcraftedTourDetails: Record<string, TourDetailInfo> = {
       "Personal expenses (tips, laundry, shopping)"
     ],
     hotels: [
-      { name: "Volcano View Hotel", location: "Santorini Cliffside", rating: 5, image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=400&q=80", tags: ["Caldera View", "Infinity Pool", "5-Star Luxury"] },
-      { name: "Astro Palace Hotel & Suites", location: "Fira, Santorini", rating: 4, image: "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=400&q=80", tags: ["Close to Fira", "Spa Resort", "Elegant Suites"] }
+      { name: "Volcano View Hotel", location: "Santorini Cliffside", rating: 5, image: commonsImage("Santorini caldera Greece.jpg"), tags: ["Caldera View", "Infinity Pool", "5-Star Luxury"] },
+      { name: "Astro Palace Hotel & Suites", location: "Fira, Santorini", rating: 4, image: commonsImage("Fira Santorini Greece.jpg"), tags: ["Close to Fira", "Spa Resort", "Elegant Suites"] }
     ],
     gallery: [
       "https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?auto=format&fit=crop&w=500&q=80",
@@ -113,9 +113,9 @@ export const handcraftedTourDetails: Record<string, TourDetailInfo> = {
       { icon: "Vibrant Nightlife", label: "Sunset Cruise" }
     ],
     highlights: [
-      { title: "Baga Beach", image: "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=400&q=80" },
-      { title: "Basilica of Bom Jesus", image: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=400&q=80" },
-      { title: "Dudhsagar Falls", image: "https://images.unsplash.com/photo-1614082242765-7c98ca0f3df3?auto=format&fit=crop&w=400&q=80" },
+      { title: "Baga Beach", image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=400&q=80" },
+      { title: "Basilica of Bom Jesus", image: "https://images.unsplash.com/photo-1610116306796-6fea9f4fae38?auto=format&fit=crop&w=400&q=80" },
+      { title: "Dudhsagar Falls", image: "https://images.unsplash.com/photo-1627857211119-be8f1f7ec62f?auto=format&fit=crop&w=400&q=80" },
       { title: "Spice Plantation", image: "https://images.unsplash.com/photo-1599940824399-b87987ceb72a?auto=format&fit=crop&w=400&q=80" }
     ],
     bestTime: "Nov - Feb",
@@ -124,9 +124,9 @@ export const handcraftedTourDetails: Record<string, TourDetailInfo> = {
     reviewsCount: 84,
     happyTravelers: "220+ Happy Travelers",
     itinerary: [
-      { day: 1, title: "Arrival in Goa", description: "Arrive in Goa via Flight/Train. Meet our representative and transfer to your pre-booked resort near North Goa. Spend the rest of the day at leisure, relaxing on Calangute beach.", image: "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=600&q=80", points: ["Airport/Station Pick-up", "Hotel Check-in", "Evening Beach Stroll", "Leisure Time"] },
-      { day: 2, title: "North Goa Sightseeing", description: "After breakfast, embark on a full-day tour of North Goa. Visit the historic Fort Aguada, Coco Beach, Calangute Beach, Baga Beach, and Anjuna Beach. Enjoy water activities at your own cost.", image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80", points: ["Fort Aguada Visit", "Baga & Calangute Beaches", "Anjuna Flea Market", "Sunset View"] },
-      { day: 3, title: "South Goa & Heritage Tour", description: "Explore the quiet side of Goa. Visit the Basilica of Bom Jesus, Se Cathedral, Mangueshi Temple, and Miramar Beach. End the day with a romantic Mandovi River boat cruise.", image: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=600&q=80", points: ["UNESCO Old Churches", "Mangueshi Temple", "Miramar Beach Walk", "Mandovi River Cruise"] },
+      { day: 1, title: "Arrival in Goa", description: "Arrive in Goa via Flight/Train. Meet our representative and transfer to your pre-booked resort near North Goa. Spend the rest of the day at leisure, relaxing on Calangute beach.", image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80", points: ["Airport/Station Pick-up", "Hotel Check-in", "Evening Beach Stroll", "Leisure Time"] },
+      { day: 2, title: "North Goa Sightseeing", description: "After breakfast, embark on a full-day tour of North Goa. Visit the historic Fort Aguada, Coco Beach, Calangute Beach, Baga Beach, and Anjuna Beach. Enjoy water activities at your own cost.", image: "https://images.unsplash.com/photo-1540202404-a2f29016b523?auto=format&fit=crop&w=600&q=80", points: ["Fort Aguada Visit", "Baga & Calangute Beaches", "Anjuna Flea Market", "Sunset View"] },
+      { day: 3, title: "South Goa & Heritage Tour", description: "Explore the quiet side of Goa. Visit the Basilica of Bom Jesus, Se Cathedral, Mangueshi Temple, and Miramar Beach. End the day with a romantic Mandovi River boat cruise.", image: "https://images.unsplash.com/photo-1610116306796-6fea9f4fae38?auto=format&fit=crop&w=600&q=80", points: ["UNESCO Old Churches", "Mangueshi Temple", "Miramar Beach Walk", "Mandovi River Cruise"] },
       { day: 4, title: "Departure", description: "Check out from your hotel after breakfast. Transfer to the Goa airport or railway station for your onward journey.", image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=600&q=80", points: ["Buffet Breakfast", "Hotel Checkout", "Airport Transfer", "Departing Memories"] }
     ],
     inclusions: [
@@ -143,14 +143,14 @@ export const handcraftedTourDetails: Record<string, TourDetailInfo> = {
       "Personal expenses (laundry, shopping, tips)"
     ],
     hotels: [
-      { name: "La Calypso Resort", location: "Baga Beach, Goa", rating: 4, image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=400&q=80", tags: ["Beachfront", "Swimming Pool", "Family Friendly"] },
-      { name: "De Alturas Resort", location: "Candolim, Goa", rating: 4, image: "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=400&q=80", tags: ["Premium Stay", "Spa", "Excellent Location"] }
+      { name: "La Calypso Resort", location: "Baga Beach, Goa", rating: 4, image: commonsImage("Baga Beach, Goa.jpg"), tags: ["Beachfront", "Swimming Pool", "Family Friendly"] },
+      { name: "De Alturas Resort", location: "Candolim, Goa", rating: 4, image: commonsImage("Fort Aguada, Goa.jpg"), tags: ["Premium Stay", "Spa", "Excellent Location"] }
     ],
     gallery: [
-      "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=500&q=80",
-      "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=500&q=80",
       "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=500&q=80",
-      "https://images.unsplash.com/photo-1614082242765-7c98ca0f3df3?auto=format&fit=crop&w=500&q=80"
+      "https://images.unsplash.com/photo-1610116306796-6fea9f4fae38?auto=format&fit=crop&w=500&q=80",
+      "https://images.unsplash.com/photo-1540202404-a2f29016b523?auto=format&fit=crop&w=500&q=80",
+      "https://images.unsplash.com/photo-1627857211119-be8f1f7ec62f?auto=format&fit=crop&w=500&q=80"
     ],
     faqs: [
       { question: "Is Goa safe for solo travelers?", answer: "Yes, Goa is widely considered one of the safest destinations in India for solo and female travelers, with helpful locals and police presence near tourist sites." },
@@ -200,8 +200,8 @@ export const handcraftedTourDetails: Record<string, TourDetailInfo> = {
       "Personal tips and laundry expenses"
     ],
     hotels: [
-      { name: "Munnar Tea Country Resort", location: "Munnar, Kerala", rating: 4, image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=400&q=80", tags: ["Valley Views", "Tea Estate", "Family Resort"] },
-      { name: "Abad Whispering Palms", location: "Kumarakom, Kerala", rating: 4, image: "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=400&q=80", tags: ["Lake Facing", "Infinity Pool", "Ayurvedic Spa"] }
+      { name: "Munnar Tea Country Resort", location: "Munnar, Kerala", rating: 4, image: commonsImage("Tea plantation in Munnar.jpg"), tags: ["Valley Views", "Tea Estate", "Family Resort"] },
+      { name: "Abad Whispering Palms", location: "Kumarakom, Kerala", rating: 4, image: commonsImage("Houseboat in Kerala Backwaters.jpg"), tags: ["Lake Facing", "Infinity Pool", "Ayurvedic Spa"] }
     ],
     gallery: [
       "https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&w=500&q=80",
@@ -220,6 +220,355 @@ export const handcraftedTourDetails: Record<string, TourDetailInfo> = {
 handcraftedTourDetails["packages-3"] = handcraftedTourDetails["domestic-1"]; // Kerala package in Packages tab
 handcraftedTourDetails["domestic-3"] = handcraftedTourDetails["packages-1"]; // Goa package in Domestic tab
 
+
+/**
+ * Creates a direct, resizeable Wikimedia Commons image URL.
+ *
+ * These URLs point to named real-location photographs rather than random
+ * keyword images. Wikimedia may redirect the URL to the current CDN file.
+ */
+function commonsImage(fileName: string, width = 1200): string {
+  return `https://commons.wikimedia.org/wiki/Special:FilePath/${encodeURIComponent(
+    fileName
+  )}?width=${width}`;
+}
+
+const destinationImageSets: Array<{
+  matches: string[];
+  images: string[];
+}> = [
+    {
+      // Keep Ooty separate from Mysore so no Mysore or generic hill image
+      // is ever shown inside an Ooty package.
+      matches: ["ooty", "udhagamandalam", "ootacamund", "nilgiri"],
+      images: [
+        commonsImage("Ooty lake.jpg"),
+        commonsImage("The Nilgiri Mountain Railway.jpg"),
+        commonsImage("Government Botanical Garden Ooty India.jpg"),
+        commonsImage("Doddabetta-Peak.jpg"),
+        commonsImage("Pykara lake1.jpg"),
+        commonsImage("Avalanche lake.jpg"),
+        commonsImage("Another Tea Plantation (15302467908).jpg"),
+        commonsImage("Ooty Emerald Lake 01.jpg")
+      ]
+    },
+    {
+      matches: ["mysore", "mysuru"],
+      images: [
+        commonsImage("Mysore Palace Morning.jpg"),
+        commonsImage("Mysore Palace at Night.jpg"),
+        commonsImage("Brindavan Gardens.JPG"),
+        commonsImage("Chamundeshwari Temple atop Chamundi Hills.jpg"),
+        commonsImage("St. Philomena's Cathedral, Mysore.jpg")
+      ]
+    },
+    {
+      matches: ["goa"],
+      images: [
+        commonsImage("Calangute beach, Goa.jpg"),
+        commonsImage("Baga Beach, Goa.jpg"),
+        commonsImage("Fort Aguada, Goa.jpg"),
+        commonsImage("Basilica of Bom Jesus, Goa.jpg"),
+        commonsImage("Dudhsagar Falls Goa.jpg")
+      ]
+    },
+    {
+      matches: ["manali"],
+      images: [
+        commonsImage("Manali, Himachal Pradesh.jpg"),
+        commonsImage("Solang Valley Manali.jpg"),
+        commonsImage("Hidimba Devi Temple Manali.jpg"),
+        commonsImage("Rohtang Pass.jpg"),
+        commonsImage("Beas River in Manali.jpg")
+      ]
+    },
+    {
+      matches: ["shimla"],
+      images: [
+        commonsImage("Shimla cityscape.jpg"),
+        commonsImage("The Ridge Shimla.jpg"),
+        commonsImage("Christ Church Shimla.jpg"),
+        commonsImage("Kalka Shimla Railway.jpg"),
+        commonsImage("Mall Road Shimla.jpg")
+      ]
+    },
+    {
+      matches: ["kerala", "munnar", "alleppey", "alappuzha", "thekkady"],
+      images: [
+        commonsImage("Tea plantation in Munnar.jpg"),
+        commonsImage("Houseboat in Kerala Backwaters.jpg"),
+        commonsImage("Periyar Lake, Thekkady.jpg"),
+        commonsImage("Chinese fishing nets Kochi.jpg"),
+        commonsImage("Munnar landscape.jpg")
+      ]
+    },
+    {
+      matches: ["delhi"],
+      images: [
+        commonsImage("India Gate in New Delhi at Night.jpg"),
+        commonsImage("Red Fort in Delhi 03-2016 img3.jpg"),
+        commonsImage("Qutb Minar, Delhi.jpg"),
+        commonsImage("Humayun's Tomb, Delhi, India.jpg"),
+        commonsImage("Lotus Temple in New Delhi 03-2016.jpg")
+      ]
+    },
+    {
+      matches: ["agra", "taj mahal"],
+      images: [
+        commonsImage("Taj Mahal, Agra, India edit3.jpg"),
+        commonsImage("Agra Fort, India.jpg"),
+        commonsImage("Itmad-Ud-Daulah's Tomb, Agra.jpg"),
+        commonsImage("Mehtab Bagh, Agra.jpg"),
+        commonsImage("Taj Mahal from Mehtab Bagh.jpg")
+      ]
+    },
+    {
+      matches: ["nainital"],
+      images: [
+        commonsImage("Nainital lake.jpg"),
+        commonsImage("Naini Lake, Nainital.jpg"),
+        commonsImage("Naina Devi Temple Nainital.jpg"),
+        commonsImage("Snow View Nainital.jpg"),
+        commonsImage("Nainital town.jpg")
+      ]
+    },
+    {
+      matches: ["kashmir", "srinagar", "gulmarg", "pahalgam", "sonmarg"],
+      images: [
+        commonsImage("Dal Lake Srinagar Kashmir India.jpg"),
+        commonsImage("Gulmarg Kashmir.jpg"),
+        commonsImage("Pahalgam Valley.jpg"),
+        commonsImage("Sonamarg Kashmir.jpg"),
+        commonsImage("Shalimar Bagh Srinagar.jpg")
+      ]
+    },
+    {
+      matches: ["meghalaya", "shillong", "cherrapunji", "sohra"],
+      images: [
+        commonsImage("Nohkalikai Falls Cherrapunjee.jpg"),
+        commonsImage("Living root bridge Meghalaya.jpg"),
+        commonsImage("Umiam Lake Meghalaya.jpg"),
+        commonsImage("Elephant Falls Shillong.jpg"),
+        commonsImage("Dawki River Meghalaya.jpg")
+      ]
+    },
+    {
+      matches: ["rajasthan", "jaipur", "udaipur", "jaisalmer", "jodhpur"],
+      images: [
+        commonsImage("Hawa Mahal 2011.jpg"),
+        commonsImage("Amber Fort Jaipur.jpg"),
+        commonsImage("City Palace Udaipur.jpg"),
+        commonsImage("Jaisalmer Fort Rajasthan.jpg"),
+        commonsImage("Mehrangarh Fort Jodhpur.jpg")
+      ]
+    },
+    {
+      matches: ["kodaikanal"],
+      images: [
+        commonsImage("Kodaikanal Lake.jpg"),
+        commonsImage("Pillar Rocks Kodaikanal.jpg"),
+        commonsImage("Coaker's Walk Kodaikanal.jpg"),
+        commonsImage("Silver Cascade Falls Kodaikanal.jpg"),
+        commonsImage("Kodaikanal landscape.jpg")
+      ]
+    },
+    {
+      matches: ["darjeeling"],
+      images: [
+        commonsImage("Darjeeling town.jpg"),
+        commonsImage("Darjeeling Himalayan Railway.jpg"),
+        commonsImage("Tiger Hill Darjeeling.jpg"),
+        commonsImage("Tea garden Darjeeling.jpg"),
+        commonsImage("Batasia Loop Darjeeling.jpg")
+      ]
+    },
+    {
+      matches: ["andaman", "havelock", "swaraj dweep"],
+      images: [
+        commonsImage("Radhanagar beach, Havelock Island.jpg"),
+        commonsImage("Cellular Jail Andaman.jpg"),
+        commonsImage("Ross Island Andaman.jpg"),
+        commonsImage("Elephant Beach Havelock.jpg"),
+        commonsImage("Andaman Islands beach.jpg")
+      ]
+    },
+    {
+      matches: ["kedarnath"],
+      images: [
+        commonsImage("Kedarnath Temple in Uttarakhand.jpg"),
+        commonsImage("Kedarnath Valley.jpg"),
+        commonsImage("Kedarnath Temple and mountain.jpg"),
+        commonsImage("Mandakini River Kedarnath.jpg")
+      ]
+    },
+    {
+      matches: ["badrinath"],
+      images: [
+        commonsImage("Badrinath Temple Uttarakhand.jpg"),
+        commonsImage("Badrinath town.jpg"),
+        commonsImage("Neelkanth peak Badrinath.jpg"),
+        commonsImage("Alaknanda River Badrinath.jpg")
+      ]
+    },
+    {
+      matches: ["rishikesh"],
+      images: [
+        commonsImage("Lakshman Jhula Rishikesh.jpg"),
+        commonsImage("Ganga river at Rishikesh.jpg"),
+        commonsImage("Triveni Ghat Rishikesh.jpg"),
+        commonsImage("River rafting Rishikesh.jpg")
+      ]
+    },
+    {
+      matches: ["tirupati", "tirupathi"],
+      images: [
+        commonsImage("Tirumala Venkateswara Temple.jpg"),
+        commonsImage("Tirumala hills.jpg"),
+        commonsImage("Srivari Padalu Tirumala.jpg"),
+        commonsImage("Kapila Theertham Tirupati.jpg")
+      ]
+    },
+    {
+      matches: ["dubai"],
+      images: [
+        commonsImage("Burj Khalifa Dubai.jpg"),
+        commonsImage("Palm Jumeirah Dubai.jpg"),
+        commonsImage("Dubai Marina Skyline.jpg"),
+        commonsImage("Dubai desert safari.jpg"),
+        commonsImage("Museum of the Future Dubai.jpg")
+      ]
+    },
+    {
+      matches: ["singapore"],
+      images: [
+        commonsImage("Marina Bay Sands Singapore.jpg"),
+        commonsImage("Gardens by the Bay Supertree Grove.jpg"),
+        commonsImage("Merlion Singapore.jpg"),
+        commonsImage("Sentosa Singapore.jpg"),
+        commonsImage("Singapore skyline at night.jpg")
+      ]
+    },
+    {
+      matches: ["malaysia", "kuala lumpur"],
+      images: [
+        commonsImage("Petronas Twin Towers 2010.jpg"),
+        commonsImage("Batu Caves Malaysia.jpg"),
+        commonsImage("Langkawi Sky Bridge.jpg"),
+        commonsImage("Kuala Lumpur skyline.jpg"),
+        commonsImage("Putra Mosque Putrajaya.jpg")
+      ]
+    },
+    {
+      matches: ["bangkok"],
+      images: [
+        commonsImage("Wat Arun Bangkok Thailand.jpg"),
+        commonsImage("Grand Palace Bangkok.jpg"),
+        commonsImage("Wat Pho Bangkok.jpg"),
+        commonsImage("Bangkok skyline.jpg"),
+        commonsImage("Chao Phraya River Bangkok.jpg")
+      ]
+    },
+    {
+      matches: ["pattaya"],
+      images: [
+        commonsImage("Pattaya beach Thailand.jpg"),
+        commonsImage("Sanctuary of Truth Pattaya.jpg"),
+        commonsImage("Koh Larn Pattaya.jpg"),
+        commonsImage("Pattaya city Thailand.jpg")
+      ]
+    },
+    {
+      matches: ["phuket"],
+      images: [
+        commonsImage("Patong Beach Phuket.jpg"),
+        commonsImage("Phang Nga Bay Thailand.jpg"),
+        commonsImage("Big Buddha Phuket.jpg"),
+        commonsImage("Phi Phi Islands Thailand.jpg")
+      ]
+    },
+    {
+      matches: ["nepal", "kathmandu", "pokhara"],
+      images: [
+        commonsImage("Pashupatinath Temple Kathmandu.jpg"),
+        commonsImage("Boudhanath Stupa Kathmandu Nepal.jpg"),
+        commonsImage("Phewa Lake Pokhara.jpg"),
+        commonsImage("Annapurna range from Pokhara.jpg"),
+        commonsImage("Kathmandu Durbar Square.jpg")
+      ]
+    },
+    {
+      matches: ["bhutan", "paro", "thimphu"],
+      images: [
+        commonsImage("Paro Taktsang Bhutan.jpg"),
+        commonsImage("Punakha Dzong Bhutan.jpg"),
+        commonsImage("Tashichho Dzong Thimphu.jpg"),
+        commonsImage("Dochula Pass Bhutan.jpg"),
+        commonsImage("Buddha Dordenma Bhutan.jpg")
+      ]
+    },
+    {
+      matches: ["maldives"],
+      images: [
+        commonsImage("Maldives beach.jpg"),
+        commonsImage("Water villas in Maldives.jpg"),
+        commonsImage("Maldives aerial view.jpg"),
+        commonsImage("Coral reef Maldives.jpg"),
+        commonsImage("Maldives sunset.jpg")
+      ]
+    },
+    {
+      matches: ["bali"],
+      images: [
+        commonsImage("Tanah Lot Bali Indonesia.jpg"),
+        commonsImage("Tegallalang Rice Terrace Bali.jpg"),
+        commonsImage("Ulun Danu Beratan Temple Bali.jpg"),
+        commonsImage("Uluwatu Temple Bali.jpg"),
+        commonsImage("Kuta Beach Bali.jpg")
+      ]
+    },
+    {
+      matches: ["sri lanka", "colombo", "kandy", "ella"],
+      images: [
+        commonsImage("Sigiriya Sri Lanka.jpg"),
+        commonsImage("Temple of the Tooth Kandy.jpg"),
+        commonsImage("Nine Arches Bridge Sri Lanka.jpg"),
+        commonsImage("Galle Fort Sri Lanka.jpg"),
+        commonsImage("Sri Lanka beach.jpg")
+      ]
+    },
+    {
+      matches: ["santorini"],
+      images: [
+        commonsImage("Oia Santorini Greece.jpg"),
+        commonsImage("Blue domed church in Oia, Santorini.jpg"),
+        commonsImage("Red Beach Santorini.jpg"),
+        commonsImage("Santorini caldera Greece.jpg"),
+        commonsImage("Fira Santorini Greece.jpg")
+      ]
+    }
+  ];
+
+function getDestinationImages(title: string): string[] {
+  const normalizedTitle = title.toLowerCase().trim();
+
+  const destination = destinationImageSets.find(({ matches }) =>
+    matches.some((place) => normalizedTitle.includes(place))
+  );
+
+  if (destination) {
+    return destination.images;
+  }
+
+  // Unknown destinations intentionally use travel-neutral photographs.
+  // Add a dedicated entry above whenever a new package is introduced.
+  return [
+    commonsImage("World map blank without borders.svg"),
+    commonsImage("Airplane wing over clouds.jpg"),
+    commonsImage("Travel luggage.jpg"),
+    commonsImage("Tourist information sign.jpg")
+  ];
+}
+
 // Fallback high-quality data generator
 export function getTourDetailInfo(
   type: string,
@@ -232,7 +581,7 @@ export function getTourDetailInfo(
   imageStr: string
 ): TourDetailInfo {
   const key = `${type.toLowerCase()}-${id}`;
-  
+
   if (handcraftedTourDetails[key]) {
     return handcraftedTourDetails[key];
   }
@@ -242,7 +591,6 @@ export function getTourDetailInfo(
   const numMatch = durationStr.match(/(\d+)\s*(days|nights|day|night)/i);
   if (numMatch) {
     daysCount = parseInt(numMatch[1], 10);
-    // If it is 5 Nights / 6 Days, let's look for larger number
     const numbers = durationStr.match(/\d+/g);
     if (numbers && numbers.length > 0) {
       daysCount = Math.max(...numbers.map(n => parseInt(n, 10)));
@@ -252,6 +600,7 @@ export function getTourDetailInfo(
   // Set default details based on place
   const title = tourTitle.split('.')[0]; // remove trailing full stop
   const finalTitle = title.includes("Discover") || title.includes("Explore") ? title : `Discover ${title}`;
+  const destImages = getDestinationImages(tourTitle);
 
   // Itinerary generation
   const itinerary: ItineraryDay[] = [];
@@ -261,7 +610,7 @@ export function getTourDetailInfo(
         day: i,
         title: `Arrival at ${tourLocations[0] || country}`,
         description: `Arrive and meet our representative. Transfer to your premium hotel/resort in ${tourLocations[0] || country}. Rest and relax for the evening, adjusting to the beautiful climate.`,
-        image: imageStr,
+        image: destImages[0],
         points: ["Meet & Greet", "Transfer to Hotel", "Welcome Drinks", "Evening at Leisure"]
       });
     } else if (i === daysCount) {
@@ -269,7 +618,7 @@ export function getTourDetailInfo(
         day: i,
         title: `Departure from ${tourLocations[tourLocations.length - 1] || country}`,
         description: `Enjoy a delicious buffet breakfast at your hotel. Do some last-minute shopping and souvenir collection. Check out and transfer to the airport or station for your return journey home.`,
-        image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=600&q=80",
+        image: destImages[(daysCount - 1) % destImages.length],
         points: ["Breakfast at Hotel", "Souvenir Shopping", "Airport/Station Drop", "End of Open Sky Tour"]
       });
     } else {
@@ -278,7 +627,7 @@ export function getTourDetailInfo(
         day: i,
         title: `Explore ${loc}`,
         description: `A full day of sightseeing in and around ${loc}. Experience the scenic landscapes, local history, and cultural attractions. Capture memories, try local cuisines, and shop in traditional street markets.`,
-        image: i % 2 === 0 ? "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=600&q=80" : "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80",
+        image: destImages[i % destImages.length],
         points: [`Guided tours in ${loc}`, "Historical sights visit", "Photography and local walks", "Local restaurant lunch"]
       });
     }
@@ -287,7 +636,7 @@ export function getTourDetailInfo(
   // Highlights generation
   const highlights: TourHighlight[] = tourLocations.map((loc, idx) => ({
     title: loc,
-    image: idx % 2 === 0 ? "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=400&q=80" : "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=400&q=80"
+    image: destImages[idx % destImages.length]
   }));
 
   // Features based on domestic vs international
@@ -299,49 +648,49 @@ export function getTourDetailInfo(
     { icon: "Photography", label: "Scenic Photo Spots" }
   ];
 
-  const isInternational = type.toLowerCase() === 'international' || 
-                          type.toLowerCase() === 'islands' || 
-                          (country && country.toUpperCase() !== 'INDIA');
+  const isInternational = type.toLowerCase() === 'international' ||
+    type.toLowerCase() === 'islands' ||
+    (country && country.toUpperCase() !== 'INDIA');
 
   const isMaldives = tourTitle.toLowerCase().includes('maldives');
 
   const inclusions = isInternational
     ? [
-        "Accommodation on Twin Sharing Basis",
-        isMaldives ? "4 Star / 5 Star Hotel" : "3 Star / 4 Star Hotel",
-        "All Meals",
-        "Sightseeing",
-        "Airport Pickup & Drop"
-      ]
+      "Accommodation on Twin Sharing Basis",
+      isMaldives ? "4 Star / 5 Star Hotel" : "3 Star / 4 Star Hotel",
+      "All Meals",
+      "Sightseeing",
+      "Airport Pickup & Drop"
+    ]
     : [
-        `${daysCount - 1} Nights accommodation in premium hotels/resorts`,
-        "Daily buffet breakfast at hotels",
-        "Private AC vehicle for all airport/station transfers and sightseeing",
-        "Guided tours for major monuments and attractions mentioned in the itinerary",
-        "All fuel costs, driver allowances, toll gates, and state parking taxes"
-      ];
+      `${daysCount - 1} Nights accommodation in premium hotels/resorts`,
+      "Daily buffet breakfast at hotels",
+      "Private AC vehicle for all airport/station transfers and sightseeing",
+      "Guided tours for major monuments and attractions mentioned in the itinerary",
+      "All fuel costs, driver allowances, toll gates, and state parking taxes"
+    ];
 
   const hotels = isInternational
     ? [
-        { 
-          name: isMaldives ? "Grand Ocean Sands Resort" : "Holiday Inn Executive", 
-          location: tourLocations[0] || country, 
-          rating: isMaldives ? 5 : 4, 
-          image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=400&q=80", 
-          tags: isMaldives ? ["5 Star Resort", "Water Villa", "Infinity Pool"] : ["4 Star Hotel", "City Center", "Free WiFi"] 
-        },
-        { 
-          name: isMaldives ? "Paradise Island Resort" : "Orchid Deluxe Stay", 
-          location: tourLocations[1] || tourLocations[0] || country, 
-          rating: isMaldives ? 5 : 3, 
-          image: "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=400&q=80", 
-          tags: isMaldives ? ["Private Beach", "Spa & Wellness", "All Inclusive"] : ["3 Star Hotel", "Close to Sights", "Eco Friendly"] 
-        }
-      ]
+      {
+        name: isMaldives ? "Grand Ocean Sands Resort" : "Holiday Inn Executive",
+        location: tourLocations[0] || country,
+        rating: isMaldives ? 5 : 4,
+        image: destImages[0],
+        tags: isMaldives ? ["5 Star Resort", "Water Villa", "Infinity Pool"] : ["4 Star Hotel", "City Center", "Free WiFi"]
+      },
+      {
+        name: isMaldives ? "Paradise Island Resort" : "Orchid Deluxe Stay",
+        location: tourLocations[1] || tourLocations[0] || country,
+        rating: isMaldives ? 5 : 3,
+        image: destImages[1 % destImages.length],
+        tags: isMaldives ? ["Private Beach", "Spa & Wellness", "All Inclusive"] : ["3 Star Hotel", "Close to Sights", "Eco Friendly"]
+      }
+    ]
     : [
-        { name: "Grand Vista Resort & Spa", location: tourLocations[0] || country, rating: 4, image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=400&q=80", tags: ["Top Rated", "Infinity Pool", "Free Breakfast"] },
-        { name: "Premium Plaza Residency", location: tourLocations[1] || tourLocations[0] || country, rating: 4, image: "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=400&q=80", tags: ["Modern Stay", "Close to Sights", "Eco Friendly"] }
-      ];
+      { name: "Grand Vista Resort & Spa", location: tourLocations[0] || country, rating: 4, image: destImages[0], tags: ["Top Rated", "Infinity Pool", "Free Breakfast"] },
+      { name: "Premium Plaza Residency", location: tourLocations[1] || tourLocations[0] || country, rating: 4, image: destImages[1 % destImages.length], tags: ["Modern Stay", "Close to Sights", "Eco Friendly"] }
+    ];
 
   return {
     about: `${finalTitle}. This meticulously planned vacation offers the perfect combination of scenery, historical monuments, local shopping, and adventure activities. Over the course of ${durationStr.toLowerCase()}, you'll discover the unique charm of ${tourLocations.join(', ')} with our 24/7 dedicated travel support and comfortable stays.`,
@@ -361,12 +710,7 @@ export function getTourDetailInfo(
       "Expenses of personal nature like laundry, tips, and phone calls"
     ],
     hotels,
-    gallery: [
-      imageStr,
-      "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=500&q=80",
-      "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=500&q=80",
-      "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=500&q=80"
-    ],
+    gallery: [...new Set(destImages)].slice(0, 8),
     faqs: [
       { question: "Is this package suitable for families?", answer: "Yes, all our packages are curated with safety and comfort in mind, making them perfect for families, couples, and group vacations." },
       { question: "Can I choose my own hotel standard?", answer: "Yes! You can request upgrades to 5-star luxury resorts, private villas, or cost-effective budget stays. Contact our trip planner to customize." },
@@ -374,4 +718,3 @@ export function getTourDetailInfo(
     ]
   };
 }
-

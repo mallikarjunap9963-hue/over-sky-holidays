@@ -39,7 +39,7 @@ export type SafetySlide = {
   image: string;
 };
 
-export type AttractionTab = "Domestic" | "International" | "Islands" | "Pilgrimage";
+export type AttractionTab = "Domestic" | "International";
 
 export type AttractionPackage = {
   id: number;

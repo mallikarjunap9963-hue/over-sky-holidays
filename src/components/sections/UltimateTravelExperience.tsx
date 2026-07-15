@@ -189,30 +189,8 @@ export function UltimateTravelExperience() {
                         ))}
                       </div>
 
-                      {/* PRICE AND BUTTON */}
-                      <div className="mt-5 flex items-end justify-between gap-4">
-                        <div>
-                          <p className="text-[11px] font-medium text-slate-500">
-                            Starting From:
-                          </p>
-
-                          <div className="mt-1 flex items-center gap-2">
-                            <p className="font-rubik text-[22px] font-bold leading-none text-[#0b84d8]">
-                              {item.price}
-                            </p>
-
-                            {item.oldPrice && (
-                              <p className="text-[12px] text-slate-400 line-through">
-                                {item.oldPrice}
-                              </p>
-                            )}
-                          </div>
-
-                          <p className="mt-1 text-[9px] font-medium uppercase text-slate-400">
-                            Taxes Incl / Person
-                          </p>
-                        </div>
-
+                      {/* ACTION BUTTON */}
+                      <div className="mt-5 flex items-center justify-end">
                         {isTour ? (
                           <span className="btn-primary min-h-[40px] shrink-0 rounded-[4px] px-4 text-[12px] font-bold text-white">
                             Book A Trip
