@@ -34,61 +34,163 @@ export function BlogDetailsPage() {
 
   return (
     <article className="bg-[#f4f7f9] pb-24">
-      {/* ================= HERO BANNER ================= */}
-      <section className="relative overflow-hidden bg-[#071f36] pt-32 pb-20 lg:pt-40 lg:pb-28">
-        {/* Abstract background pattern on the right (simulated with CSS/SVG) */}
-        <div className="absolute right-0 top-0 bottom-0 w-1/2 opacity-20 pointer-events-none overflow-hidden">
-          <div className="absolute right-10 top-1/2 -translate-y-1/2 grid grid-cols-5 gap-3">
-            {Array.from({ length: 30 }).map((_, i) => (
-              <div key={i} className="w-1.5 h-1.5 bg-white rounded-full opacity-40"></div>
-            ))}
-          </div>
-          <svg className="absolute right-0 top-0 h-full w-full object-cover opacity-30" viewBox="0 0 100 100" preserveAspectRatio="none">
-            <path d="M0 100 C 20 0 50 0 100 100 Z" fill="none" stroke="white" strokeWidth="0.5" />
-          </svg>
+      {/* ================= PROFESSIONAL BREADCRUMB BANNER ================= */}
+      <section
+        id="blog-details-hero"
+        className="relative isolate overflow-hidden bg-[#071f36]"
+      >
+        {/* Background Image */}
+        <div className="absolute inset-0 -z-20">
+          <img
+            src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=2000&q=90"
+            alt={post.title}
+            className="h-full w-full object-cover object-center"
+          />
         </div>
 
-        <div className="relative mx-auto max-w-[1200px] px-5 sm:px-8">
-          <ScrollReveal variant="fade-in-up" duration={800}>
-            {/* Breadcrumb */}
-            <div className="mb-6 flex items-center gap-2 font-jost text-[13px] font-medium text-white/70">
-              <Link to="/" className="hover:text-white transition-colors">Home</Link>
-              <span>›</span>
-              <Link to="/blogs" className="hover:text-white transition-colors">Blogs</Link>
-              <span>›</span>
-              <span className="text-white truncate max-w-[200px] sm:max-w-none">{post.title}</span>
-            </div>
+        {/* Dark Overlay */}
+        <div className="absolute inset-0 -z-10 bg-gradient-to-r from-[#071f36]/95 via-[#071f36]/82 to-[#0b84d8]/45" />
 
-            {/* Title */}
-            <h1 className="font-rubik text-[32px] font-bold leading-[1.2] text-white sm:text-[42px] lg:text-[48px] max-w-[800px]">
-              {post.title}
-            </h1>
+        {/* Bottom Gradient */}
+        <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#071f36]/60 to-transparent" />
 
-            {/* Meta info */}
-            <div className="mt-8 flex flex-wrap items-center gap-6 text-[14px] text-white/90 font-jost font-medium">
-              <span className="flex items-center gap-2">
-                <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2">
-                  <rect x="3" y="4" width="18" height="18" rx="2" />
-                  <path d="M16 2v4M8 2v4M3 10h18" />
-                </svg>
-                {post.date}
-              </span>
-              <span className="flex items-center gap-2">
-                <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-                  <circle cx="12" cy="7" r="4" />
-                </svg>
-                {post.author}
-              </span>
-              <span className="flex items-center gap-2">
-                <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2">
+        {/* Decorative Circle */}
+        <div className="pointer-events-none absolute -right-24 -top-28 h-[340px] w-[340px] rounded-full border border-white/10" />
+        <div className="pointer-events-none absolute -right-10 -top-16 h-[240px] w-[240px] rounded-full border border-white/10" />
+
+        {/* Decorative Dots */}
+        <div className="pointer-events-none absolute right-[8%] top-1/2 hidden -translate-y-1/2 grid-cols-6 gap-3 opacity-20 lg:grid">
+          {Array.from({ length: 36 }).map((_, index) => (
+            <span
+              key={index}
+              className="h-1.5 w-1.5 rounded-full bg-white"
+            />
+          ))}
+        </div>
+
+        <div className="relative mx-auto flex min-h-[220px] max-w-[1320px] items-center px-5 py-10 sm:min-h-[250px] sm:px-8 lg:min-h-[280px] lg:px-10">
+          <ScrollReveal variant="fade-in-up" duration={1000}>
+            <div className="max-w-[800px]">
+              {/* Small Label */}
+              <div className="mb-2 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 backdrop-blur-md">
+                <svg
+                  viewBox="0 0 24 24"
+                  className="h-4 w-4 text-[#fbb03b]"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                >
                   <circle cx="12" cy="12" r="10" />
-                  <path d="M12 6v6l4 2" />
+                  <path d="M12 16v-4" />
+                  <path d="M12 8h.01" />
                 </svg>
-                {post.readTime}
-              </span>
+
+                <span className="font-jost text-[11px] font-bold uppercase tracking-[0.2em] text-white">
+                  Travel Stories
+                </span>
+              </div>
+
+              {/* Page Title */}
+              <h1 className="font-rubik text-[38px] font-black leading-[1.08] text-white sm:text-[48px] lg:text-[58px]">
+                {post.title}
+              </h1>
+
+              {/* Meta info (acting as description) */}
+              <div className="mt-4 flex flex-wrap items-center gap-6 text-[14px] text-white/90 font-jost font-medium">
+                <span className="flex items-center gap-2">
+                  <svg viewBox="0 0 24 24" className="h-4 w-4 text-[#fbb03b]" fill="none" stroke="currentColor" strokeWidth="2">
+                    <rect x="3" y="4" width="18" height="18" rx="2" />
+                    <path d="M16 2v4M8 2v4M3 10h18" />
+                  </svg>
+                  {post.date}
+                </span>
+                <span className="flex items-center gap-2">
+                  <svg viewBox="0 0 24 24" className="h-4 w-4 text-[#fbb03b]" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                    <circle cx="12" cy="7" r="4" />
+                  </svg>
+                  {post.author}
+                </span>
+                <span className="flex items-center gap-2">
+                  <svg viewBox="0 0 24 24" className="h-4 w-4 text-[#fbb03b]" fill="none" stroke="currentColor" strokeWidth="2">
+                    <circle cx="12" cy="12" r="10" />
+                    <path d="M12 6v6l4 2" />
+                  </svg>
+                  {post.readTime}
+                </span>
+              </div>
+
+              {/* Breadcrumb */}
+              <nav
+                aria-label="Breadcrumb"
+                className="mt-6 inline-flex items-center gap-2 rounded-xl border border-white/15 bg-[#071f36]/40 px-4 py-2.5 backdrop-blur-md"
+              >
+                <Link
+                  to="/"
+                  className="flex items-center gap-2 font-jost text-[13px] font-semibold text-white/75 transition-colors duration-300 hover:text-[#fbb03b]"
+                >
+                  <svg
+                    viewBox="0 0 24 24"
+                    className="h-4 w-4 shrink-0"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                  >
+                    <path d="m3 11 9-8 9 8" />
+                    <path d="M5 10v10h14V10" />
+                    <path d="M9 20v-6h6v6" />
+                  </svg>
+
+                  Home
+                </Link>
+
+                <svg
+                  viewBox="0 0 24 24"
+                  className="h-3.5 w-3.5 text-white/35 shrink-0"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                >
+                  <path d="m9 18 6-6-6-6" />
+                </svg>
+
+                <Link
+                  to="/blogs"
+                  className="font-jost text-[13px] font-semibold text-white/75 transition-colors duration-300 hover:text-[#fbb03b]"
+                >
+                  Blogs
+                </Link>
+
+                <svg
+                  viewBox="0 0 24 24"
+                  className="h-3.5 w-3.5 text-white/35 shrink-0"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                >
+                  <path d="m9 18 6-6-6-6" />
+                </svg>
+
+                <span className="font-jost text-[13px] font-semibold text-[#fbb03b] truncate max-w-[120px] sm:max-w-[250px]">
+                  {post.title}
+                </span>
+              </nav>
             </div>
           </ScrollReveal>
+        </div>
+
+        {/* Bottom White Curve */}
+        <div className="absolute -bottom-[1px] left-0 w-full overflow-hidden leading-none">
+          <svg
+            viewBox="0 0 1440 55"
+            preserveAspectRatio="none"
+            className="block h-[30px] w-full sm:h-[42px] lg:h-[55px]"
+          >
+            <path
+              d="M0,36 C260,58 420,3 720,27 C1010,50 1180,5 1440,25 L1440,55 L0,55 Z"
+              fill="#f4f7f9"
+            />
+          </svg>
         </div>
       </section>
 
