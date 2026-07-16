@@ -35,9 +35,9 @@ export function Hero() {
           />
         ))}
 
-        <div className="absolute inset-0 bg-black/[0.46]" />
+        <div className="absolute inset-0 bg-black/[0.30]" />
 
-        <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-black/10" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-black/5" />
 
         <div className="relative z-10 mx-auto flex h-full max-w-[1200px] flex-col items-center justify-center px-5 py-4 pb-10 sm:pb-14 lg:pb-20 text-center sm:px-8 lg:px-10">
           <ScrollReveal variant="fade-in-up" delay={400} duration={1450}>
