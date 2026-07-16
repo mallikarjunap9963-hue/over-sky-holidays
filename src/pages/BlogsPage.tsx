@@ -128,7 +128,7 @@ export function BlogsPage() {
       </section>
 
       {/* Blogs Section */}
-      <Blogs />
+      <Blogs showAll={true} />
     </>
   );
 }

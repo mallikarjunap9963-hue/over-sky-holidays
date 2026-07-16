@@ -75,18 +75,22 @@ export const socialLinks = [
   {
     label: "Facebook",
     icon: <Icons.FacebookIcon />,
+    href: "https://www.facebook.com/openskyholidays",
   },
   {
     label: "X",
     icon: <Icons.XIcon />,
+    href: "https://x.com/openskyholidays",
   },
   {
-    label: "Pinterest",
-    icon: <Icons.PinterestIcon />,
+    label: "WhatsApp",
+    icon: <Icons.WhatsappIcon />,
+    href: "https://wa.me/919908117712",
   },
   {
     label: "Instagram",
     icon: <Icons.InstagramIcon />,
+    href: "https://www.instagram.com/openskyholidays/",
   },
 ];
 

@@ -256,7 +256,7 @@ function BlogCard({ post, index }: { post: typeof blogPosts[0]; index: number })
 /* ──────────────────────────────────────────────
    Main Blogs Section
    ────────────────────────────────────────────── */
-export function Blogs() {
+export function Blogs({ showAll = false }: { showAll?: boolean }) {
   const sectionRef = useRef<HTMLElement>(null);
   const isInView = useInView(sectionRef, { once: true, amount: 0.15 });
 
@@ -294,6 +294,8 @@ export function Blogs() {
 
     return () => ctx.revert();
   }, []);
+
+  const displayedBlogs = showAll ? blogPosts : blogPosts.slice(0, 3);
 
   return (
     <>
@@ -357,38 +359,40 @@ export function Blogs() {
             </motion.p>
           </div>
 
-          {/* Blog cards grid — 3 cards with Framer Motion + GSAP tilt */}
+          {/* Blog cards grid — 3 or more cards with Framer Motion + GSAP tilt */}
           <div className="mt-14 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {blogPosts.slice(0, 3).map((post, index) => (
+            {displayedBlogs.map((post, index) => (
               <BlogCard key={post.id} post={post} index={index} />
             ))}
           </div>
 
           {/* Explore More Button */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4, duration: 0.6 }}
-            viewport={{ once: true }}
-            className="mt-14 flex justify-center"
-          >
-            <Link
-              to="/blogs"
-              className="group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full bg-[#0b84d8] px-8 py-3.5 font-rubik text-[15px] font-medium text-white transition-transform hover:-translate-y-1 hover:shadow-[0_8px_20px_rgba(11,132,216,0.3)]"
+          {!showAll && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4, duration: 0.6 }}
+              viewport={{ once: true }}
+              className="mt-14 flex justify-center"
             >
-              <span className="relative z-10">Explore More</span>
-              <svg
-                viewBox="0 0 24 24"
-                className="relative z-10 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                aria-hidden="true"
+              <Link
+                to="/blogs"
+                className="group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full bg-[#0b84d8] px-8 py-3.5 font-rubik text-[15px] font-medium text-white transition-transform hover:-translate-y-1 hover:shadow-[0_8px_20px_rgba(11,132,216,0.3)]"
               >
-                <path d="M5 12h14M12 5l7 7-7 7" />
-              </svg>
-            </Link>
-          </motion.div>
+                <span className="relative z-10">Explore More</span>
+                <svg
+                  viewBox="0 0 24 24"
+                  className="relative z-10 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  aria-hidden="true"
+                >
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+              </Link>
+            </motion.div>
+          )}
         </div>
       </section>
       {/* ================= BLOGS SECTION END ================= */}

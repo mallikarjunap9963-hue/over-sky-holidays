@@ -457,41 +457,39 @@ export function Contact({ variant = 'full' }: ContactProps) {
             </div>
           </ScrollReveal>
         </div>
-
-        {/* ================= GOOGLE MAP EMBED (Only on full page) ================= */}
-        {variant === 'full' && (
-          <div className="relative mx-auto w-full max-w-[1200px]">
-            <ScrollReveal variant="fade-in-up" delay={200} duration={1300}>
-              <div className="overflow-hidden rounded-2xl border border-slate-200/80 shadow-[0_12px_40px_rgba(7,31,67,0.06)] bg-white">
-                {/* Map header bar */}
-                <div className="flex items-center gap-3 bg-white px-6 py-4 border-b border-slate-100">
-                  <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#0b84d8]/10 text-[#0b84d8]">
-                    <svg viewBox="0 0 24 24" className="h-4.5 w-4.5" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0Z" />
-                      <circle cx="12" cy="10" r="3" />
-                    </svg>
-                  </div>
-                  <div>
-                    <p className="font-rubik text-[14px] font-bold text-[#100c08]">Our Office Location</p>
-                    <p className="font-jost text-[12.5px] text-slate-500">#1-11-110, Shyamlal Building, Begumpet, Hyderabad - 500018</p>
-                  </div>
-                </div>
-
-                {/* Map iframe */}
-                <iframe
-                  title="Open Sky Holidays Office Location"
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3806.5186641775836!2d78.45524677516599!3d17.43485748346061!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb90b9b3e944cd%3A0xc665e7178cf2338c!2sShyamlal%20Building!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
-                  className="h-[300px] w-full sm:h-[380px] lg:h-[420px]"
-                  style={{ border: 0 }}
-                  allowFullScreen
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                />
-              </div>
-            </ScrollReveal>
-          </div>
-        )}
       </section>
+
+      {/* ================= GOOGLE MAP EMBED (Only on full page) ================= */}
+      {variant === 'full' && (
+        <section className="relative w-full">
+          <ScrollReveal variant="fade-in-up" delay={200} duration={1300}>
+            {/* Map header bar */}
+            <div className="flex items-center justify-center md:justify-start gap-3 bg-white px-6 py-4 border-b border-t border-slate-100/50">
+              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#0b84d8]/10 text-[#0b84d8] shrink-0">
+                <svg viewBox="0 0 24 24" className="h-4.5 w-4.5" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0Z" />
+                  <circle cx="12" cy="10" r="3" />
+                </svg>
+              </div>
+              <div className="text-center md:text-left">
+                <p className="font-rubik text-[14px] font-bold text-[#100c08]">Our Office Location</p>
+                <p className="font-jost text-[12.5px] text-slate-500">#1-11-110, Shyamlal Building, Begumpet, Hyderabad - 500018</p>
+              </div>
+            </div>
+
+            {/* Map iframe */}
+            <iframe
+              title="Open Sky Holidays Office Location"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3806.5186641775836!2d78.45524677516599!3d17.43485748346061!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb90b9b3e944cd%3A0xc665e7178cf2338c!2sShyamlal%20Building!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
+              className="h-[300px] w-full sm:h-[400px] lg:h-[450px]"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            />
+          </ScrollReveal>
+        </section>
+      )}
     </>
   );
 }

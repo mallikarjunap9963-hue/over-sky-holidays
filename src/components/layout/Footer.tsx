@@ -47,7 +47,9 @@ export function Footer() {
                 {socialLinks.map((social) => (
                   <a
                     key={social.label}
-                    href="#social"
+                    href={social.href || "#social"}
+                    target={social.href && social.href !== "#social" ? "_blank" : undefined}
+                    rel={social.href && social.href !== "#social" ? "noopener noreferrer" : undefined}
                     aria-label={social.label}
                     className="flex h-10 w-10 items-center justify-center rounded-full border border-white/25 text-white transition duration-300 hover:-translate-y-1 hover:border-white hover:bg-white hover:text-[#0b84d8]"
                   >

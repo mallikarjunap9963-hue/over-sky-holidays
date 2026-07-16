@@ -43,7 +43,9 @@ export function TopBar() {
             {socialLinks.map((social) => (
               <a
                 key={social.label}
-                href="#social"
+                href={social.href || "#social"}
+                target={social.href && social.href !== "#social" ? "_blank" : undefined}
+                rel={social.href && social.href !== "#social" ? "noopener noreferrer" : undefined}
                 aria-label={social.label}
                 className="flex h-6 w-6 items-center justify-center rounded-full border border-white/50 text-[10px] text-white transition-all duration-300 hover:border-[#0b84d8] hover:bg-[#0b84d8] hover:text-white"
               >
