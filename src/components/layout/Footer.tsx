@@ -33,7 +33,7 @@ export function Footer() {
               </Link>
 
               <p className="mt-6 max-w-[360px] text-[14px] leading-7 text-white/80">
-                Established since 2013, Open Sky Holidays provides complete
+                Established since 2020, Open Sky Holidays provides complete
                 domestic and international travel solutions, including tours,
                 flights, hotels, passport support and visa assistance.
               </p>
@@ -147,7 +147,7 @@ export function Footer() {
 
                 {/* EMAIL */}
                 <a
-                  href="mailto:info@openskyholidays.in"
+                  href="mailto:info@openskyholidays.com"
                   className="group flex items-start gap-4"
                 >
                   <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white/10 text-white transition group-hover:bg-white group-hover:text-[#0b84d8]">
@@ -169,7 +169,7 @@ export function Footer() {
                     </span>
 
                     <span className="mt-1 block break-all text-[15px] font-semibold text-white font-rubik">
-                      info@openskyholidays.in
+                      info@openskyholidays.com
                     </span>
                   </span>
                 </a>

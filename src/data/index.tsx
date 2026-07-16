@@ -387,7 +387,7 @@ export const attractionPackages: Record<AttractionTab, AttractionPackage[]> = {
       duration: "3 Nights / 4 Days",
       country: "INDIA",
       tourType: "J&K & SRINAGAR",
-      title: "Jammu Kashmir + Srinagar",
+      title: "Jammu Kashmir & Srinagar",
       locations: ["Tulip Garden", "Ropeway", "River Rafting", "Gulmarg", "Dal Lake", "Shankaracharya Hill"],
       price: "₹32,999",
       oldPrice: "₹38,999",
@@ -411,7 +411,7 @@ export const attractionPackages: Record<AttractionTab, AttractionPackage[]> = {
       duration: "3 Nights / 4 Days",
       country: "INDIA",
       tourType: "KULLU & MANALI",
-      title: "Kullu Manali + Shimla",
+      title: "Kullu Manali & Shimla",
       locations: ["Hadimba Temple", "Solang Valley", "Mall Road", "Jakhoo Temple", "Kufri"],
       price: "₹21,999",
       oldPrice: "₹26,999",
@@ -435,7 +435,7 @@ export const attractionPackages: Record<AttractionTab, AttractionPackage[]> = {
       duration: "3 Nights / 4 Days",
       country: "INDIA",
       tourType: "SOUTHERN HILLS",
-      title: "Ooty + Mysore",
+      title: "Ooty & Mysore & Kodaikanal",
       locations: ["Botanical Garden", "Needle View Point", "Ooty National Park", "Srirangapatna", "Brindavan Gardens"],
       price: "₹19,999",
       oldPrice: "₹24,999",
@@ -447,7 +447,7 @@ export const attractionPackages: Record<AttractionTab, AttractionPackage[]> = {
       duration: "3 Nights / 4 Days",
       country: "INDIA",
       tourType: "EASTERN HIMALAYAS",
-      title: "Nainital + Uttarakhand",
+      title: "Nainital & Uttarakhand",
       locations: ["Naini Lake", "Naina Devi Temple", "Ropeway", "Mussoorie", "Chopta"],
       price: "₹27,999",
       oldPrice: "₹32,999",
@@ -483,7 +483,7 @@ export const attractionPackages: Record<AttractionTab, AttractionPackage[]> = {
       duration: "3 Nights / 4 Days",
       country: "INDIA",
       tourType: "HILL TOUR",
-      title: "Kodaikanal + Darjeeling",
+      title: "Kodaikanal & Meghalaya ",
       locations: ["Kodaikanal Lake", "Trekking", "Dolphin Nose", "Batasia Loop", "Tiger Hill"],
       price: "₹24,999",
       oldPrice: "₹29,999",
@@ -507,7 +507,7 @@ export const attractionPackages: Record<AttractionTab, AttractionPackage[]> = {
       duration: "6 Nights / 7 Days",
       country: "INDIA",
       tourType: "CHAR DHAM YATRA",
-      title: "Rishikesh + Kedarnath + Badrinath",
+      title: "Rishikesh & Kedarnath & Badrinath",
       locations: ["Gangotri", "Yamunotri", "Dev Prayag", "Vishnu Prayag", "Surya Kund", "Rudra Prayag"],
       price: "₹24,999",
       oldPrice: "₹29,999",
@@ -551,7 +551,7 @@ export const attractionPackages: Record<AttractionTab, AttractionPackage[]> = {
       price: "₹39,999",
       oldPrice: "₹45,999",
       image:
-        "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1400&q=90",
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRiMg995NfNXNG2qg-HLK0P26zAk0inJBPjEakKlF7oWw&s=10",
     },
     {
       id: 2,
@@ -563,11 +563,11 @@ export const attractionPackages: Record<AttractionTab, AttractionPackage[]> = {
       price: "₹49,999",
       oldPrice: "₹57,999",
       image:
-        "https://images.unsplash.com/photo-1525625293386-3f8f99389edd?auto=format&fit=crop&w=1400&q=90",
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhWq-Y_DHj3Agjt_K6ymILpiQ3j5E6216jsx5HvWayDw&s=10",
     },
     {
       id: 3,
-      duration: "3 Nights / 4 Days",
+      duration: "4 Nights / 5 Days",
       country: "THAILAND",
       tourType: "BANGKOK LEISURE",
       title: "Bangkok",
@@ -575,7 +575,7 @@ export const attractionPackages: Record<AttractionTab, AttractionPackage[]> = {
       price: "₹28,999",
       oldPrice: "₹33,999",
       image:
-        "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1400&q=90",
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaHJwKE_qh33v0rPkR003M_xWSz-fF5rjt1vDAa5mpeA&s=10",
     },
     {
       id: 4,
@@ -587,7 +587,7 @@ export const attractionPackages: Record<AttractionTab, AttractionPackage[]> = {
       price: "₹36,999",
       oldPrice: "₹42,999",
       image:
-        "https://images.unsplash.com/photo-1526495124232-a04e1849168c?auto=format&fit=crop&w=1400&q=90",
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQ9mdZmz3xSGNo2NLaBx6DqZu_Cx3vbJNqei8eJYXXgg&s=10",
     },
     {
       id: 5,
@@ -599,7 +599,7 @@ export const attractionPackages: Record<AttractionTab, AttractionPackage[]> = {
       price: "₹1,49,999",
       oldPrice: "₹1,69,999",
       image:
-        "https://images.unsplash.com/photo-1496939376851-89342e90adcd?auto=format&fit=crop&w=1400&q=90",
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5Dq7PUWlSePLmHuNFfS4rnIhfSf3WAX7oC--JOMs9-w&s=10",
     },
     {
       id: 6,
@@ -611,7 +611,7 @@ export const attractionPackages: Record<AttractionTab, AttractionPackage[]> = {
       price: "₹1,29,999",
       oldPrice: "₹1,49,999",
       image:
-        "https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?auto=format&fit=crop&w=1400&q=90",
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAH8UeTLaK96adAhgVKhBARhdpKcZxCQMhHrDmqjVheA&s=10",
     },
     {
       id: 7,
@@ -623,7 +623,7 @@ export const attractionPackages: Record<AttractionTab, AttractionPackage[]> = {
       price: "₹42,999",
       oldPrice: "₹49,999",
       image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQW0PB012LeRjqOfhGezEO_CWABsL2CDpg3pNrxrVRJXQ&s=10",
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRLJpgSLFyQaYnQk8XesTpVf47EtnDl8LEXHc-YhsXBg&s=10",
     },
     {
       id: 8,
@@ -635,7 +635,7 @@ export const attractionPackages: Record<AttractionTab, AttractionPackage[]> = {
       price: "₹45,999",
       oldPrice: "₹52,999",
       image:
-        "https://images.unsplash.com/photo-1518684079-3c830dcef090?auto=format&fit=crop&w=1400&q=90",
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT26eYpQpb2euHgWX8STC6gTLRRncNlPIUxE0K1g_hh0Q&s=10",
     },
     {
       id: 9,
@@ -647,7 +647,7 @@ export const attractionPackages: Record<AttractionTab, AttractionPackage[]> = {
       price: "₹1,24,999",
       oldPrice: "₹1,49,999",
       image:
-        "https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?auto=format&fit=crop&w=1200&q=90",
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQanCTJqo3BCzwsKF9u5TEteJEV9BxK8vZiRFKoDCr9Og&s=10",
     },
     {
       id: 10,
@@ -659,7 +659,7 @@ export const attractionPackages: Record<AttractionTab, AttractionPackage[]> = {
       price: "₹34,999",
       oldPrice: "₹39,999",
       image:
-        "https://images.unsplash.com/photo-1526495124232-a04e1849168c?auto=format&fit=crop&w=1400&q=90",
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4WteWAec68tmeHIyEu4E0Er6duTe3x0WPFrlHRzqB4A&s=10",
     },
     {
       id: 11,
@@ -671,7 +671,7 @@ export const attractionPackages: Record<AttractionTab, AttractionPackage[]> = {
       price: "₹54,999",
       oldPrice: "₹62,999",
       image:
-        "https://images.unsplash.com/photo-1573843981267-be1999ff37cd?auto=format&fit=crop&w=1400&q=90",
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQX2-JWSugrT2UegcwJlCVsJ1y-Ha35B3W9F0_1gRrBsQ&s=10",
     },
     {
       id: 12,
@@ -683,7 +683,7 @@ export const attractionPackages: Record<AttractionTab, AttractionPackage[]> = {
       price: "₹38,999",
       oldPrice: "₹44,999",
       image:
-        "https://images.unsplash.com/photo-1540202404-a2f29016b523?auto=format&fit=crop&w=1400&q=90",
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5_diWPXSxmFNXCFbBwysxEcOkCrz1XvgOsspsmoTo6g&s=10",
     },
     {
       id: 13,
@@ -695,7 +695,7 @@ export const attractionPackages: Record<AttractionTab, AttractionPackage[]> = {
       price: "₹29,999",
       oldPrice: "₹34,999",
       image:
-        "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1400&q=90",
+        "https://images.contentstack.io/v3/assets/blt06f605a34f1194ff/blt765cf9e924f95503/684df3a5fcecfa0403a2f8c3/getty-images-cVl8hyX8yqE-unsplash-Header_Mobile_(1).jpg?fit=crop&auto=webp&quality=60&crop=smart&format=avif",
     },
   ],
 };

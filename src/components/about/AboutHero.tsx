@@ -67,7 +67,7 @@ export function AboutHero() {
 
               {/* Description */}
               <p className="mt-2.5 max-w-[570px] font-jost text-[14px] leading-7 text-white/75 sm:text-[15px]">
-                Crafting unforgettable journeys since 2013 — Your trusted travel partner for domestic & international adventures.
+                Crafting unforgettable journeys since 2020 — Your trusted travel partner for domestic & international adventures.
               </p>
 
               {/* Breadcrumb */}

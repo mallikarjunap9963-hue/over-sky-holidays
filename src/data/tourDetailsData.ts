@@ -569,6 +569,78 @@ function getDestinationImages(title: string): string[] {
   ];
 }
 
+const customHighlights: Record<string, TourHighlight[]> = {
+  "international-1": [
+    { title: "Dhow Cruise", image: "https://hldak.mmtcdn.com/prod-acme-image/system/product_media/o/ACME803268/Media_64933Dhow%20Cruise%20Dinner%20-%20Marina.jpg" },
+    { title: "Desert Safari", image: "https://plus.unsplash.com/premium_photo-1697729969603-1155a03ee785?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0" },
+    { title: "Burj Khalifa", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQGmw7C8Rs8SfGBE8Orw_RDiLGbqfWPsiOhroCbf_qkBA&s=10" },
+    { title: "Dubai Frame", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSOUNqBWjYsgsWX9StwzfB475te1aRKDhrj_Q7yv7DOtQ&s=10" }
+  ],
+  "international-2": [
+    { title: "Genting Skyway", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ23SFmKIPMMQmWazzWux2JtzlRukdz62ZGkx8MhAUW7g&s=10" },
+    { title: "Batu Caves", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQKt-w-yPTuhJa_LfuBr3bzvbu_8IiHgJFu7dFFFmHO9Q&s=10" },
+    { title: "Gardens by the Bay", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3amKFTkxdx6tLs9fmvTOBN5yYvc_vX6dtRC6TvFkpyg&s=10" },
+    { title: "Sentosa", image: "https://www.pelago.co/img/collections/sentosa-island/1016-0548_sentosa-island-singapore-xlarge.webp" },
+    { title: "Universal Studios", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPF1hSMSbXFUFAB5PEd-qdb1dEEyJotHYTWt1NzS907g&s=10" }
+  ],
+  "international-3": [
+    { title: "Bangkok City", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGdq7Up5j-FpI8sj-sQOEOMn62Xf6diYkUs_d5Lmdwdw&s=10" }
+  ],
+  "international-4": [
+    { title: "Pashupatinath", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRKK3BOnwzSQRownIKwhVj2LTJcwadRHICFxv0OIV18cw&s=10" },
+    { title: "Chitwan", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQV4axdlI1cXHte3TSW1MQkhvbeFO408WrZ5on_4aH6fg&s=10" }
+  ],
+  "international-5": [
+    { title: "New York", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1fMb8_1wGMYp_i44Qyp6v6qdlxWBOadt0nDCGdG9RPQ&s=10" },
+    { title: "Washington DC", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNtE6kG9K_kfilbiTxEZLVMrP53nKETEPekCpifVAg7w&s=10" },
+    { title: "Orlando", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNH77jECyTe3uUJEZ47YPl3dnxVbEJNUMoYWDnkfYbJA&s=10" },
+    { title: "Miami", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsozmYsOXCoXXVx_1z27EZEFIgiR_QKiidTpCN7dLYQg&s=10" }
+  ],
+  "international-6": [
+    { title: "London", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTmzp1WvexoJ__Oj9qsPVy0k-6WKnDDhxo74Y1mDd1Gg&s" },
+    { title: "Edinburgh", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqbvlvIpIO8Es8lG7xEazDJkyLfVVCQY3MLkdbmZ1KAg&s=10" },
+    { title: "Stonehenge", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOFSIQ5WaNmCGZPf-HHgurC-PX2qsrvD3JNbj_k-u8BQ&s=10" },
+    { title: "Windsor", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS3JYtO3HmimJRAc4X4pjQDz1hPB0Gkb0q2nGOCEMMJKw&s=10" }
+  ],
+  "international-7": [
+    { title: "Hanoi", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJ4bWKG25C8WVBLxl5LlzAFdlmSNzuustTKtzZt1PIxA&s=10" },
+    { title: "Halong Bay", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTowqiEljOPDdk9IcirADa4fRFum1A_tenizRo260pvOg&s=10" },
+    { title: "Siem Reap", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqIsDiLOLHoVliTzg8dO6odVwuJJXQuR8E1yyFUIDMbA&s=10" },
+    { title: "Angkor Wat", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjTYO2zlaypwrxglYC_vll5p6peF2XoySNlquBfYxLrA&s=10" }
+  ],
+  "international-8": [
+    { title: "Hong Kong Island", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdcdtdCIYSyfCnEguF47wfHTV9jRwqW6fPj7SlPT4EoQ&s=10" },
+    { title: "Kowloon", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTquea1lR9DQrsvaqiy05UOPsAEWlMHwAmMjfJiPP8o5g&s=10" },
+    { title: "Disneyland", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTed2Ec4Y6Y-Xrc9a0J3yK2fEfowhc1Er2FsH6T3curRg&s=10" },
+    { title: "Lantau", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3N2_TbEZVpKv7x2WWSe3QBqLCk4XI5EfzmAonywkh2Q&s=10" }
+  ],
+  "international-9": [
+    { title: "Catamaran Cruise", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBbrwgT_kq3DXv9HzSzYGYPgu0B9bJ6YQr0YBbRs71vw&s=10" }
+  ],
+  "international-10": [
+    { title: "Thimphu", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSQnHRaowTulsW5_UI0cuhUYQkxS3JvPhUoAxVhCuFVw&s=10" },
+    { title: "Jakar", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRd5aUDp6ixPF8XVBHvAaxM5hswHMqh05pagW7w8vQG_Q&s=10" },
+    { title: "Wangdue Phodrang", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwxR4D27x6W2BaxVsm0efJ-kt1vQc1RUfkm6CLMKvrGw&s=10" },
+    { title: "Paro Chhu", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxOLnkH-BSL2g9OXaAjzcDA4V7a3O4mpe6orLrIyw_Xw&s=10" },
+    { title: "Trongsa", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSA4KoqHtETvQ0fF_FBNyPaXW9nP9uFAjA7J0zH78Qlg&s=10" }
+  ],
+  "international-11": [
+    { title: "Embudhu Finolhu Island", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSj0Y98r1P-LsUFJIy3AhBG3a0fOGj2Wev1oBD74wYu8Q&s=10" },
+    { title: "Baros Island", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCD79uFTaswGaWIQMHA7nFJSWUjxn9GdVmQlPGsPBfSg&s=10" },
+    { title: "Maafushi", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUWtoopH6UC-H0A8mnWlCYe4N9TxBmrbvVKKTOoVvFEQ&s=10" }
+  ],
+  "international-12": [
+    { title: "Kuta", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTFSopqR3v1JWSasixHRDZgCQ0A21fR6e8P4urZeqQwsg&s=10" },
+    { title: "Seminyak", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSbHFU1Ke2kBYk5uSxsuh9LfSnXbdCMF-iaba-ZWN49Yw&s=10" },
+    { title: "Nusa Penida", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPj9M7YKIkrnxsvkgxBdbeifG4FjOObAlYIj2boPPLUQ&s=10" }
+  ],
+  "international-13": [
+    { title: "Colombo", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRweuhwLZzlaC6gUJLTnEZ_GkQvyNZPHfCMS1GEObutog&s=10" },
+    { title: "Trincomalee", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWmOKvcXofe23BtoA0ZPXACaS3f4iEfCvZE6z9ygIUFA&s=10" },
+    { title: "Yala National Park", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8SmxE1K7Y1ySukoKVoHZvLoHfJL5p0ogS3StuRz0ONw&s=10" }
+  ]
+};
+
 // Fallback high-quality data generator
 export function getTourDetailInfo(
   type: string,
@@ -634,7 +706,7 @@ export function getTourDetailInfo(
   }
 
   // Highlights generation
-  const highlights: TourHighlight[] = tourLocations.map((loc, idx) => ({
+  const highlights: TourHighlight[] = customHighlights[key] || tourLocations.map((loc, idx) => ({
     title: loc,
     image: destImages[idx % destImages.length]
   }));

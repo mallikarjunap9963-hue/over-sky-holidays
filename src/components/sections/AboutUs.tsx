@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ScrollReveal } from '../ui/ScrollReveal';
+import { AnimatedGlobe } from '../ui/AnimatedGlobe';
 
 export function AboutUs() {
   const [activeAboutTab, setActiveAboutTab] = useState<'mission' | 'customer'>('mission');
@@ -139,7 +140,7 @@ export function AboutUs() {
               <div className="min-h-[160px] font-jost">
                 {activeAboutTab === 'mission' ? (
                   <p className="text-[15px] leading-[1.9] text-slate-600">
-                    Established in 2013, Open Sky Holidays is one of India&apos;s
+                    Established in 2020, Open Sky Holidays is one of India&apos;s
                     trusted travel agents and tour operators. Our mission is to make
                     domestic and international travel simple, memorable and accessible
                     through carefully planned tours, reliable services and complete
@@ -197,46 +198,9 @@ export function AboutUs() {
             </ScrollReveal>
           </div>
 
-          {/* ===== RIGHT: IMAGE COLLAGE (matches reference exactly) ===== */}
-          <ScrollReveal variant="fade-in-right" delay={200} duration={1450} className="relative">
-            <div className="grid grid-cols-2 gap-4">
-              {/* LEFT column — one large tall image */}
-              <div className="overflow-hidden rounded-[10px] shadow-md">
-                <img
-                  src="https://images.unsplash.com/photo-1527631746610-bca00a040d60?auto=format&fit=crop&w=800&q=85"
-                  alt="Friends enjoying a mountain tour"
-                  className="h-[380px] w-full object-cover transition duration-700 hover:scale-105 sm:h-[440px]"
-                />
-              </div>
-
-              {/* RIGHT column — two stacked images, pushed down */}
-              <div className="flex flex-col gap-4 pt-12">
-                {/* Top-right image */}
-                <div className="overflow-hidden rounded-[10px] shadow-md">
-                  <img
-                    src="https://images.unsplash.com/photo-1573843981267-be1999ff37cd?auto=format&fit=crop&w=700&q=85"
-                    alt="Luxury resort holiday"
-                    className="h-[175px] w-full object-cover transition duration-700 hover:scale-105 sm:h-[200px]"
-                  />
-                </div>
-
-                {/* Bottom-right image */}
-                <div className="overflow-hidden rounded-[10px] shadow-md">
-                  <img
-                    src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=700&q=85"
-                    alt="Couple enjoying their holiday"
-                    className="h-[185px] w-full object-cover transition duration-700 hover:scale-105 sm:h-[210px]"
-                  />
-                </div>
-              </div>
-            </div>
-
-            {/* Decorative star accent */}
-            <div className="pointer-events-none absolute -bottom-6 left-[45%] hidden -translate-x-1/2 text-[#fbb03b]/20 sm:block">
-              <svg viewBox="0 0 100 100" className="h-16 w-16" fill="currentColor" aria-hidden="true">
-                <path d="M50 0c3 31 16 44 50 50-34 5-47 19-50 50-4-31-17-45-50-50C33 44 46 31 50 0Z" />
-              </svg>
-            </div>
+          {/* ===== RIGHT: 3D ANIMATED GLOBE ===== */}
+          <ScrollReveal variant="fade-in-right" delay={200} duration={1450} className="relative w-full h-full min-h-[400px] flex items-center justify-center">
+            <AnimatedGlobe />
           </ScrollReveal>
         </div>
       </section>

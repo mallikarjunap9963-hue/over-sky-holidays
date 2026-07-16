@@ -11,7 +11,7 @@ export function TopBar() {
 
           {/* Email */}
           <a
-            href="mailto:info@openskyholidays.in"
+            href="mailto:info@openskyholidays.com"
             className="hidden items-center gap-1.5 text-[12px] transition-colors hover:text-[#0b84d8] lg:flex"
           >
             <span className="flex h-6 w-5 items-center justify-center text-[#0b84d8] scale-75">
@@ -21,7 +21,7 @@ export function TopBar() {
             <span className="font-medium text-slate-300">
               Email:
               <span className="ml-1 font-semibold text-[#0b84d8]">
-                info@openskyholidays.in
+                info@openskyholidays.com
               </span>
             </span>
           </a>

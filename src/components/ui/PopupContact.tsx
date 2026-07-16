@@ -7,7 +7,8 @@ export function PopupContact() {
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
-    email: ''
+    email: '',
+    description: ''
   });
 
   // Automatically trigger popup on page load/refresh after a short delay
@@ -31,7 +32,8 @@ export function PopupContact() {
         setFormData({
           name: '',
           phone: '',
-          email: ''
+          email: '',
+          description: ''
         });
       }, 500);
     }, 3500);
@@ -165,6 +167,22 @@ export function PopupContact() {
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                         placeholder="Phone Number *"
                         className="w-full h-[42px] pl-9.5 pr-3 rounded-lg border border-slate-200 bg-slate-50/50 text-[#100c08] placeholder:text-slate-500 outline-none focus:border-[#0b84d8] focus:bg-white focus:ring-4 focus:ring-[#0b84d8]/5 transition-all text-[14px]"
+                      />
+                    </div>
+
+                    {/* Description Input */}
+                    <div className="relative group">
+                      <span className="absolute left-3 top-3 text-slate-400 group-focus-within:text-[#0b84d8] transition-colors z-10">
+                        <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                        </svg>
+                      </span>
+                      <textarea
+                        value={formData.description}
+                        onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                        placeholder="Your Message/Inquiry (Optional)"
+                        rows={3}
+                        className="w-full pl-9.5 pr-3 py-2.5 rounded-lg border border-slate-200 bg-slate-50/50 text-[#100c08] placeholder:text-slate-500 outline-none focus:border-[#0b84d8] focus:bg-white focus:ring-4 focus:ring-[#0b84d8]/5 transition-all text-[14px] resize-none"
                       />
                     </div>
 

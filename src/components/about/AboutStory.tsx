@@ -60,14 +60,14 @@ export function AboutStory() {
 
             <ScrollReveal variant="fade-in-right" delay={200} duration={1300}>
               <h2 className="font-rubik text-[30px] font-extrabold leading-[1.2] tracking-tight text-[#100c08] sm:text-[38px] lg:text-[44px]">
-                Crafting Unforgettable Journeys Since 2013.
+                Crafting Unforgettable Journeys Since 2020.
               </h2>
             </ScrollReveal>
 
             <ScrollReveal variant="fade-in-right" delay={350} duration={1300}>
               <div className="flex flex-col gap-4 font-jost text-[15.5px] leading-relaxed text-slate-600">
                 <p>
-                  Established in 2013, <strong>Open Sky Holidays</strong> has dedicated itself to transforming standard trips into deeply personalized, lifelong travel memories. Starting as a localized tours operator, our commitment to quality quickly expanded our horizon.
+                  Established in 2020, <strong>Open Sky Holidays</strong> has dedicated itself to transforming standard trips into deeply personalized, lifelong travel memories. Starting as a localized tours operator, our commitment to quality quickly expanded our horizon.
                 </p>
                 <p>
                   Today, we stand as one of India's trusted, comprehensive travel agencies. We are proud to offer seamlessly integrated domestic &amp; international holiday packages, flight bookings, premium hotels, passport support, and visa solutions.
