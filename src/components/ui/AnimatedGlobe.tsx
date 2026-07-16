@@ -75,17 +75,38 @@ const locationLocalPositions = locations.map(loc => getPosFromLatLon(loc.lat, lo
 // Single animated flight route
 function FlightRoute({ destination }: { destination: typeof locations[0] }) {
   const destPos = getPosFromLatLon(destination.lat, destination.lon, GLOBE_RADIUS);
+  const meshRef = useRef<THREE.Mesh>(null);
+  const tagRef = useRef<HTMLDivElement>(null);
+
+  useFrame((state) => {
+    if (meshRef.current && tagRef.current) {
+      const worldPos = new THREE.Vector3();
+      meshRef.current.getWorldPosition(worldPos);
+      const camNormal = state.camera.position.clone().normalize();
+      const dot = worldPos.normalize().dot(camNormal);
+      
+      // Hide very early (dot < 0.75) so that long country names NEVER cross the visual edge of the globe
+      if (dot < 0.75) {
+        tagRef.current.style.opacity = '0';
+        tagRef.current.style.pointerEvents = 'none';
+      } else {
+        tagRef.current.style.opacity = '1';
+        tagRef.current.style.pointerEvents = 'auto';
+      }
+    }
+  });
 
   return (
     <group>
       {/* Route line removed as requested */}
 
       {/* Destination Marker & Card */}
-      <mesh position={destPos}>
+      <mesh ref={meshRef} position={destPos}>
         {/* Blue dot removed as requested */}
-        <Html zIndexRange={[100, 0]} center occlude="blending">
+        <Html zIndexRange={[100, 0]} center>
           <div
-            className="flex items-center gap-1.5 transform -translate-y-5 pointer-events-auto whitespace-nowrap cursor-pointer transition-transform hover:scale-110 group"
+            ref={tagRef}
+            className="flex items-center gap-1.5 transform -translate-y-5 pointer-events-auto whitespace-nowrap cursor-pointer transition-all duration-300 hover:scale-110 group"
             onClick={() => {
               if (destination.name === 'India') {
                 window.location.href = '/tours/domestic';
