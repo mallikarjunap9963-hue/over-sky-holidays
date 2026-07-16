@@ -25,7 +25,7 @@ export const slides: HeroSlide[] = [
   {
     id: 3,
     location: "Manali",
-    title: "Luxury Meets Himalayan Serenity",
+    title: "Modern Luxury Meets Timeless Serenity",
     description:
       "Experience the perfect contrast of modern luxury and timeless tranquility. Explore Dubai's iconic skyline, world-class attractions, and desert adventures before discovering Bhutan's peaceful monasteries, breathtaking mountains, and rich cultural heritage.", image:
       "/hero3.avif"

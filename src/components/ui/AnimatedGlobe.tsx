@@ -70,11 +70,11 @@ const locations = [
 
 
 // Precompute local positions of all pins to check visibility dynamically
-const locationLocalPositions = locations.map(loc => getPosFromLatLon(loc.lat, loc.lon, GLOBE_RADIUS * 0.95));
+const locationLocalPositions = locations.map(loc => getPosFromLatLon(loc.lat, loc.lon, GLOBE_RADIUS));
 
 // Single animated flight route
 function FlightRoute({ destination }: { destination: typeof locations[0] }) {
-  const destPos = getPosFromLatLon(destination.lat, destination.lon, GLOBE_RADIUS * 0.95);
+  const destPos = getPosFromLatLon(destination.lat, destination.lon, GLOBE_RADIUS);
 
   return (
     <group>
@@ -83,7 +83,7 @@ function FlightRoute({ destination }: { destination: typeof locations[0] }) {
       {/* Destination Marker & Card */}
       <mesh position={destPos}>
         {/* Blue dot removed as requested */}
-        <Html zIndexRange={[100, 0]} center occlude>
+        <Html zIndexRange={[100, 0]} center occlude="blending">
           <div
             className="flex items-center gap-1.5 transform -translate-y-5 pointer-events-auto whitespace-nowrap cursor-pointer transition-transform hover:scale-110 group"
             onClick={() => {
