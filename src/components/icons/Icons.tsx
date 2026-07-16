@@ -206,7 +206,7 @@ export function BookingTabIcon({
   type,
   className = "h-6 w-6",
 }: {
-  type: SearchTab;
+  type: SearchTab | string;
   className?: string;
 }) {
   if (type === "Hotel") {
@@ -278,6 +278,87 @@ export function BookingTabIcon({
         <circle cx="8" cy="15.5" r="1" fill="currentColor" stroke="none" />
 
         <circle cx="16" cy="15.5" r="1" fill="currentColor" stroke="none" />
+      </svg>
+    );
+  }
+
+  if (type === "Domestic") {
+    return (
+      <svg
+        viewBox="0 0 24 24"
+        className={className}
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.7"
+        aria-hidden="true"
+      >
+        <path d="M3 10v11h6v-6h6v6h6V10L12 3z" />
+        <circle cx="12" cy="11" r="2" />
+      </svg>
+    );
+  }
+
+  if (type === "International") {
+    return (
+      <svg
+        viewBox="0 0 24 24"
+        className={className}
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.7"
+        aria-hidden="true"
+      >
+        <circle cx="12" cy="12" r="10" />
+        <path d="M2 12h20" />
+        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+      </svg>
+    );
+  }
+
+  if (type === "Flight Tickets") {
+    return (
+      <svg
+        viewBox="0 0 24 24"
+        className={className}
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.7"
+        aria-hidden="true"
+      >
+        <path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21.5 4c0 0-2 .5-3.5 2L14.5 9.5 6.3 7.7c-.5-.1-.9.1-1.1.5l-.3.5c-.2.3-.1.7.3.9l5.5 2.5-4 4-2.2-.6c-.3-.1-.6 0-.8.2l-.4.4c-.2.2-.2.6 0 .8l2.5 2.1 2.1 2.5c.2.2.6.2.8 0l.4-.4c.2-.2.3-.5.2-.8l-.6-2.2 4-4 2.5 5.5c.2.4.6.5.9.3l.5-.3c.4-.2.6-.6.5-1.1z" />
+      </svg>
+    );
+  }
+
+  if (type === "Passport") {
+    return (
+      <svg
+        viewBox="0 0 24 24"
+        className={className}
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.7"
+        aria-hidden="true"
+      >
+        <rect x="4" y="2" width="16" height="20" rx="2" />
+        <circle cx="12" cy="11" r="3" />
+        <path d="M12 2v2M12 20v2M8 17h8" />
+      </svg>
+    );
+  }
+
+  if (type === "Tour") {
+    return (
+      <svg
+        viewBox="0 0 24 24"
+        className={className}
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.7"
+        aria-hidden="true"
+      >
+        <path d="M4 10a4 4 0 0 1 4-4h8a4 4 0 0 1 4 4v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V10Z" />
+        <path d="M9 6V4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M8 21v-5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v5M8 10h8" />
       </svg>
     );
   }

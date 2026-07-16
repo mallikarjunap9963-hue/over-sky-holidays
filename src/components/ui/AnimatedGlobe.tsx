@@ -146,10 +146,9 @@ function GlobeGroup() {
         if (dot > maxDot) maxDot = dot;
       }
 
-      // If ANY pin is somewhat facing the camera (dot > 0.1), slow down so users can read.
-      // This fixes the issue where USA/UK were skipped because they are far from the main hub.
-      // If no pins are facing the camera (deep ocean), speed up to skip it.
-      const targetSpeed = maxDot > 0.1 ? 0.0015 : 0.008;
+      // Since tags are visible when dot > 0.75, we slow down when any pin enters the visible zone (maxDot > 0.70)
+      // When no pins are visible (maxDot <= 0.70), we move faster across oceans/empty regions.
+      const targetSpeed = maxDot > 0.70 ? 0.0012 : 0.014;
 
       // Smoothly interpolate the speed
       speedRef.current += (targetSpeed - speedRef.current) * 0.05;

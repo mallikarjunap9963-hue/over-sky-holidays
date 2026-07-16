@@ -3,32 +3,56 @@ import type { HeroSlide, NavLink, SearchTab, ExperienceTab, ExperienceItem, Safe
 
 import homePageFacilityImg from '../assets/home page facilty.png';
 import homePageAssistanceImg from '../assets/home page assitence.png';
+import slider1Img from '../assets/slider1.png';
+import slider2Img from '../assets/slider2.png';
+import slider3Img from '../assets/slider3.png';
+import slider4Img from '../assets/slider4.png';
+import slider5Img from '../assets/slider5.png';
 
 export const slides: HeroSlide[] = [
   {
     id: 1,
-    location: "Italy",
-    title: "Luxury Meets Vibrant City Life",
-    description: "Experience the perfect blend of tropical paradise and urban excitement. Relax in the crystal-clear waters of the Maldives, then explore the vibrant streets, magnificent temples, and world-class shopping of Bangkok.",
+    location: "Worldwide",
+    title: "Explore the World's Most Iconic Destinations",
+    description: "From the ultra-modern skyline of Dubai and the vibrant streets of Bangkok to the breathtaking beauty of Santorini and the bustling cities of the USA and UK. Embark on unforgettable international journeys tailored just for you.",
     image:
-      "/hero.jpg",
+      slider1Img,
   },
   {
     id: 2,
-    location: "Maldives",
-    title: "Where Spirituality Meets the Himalayas",
+    location: "India & Neighbors",
+    title: "Discover Heritage, Spirituality, and Nature",
     description:
-      "Discover the peaceful banks of the Ganges in Rishikesh and seek divine blessings at the sacred Badrinath Temple. Experience breathtaking Himalayan landscapes, ancient traditions, and an unforgettable spiritual journey.",
+      "Experience the incredible diversity of India and its neighbors. Seek peace in the majestic Himalayas, explore the lush backwaters of Kerala, or embark on a spiritual journey to Rishikesh, Badrinath, Nepal, and Bhutan.",
     image:
-      "/hero2.jpg",
+      slider2Img,
   },
   {
     id: 3,
-    location: "Manali",
-    title: "Modern Luxury Meets Timeless Serenity",
+    location: "Tropical Paradises",
+    title: "Relax in Crystal Clear Waters & Pristine Beaches",
     description:
-      "Experience the perfect contrast of modern luxury and timeless tranquility. Explore Dubai's iconic skyline, world-class attractions, and desert adventures before discovering Bhutan's peaceful monasteries, breathtaking mountains, and rich cultural heritage.", image:
-      "/hero3.avif"
+      "Escape to tropical paradises where sun, sand, and serenity await. Unwind in the pristine waters of the Maldives, discover the vibrant culture of Vietnam & Cambodia, or enjoy the dynamic energy of Singapore & Malaysia.",
+    image:
+      slider3Img,
+  },
+  {
+    id: 4,
+    location: "Metropolitan Marvels",
+    title: "Experience the Rush of the World's Greatest Cities",
+    description:
+      "Step into the dazzling lights and endless excitement of Hong Kong, Macau, and the USA. From spectacular skyscrapers to world-class entertainment, discover cities that never sleep.",
+    image:
+      slider4Img,
+  },
+  {
+    id: 5,
+    location: "Ancient Heritage",
+    title: "Step Back in Time with Rich Cultural Journeys",
+    description:
+      "Uncover the mysteries of the past by exploring ancient ruins in Cambodia, historic castles in the UK, and timeless monuments nestled across the diverse landscapes of Asia and Europe.",
+    image:
+      slider5Img,
   },
 ];
 

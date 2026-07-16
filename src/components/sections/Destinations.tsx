@@ -19,9 +19,9 @@ const destinationCards = [
     tours: '25 Tours',
   },
   {
-    title: 'Maldives',
+    title: 'Bangkok',
     image:
-      'https://images.unsplash.com/photo-1573843981267-be1999ff37cd?auto=format&fit=crop&w=1000&q=85',
+      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaHJwKE_qh33v0rPkR003M_xWSz-fF5rjt1vDAa5mpeA&s=10',
     href: '/tours/international',
     layoutClass: 'lg:col-span-4 md:col-span-6',
     tours: '20 Tours',
