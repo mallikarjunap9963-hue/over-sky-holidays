@@ -1,9 +1,8 @@
-import { useMemo, useRef, Suspense, useState } from 'react';
+import { useRef, Suspense } from 'react';
 import { Canvas, useFrame, useLoader } from '@react-three/fiber';
-import { OrbitControls, Html, Line, Sphere, Float } from '@react-three/drei';
+import { OrbitControls, Html, Sphere, Float } from '@react-three/drei';
 import * as THREE from 'three';
 
-import { experienceItems } from '../../data';
 import { attractionPackages } from '../../data';
 
 const GLOBE_RADIUS = 2.5;
@@ -20,13 +19,7 @@ function getPosFromLatLon(lat: number, lon: number, radius: number) {
   return new THREE.Vector3(x, y, z);
 }
 
-// Generate a curved path between two vectors
-function createCurve(start: THREE.Vector3, end: THREE.Vector3) {
-  const distance = start.distanceTo(end);
-  // Control point is pushed out from the center
-  const mid = start.clone().lerp(end, 0.5).normalize().multiplyScalar(GLOBE_RADIUS + distance * 0.4);
-  return new THREE.QuadraticBezierCurve3(start, mid, end);
-}
+
 
 const countryCoordinates: Record<string, { lat: number, lon: number, name: string }> = {
   "INDIA": { lat: 22.5937, lon: 78.9629, name: "India" },
@@ -75,8 +68,6 @@ const locations = [
   ...Array.from(uniqueCountriesMap.values())
 ];
 
-const hub = locations.find(loc => loc.isHub)!;
-const hubPos = getPosFromLatLon(hub.lat, hub.lon, GLOBE_RADIUS);
 
 // Precompute local positions of all pins to check visibility dynamically
 const locationLocalPositions = locations.map(loc => getPosFromLatLon(loc.lat, loc.lon, GLOBE_RADIUS * 0.95));
@@ -84,8 +75,6 @@ const locationLocalPositions = locations.map(loc => getPosFromLatLon(loc.lat, lo
 // Single animated flight route
 function FlightRoute({ destination }: { destination: typeof locations[0] }) {
   const destPos = getPosFromLatLon(destination.lat, destination.lon, GLOBE_RADIUS * 0.95);
-  const curve = useMemo(() => createCurve(hubPos, destPos), [destPos]);
-  const points = useMemo(() => curve.getPoints(50), [curve]);
 
   return (
     <group>
