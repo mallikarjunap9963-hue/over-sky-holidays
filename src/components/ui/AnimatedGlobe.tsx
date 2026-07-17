@@ -1,5 +1,5 @@
-import { useRef, Suspense } from 'react';
-import { Canvas, useFrame, useLoader } from '@react-three/fiber';
+import { useRef, Suspense, useEffect } from 'react';
+import { Canvas, useFrame, useLoader, useThree } from '@react-three/fiber';
 import { OrbitControls, Html, Sphere, Float } from '@react-three/drei';
 import * as THREE from 'three';
 
@@ -84,7 +84,7 @@ function FlightRoute({ destination }: { destination: typeof locations[0] }) {
       meshRef.current.getWorldPosition(worldPos);
       const camNormal = state.camera.position.clone().normalize();
       const dot = worldPos.normalize().dot(camNormal);
-      
+
       // Hide very early (dot < 0.75) so that long country names NEVER cross the visual edge of the globe
       if (dot < 0.75) {
         tagRef.current.style.opacity = '0';
@@ -138,7 +138,7 @@ function GlobeGroup() {
     if (groupRef.current) {
       let maxDot = -1;
       const camNormal = state.camera.position.clone().normalize();
-      
+
       // Find the pin that is most directly facing the camera
       for (const localPos of locationLocalPositions) {
         const worldPos = localPos.clone().applyMatrix4(groupRef.current.matrixWorld);
@@ -200,26 +200,53 @@ function GlobeGroup() {
   );
 }
 
+function ResponsiveCamera() {
+  const { camera, size } = useThree();
+
+  useEffect(() => {
+    if (!camera || !size.width || !size.height) return;
+    const aspect = size.width / size.height;
+    const fovRad = (45 / 2) * (Math.PI / 180);
+
+    // Calculate distance needed for vertical fit
+    const distY = (GLOBE_RADIUS * 1.08) / Math.sin(fovRad);
+    // Calculate distance needed for horizontal fit
+    const horizFovRad = Math.atan(aspect * Math.tan(fovRad));
+    const distX = (GLOBE_RADIUS * 1.08) / Math.sin(horizFovRad);
+
+    // Use whichever distance is larger so the sphere fits both horizontally and vertically
+    const targetDist = Math.max(distY, distX);
+    const yPos = 0.6;
+    const zPos = Math.sqrt(Math.max(1, targetDist * targetDist - yPos * yPos));
+
+    camera.position.set(0, yPos, zPos);
+    camera.updateProjectionMatrix();
+  }, [size.width, size.height, camera]);
+
+  return null;
+}
+
 export function AnimatedGlobe() {
   return (
-    <div className="relative w-full h-[400px] sm:h-[500px] lg:h-[600px] flex items-center justify-center cursor-grab active:cursor-grabbing">
+    <div className="relative w-full h-[400px] sm:h-[480px] lg:h-[560px] xl:h-[600px] max-w-full flex items-center justify-center cursor-grab active:cursor-grabbing">
 
       {/* Floating Instructions Heading */}
-      <div className="absolute bottom-6 sm:bottom-10 left-1/2 -translate-x-1/2 z-10 pointer-events-none text-center">
-        <div className="inline-block bg-white/90 backdrop-blur-md px-6 py-2 rounded-full shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-slate-200/60 transition-transform duration-500 hover:scale-105">
+      <div className="absolute bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 z-10 pointer-events-none text-center w-full px-4">
+        <div className="inline-block bg-white/90 backdrop-blur-md px-5 py-2 rounded-full shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-slate-200/60 transition-transform duration-500 hover:scale-105 max-w-[90%]">
           <p className="font-rubik text-[13px] sm:text-[15px] font-bold text-[#100c08] leading-tight">
             Explore Our <span className="text-[#0853a4]">Destinations</span>
           </p>
-          <p className="font-jost text-[9px] sm:text-[11px] font-semibold text-slate-500 mt-1 uppercase tracking-widest">
+          <p className="font-jost text-[9px] sm:text-[11px] font-semibold text-slate-500 mt-0.5 uppercase tracking-widest">
             Click any country to view tours
           </p>
         </div>
       </div>
 
       <Canvas
-        camera={{ position: [0, 1, 6.5], fov: 45 }}
+        camera={{ position: [0, 0.6, 7.05], fov: 45 }}
         gl={{ antialias: true, alpha: true }}
       >
+        <ResponsiveCamera />
         <ambientLight intensity={1.5} />
         <directionalLight position={[10, 10, 5]} intensity={1} color="#ffffff" />
         <directionalLight position={[-10, -10, -5]} intensity={0.5} color="#0853a4" />

@@ -404,7 +404,7 @@ export const attractionPackages: Record<AttractionTab, AttractionPackage[]> = {
       price: "₹29,999",
       oldPrice: "₹34,999",
       image:
-        "https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&w=1400&q=90",
+        "https://media.istockphoto.com/id/511119924/photo/tea-plantations-and-river-in-hills-kerala-india.jpg?s=612x612&w=0&k=20&c=pYHem1q8SIdCC7t7pv3s6QM1ZrmU3nkCoSaEQMg8vqg=",
     },
     {
       id: 2,
@@ -416,7 +416,7 @@ export const attractionPackages: Record<AttractionTab, AttractionPackage[]> = {
       price: "₹32,999",
       oldPrice: "₹38,999",
       image:
-        "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1400&q=90",
+        "https://media.gettyimages.com/id/561446709/photo/tulip-garden-in-srinagar-kashmir-india.jpg?s=1024x1024&w=gi&k=20&c=J-MDe3qDN1jHKjV-l6k6Wa_uB1Z9vdzuyB0TKu71yGU=",
     },
     {
       id: 3,
@@ -428,7 +428,7 @@ export const attractionPackages: Record<AttractionTab, AttractionPackage[]> = {
       price: "₹18,999",
       oldPrice: "₹22,999",
       image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsWp7AFJh6O7b3Hhlh1lkcCRGyf0UtX5i19KGdA1nN6Q&s=10",
+        "https://t3.ftcdn.net/jpg/02/43/24/76/360_F_243247620_Clg6rXsX4K0lhPWip3oo9Oee28J30L23.jpg",
     },
     {
       id: 4,
@@ -440,7 +440,7 @@ export const attractionPackages: Record<AttractionTab, AttractionPackage[]> = {
       price: "₹21,999",
       oldPrice: "₹26,999",
       image:
-        "https://images.unsplash.com/photo-1605649487212-47bdab064df7?auto=format&fit=crop&w=1400&q=90",
+        "https://images.unsplash.com/photo-1654057355305-118675766449?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aGFkaW1iYSUyMGRldmklMjB0ZW1wbGV8ZW58MHx8MHx8fDA%3D",
     },
     {
       id: 5,
@@ -452,7 +452,7 @@ export const attractionPackages: Record<AttractionTab, AttractionPackage[]> = {
       price: "₹15,999",
       oldPrice: "₹19,999",
       image:
-        "https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=1400&q=90",
+        "https://media.gettyimages.com/id/1227126664/photo/virus-outbreak-india.jpg?s=1024x1024&w=gi&k=20&c=3j9dOpoHwwXJwRnJA8LegluTf6BkJJnhpuul1Fn77KE=",
     },
     {
       id: 6,
@@ -464,7 +464,7 @@ export const attractionPackages: Record<AttractionTab, AttractionPackage[]> = {
       price: "₹19,999",
       oldPrice: "₹24,999",
       image:
-        "https://images.unsplash.com/photo-1593693411515-c20261bcad6e?auto=format&fit=crop&w=1400&q=90",
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJ2JO3U3laSAXAQDniRbfe_qtolWy-WvSZT-LqeNqsKMxPpEsATY4t07g&s=10",
     },
     {
       id: 7,
@@ -476,44 +476,33 @@ export const attractionPackages: Record<AttractionTab, AttractionPackage[]> = {
       price: "₹27,999",
       oldPrice: "₹32,999",
       image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnvKi5jmUAXtwRVFxdXTnqbxmyEVxHFuzbZA7mO5RvHA&s=10",
+        "https://images.unsplash.com/photo-1712201649803-ab1b13dae600?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8bmFpbml0YWwlMjBsYWtlfGVufDB8fDB8fHww",
     },
     {
       id: 8,
       duration: "3 Nights / 4 Days",
       country: "INDIA",
-      tourType: "NORTH EAST HYBRID",
-      title: "Meghalaya",
-      locations: ["Shillong", "Double Decker Root Bridge", "Cherrapunji", "Elephant Falls", "Jaintia Hills"],
+      tourType: "NORTH EAST EXPLORER",
+      title: "Meghalaya & Darjeeling",
+      locations: ["Shillong", "Cherrapunji", "Double Decker Root Bridge", "Elephant Falls", "Batasia Loop", "Tiger Hill"],
       price: "₹26,999",
       oldPrice: "₹31,999",
       image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQyd9JmrMmwza-bZJIOHXztA2bafOWl_oUw_NUi9fvwuA&s=10",
+        "https://t3.ftcdn.net/jpg/08/66/94/08/360_F_866940859_vyTEYM5S4u6IPfIfPjNn6ZNwsRWgvIn6.jpg",
     },
     {
       id: 9,
       duration: "3 Nights / 4 Days",
       country: "INDIA",
       tourType: "RAJASTHAN ROYAL",
-      title: "Rajasthan",
+      title: "Rajasthan & Jaipur & Udaipur",
       locations: ["Jaipur", "Udaipur", "Jaisalmer", "Mount Abu", "Jodhpur"],
       price: "₹23,999",
       oldPrice: "₹28,999",
       image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMj-RJTnRLMhZafT1KtjKf9ze-5-aj4PJn5TDBGzuVJA&s=10",
+        "https://t3.ftcdn.net/jpg/02/56/53/38/360_F_256533834_Chxhh4CkOk6YVnvAKGPSN3jc40rSTFaV.jpg",
     },
-    {
-      id: 10,
-      duration: "3 Nights / 4 Days",
-      country: "INDIA",
-      tourType: "HILL TOUR",
-      title: "Kodaikanal & Meghalaya ",
-      locations: ["Kodaikanal Lake", "Trekking", "Dolphin Nose", "Batasia Loop", "Tiger Hill"],
-      price: "₹24,999",
-      oldPrice: "₹29,999",
-      image:
-        "https://images.unsplash.com/photo-1593693411515-c20261bcad6e?auto=format&fit=crop&w=1400&q=90",
-    },
+
     {
       id: 11,
       duration: "6 DAYS / 5 NIGHTS",
@@ -524,7 +513,7 @@ export const attractionPackages: Record<AttractionTab, AttractionPackage[]> = {
       price: "₹24,999",
       oldPrice: "₹29,999",
       image:
-        "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?auto=format&fit=crop&w=1400&q=90",
+        "https://t4.ftcdn.net/jpg/01/04/41/09/360_F_104410922_MOKGWPa5005NUkPdnG4InEHmmafm7dqJ.jpg",
     },
     {
       id: 12,
@@ -536,7 +525,7 @@ export const attractionPackages: Record<AttractionTab, AttractionPackage[]> = {
       price: "₹24,999",
       oldPrice: "₹29,999",
       image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQAk3ajgEQ43baqp0slnWXmB1ioFvjCfdGzH3ltIAWCBg&s=10",
+        "https://media.gettyimages.com/id/481688239/photo/group-of-people-rafting-in-ganges-river-rishikesh-uttarakhand-india.jpg?s=1024x1024&w=gi&k=20&c=MONtOy7054-DMSb4vvHO_vFJcpGgjfX48dstb6Ovwt4=",
     },
     {
       id: 13,
@@ -548,19 +537,19 @@ export const attractionPackages: Record<AttractionTab, AttractionPackage[]> = {
       price: "₹6,999",
       oldPrice: "₹8,999",
       image:
-        "https://encrypted-tbn0.gstatic.com/licensed-image?q=tbn:ANd9GcTCVjo4GQCJp8NUh06C9bBaITU33WQ3hUHEVibUNygmp3_t-r-uw17TGZlWx1_I_7ET2pc0sh3Vd2jyffliRc3CR6M&s=19",
+        "https://commons.wikimedia.org/wiki/Special:FilePath/Tirumala%20Venkateswara%20Temple.jpg?width=1200",
     },
     {
       id: 14,
       duration: "4 DAYS / 3 NIGHTS",
       country: "INDIA",
-      tourType: "GANGES YATRA",
-      title: "Rishikesh & Haridwar",
+      tourType: "CHAR DHAM YATRA",
+      title: "Char Dham Yatra",
       locations: ["Haridwar", "Rishikesh", "Ganga Aarti", "Laxman Jhula"],
       price: "₹9,999",
       oldPrice: "₹12,999",
       image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT717sJbTwj02-FZSuMu_ICE7UkaDpxWSrTL8o5ycaj6g&s=10",
+        "https://images.unsplash.com/photo-1705927122615-02dcef3b1465?q=80&w=713&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     },
   ],
 

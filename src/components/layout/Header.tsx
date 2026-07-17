@@ -62,7 +62,7 @@ export function Header() {
   // Close mobile menu on resize to desktop view
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth >= 1280) {
+      if (window.innerWidth >= 1024) {
         setMobileMenuOpen(false);
         setOpenDropdown(null);
       }
@@ -102,7 +102,7 @@ export function Header() {
             />
           </Link>
 
-          <nav className="hidden items-center gap-5 xl:flex xl:gap-7 2xl:gap-10 font-jost">
+          <nav className="hidden items-center gap-4 lg:flex lg:gap-5 xl:gap-7 2xl:gap-10 font-jost">
             {menuItems.map((item) => {
               if (item.dropdownItems) {
                 const parentActive = isParentActive(item);
@@ -110,7 +110,7 @@ export function Header() {
                   <div key={item.label} className="relative group flex items-center h-full py-4">
                     <button
                       type="button"
-                      className={`flex items-center gap-1.5 whitespace-nowrap text-[13px] xl:text-[14.5px] font-semibold tracking-[0.02em] transition-colors duration-250 cursor-pointer focus:outline-none ${parentActive
+                      className={`flex items-center gap-1.5 whitespace-nowrap text-[13px] lg:text-[13.5px] xl:text-[14.5px] font-semibold tracking-[0.02em] transition-colors duration-250 cursor-pointer focus:outline-none ${parentActive
                         ? "text-[#0853a4]"
                         : "text-[#100c08] hover:text-[#0853a4]"
                         }`}
@@ -148,7 +148,7 @@ export function Header() {
                 <Link
                   key={item.label}
                   to={item.href}
-                  className={`flex items-center gap-1 whitespace-nowrap text-[13px] xl:text-[14.5px] font-semibold tracking-[0.02em] transition-colors duration-250 2xl:text-[15.5px] ${linkActive
+                  className={`flex items-center gap-1 whitespace-nowrap text-[13px] lg:text-[13.5px] xl:text-[14.5px] font-semibold tracking-[0.02em] transition-colors duration-250 2xl:text-[15.5px] ${linkActive
                     ? "text-[#0853a4]"
                     : "text-[#100c08] hover:text-[#0853a4]"
                     }`}
@@ -159,19 +159,19 @@ export function Header() {
             })}
           </nav>
 
-          {/* Call / Book CTA (Visible >= 1280px / xl) */}
-          <div className="hidden items-center gap-4 xl:flex xl:gap-6">
-            <a href="tel:+919908117712" className="flex items-center gap-3">
+          {/* Call / Book CTA (Visible >= 1024px / lg) */}
+          <div className="hidden items-center gap-3 lg:flex lg:gap-4 xl:gap-6">
+            <a href="tel:+919908117712" className="flex items-center gap-2.5 xl:gap-3">
               <span className="text-[#0853a4]">
-                <PhoneIcon className="h-8 w-8 xl:h-9 xl:w-9" />
+                <PhoneIcon className="h-7 w-7 lg:h-8 lg:w-8 xl:h-9 xl:w-9" />
               </span>
 
               <span>
-                <span className="block text-[12px] font-semibold text-[#100c08] font-rubik">
+                <span className="block text-[11px] lg:text-[12px] font-semibold text-[#100c08] font-rubik">
                   To More Inquiry
                 </span>
 
-                <span className="block text-[16px] xl:text-[18px] font-extrabold leading-tight text-[#0853a4] 2xl:text-[20px] font-rubik">
+                <span className="block text-[15px] lg:text-[16px] xl:text-[18px] font-extrabold leading-tight text-[#0853a4] 2xl:text-[20px] font-rubik">
                   +91 99081 17712
                 </span>
               </span>
@@ -181,14 +181,14 @@ export function Header() {
 
             <Link
               to="/contact"
-              className="btn-primary min-h-[42px] xl:min-h-[50px] rounded-[6px] px-5 xl:px-6 text-[13px] xl:text-[14px] font-bold shadow-[0_12px_24px_rgba(8,83,164,0.18)] font-rubik"
+              className="btn-primary min-h-[38px] lg:min-h-[42px] xl:min-h-[50px] rounded-[6px] px-4 lg:px-5 xl:px-6 text-[13px] xl:text-[14px] font-bold shadow-[0_12px_24px_rgba(8,83,164,0.18)] font-rubik"
             >
               Book Now
             </Link>
           </div>
 
-          {/* Mobile & Tablet CTA Buttons + Hamburger Button (Visible < 1280px / xl) */}
-          <div className="flex items-center gap-3 xl:hidden">
+          {/* Mobile & Tablet CTA Buttons + Hamburger Button (Visible < 1024px / lg) */}
+          <div className="flex items-center gap-3 lg:hidden">
             {/* Quick Call Icon Button (Always visible on mobile/tablet for instant support) */}
             <a
               href="tel:+919908117712"
@@ -220,16 +220,16 @@ export function Header() {
         </div>
       </header>
 
-      {/* MOBILE NAVIGATION BACKDROP OVERLAY (Visible < 1280px / xl) */}
+      {/* MOBILE NAVIGATION BACKDROP OVERLAY (Visible < 1024px / lg) */}
       <div
-        className={`fixed inset-0 z-40 bg-slate-900/40 backdrop-blur-sm transition-opacity duration-300 xl:hidden ${mobileMenuOpen ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"
+        className={`fixed inset-0 z-40 bg-slate-900/40 backdrop-blur-sm transition-opacity duration-300 lg:hidden ${mobileMenuOpen ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"
           }`}
         onClick={() => setMobileMenuOpen(false)}
       />
 
-      {/* MOBILE NAVIGATION SIDE DRAWER PANEL (Visible < 1280px / xl) */}
+      {/* MOBILE NAVIGATION SIDE DRAWER PANEL (Visible < 1024px / lg) */}
       <div
-        className={`fixed top-0 right-0 z-50 h-full w-[310px] sm:w-[360px] max-w-full bg-white shadow-2xl transition-transform duration-350 ease-out xl:hidden flex flex-col ${mobileMenuOpen ? "translate-x-0" : "translate-x-full"
+        className={`fixed top-0 right-0 z-50 h-full w-[310px] sm:w-[360px] max-w-full bg-white shadow-2xl transition-transform duration-350 ease-out lg:hidden flex flex-col ${mobileMenuOpen ? "translate-x-0" : "translate-x-full"
           }`}
       >
         {/* Drawer Header */}
