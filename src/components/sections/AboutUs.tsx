@@ -75,13 +75,13 @@ export function AboutUs() {
 
         <div className="relative mx-auto grid max-w-[1360px] items-center gap-10 lg:grid-cols-12 lg:gap-12 xl:gap-16">
           {/* ===== LEFT: TEXT CONTENT ===== */}
-          <div className="flex flex-col gap-5 sm:gap-6 lg:col-span-6 xl:col-span-6">
+          <div className="flex flex-col gap-4 sm:gap-5 lg:col-span-6 xl:col-span-6">
             {/* Section label */}
             <ScrollReveal variant="fade-in-left" delay={50} duration={1200}>
               <div className="flex items-center gap-3">
                 <span className="h-[1px] w-8 bg-[#0853a4]" />
 
-                <p className="font-satisfy text-[24px] font-normal text-[#0853a4] capitalize">
+                <p className="font-satisfy text-[22px] sm:text-[24px] font-normal text-[#0853a4] capitalize">
                   About Us
                 </p>
 
@@ -91,22 +91,22 @@ export function AboutUs() {
 
             {/* Main heading */}
             <ScrollReveal variant="fade-in-left" delay={200} duration={1300}>
-              <h2 className="font-rubik text-[30px] sm:text-[36px] lg:text-[40px] xl:text-[45px] font-bold leading-[1.18] tracking-[-0.02em] text-[#100c08]">
+              <h2 className="font-rubik text-[26px] sm:text-[32px] md:text-[36px] lg:text-[38px] xl:text-[42px] font-bold leading-[1.2] tracking-[-0.015em] text-[#100c08]">
                 Let&apos;s know About Our Journey For Open Sky Holidays.
               </h2>
             </ScrollReveal>
 
             {/* Tab buttons */}
             <ScrollReveal variant="fade-in-left" delay={350} duration={1300}>
-              <div className="flex flex-wrap gap-x-10 gap-y-4">
+              <div className="flex flex-wrap gap-x-8 gap-y-3 pt-1">
                 <button
                   type="button"
                   onClick={() => setActiveAboutTab('mission')}
-                  className={`flex items-center gap-2.5 text-[15px] font-semibold transition ${activeAboutTab === 'mission' ? 'text-[#0853a4]' : 'text-slate-500 hover:text-[#0853a4]'
+                  className={`flex items-center gap-2 text-[14.5px] sm:text-[15px] font-semibold transition ${activeAboutTab === 'mission' ? 'text-[#0853a4]' : 'text-slate-500 hover:text-[#0853a4]'
                     }`}
                 >
                   <span className={activeAboutTab === 'mission' ? 'text-[#0853a4]' : 'text-slate-400'}>
-                    <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="1.7" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" className="h-5 w-5 sm:h-6 sm:w-6" fill="none" stroke="currentColor" strokeWidth="1.7" aria-hidden="true">
                       <circle cx="12" cy="12" r="8" />
                       <circle cx="12" cy="12" r="4" />
                       <circle cx="12" cy="12" r="1" fill="currentColor" />
@@ -119,11 +119,11 @@ export function AboutUs() {
                 <button
                   type="button"
                   onClick={() => setActiveAboutTab('customer')}
-                  className={`flex items-center gap-2.5 text-[15px] font-semibold transition ${activeAboutTab === 'customer' ? 'text-[#0853a4]' : 'text-slate-500 hover:text-[#0853a4]'
+                  className={`flex items-center gap-2 text-[14.5px] sm:text-[15px] font-semibold transition ${activeAboutTab === 'customer' ? 'text-[#0853a4]' : 'text-slate-500 hover:text-[#0853a4]'
                     }`}
                 >
                   <span className={activeAboutTab === 'customer' ? 'text-[#0853a4]' : 'text-slate-400'}>
-                    <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="1.7" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" className="h-5 w-5 sm:h-6 sm:w-6" fill="none" stroke="currentColor" strokeWidth="1.7" aria-hidden="true">
                       <circle cx="12" cy="8" r="3.5" />
                       <path d="M6 21v-2a6 6 0 0 1 12 0v2" />
                       <path d="m5 6-2-2M19 6l2-2M12 3V1" />
@@ -137,7 +137,7 @@ export function AboutUs() {
 
             {/* Tab content */}
             <ScrollReveal variant="fade-in-left" delay={500} duration={1300}>
-              <div className="min-h-[150px] font-jost text-[14.5px] sm:text-[15.5px] leading-[1.85] text-slate-600">
+              <div className="min-h-[120px] sm:min-h-[130px] font-jost text-[14px] sm:text-[15px] leading-[1.75] text-slate-600">
                 {activeAboutTab === 'mission' ? (
                   <p>
                     Established in 2020, Open Sky Holidays is one of India&apos;s
@@ -162,10 +162,10 @@ export function AboutUs() {
 
             {/* Button + customer count */}
             <ScrollReveal variant="fade-in-left" delay={650} duration={1400}>
-              <div className="flex flex-wrap items-center gap-8">
+              <div className="flex flex-wrap items-center gap-6 sm:gap-8 pt-2 sm:pt-3">
                 <Link
                   to="/about"
-                  className="btn-primary min-h-[52px] rounded-[5px] px-8 text-[15px] font-bold shadow-[0_12px_30px_rgba(8,83,164,0.2)]"
+                  className="btn-primary min-h-[48px] sm:min-h-[52px] rounded-[5px] px-7 sm:px-8 text-[14.5px] sm:text-[15px] font-bold shadow-[0_12px_30px_rgba(8,83,164,0.2)]"
                 >
                   More About
                 </Link>
@@ -182,16 +182,16 @@ export function AboutUs() {
                         key={src}
                         src={src}
                         alt={`Customer ${i + 1}`}
-                        className="h-11 w-11 rounded-full border-[3px] border-white object-cover shadow"
+                        className="h-10 w-10 sm:h-11 sm:w-11 rounded-full border-[3px] border-white object-cover shadow"
                       />
                     ))}
                   </div>
 
                   <div className="font-rubik">
-                    <p className="text-[20px] font-bold leading-none text-[#100c08]">
+                    <p className="text-[18px] sm:text-[20px] font-bold leading-none text-[#100c08]">
                       {customerCount}+
                     </p>
-                    <p className="mt-1 text-[13px] text-slate-500">Customer</p>
+                    <p className="mt-1 text-[12.5px] sm:text-[13px] text-slate-500">Customer</p>
                   </div>
                 </div>
               </div>
@@ -199,7 +199,7 @@ export function AboutUs() {
           </div>
 
           {/* ===== RIGHT: 3D ANIMATED GLOBE ===== */}
-          <ScrollReveal variant="fade-in-right" delay={200} duration={1450} className="relative w-full flex items-center justify-center lg:col-span-6 xl:col-span-6">
+          <ScrollReveal variant="fade-in-right" delay={200} duration={1450} className="relative w-full flex items-center justify-center lg:col-span-6 xl:col-span-6 overflow-visible">
             <AnimatedGlobe />
           </ScrollReveal>
         </div>

@@ -203,32 +203,34 @@ function GlobeGroup() {
 function ResponsiveCamera() {
   const { camera, size } = useThree();
 
-  useEffect(() => {
+  useFrame(() => {
     if (!camera || !size.width || !size.height) return;
     const aspect = size.width / size.height;
     const fovRad = (45 / 2) * (Math.PI / 180);
 
     // Calculate distance needed for vertical fit (keeps globe full and grand on desktop)
-    const distY = (GLOBE_RADIUS * 1.02) / Math.sin(fovRad);
+    const distY = (GLOBE_RADIUS * 1.05) / Math.sin(fovRad);
     // Calculate distance needed for horizontal fit (prevents right/left clipping on narrow/zoomed screens)
     const horizFovRad = Math.atan(aspect * Math.tan(fovRad));
-    const distX = (GLOBE_RADIUS * 1.06) / Math.sin(horizFovRad);
+    const distX = (GLOBE_RADIUS * 1.08) / Math.sin(horizFovRad);
 
     // Use whichever distance is larger so the sphere fits both horizontally and vertically
     const targetDist = Math.max(distY, distX);
     const yPos = 0.5;
     const zPos = Math.sqrt(Math.max(1, targetDist * targetDist - yPos * yPos));
 
-    camera.position.set(0, yPos, zPos);
-    camera.updateProjectionMatrix();
-  }, [size.width, size.height, camera]);
+    if (Math.abs(camera.position.z - zPos) > 0.01 || Math.abs(camera.position.y - yPos) > 0.01) {
+      camera.position.set(0, yPos, zPos);
+      camera.updateProjectionMatrix();
+    }
+  });
 
   return null;
 }
 
 export function AnimatedGlobe() {
   return (
-    <div className="relative w-full h-[400px] sm:h-[480px] lg:h-[560px] xl:h-[600px] max-w-full flex items-center justify-center cursor-grab active:cursor-grabbing">
+    <div className="relative w-full max-w-[600px] aspect-square max-h-[72vh] mx-auto flex items-center justify-center cursor-grab active:cursor-grabbing">
 
       {/* Floating Instructions Heading */}
       <div className="absolute bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 z-10 pointer-events-none text-center w-full px-4">
