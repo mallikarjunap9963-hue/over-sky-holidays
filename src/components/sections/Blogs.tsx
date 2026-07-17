@@ -303,7 +303,7 @@ export function Blogs({ showAll = false }: { showAll?: boolean }) {
       <section
         ref={sectionRef}
         id="blogs"
-        className="relative overflow-hidden bg-[#f8fbff] px-5 py-10 sm:px-8"
+        className="relative overflow-hidden bg-white px-5 py-10 sm:px-8"
       >
         {/* Three.js particles background */}
         <div className="pointer-events-none absolute inset-0 z-0 opacity-60">

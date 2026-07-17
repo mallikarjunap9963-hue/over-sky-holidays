@@ -54,7 +54,7 @@ export function EliteTouristAttractions() {
         onMouseLeave={() => setPauseAttractionSlider(false)}
         onTouchStart={() => setPauseAttractionSlider(true)}
         onTouchEnd={() => setPauseAttractionSlider(false)}
-        className="relative overflow-hidden bg-[#fbf8f2] px-5 py-10 sm:px-8"
+        className="relative overflow-hidden bg-white px-5 py-10 sm:px-8"
       >
         {/* Anchor targets for header routing */}
         <div id="domestic-tours" className="absolute top-0 left-0" />
