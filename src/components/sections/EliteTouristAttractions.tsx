@@ -25,11 +25,24 @@ export function EliteTouristAttractions() {
   }, [activeAttractionTab, pauseAttractionSlider]);
 
   const selectedAttractionPackages = attractionPackages[activeAttractionTab];
-  const visibleAttractionPackages = selectedAttractionPackages.slice(0, 6);
+  const visibleAttractionPackages = Array.from(
+    { length: Math.min(3, selectedAttractionPackages.length) },
+    (_, offset) => selectedAttractionPackages[(attractionSlide + offset) % selectedAttractionPackages.length]
+  );
 
   const selectAttractionTab = (tab: AttractionTab) => {
     setActiveAttractionTab(tab);
     setAttractionSlide(0);
+  };
+
+  const previousAttractionSlide = () => {
+    setAttractionSlide((previous) =>
+      previous === 0 ? selectedAttractionPackages.length - 1 : previous - 1,
+    );
+  };
+
+  const nextAttractionSlide = () => {
+    setAttractionSlide((previous) => (previous + 1) % selectedAttractionPackages.length);
   };
 
   return (
@@ -208,13 +221,55 @@ export function EliteTouristAttractions() {
           </div>
 
           {/* Bottom controls */}
-          <ScrollReveal variant="fade-in-up" delay={300} duration={1300} className="mt-12 flex justify-center">
-            <Link
-              to={activeAttractionTab === "Domestic" ? "/tours/domestic" : "/tours/international"}
-              className="btn-primary rounded-full min-h-[52px] px-9 text-[14px] font-bold shadow-[0_12px_28px_rgba(8,83,164,0.25)] inline-flex items-center justify-center"
-            >
-              View All Packages
-            </Link>
+          <ScrollReveal variant="fade-in-up" delay={300} duration={1300} className="mt-12 grid items-center gap-6 sm:grid-cols-3">
+            <div className="flex justify-center sm:justify-start">
+              <button
+                type="button"
+                onClick={previousAttractionSlide}
+                className="flex h-11 w-11 items-center justify-center rounded-full border-2 border-[#0853a4] text-[#0853a4] transition hover:bg-[#0853a4] hover:text-white"
+                aria-label="Previous attraction packages"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  className="h-5 w-5"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  aria-hidden="true"
+                >
+                  <path d="m15 18-6-6 6-6" />
+                </svg>
+              </button>
+            </div>
+
+            <div className="text-center">
+              <Link
+                to={activeAttractionTab === "Domestic" ? "/tours/domestic" : "/tours/international"}
+                className="btn-primary rounded-full min-h-[52px] px-9 text-[14px] font-bold shadow-[0_12px_28px_rgba(8,83,164,0.25)] inline-flex items-center justify-center"
+              >
+                View All Packages
+              </Link>
+            </div>
+
+            <div className="flex justify-center sm:justify-end">
+              <button
+                type="button"
+                onClick={nextAttractionSlide}
+                className="flex h-11 w-11 items-center justify-center rounded-full border-2 border-[#0853a4] text-[#0853a4] transition hover:bg-[#0853a4] hover:text-white"
+                aria-label="Next attraction packages"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  className="h-5 w-5"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  aria-hidden="true"
+                >
+                  <path d="m9 18 6-6-6-6" />
+                </svg>
+              </button>
+            </div>
           </ScrollReveal>
         </div>
       </section>
