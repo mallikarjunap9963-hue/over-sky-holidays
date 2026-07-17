@@ -118,7 +118,7 @@ function FlightRoute({ destination }: { destination: typeof locations[0] }) {
             <svg className="h-5 w-5 text-red-500 drop-shadow-md group-hover:animate-bounce" fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
             </svg>
-            <span className="font-rubik text-[14px] font-bold text-slate-800 drop-shadow-[0_1px_1px_rgba(255,255,255,0.8)] leading-none group-hover:text-[#0b84d8] transition-colors">
+            <span className="font-rubik text-[14px] font-bold text-slate-800 drop-shadow-[0_1px_1px_rgba(255,255,255,0.8)] leading-none group-hover:text-[#0853a4] transition-colors">
               {destination.name}
             </span>
           </div>
@@ -174,7 +174,7 @@ function GlobeGroup() {
       {/* Ocean Layer (Blue, transparent over land) */}
       <Sphere args={[GLOBE_RADIUS, 64, 64]}>
         <meshPhysicalMaterial
-          color="#0b84d8"
+          color="#0853a4"
           alphaMap={specMap}
           transparent={true}
           roughness={0.1}
@@ -186,10 +186,10 @@ function GlobeGroup() {
 
       {/* Outer atmosphere glow */}
       <Sphere args={[GLOBE_RADIUS * 1.05, 64, 64]}>
-        <meshBasicMaterial color="#0b84d8" transparent opacity={0.015} side={THREE.BackSide} />
+        <meshBasicMaterial color="#0853a4" transparent opacity={0.015} side={THREE.BackSide} />
       </Sphere>
       <Sphere args={[GLOBE_RADIUS * 1.02, 64, 64]}>
-        <meshBasicMaterial color="#0b84d8" transparent opacity={0.04} side={THREE.BackSide} />
+        <meshBasicMaterial color="#0853a4" transparent opacity={0.04} side={THREE.BackSide} />
       </Sphere>
 
       {/* Render all flight routes */}
@@ -208,7 +208,7 @@ export function AnimatedGlobe() {
       <div className="absolute bottom-6 sm:bottom-10 left-1/2 -translate-x-1/2 z-10 pointer-events-none text-center">
         <div className="inline-block bg-white/90 backdrop-blur-md px-6 py-2 rounded-full shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-slate-200/60 transition-transform duration-500 hover:scale-105">
           <p className="font-rubik text-[13px] sm:text-[15px] font-bold text-[#100c08] leading-tight">
-            Explore Our <span className="text-[#0b84d8]">Destinations</span>
+            Explore Our <span className="text-[#0853a4]">Destinations</span>
           </p>
           <p className="font-jost text-[9px] sm:text-[11px] font-semibold text-slate-500 mt-1 uppercase tracking-widest">
             Click any country to view tours
@@ -222,7 +222,7 @@ export function AnimatedGlobe() {
       >
         <ambientLight intensity={1.5} />
         <directionalLight position={[10, 10, 5]} intensity={1} color="#ffffff" />
-        <directionalLight position={[-10, -10, -5]} intensity={0.5} color="#0b84d8" />
+        <directionalLight position={[-10, -10, -5]} intensity={0.5} color="#0853a4" />
 
         {/* Subtle background particles */}
         <Float speed={2} rotationIntensity={0.5} floatIntensity={1}>
@@ -233,7 +233,7 @@ export function AnimatedGlobe() {
                 args={[new Float32Array(300).map(() => (Math.random() - 0.5) * 15), 3]}
               />
             </bufferGeometry>
-            <pointsMaterial size={0.05} color="#0b84d8" transparent opacity={0.4} sizeAttenuation />
+            <pointsMaterial size={0.05} color="#0853a4" transparent opacity={0.4} sizeAttenuation />
           </points>
         </Float>
 

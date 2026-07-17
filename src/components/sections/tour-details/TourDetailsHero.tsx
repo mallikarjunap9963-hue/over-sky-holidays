@@ -33,7 +33,7 @@ export default function TourDetailsHero({
         <div className="flex items-start justify-between gap-6 font-jost">
           <nav
             aria-label="Breadcrumb"
-            className="inline-flex items-center gap-2 rounded-xl border border-white/15 bg-[#071f36]/40 px-4 py-2.5 backdrop-blur-md font-jost"
+            className="inline-flex items-center gap-2 rounded-xl border border-white/15 bg-[#0853a4]/40 px-4 py-2.5 backdrop-blur-md font-jost"
           >
             <Link
               to="/"
@@ -96,7 +96,7 @@ export default function TourDetailsHero({
 
         {/* Main Hero Content */}
         <div className="mt-auto max-w-2xl text-white">
-          <span className="inline-flex items-center gap-2 rounded-full bg-[#075bb8] px-4 py-2 text-xs font-black uppercase tracking-wide font-rubik">
+          <span className="inline-flex items-center gap-2 rounded-full bg-[#0853a4] px-4 py-2 text-xs font-black uppercase tracking-wide font-rubik">
             <MapPin size={16} />
             {categoryLabel}
           </span>

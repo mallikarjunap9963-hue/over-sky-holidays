@@ -7,7 +7,7 @@ export function AboutHero() {
       {/* ================= PROFESSIONAL BREADCRUMB BANNER ================= */}
       <section
         id="about-hero"
-        className="relative isolate overflow-hidden bg-[#071f36]"
+        className="relative isolate overflow-hidden bg-[#0853a4]"
       >
         {/* Background Image */}
         <div className="absolute inset-0 -z-20">
@@ -19,10 +19,10 @@ export function AboutHero() {
         </div>
 
         {/* Dark Overlay */}
-        <div className="absolute inset-0 -z-10 bg-gradient-to-r from-[#071f36]/95 via-[#071f36]/82 to-[#0b84d8]/45" />
+        <div className="absolute inset-0 -z-10 bg-gradient-to-r from-[#0853a4]/95 via-[#0853a4]/82 to-[#0853a4]/45" />
 
         {/* Bottom Gradient */}
-        <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#071f36]/60 to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#0853a4]/60 to-transparent" />
 
         {/* Decorative Circle */}
         <div className="pointer-events-none absolute -right-24 -top-28 h-[340px] w-[340px] rounded-full border border-white/10" />
@@ -73,7 +73,7 @@ export function AboutHero() {
               {/* Breadcrumb */}
               <nav
                 aria-label="Breadcrumb"
-                className="mt-4.5 inline-flex items-center gap-2 rounded-xl border border-white/15 bg-[#071f36]/40 px-4 py-2.5 backdrop-blur-md"
+                className="mt-4.5 inline-flex items-center gap-2 rounded-xl border border-white/15 bg-[#0853a4]/40 px-4 py-2.5 backdrop-blur-md"
               >
                 <Link
                   to="/"

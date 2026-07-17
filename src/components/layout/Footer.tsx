@@ -9,7 +9,7 @@ export function Footer() {
     <>
       <footer
         id="contact"
-        className="relative overflow-hidden bg-[#071f36] text-white font-jost"
+        className="relative overflow-hidden bg-[#0853a4] text-white font-jost"
       >
         {/* DECORATIVE BACKGROUND */}
         <div className="absolute -left-32 top-24 h-80 w-80 rounded-full border border-white/5" />
@@ -51,7 +51,7 @@ export function Footer() {
                     target={social.href && social.href !== "#social" ? "_blank" : undefined}
                     rel={social.href && social.href !== "#social" ? "noopener noreferrer" : undefined}
                     aria-label={social.label}
-                    className="flex h-10 w-10 items-center justify-center rounded-full border border-white/25 text-white transition duration-300 hover:-translate-y-1 hover:border-white hover:bg-white hover:text-[#0b84d8]"
+                    className="flex h-10 w-10 items-center justify-center rounded-full border border-white/25 text-white transition duration-300 hover:-translate-y-1 hover:border-white hover:bg-white hover:text-[#0853a4]"
                   >
                     {social.icon}
                   </a>
@@ -130,7 +130,7 @@ export function Footer() {
                   href="tel:+919908117712"
                   className="group flex items-start gap-4"
                 >
-                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white/10 text-white transition group-hover:bg-white group-hover:text-[#0b84d8]">
+                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white/10 text-white transition group-hover:bg-white group-hover:text-[#0853a4]">
                     <PhoneIcon className="h-5 w-5" />
                   </span>
 
@@ -150,7 +150,7 @@ export function Footer() {
                   href="mailto:info@openskyholidays.com"
                   className="group flex items-start gap-4"
                 >
-                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white/10 text-white transition group-hover:bg-white group-hover:text-[#0b84d8]">
+                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white/10 text-white transition group-hover:bg-white group-hover:text-[#0853a4]">
                     <svg
                       viewBox="0 0 24 24"
                       className="h-5 w-5"
@@ -181,7 +181,7 @@ export function Footer() {
                   rel="noreferrer"
                   className="group flex items-start gap-4"
                 >
-                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white/10 text-white transition group-hover:bg-white group-hover:text-[#0b84d8]">
+                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white/10 text-white transition group-hover:bg-white group-hover:text-[#0853a4]">
                     <LocationIcon className="h-5 w-5" />
                   </span>
 

@@ -60,8 +60,8 @@ export function AboutWhyUs() {
           <div className="flex flex-col gap-6">
             <ScrollReveal variant="fade-in-left" delay={50} duration={1200}>
               <div className="flex items-center gap-2">
-                <span className="h-[1.5px] w-6 bg-[#0b84d8]" />
-                <p className="font-satisfy text-[24px] font-normal capitalize text-[#0b84d8]">
+                <span className="h-[1.5px] w-6 bg-[#0853a4]" />
+                <p className="font-satisfy text-[24px] font-normal capitalize text-[#0853a4]">
                   Why Choose Us
                 </p>
               </div>
@@ -83,7 +83,7 @@ export function AboutWhyUs() {
               {reasons.map((item, index) => (
                 <ScrollReveal key={item.title} variant="fade-in-left" delay={450 + 100 * index} duration={1200}>
                   <div className="flex items-start gap-4 group">
-                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-[#0b84d8] transition-all duration-300 group-hover:bg-[#0b84d8] group-hover:text-white">
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-[#0853a4] transition-all duration-300 group-hover:bg-[#0853a4] group-hover:text-white">
                       {item.icon}
                     </div>
                     <div>
@@ -100,7 +100,7 @@ export function AboutWhyUs() {
               <Link
                 to="/contact"
                 className="mt-2 inline-flex w-fit items-center gap-2 rounded-full px-7 py-3 font-rubik text-[14px] font-bold text-white transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5"
-                style={{ background: 'linear-gradient(135deg, #0b84d8, #0066b0)' }}
+                style={{ background: 'linear-gradient(135deg, #0853a4, #0066b0)' }}
               >
                 Get in Touch
                 <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2.5">
@@ -122,7 +122,7 @@ export function AboutWhyUs() {
             </div>
             {/* Floating badge */}
             <div className="absolute -bottom-4 -left-4 flex items-center gap-3 rounded-2xl bg-white p-4 shadow-xl border border-slate-100">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl text-[#0b84d8]" style={{ background: 'linear-gradient(135deg, #e8f4fd, #dbeeff)' }}>
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl text-[#0853a4]" style={{ background: 'linear-gradient(135deg, #e8f4fd, #dbeeff)' }}>
                 <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2.5">
                   <polyline points="20 6 9 17 4 12" />
                 </svg>

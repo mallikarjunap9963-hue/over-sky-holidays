@@ -23,12 +23,12 @@ export default function TourHighlights({ tourHighlights }: TourHighlightsProps) 
                     : ""
                 }`}
               >
-                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-white text-[#075bb8] shadow-sm">
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-white text-[#0853a4] shadow-sm">
                   <Icon size={25} />
                 </div>
 
                 <div>
-                  <h3 className="font-black text-[#09255b] font-rubik">
+                  <h3 className="font-black text-[#0853a4] font-rubik">
                     {highlight.title}
                   </h3>
 

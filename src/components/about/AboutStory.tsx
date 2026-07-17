@@ -44,15 +44,15 @@ export function AboutStory() {
               </div>
             </div>
             {/* Decorative accent */}
-            <div className="absolute -bottom-6 -left-6 -z-10 h-24 w-24 rounded-2xl bg-gradient-to-br from-[#0b84d8]/10 to-amber-500/10 blur-sm" />
+            <div className="absolute -bottom-6 -left-6 -z-10 h-24 w-24 rounded-2xl bg-gradient-to-br from-[#0853a4]/10 to-amber-500/10 blur-sm" />
           </ScrollReveal>
 
           {/* Story Text content (Right) */}
           <div className="flex flex-col gap-5">
             <ScrollReveal variant="fade-in-right" delay={50} duration={1200}>
               <div className="flex items-center gap-2">
-                <span className="h-[1.5px] w-6 bg-[#0b84d8]" />
-                <p className="font-satisfy text-[24px] font-normal capitalize text-[#0b84d8]">
+                <span className="h-[1.5px] w-6 bg-[#0853a4]" />
+                <p className="font-satisfy text-[24px] font-normal capitalize text-[#0853a4]">
                   Our Story
                 </p>
               </div>
@@ -78,7 +78,7 @@ export function AboutStory() {
             <ScrollReveal variant="fade-in-right" delay={500} duration={1300}>
               <div className="mt-2 grid grid-cols-2 gap-4 font-rubik">
                 <div className="flex items-start gap-3">
-                  <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-blue-50 text-[#0b84d8] mt-0.5">
+                  <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-blue-50 text-[#0853a4] mt-0.5">
                     ✓
                   </span>
                   <div>
@@ -87,7 +87,7 @@ export function AboutStory() {
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
-                  <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-blue-50 text-[#0b84d8] mt-0.5">
+                  <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-blue-50 text-[#0853a4] mt-0.5">
                     ✓
                   </span>
                   <div>

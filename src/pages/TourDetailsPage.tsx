@@ -222,7 +222,7 @@ export default function TourDetailsPage() {
   if (!tour || !detail) {
     return (
       <main className="flex min-h-[70vh] flex-col items-center justify-center bg-white px-5 text-center font-jost">
-        <h1 className="text-3xl font-black text-[#09255b] font-rubik">
+        <h1 className="text-3xl font-black text-[#0853a4] font-rubik">
           Tour Package Not Found
         </h1>
 
@@ -233,7 +233,7 @@ export default function TourDetailsPage() {
 
         <Link
           to="/"
-          className="mt-7 inline-flex min-h-12 items-center justify-center rounded-full bg-[#0874cb] px-7 text-sm font-bold text-white transition hover:bg-[#075da4]"
+          className="mt-7 inline-flex min-h-12 items-center justify-center rounded-full bg-[#0853a4] px-7 text-sm font-bold text-white transition hover:bg-[#064a8f]"
         >
           Go Back Home
         </Link>
@@ -279,12 +279,12 @@ export default function TourDetailsPage() {
                         key={item.id}
                         className="flex min-h-[118px] gap-4 rounded-2xl border border-blue-100 bg-gradient-to-br from-white to-blue-50/70 p-4 transition duration-300 hover:-translate-y-1 hover:shadow-lg"
                       >
-                        <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#073e91] text-white shadow-sm">
+                        <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#0853a4] text-white shadow-sm">
                           <Icon size={22} />
                         </div>
 
                         <div>
-                          <h3 className="text-[15.5px] font-black text-[#09255b] font-rubik">
+                          <h3 className="text-[15.5px] font-black text-[#0853a4] font-rubik">
                             {item.title}
                           </h3>
 
@@ -330,7 +330,7 @@ export default function TourDetailsPage() {
       <TourHighlights tourHighlights={tourHighlights} />
 
       {/* TERMS BAR */}
-      <section className="bg-[#073e91] py-5 text-white">
+      <section className="bg-[#0853a4] py-5 text-white">
         <div className="mx-auto flex max-w-[1320px] flex-col items-center justify-center gap-3 px-5 text-center text-sm sm:flex-row sm:px-8 lg:px-10">
           <span className="flex items-center gap-2 font-semibold">
             <svg

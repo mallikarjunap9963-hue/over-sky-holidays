@@ -63,13 +63,13 @@ export function AboutUs() {
         </div>
 
         {/* Left decorative circles */}
-        <div className="pointer-events-none absolute -left-28 bottom-0 h-72 w-72 rounded-full border border-[#0b84d8]/5" />
-        <div className="pointer-events-none absolute -left-16 bottom-10 h-52 w-52 rounded-full border border-[#0b84d8]/5" />
+        <div className="pointer-events-none absolute -left-28 bottom-0 h-72 w-72 rounded-full border border-[#0853a4]/5" />
+        <div className="pointer-events-none absolute -left-16 bottom-10 h-52 w-52 rounded-full border border-[#0853a4]/5" />
 
         {/* Right dot-pattern decoration */}
         <div className="pointer-events-none absolute right-[5%] top-16 grid grid-cols-8 gap-[10px] opacity-[0.07]">
           {Array.from({ length: 64 }).map((_, i) => (
-            <span key={i} className="h-1.5 w-1.5 rounded-full bg-[#0b84d8]" />
+            <span key={i} className="h-1.5 w-1.5 rounded-full bg-[#0853a4]" />
           ))}
         </div>
 
@@ -79,13 +79,13 @@ export function AboutUs() {
             {/* Section label */}
             <ScrollReveal variant="fade-in-left" delay={50} duration={1200}>
               <div className="flex items-center gap-3">
-                <span className="h-[1px] w-8 bg-[#0b84d8]" />
+                <span className="h-[1px] w-8 bg-[#0853a4]" />
 
-                <p className="font-satisfy text-[24px] font-normal text-[#0b84d8] capitalize">
+                <p className="font-satisfy text-[24px] font-normal text-[#0853a4] capitalize">
                   About Us
                 </p>
 
-                <span className="h-[1px] w-8 bg-[#0b84d8]" />
+                <span className="h-[1px] w-8 bg-[#0853a4]" />
               </div>
             </ScrollReveal>
 
@@ -102,10 +102,10 @@ export function AboutUs() {
                 <button
                   type="button"
                   onClick={() => setActiveAboutTab('mission')}
-                  className={`flex items-center gap-2.5 text-[15px] font-semibold transition ${activeAboutTab === 'mission' ? 'text-[#0b84d8]' : 'text-slate-500 hover:text-[#0b84d8]'
+                  className={`flex items-center gap-2.5 text-[15px] font-semibold transition ${activeAboutTab === 'mission' ? 'text-[#0853a4]' : 'text-slate-500 hover:text-[#0853a4]'
                     }`}
                 >
-                  <span className={activeAboutTab === 'mission' ? 'text-[#0b84d8]' : 'text-slate-400'}>
+                  <span className={activeAboutTab === 'mission' ? 'text-[#0853a4]' : 'text-slate-400'}>
                     <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="1.7" aria-hidden="true">
                       <circle cx="12" cy="12" r="8" />
                       <circle cx="12" cy="12" r="4" />
@@ -119,10 +119,10 @@ export function AboutUs() {
                 <button
                   type="button"
                   onClick={() => setActiveAboutTab('customer')}
-                  className={`flex items-center gap-2.5 text-[15px] font-semibold transition ${activeAboutTab === 'customer' ? 'text-[#0b84d8]' : 'text-slate-500 hover:text-[#0b84d8]'
+                  className={`flex items-center gap-2.5 text-[15px] font-semibold transition ${activeAboutTab === 'customer' ? 'text-[#0853a4]' : 'text-slate-500 hover:text-[#0853a4]'
                     }`}
                 >
-                  <span className={activeAboutTab === 'customer' ? 'text-[#0b84d8]' : 'text-slate-400'}>
+                  <span className={activeAboutTab === 'customer' ? 'text-[#0853a4]' : 'text-slate-400'}>
                     <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="1.7" aria-hidden="true">
                       <circle cx="12" cy="8" r="3.5" />
                       <path d="M6 21v-2a6 6 0 0 1 12 0v2" />
@@ -165,7 +165,7 @@ export function AboutUs() {
               <div className="flex flex-wrap items-center gap-8">
                 <Link
                   to="/about"
-                  className="btn-primary min-h-[52px] rounded-[5px] px-8 text-[15px] font-bold shadow-[0_12px_30px_rgba(11,132,216,0.2)]"
+                  className="btn-primary min-h-[52px] rounded-[5px] px-8 text-[15px] font-bold shadow-[0_12px_30px_rgba(8,83,164,0.2)]"
                 >
                   More About
                 </Link>

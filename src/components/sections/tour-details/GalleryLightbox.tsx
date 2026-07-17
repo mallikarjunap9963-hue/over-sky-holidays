@@ -22,7 +22,7 @@ export default function GalleryLightbox({
       <button
         type="button"
         onClick={onClose}
-        className="absolute right-5 top-5 flex h-12 w-12 items-center justify-center rounded-full bg-white text-[#09255b] shadow-xl transition hover:bg-[#0874cb] hover:text-white cursor-pointer"
+        className="absolute right-5 top-5 flex h-12 w-12 items-center justify-center rounded-full bg-white text-[#0853a4] shadow-xl transition hover:bg-[#0853a4] hover:text-white cursor-pointer"
         aria-label="Close gallery preview"
       >
         <X size={24} />

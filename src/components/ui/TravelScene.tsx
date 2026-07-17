@@ -17,7 +17,7 @@ function FloatingOrb() {
     <mesh ref={meshRef} scale={1.15}>
       <icosahedronGeometry args={[1, 1]} />
       <meshStandardMaterial
-        color="#0b84d8"
+        color="#0853a4"
         emissive="#0f5d9a"
         emissiveIntensity={0.6}
         metalness={0.35}
@@ -29,7 +29,7 @@ function FloatingOrb() {
 
 export function TravelScene() {
   return (
-    <div className="h-full w-full rounded-full bg-[radial-gradient(circle,_rgba(11,132,216,0.2),_transparent_70%)]">
+    <div className="h-full w-full rounded-full bg-[radial-gradient(circle,_rgba(8,83,164,0.2),_transparent_70%)]">
       <Canvas camera={{ position: [0, 0, 5], fov: 35 }} dpr={[1, 1.8]} gl={{ antialias: true, alpha: true }}>
         <ambientLight intensity={0.8} />
         <pointLight position={[3, 4, 4]} intensity={1.6} color="#fbb03b" />

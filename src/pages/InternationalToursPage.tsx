@@ -17,7 +17,7 @@ export function InternationalToursPage() {
   return (
     <main className="min-h-screen bg-slate-50/50 font-jost">
       {/* ================= PROFESSIONAL BREADCRUMB BANNER ================= */}
-      <section className="relative isolate overflow-hidden bg-[#071f36]">
+      <section className="relative isolate overflow-hidden bg-[#0853a4]">
         {/* Background Image */}
         <div className="absolute inset-0 -z-20">
           <img
@@ -28,10 +28,10 @@ export function InternationalToursPage() {
         </div>
 
         {/* Dark Overlay */}
-        <div className="absolute inset-0 -z-10 bg-gradient-to-r from-[#071f36]/95 via-[#071f36]/82 to-[#0b84d8]/45" />
+        <div className="absolute inset-0 -z-10 bg-gradient-to-r from-[#0853a4]/95 via-[#0853a4]/82 to-[#0853a4]/45" />
 
         {/* Bottom Gradient */}
-        <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#071f36]/60 to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#0853a4]/60 to-transparent" />
 
         {/* Decorative Circle */}
         <div className="pointer-events-none absolute -right-24 -top-28 h-[340px] w-[340px] rounded-full border border-white/10" />
@@ -82,7 +82,7 @@ export function InternationalToursPage() {
               {/* Breadcrumb */}
               <nav
                 aria-label="Breadcrumb"
-                className="mt-4.5 inline-flex items-center gap-2 rounded-xl border border-white/15 bg-[#071f36]/40 px-4 py-2.5 backdrop-blur-md"
+                className="mt-4.5 inline-flex items-center gap-2 rounded-xl border border-white/15 bg-[#0853a4]/40 px-4 py-2.5 backdrop-blur-md"
               >
                 <Link
                   to="/"
@@ -148,7 +148,7 @@ export function InternationalToursPage() {
             >
               <Link
                 to={`/tour/international/${tour.id}`}
-                className="group flex flex-col h-full overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_20px_45px_rgba(7,31,67,0.06)]"
+                className="group flex flex-col h-full overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_20px_45px_rgba(8,83,164,0.06)]"
               >
                 {/* Image */}
                 <div className="relative aspect-[16/10] overflow-hidden bg-slate-100">
@@ -165,12 +165,12 @@ export function InternationalToursPage() {
 
                 {/* Content */}
                 <div className="flex flex-col flex-grow p-6">
-                  <span className="flex items-center gap-1 text-xs font-black uppercase tracking-wider text-[#0b84d8] font-rubik">
+                  <span className="flex items-center gap-1 text-xs font-black uppercase tracking-wider text-[#0853a4] font-rubik">
                     <MapPin size={13} className="shrink-0" />
                     {tour.country}
                   </span>
 
-                  <h3 className="mt-2 font-rubik text-xl font-bold leading-snug text-[#100c08] transition group-hover:text-[#0b84d8]">
+                  <h3 className="mt-2 font-rubik text-xl font-bold leading-snug text-[#100c08] transition group-hover:text-[#0853a4]">
                     {tour.title}
                   </h3>
 
@@ -193,7 +193,7 @@ export function InternationalToursPage() {
 
                   {/* Footer Button */}
                   <div className="mt-auto pt-6 flex items-center justify-end border-t border-slate-100">
-                    <span className="inline-flex items-center gap-1.5 rounded-full bg-[#0b84d8]/10 px-4 py-2.5 text-xs font-bold text-[#0b84d8] transition group-hover:bg-[#0b84d8] group-hover:text-white font-rubik">
+                    <span className="inline-flex items-center gap-1.5 rounded-full bg-[#0853a4]/10 px-4 py-2.5 text-xs font-bold text-[#0853a4] transition group-hover:bg-[#0853a4] group-hover:text-white font-rubik">
                       Explore More
                       <ArrowRight size={14} className="transition-transform group-hover:translate-x-0.5" />
                     </span>

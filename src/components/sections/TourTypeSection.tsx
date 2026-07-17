@@ -45,9 +45,9 @@ export function TourTypeSection() {
       <div className="mx-auto max-w-[1320px]">
         <ScrollReveal variant="fade-in-up" duration={1200} className="mb-10 flex flex-col gap-4 text-center lg:mb-12 lg:text-left">
           <div className="flex items-center justify-center gap-3 lg:justify-start">
-            <span className="h-[1px] w-8 bg-[#0b84d8]" />
-            <p className="text-[15px] font-semibold italic text-[#0b84d8]">Explore More</p>
-            <span className="h-[1px] w-8 bg-[#0b84d8]" />
+            <span className="h-[1px] w-8 bg-[#0853a4]" />
+            <p className="text-[15px] font-semibold italic text-[#0853a4]">Explore More</p>
+            <span className="h-[1px] w-8 bg-[#0853a4]" />
           </div>
           <h2 className="text-[30px] font-bold leading-tight text-[#071f43] sm:text-[38px] lg:text-[42px]">
             Tour Type
@@ -66,7 +66,7 @@ export function TourTypeSection() {
               duration={1300}
             >
               <article
-                className="group relative min-h-[260px] overflow-hidden rounded-[24px] shadow-[0_18px_45px_rgba(7,31,67,0.12)] h-full"
+                className="group relative min-h-[260px] overflow-hidden rounded-[24px] shadow-[0_18px_45px_rgba(8,83,164,0.12)] h-full"
               >
                 <img
                   src={tour.image}

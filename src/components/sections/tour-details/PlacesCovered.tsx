@@ -27,7 +27,7 @@ export default function PlacesCovered({ placesCovered }: PlacesCoveredProps) {
               type="button"
               onClick={() => scrollPlaces("left")}
               aria-label="View previous places"
-              className="absolute -left-4 top-[42%] z-20 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-slate-200 bg-white text-[#09255b] shadow-lg transition hover:bg-[#075bb8] hover:text-white cursor-pointer"
+              className="absolute -left-4 top-[42%] z-20 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-slate-200 bg-white text-[#0853a4] shadow-lg transition hover:bg-[#0853a4] hover:text-white cursor-pointer"
             >
               <ChevronLeft size={22} />
             </button>
@@ -50,7 +50,7 @@ export default function PlacesCovered({ placesCovered }: PlacesCoveredProps) {
                   </div>
 
                   <div className="p-4">
-                    <h3 className="text-lg font-black text-[#09255b] font-rubik">
+                    <h3 className="text-lg font-black text-[#0853a4] font-rubik">
                       {place.name}
                     </h3>
 
@@ -66,7 +66,7 @@ export default function PlacesCovered({ placesCovered }: PlacesCoveredProps) {
               type="button"
               onClick={() => scrollPlaces("right")}
               aria-label="View next places"
-              className="absolute -right-4 top-[42%] z-20 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-slate-200 bg-white text-[#09255b] shadow-lg transition hover:bg-[#075bb8] hover:text-white cursor-pointer"
+              className="absolute -right-4 top-[42%] z-20 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-slate-200 bg-white text-[#0853a4] shadow-lg transition hover:bg-[#0853a4] hover:text-white cursor-pointer"
             >
               <ChevronRight size={22} />
             </button>

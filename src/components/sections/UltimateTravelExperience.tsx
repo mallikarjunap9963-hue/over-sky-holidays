@@ -15,7 +15,7 @@ export function UltimateTravelExperience() {
         id="tours"
         className="relative overflow-hidden bg-white px-5 py-12 sm:px-8"
       >
-        <div className="pointer-events-none absolute -left-40 top-10 h-96 w-96 rounded-full bg-[#0b84d8]/5 blur-3xl" />
+        <div className="pointer-events-none absolute -left-40 top-10 h-96 w-96 rounded-full bg-[#0853a4]/5 blur-3xl" />
 
         <div className="pointer-events-none absolute -right-40 bottom-10 h-96 w-96 rounded-full bg-[#fbb03b]/5 blur-3xl" />
 
@@ -23,13 +23,13 @@ export function UltimateTravelExperience() {
           {/* SECTION HEADING */}
           <ScrollReveal variant="fade-in-up" duration={1200} className="text-center">
             <div className="flex items-center justify-center gap-3">
-              <span className="h-px w-7 bg-[#0b84d8]" />
+              <span className="h-px w-7 bg-[#0853a4]" />
 
-              <p className="font-satisfy text-[24px] font-normal text-[#0b84d8] capitalize">
+              <p className="font-satisfy text-[24px] font-normal text-[#0853a4] capitalize">
                 Tour Experience
               </p>
 
-              <span className="h-px w-7 bg-[#0b84d8]" />
+              <span className="h-px w-7 bg-[#0853a4]" />
             </div>
 
             <h2 className="mt-3 font-rubik text-[32px] font-bold leading-tight text-[#100c08] sm:text-[40px] lg:text-[46px]">
@@ -45,8 +45,8 @@ export function UltimateTravelExperience() {
                   onClick={() => setActiveExperienceTab(tab)}
                   className={`group flex items-center gap-2 border-b-2 pb-2 text-[14px] font-semibold transition cursor-pointer ${
                     activeExperienceTab === tab
-                      ? "border-[#0b84d8] text-[#0b84d8]"
-                      : "border-transparent text-slate-500 hover:text-[#0b84d8]"
+                      ? "border-[#0853a4] text-[#0853a4]"
+                      : "border-transparent text-slate-500 hover:text-[#0853a4]"
                   }`}
                 >
                   {tab === "Tour Packages" && (
@@ -136,7 +136,7 @@ export function UltimateTravelExperience() {
 
                       {/* COUNTRY AND TYPE */}
                       <div className="absolute left-3 top-11 flex flex-wrap gap-1.5 font-rubik">
-                        <span className="flex items-center gap-1 bg-white px-2.5 py-1.5 text-[9px] font-semibold uppercase text-[#0b84d8] shadow">
+                        <span className="flex items-center gap-1 bg-white px-2.5 py-1.5 text-[9px] font-semibold uppercase text-[#0853a4] shadow">
                           <svg
                             viewBox="0 0 24 24"
                             className="h-3.5 w-3.5"
@@ -160,7 +160,7 @@ export function UltimateTravelExperience() {
 
                     {/* CARD CONTENT */}
                     <div className="px-5 pb-4 pt-2 font-jost text-left">
-                      <h3 className="min-h-[56px] font-rubik text-[17px] font-semibold leading-[1.45] text-[#100c08] transition group-hover:text-[#0b84d8]">
+                      <h3 className="min-h-[56px] font-rubik text-[17px] font-semibold leading-[1.45] text-[#100c08] transition group-hover:text-[#0853a4]">
                         {item.title}
                       </h3>
 
@@ -174,7 +174,7 @@ export function UltimateTravelExperience() {
                             {index !== 0 && (
                               <svg
                                 viewBox="0 0 24 24"
-                                className="h-3 w-3 text-[#0b84d8]"
+                                className="h-3 w-3 text-[#0853a4]"
                                 fill="none"
                                 stroke="currentColor"
                                 strokeWidth="2"

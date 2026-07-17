@@ -42,11 +42,11 @@ export function AboutValues() {
         <div className="flex flex-col items-center text-center gap-3">
           <ScrollReveal variant="fade-in-up" delay={50} duration={1200}>
             <div className="flex items-center justify-center gap-2">
-              <span className="h-[1.5px] w-6 bg-[#0b84d8]" />
-              <p className="font-satisfy text-[24px] font-normal capitalize text-[#0b84d8]">
+              <span className="h-[1.5px] w-6 bg-[#0853a4]" />
+              <p className="font-satisfy text-[24px] font-normal capitalize text-[#0853a4]">
                 Our Core Values
               </p>
-              <span className="h-[1.5px] w-6 bg-[#0b84d8]" />
+              <span className="h-[1.5px] w-6 bg-[#0853a4]" />
             </div>
           </ScrollReveal>
           <ScrollReveal variant="fade-in-up" delay={150} duration={1200}>

@@ -10,7 +10,7 @@ export function WhyChooseUs() {
         className="relative overflow-hidden bg-white px-5 py-10 sm:px-8"
       >
         {/* Decorative travel drawing */}
-        <div className="pointer-events-none absolute right-0 top-0 hidden text-[#0b84d8]/[0.05] lg:block">
+        <div className="pointer-events-none absolute right-0 top-0 hidden text-[#0853a4]/[0.05] lg:block">
           <svg
             viewBox="0 0 500 330"
             className="h-[330px] w-[500px]"
@@ -29,19 +29,19 @@ export function WhyChooseUs() {
           </svg>
         </div>
 
-        <div className="pointer-events-none absolute -left-32 bottom-0 h-80 w-80 rounded-full bg-[#0b84d8]/5 blur-3xl" />
+        <div className="pointer-events-none absolute -left-32 bottom-0 h-80 w-80 rounded-full bg-[#0853a4]/5 blur-3xl" />
 
         <div className="relative mx-auto max-w-[1320px]">
           {/* Section heading */}
           <ScrollReveal variant="fade-in-up" duration={1200} className="text-center">
             <div className="flex items-center justify-center gap-3">
-              <span className="h-px w-8 bg-[#0b84d8]" />
+              <span className="h-px w-8 bg-[#0853a4]" />
 
-              <p className="font-satisfy text-[24px] font-normal text-[#0b84d8] capitalize">
+              <p className="font-satisfy text-[24px] font-normal text-[#0853a4] capitalize">
                 Our Success
               </p>
 
-              <span className="h-px w-8 bg-[#0b84d8]" />
+              <span className="h-px w-8 bg-[#0853a4]" />
             </div>
 
             <h2 className="mt-4 font-rubik text-[32px] font-bold leading-tight text-[#100c08] sm:text-[40px] lg:text-[46px]">
@@ -58,7 +58,7 @@ export function WhyChooseUs() {
                   "Explore domestic and international destinations with complete planning and trusted travel support.",
                 background: "bg-[#f0f9ff]",
                 iconBackground: "bg-[#bae6fd]",
-                iconColor: "text-[#0b84d8]",
+                iconColor: "text-[#0853a4]",
                 icon: (
                   <svg
                     viewBox="0 0 64 64"
@@ -200,7 +200,7 @@ export function WhyChooseUs() {
                 duration={1300}
               >
                 <article
-                  className={`group relative overflow-hidden rounded-[18px] border border-slate-200/80 ${feature.background} px-6 py-8 transition duration-300 hover:-translate-y-2 hover:border-[#0b84d8]/30 hover:shadow-[0_20px_45px_rgba(16,12,8,0.06)] sm:px-8 h-full`}
+                  className={`group relative overflow-hidden rounded-[18px] border border-slate-200/80 ${feature.background} px-6 py-8 transition duration-300 hover:-translate-y-2 hover:border-[#0853a4]/30 hover:shadow-[0_20px_45px_rgba(16,12,8,0.06)] sm:px-8 h-full`}
                 >
                   <div className="flex flex-col gap-6 sm:flex-row sm:items-center font-jost">
                     <div
@@ -210,7 +210,7 @@ export function WhyChooseUs() {
                     </div>
 
                     <div>
-                      <h3 className="font-rubik text-[21px] font-semibold leading-tight text-[#100c08] transition group-hover:text-[#0b84d8] sm:text-[22px]">
+                      <h3 className="font-rubik text-[21px] font-semibold leading-tight text-[#100c08] transition group-hover:text-[#0853a4] sm:text-[22px]">
                         {feature.title}
                       </h3>
 

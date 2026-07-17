@@ -603,7 +603,7 @@ export function ReviewSourceIcon({ source }: { source: ReviewSource }) {
   }
 
   return (
-    <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[#0b84d8] text-white">
+    <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[#0853a4] text-white">
       <svg
         viewBox="0 0 24 24"
         className="h-4 w-4"

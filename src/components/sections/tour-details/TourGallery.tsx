@@ -58,13 +58,13 @@ export default function TourGallery({
                       </h3>
                     </div>
 
-                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white/20 backdrop-blur-md transition group-hover:bg-[#0874cb]">
+                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white/20 backdrop-blur-md transition group-hover:bg-[#0853a4]">
                       <Camera size={19} />
                     </span>
                   </div>
 
                   {index === 7 && galleryImages.length > 8 && (
-                    <div className="absolute inset-0 flex items-center justify-center bg-[#073e91]/75 text-center text-white backdrop-blur-[2px]">
+                    <div className="absolute inset-0 flex items-center justify-center bg-[#0853a4]/75 text-center text-white backdrop-blur-[2px]">
                       <div>
                         <p className="text-3xl font-black font-rubik">
                           +{galleryImages.length - 8}

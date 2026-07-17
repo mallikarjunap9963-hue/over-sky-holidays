@@ -56,7 +56,7 @@ export function Hero() {
             <div className="mt-7 flex justify-center">
               <Link
                 to="/tours/domestic"
-                className="btn-primary min-h-[46px] sm:min-h-[52px] min-w-[150px] sm:min-w-[170px] rounded-[6px] text-sm sm:text-base shadow-[0_10px_24px_rgba(11,132,216,0.18)]"
+                className="btn-primary min-h-[46px] sm:min-h-[52px] min-w-[150px] sm:min-w-[170px] rounded-[6px] text-sm sm:text-base shadow-[0_10px_24px_rgba(8,83,164,0.18)]"
               >
                 Explore More
               </Link>
@@ -72,7 +72,7 @@ export function Hero() {
               type="button"
               onClick={() => setCurrentSlide(index)}
               className={`h-1.5 rounded-full transition-all ${currentSlide === index
-                ? "w-10 bg-[#0b84d8]"
+                ? "w-10 bg-[#0853a4]"
                 : "w-5 bg-white/55 hover:bg-white"
                 }`}
               aria-label={`Go to slide ${index + 1}`}

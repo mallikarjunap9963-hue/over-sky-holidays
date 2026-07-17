@@ -24,7 +24,7 @@ export function ExploreActivities() {
             viewBox="0 0 1400 720"
             className="h-full w-full"
             fill="none"
-            stroke="#0b84d8"
+            stroke="#0853a4"
             strokeWidth="2"
             aria-hidden="true"
           >
@@ -38,13 +38,13 @@ export function ExploreActivities() {
           {/* Heading */}
           <ScrollReveal variant="fade-in-up" duration={1200} className="text-center">
             <div className="flex items-center justify-center gap-3">
-              <span className="h-px w-8 bg-[#0b84d8]" />
+              <span className="h-px w-8 bg-[#0853a4]" />
 
-              <p className="font-satisfy text-[24px] font-normal text-[#0b84d8] capitalize">
+              <p className="font-satisfy text-[24px] font-normal text-[#0853a4] capitalize">
                 Are You Ready To Travel?
               </p>
 
-              <span className="h-px w-8 bg-[#0b84d8]" />
+              <span className="h-px w-8 bg-[#0853a4]" />
             </div>
 
             <h2 className="mt-4 font-rubik text-[36px] font-bold leading-tight text-[#100c08] sm:text-[44px] lg:text-[52px]">
@@ -66,8 +66,8 @@ export function ExploreActivities() {
                     onClick={() => setActiveActivity(activity.name)}
                     className={`group flex min-h-[132px] flex-col items-center justify-center rounded-[5px] px-3 text-center transition duration-300 ${
                       isActive
-                        ? "bg-[#0b84d8] text-white shadow-[0_14px_35px_rgba(11,132,216,0.25)]"
-                        : "bg-[#f0f9ff] text-[#100c08] hover:-translate-y-1 hover:bg-[#e0f2fe] hover:text-[#0b84d8]"
+                        ? "bg-[#0853a4] text-white shadow-[0_14px_35px_rgba(8,83,164,0.25)]"
+                        : "bg-[#f0f9ff] text-[#100c08] hover:-translate-y-1 hover:bg-[#e0f2fe] hover:text-[#0853a4]"
                     }`}
                     aria-pressed={isActive}
                   >
@@ -95,7 +95,7 @@ export function ExploreActivities() {
                 className="animate-[activityFade_0.45s_ease-out] font-jost"
               >
                 {/* Brush label */}
-                <div className="inline-flex min-w-[132px] items-center justify-center bg-[#0b84d8] px-7 py-2.5 text-white [clip-path:polygon(8%_5%,92%_0,100%_22%,93%_82%,8%_100%,0_75%)] font-rubik">
+                <div className="inline-flex min-w-[132px] items-center justify-center bg-[#0853a4] px-7 py-2.5 text-white [clip-path:polygon(8%_5%,92%_0,100%_22%,93%_82%,8%_100%,0_75%)] font-rubik">
                   <p className="text-[14px] font-medium italic">
                     {selectedActivity.badge}
                   </p>
@@ -113,7 +113,7 @@ export function ExploreActivities() {
                 <div className="mt-7 flex flex-wrap gap-x-7 gap-y-4">
                   {selectedActivity.features.map((feature) => (
                     <div key={feature} className="flex items-center gap-2.5">
-                      <span className="h-2.5 w-2.5 shrink-0 rounded-full bg-[#0b84d8]" />
+                      <span className="h-2.5 w-2.5 shrink-0 rounded-full bg-[#0853a4]" />
 
                       <span className="text-[13px] font-semibold text-[#100c08] sm:text-[14px]">
                         {feature}
@@ -137,7 +137,7 @@ export function ExploreActivities() {
                     className="group inline-flex w-fit items-center gap-3 text-[14px] font-semibold text-[#100c08] font-rubik"
                     aria-label={`Watch ${selectedActivity.name} adventure`}
                   >
-                    <span className="flex h-12 w-12 items-center justify-center rounded-full border border-[#100c08] transition group-hover:border-[#0b84d8] group-hover:bg-[#0b84d8] group-hover:text-white">
+                    <span className="flex h-12 w-12 items-center justify-center rounded-full border border-[#100c08] transition group-hover:border-[#0853a4] group-hover:bg-[#0853a4] group-hover:text-white">
                       <svg
                         viewBox="0 0 24 24"
                         className="ml-0.5 h-5 w-5"
@@ -148,7 +148,7 @@ export function ExploreActivities() {
                       </svg>
                     </span>
 
-                    <span className="transition group-hover:text-[#0b84d8]">
+                    <span className="transition group-hover:text-[#0853a4]">
                       Watch Adventure
                     </span>
                   </button>

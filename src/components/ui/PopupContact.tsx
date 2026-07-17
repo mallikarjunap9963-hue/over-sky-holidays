@@ -94,13 +94,13 @@ export function PopupContact() {
                   </div>
                   <h3 className="font-rubik text-[22px] font-bold text-slate-900">Inquiry Received!</h3>
                   <p className="mt-2 text-slate-500 max-w-[320px] text-[14px]">
-                    Thank you, <span className="text-[#0b84d8] font-bold">{formData.name}</span>! Our travel expert will contact you shortly.
+                    Thank you, <span className="text-[#0853a4] font-bold">{formData.name}</span>! Our travel expert will contact you shortly.
                   </p>
                 </div>
               ) : (
                 <div>
                   {/* Top Book Now Flight Badge */}
-                  <div className="flex items-center justify-center gap-2 text-[10px] font-bold uppercase tracking-widest text-[#0b84d8] font-rubik">
+                  <div className="flex items-center justify-center gap-2 text-[10px] font-bold uppercase tracking-widest text-[#0853a4] font-rubik">
                     <span>✈</span>
                     <span>Book Now</span>
                     <span>✈</span>
@@ -121,7 +121,7 @@ export function PopupContact() {
                     
                     {/* Name Input */}
                     <div className="relative group">
-                      <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-[#0b84d8] transition-colors z-10">
+                      <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-[#0853a4] transition-colors z-10">
                         <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                           <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                         </svg>
@@ -132,13 +132,13 @@ export function PopupContact() {
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                         placeholder="Your Name *"
-                        className="w-full h-[42px] pl-9.5 pr-3 rounded-lg border border-slate-200 bg-slate-50/50 text-[#100c08] placeholder:text-slate-500 outline-none focus:border-[#0b84d8] focus:bg-white focus:ring-4 focus:ring-[#0b84d8]/5 transition-all text-[14px]"
+                        className="w-full h-[42px] pl-9.5 pr-3 rounded-lg border border-slate-200 bg-slate-50/50 text-[#100c08] placeholder:text-slate-500 outline-none focus:border-[#0853a4] focus:bg-white focus:ring-4 focus:ring-[#0853a4]/5 transition-all text-[14px]"
                       />
                     </div>
 
                     {/* Email Input */}
                     <div className="relative group">
-                      <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-[#0b84d8] transition-colors z-10">
+                      <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-[#0853a4] transition-colors z-10">
                         <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                           <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                         </svg>
@@ -149,13 +149,13 @@ export function PopupContact() {
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         placeholder="Email Address *"
-                        className="w-full h-[42px] pl-9.5 pr-3 rounded-lg border border-slate-200 bg-slate-50/50 text-[#100c08] placeholder:text-slate-500 outline-none focus:border-[#0b84d8] focus:bg-white focus:ring-4 focus:ring-[#0b84d8]/5 transition-all text-[14px]"
+                        className="w-full h-[42px] pl-9.5 pr-3 rounded-lg border border-slate-200 bg-slate-50/50 text-[#100c08] placeholder:text-slate-500 outline-none focus:border-[#0853a4] focus:bg-white focus:ring-4 focus:ring-[#0853a4]/5 transition-all text-[14px]"
                       />
                     </div>
 
                     {/* Phone Number Input */}
                     <div className="relative group">
-                      <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-[#0b84d8] transition-colors z-10">
+                      <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-[#0853a4] transition-colors z-10">
                         <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                           <path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.94.725l.548 2.2a1 1 0 01-.321.988l-1.305.98a10.582 10.582 0 004.872 4.872l.98-1.305a1 1 0 01.988-.321l2.2.548a1 1 0 01.725.94V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                         </svg>
@@ -166,13 +166,13 @@ export function PopupContact() {
                         value={formData.phone}
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                         placeholder="Phone Number *"
-                        className="w-full h-[42px] pl-9.5 pr-3 rounded-lg border border-slate-200 bg-slate-50/50 text-[#100c08] placeholder:text-slate-500 outline-none focus:border-[#0b84d8] focus:bg-white focus:ring-4 focus:ring-[#0b84d8]/5 transition-all text-[14px]"
+                        className="w-full h-[42px] pl-9.5 pr-3 rounded-lg border border-slate-200 bg-slate-50/50 text-[#100c08] placeholder:text-slate-500 outline-none focus:border-[#0853a4] focus:bg-white focus:ring-4 focus:ring-[#0853a4]/5 transition-all text-[14px]"
                       />
                     </div>
 
                     {/* Description Input */}
                     <div className="relative group">
-                      <span className="absolute left-3 top-3 text-slate-400 group-focus-within:text-[#0b84d8] transition-colors z-10">
+                      <span className="absolute left-3 top-3 text-slate-400 group-focus-within:text-[#0853a4] transition-colors z-10">
                         <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                           <path strokeLinecap="round" strokeLinejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                         </svg>
@@ -182,14 +182,14 @@ export function PopupContact() {
                         onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                         placeholder="Your Message/Inquiry (Optional)"
                         rows={3}
-                        className="w-full pl-9.5 pr-3 py-2.5 rounded-lg border border-slate-200 bg-slate-50/50 text-[#100c08] placeholder:text-slate-500 outline-none focus:border-[#0b84d8] focus:bg-white focus:ring-4 focus:ring-[#0b84d8]/5 transition-all text-[14px] resize-none"
+                        className="w-full pl-9.5 pr-3 py-2.5 rounded-lg border border-slate-200 bg-slate-50/50 text-[#100c08] placeholder:text-slate-500 outline-none focus:border-[#0853a4] focus:bg-white focus:ring-4 focus:ring-[#0853a4]/5 transition-all text-[14px] resize-none"
                       />
                     </div>
 
                     {/* Submit Button */}
                     <button
                       type="submit"
-                      className="w-full h-[42px] mt-2 rounded-lg bg-[#0b84d8] hover:bg-[#0975c0] text-white font-bold text-[14px] flex items-center justify-center gap-2 transition duration-300 hover:-translate-y-0.5 active:translate-y-0 shadow-md shadow-[#0b84d8]/15 cursor-pointer font-rubik"
+                      className="w-full h-[42px] mt-2 rounded-lg bg-[#0853a4] hover:bg-[#064a8f] text-white font-bold text-[14px] flex items-center justify-center gap-2 transition duration-300 hover:-translate-y-0.5 active:translate-y-0 shadow-md shadow-[#0853a4]/15 cursor-pointer font-rubik"
                     >
                       <span>SUBMIT ENQUIRY</span>
                       <svg className="h-4 w-4 transform rotate-45" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
@@ -202,7 +202,7 @@ export function PopupContact() {
                   <div className="mt-4 pt-3.5 border-t border-slate-100 grid grid-cols-3 gap-2 text-center text-[#100c08] font-rubik">
                     {/* Feature 1 */}
                     <div className="flex flex-col items-center">
-                      <svg className="h-4 w-4 text-[#0b84d8] mb-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                      <svg className="h-4 w-4 text-[#0853a4] mb-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                       </svg>
                       <span className="text-[10px] font-bold leading-tight">Best Price Guarantee</span>
@@ -210,7 +210,7 @@ export function PopupContact() {
 
                     {/* Feature 2 */}
                     <div className="flex flex-col items-center">
-                      <svg className="h-4 w-4 text-[#0b84d8] mb-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                      <svg className="h-4 w-4 text-[#0853a4] mb-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z" />
                       </svg>
                       <span className="text-[10px] font-bold leading-tight">24/7 Customer Support</span>
@@ -218,7 +218,7 @@ export function PopupContact() {
 
                     {/* Feature 3 */}
                     <div className="flex flex-col items-center">
-                      <svg className="h-4 w-4 text-[#0b84d8] mb-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                      <svg className="h-4 w-4 text-[#0853a4] mb-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
                       </svg>
                       <span className="text-[10px] font-bold leading-tight">Customized Itineraries</span>

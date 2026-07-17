@@ -61,8 +61,8 @@ export function BookingSearch() {
               type="button"
               onClick={() => setActiveSearchTab(tab)}
               className={`flex min-h-[64px] min-w-[148px] flex-1 items-center justify-center gap-2 border-r border-[#bae6fd] px-5 text-[15px] font-bold transition last:border-r-0 ${activeSearchTab === tab
-                ? "bg-[#0b84d8] text-white"
-                : "bg-[#f0f9ff] text-[#100c08] hover:bg-[#e0f2fe] hover:text-[#0b84d8]"
+                ? "bg-[#0853a4] text-white"
+                : "bg-[#f0f9ff] text-[#100c08] hover:bg-[#e0f2fe] hover:text-[#0853a4]"
                 }`}
               aria-pressed={activeSearchTab === tab}
             >
@@ -82,7 +82,7 @@ export function BookingSearch() {
             options={destinationOptions}
             value={destination}
             onChange={(e) => setDestination(e.target.value)}
-            icon={<LocationIcon className="h-7 w-7 text-[#0b84d8]" />}
+            icon={<LocationIcon className="h-7 w-7 text-[#0853a4]" />}
           />
 
           <SearchSelect
@@ -94,7 +94,7 @@ export function BookingSearch() {
               "Corporate Tour",
               "Customized Tour",
             ]}
-            icon={<BookingTabIcon type="Tour" className="h-7 w-7 text-[#0b84d8]" />}
+            icon={<BookingTabIcon type="Tour" className="h-7 w-7 text-[#0853a4]" />}
           />
 
           <SearchSelect
@@ -114,7 +114,7 @@ export function BookingSearch() {
               "November",
               "December",
             ]}
-            icon={<ClockIcon className="text-[#0b84d8]" />}
+            icon={<ClockIcon className="text-[#0853a4]" />}
           />
 
           <SearchSelect
@@ -126,7 +126,7 @@ export function BookingSearch() {
               "Luxury",
               "Honeymoon",
             ]}
-            icon={<CategoryIcon className="text-[#0b84d8]" />}
+            icon={<CategoryIcon className="text-[#0853a4]" />}
           />
 
           <button

@@ -95,7 +95,7 @@ export function AboutMissionVision() {
     >
       {/* Background decorations */}
       <div className="pointer-events-none absolute inset-0">
-        <div className="absolute -left-36 top-10 h-80 w-80 rounded-full bg-[#0b84d8]/10 blur-[100px]" />
+        <div className="absolute -left-36 top-10 h-80 w-80 rounded-full bg-[#0853a4]/10 blur-[100px]" />
 
         <div className="absolute -bottom-40 right-0 h-96 w-96 rounded-full bg-[#fbb03b]/10 blur-[110px]" />
 
@@ -103,7 +103,7 @@ export function AboutMissionVision() {
           className="absolute inset-0 opacity-[0.025]"
           style={{
             backgroundImage:
-              "radial-gradient(circle at 1px 1px, #0b84d8 1px, transparent 0)",
+              "radial-gradient(circle at 1px 1px, #0853a4 1px, transparent 0)",
             backgroundSize: "25px 25px",
           }}
         />
@@ -116,7 +116,7 @@ export function AboutMissionVision() {
             <div className="inline-flex items-center justify-center gap-2">
               <span className="h-[2px] w-7 bg-[#fbb03b]" />
 
-              <p className="font-satisfy text-[24px] font-normal capitalize text-[#0b84d8] sm:text-[27px]">
+              <p className="font-satisfy text-[24px] font-normal capitalize text-[#0853a4] sm:text-[27px]">
                 Our Purpose
               </p>
 
@@ -145,11 +145,11 @@ export function AboutMissionVision() {
           <ScrollReveal variant="fade-in-left" delay={100} duration={1200}>
             <article className="group relative h-full overflow-hidden rounded-[8px] bg-white shadow-[0_15px_45px_rgba(15,47,80,0.10)] transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_24px_60px_rgba(15,47,80,0.16)]">
               {/* Top colour line */}
-              <div className="absolute left-0 top-0 h-1.5 w-full bg-[#0b84d8]" />
+              <div className="absolute left-0 top-0 h-1.5 w-full bg-[#0853a4]" />
 
               {/* Left decorative panel */}
               <div
-                className="absolute inset-y-0 left-0 hidden w-[150px] bg-[#0b84d8] sm:block"
+                className="absolute inset-y-0 left-0 hidden w-[150px] bg-[#0853a4] sm:block"
                 style={{
                   clipPath: "polygon(0 0, 100% 0, 64% 100%, 0 100%)",
                 }}
@@ -162,11 +162,11 @@ export function AboutMissionVision() {
               <div className="relative flex h-full flex-col p-6 sm:min-h-[375px] sm:pl-[175px] sm:pr-8 sm:py-8">
                 {/* Mobile icon and number */}
                 <div className="mb-5 flex items-center justify-between sm:hidden">
-                  <div className="flex h-14 w-14 items-center justify-center rounded-md bg-[#0b84d8] text-white shadow-[0_10px_24px_rgba(11,132,216,0.25)]">
+                  <div className="flex h-14 w-14 items-center justify-center rounded-md bg-[#0853a4] text-white shadow-[0_10px_24px_rgba(8,83,164,0.25)]">
                     <MissionIcon />
                   </div>
 
-                  <span className="font-rubik text-[52px] font-black leading-none text-[#0b84d8]/10">
+                  <span className="font-rubik text-[52px] font-black leading-none text-[#0853a4]/10">
                     01
                   </span>
                 </div>
@@ -176,12 +176,12 @@ export function AboutMissionVision() {
                   <MissionIcon />
                 </div>
 
-                <span className="absolute right-7 top-5 hidden font-rubik text-[72px] font-black leading-none text-[#0b84d8]/[0.06] sm:block">
+                <span className="absolute right-7 top-5 hidden font-rubik text-[72px] font-black leading-none text-[#0853a4]/[0.06] sm:block">
                   01
                 </span>
 
                 <div>
-                  <p className="font-rubik text-[11px] font-bold uppercase tracking-[0.18em] text-[#0b84d8]">
+                  <p className="font-rubik text-[11px] font-bold uppercase tracking-[0.18em] text-[#0853a4]">
                     What We Promise
                   </p>
 
@@ -205,7 +205,7 @@ export function AboutMissionVision() {
                       key={item}
                       className="flex items-center gap-3 font-jost text-[13.5px] font-medium text-slate-600"
                     >
-                      <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#0b84d8]/10 text-[#0b84d8]">
+                      <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#0853a4]/10 text-[#0853a4]">
                         <CheckIcon />
                       </span>
 

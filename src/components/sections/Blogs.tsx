@@ -48,7 +48,7 @@ function FloatingParticles() {
   return (
     <points ref={meshRef} geometry={geometry}>
       <pointsMaterial
-        color="#0b84d8"
+        color="#0853a4"
         size={0.04}
         transparent
         opacity={0.35}
@@ -146,13 +146,13 @@ function BlogCard({ post, index }: { post: typeof blogPosts[0]; index: number })
     >
       <div
         ref={cardRef}
-        className="group relative flex h-full flex-col overflow-hidden rounded-[14px] bg-white/80 backdrop-blur-sm border border-white/60 shadow-[0_8px_32px_rgba(7,31,67,0.08)] will-change-transform"
+        className="group relative flex h-full flex-col overflow-hidden rounded-[14px] bg-white/80 backdrop-blur-sm border border-white/60 shadow-[0_8px_32px_rgba(8,83,164,0.08)] will-change-transform"
         style={{ transformStyle: 'preserve-3d' }}
       >
         {/* Mouse-follow glow */}
         <div
           ref={glowRef}
-          className="pointer-events-none absolute h-[200px] w-[200px] rounded-full bg-[#0b84d8] opacity-0 blur-[60px]"
+          className="pointer-events-none absolute h-[200px] w-[200px] rounded-full bg-[#0853a4] opacity-0 blur-[60px]"
           style={{ zIndex: 0 }}
         />
 
@@ -176,7 +176,7 @@ function BlogCard({ post, index }: { post: typeof blogPosts[0]; index: number })
             whileInView={{ scale: 1, opacity: 1 }}
             transition={{ delay: 0.3 + index * 0.2, type: 'spring', stiffness: 300, damping: 15 }}
             viewport={{ once: true }}
-            className="absolute left-4 top-4 rounded-full bg-[#0b84d8] px-3.5 py-1 font-rubik text-[11px] font-bold tracking-wide text-white uppercase shadow-[0_4px_14px_rgba(11,132,216,0.4)]"
+            className="absolute left-4 top-4 rounded-full bg-[#0853a4] px-3.5 py-1 font-rubik text-[11px] font-bold tracking-wide text-white uppercase shadow-[0_4px_14px_rgba(8,83,164,0.4)]"
           >
             {post.category}
           </motion.span>
@@ -212,7 +212,7 @@ function BlogCard({ post, index }: { post: typeof blogPosts[0]; index: number })
           </div>
 
           {/* Title */}
-          <h3 className="mt-4 font-rubik text-[19px] font-bold leading-[1.35] text-[#100c08] transition-colors duration-300 group-hover:text-[#0b84d8] sm:text-[20px]">
+          <h3 className="mt-4 font-rubik text-[19px] font-bold leading-[1.35] text-[#100c08] transition-colors duration-300 group-hover:text-[#0853a4] sm:text-[20px]">
             {post.title}
           </h3>
 
@@ -227,13 +227,13 @@ function BlogCard({ post, index }: { post: typeof blogPosts[0]; index: number })
             whileInView={{ scaleX: 1 }}
             transition={{ delay: 0.5 + index * 0.15, duration: 0.6, ease: 'easeOut' }}
             viewport={{ once: true }}
-            className="mt-5 h-px w-full bg-gradient-to-r from-transparent via-[#0b84d8]/30 to-transparent origin-left"
+            className="mt-5 h-px w-full bg-gradient-to-r from-transparent via-[#0853a4]/30 to-transparent origin-left"
           />
 
           {/* Read More link */}
           <Link
             to={`/blogs/${post.id}`}
-            className="mt-4 inline-flex items-center gap-2 font-rubik text-[13.5px] font-semibold text-[#0b84d8]"
+            className="mt-4 inline-flex items-center gap-2 font-rubik text-[13.5px] font-semibold text-[#0853a4]"
           >
             Read More
             <svg
@@ -318,7 +318,7 @@ export function Blogs({ showAll = false }: { showAll?: boolean }) {
         </div>
 
         {/* Decorative gradient blurs */}
-        <div className="pointer-events-none absolute -right-28 top-20 h-80 w-80 rounded-full bg-[#0b84d8]/[0.06] blur-3xl" />
+        <div className="pointer-events-none absolute -right-28 top-20 h-80 w-80 rounded-full bg-[#0853a4]/[0.06] blur-3xl" />
         <div className="pointer-events-none absolute -left-20 bottom-16 h-72 w-72 rounded-full bg-[#fbb03b]/[0.06] blur-3xl" />
 
         <div className="relative z-10 mx-auto max-w-[1320px]">
@@ -330,13 +330,13 @@ export function Blogs({ showAll = false }: { showAll?: boolean }) {
               transition={{ duration: 0.6, ease: 'easeOut' }}
               className="flex items-center justify-center gap-3"
             >
-              <span className="blogs-accent-line h-px w-8 bg-[#0b84d8] origin-right" />
+              <span className="blogs-accent-line h-px w-8 bg-[#0853a4] origin-right" />
 
-              <p className="font-satisfy text-[24px] font-normal text-[#0b84d8] capitalize">
+              <p className="font-satisfy text-[24px] font-normal text-[#0853a4] capitalize">
                 Travel Stories
               </p>
 
-              <span className="blogs-accent-line h-px w-8 bg-[#0b84d8] origin-left" />
+              <span className="blogs-accent-line h-px w-8 bg-[#0853a4] origin-left" />
             </motion.div>
 
             <motion.h2
@@ -377,7 +377,7 @@ export function Blogs({ showAll = false }: { showAll?: boolean }) {
             >
               <Link
                 to="/blogs"
-                className="group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full bg-[#0b84d8] px-8 py-3.5 font-rubik text-[15px] font-medium text-white transition-transform hover:-translate-y-1 hover:shadow-[0_8px_20px_rgba(11,132,216,0.3)]"
+                className="group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full bg-[#0853a4] px-8 py-3.5 font-rubik text-[15px] font-medium text-white transition-transform hover:-translate-y-1 hover:shadow-[0_8px_20px_rgba(8,83,164,0.3)]"
               >
                 <span className="relative z-10">Explore More</span>
                 <svg

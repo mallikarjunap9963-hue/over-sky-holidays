@@ -279,12 +279,12 @@ export function AboutServices() {
       className="relative overflow-hidden bg-[#f6f8fb] px-5 py-10 sm:px-8"
     >
       <div className="pointer-events-none absolute inset-0">
-        <div className="absolute -left-32 top-24 h-80 w-80 rounded-full bg-[#0b84d8]/10 blur-[110px]" />
+        <div className="absolute -left-32 top-24 h-80 w-80 rounded-full bg-[#0853a4]/10 blur-[110px]" />
         <div className="absolute -right-32 bottom-0 h-80 w-80 rounded-full bg-[#fbb03b]/10 blur-[110px]" />
 
         <svg
           viewBox="0 0 500 500"
-          className="absolute -right-20 -top-32 h-[420px] w-[420px] text-[#0b84d8]/[0.035]"
+          className="absolute -right-20 -top-32 h-[420px] w-[420px] text-[#0853a4]/[0.035]"
           fill="currentColor"
           aria-hidden="true"
         >
@@ -301,7 +301,7 @@ export function AboutServices() {
               <div className="flex items-center gap-3">
                 <span className="h-[2px] w-8 bg-[#fbb03b]" />
 
-                <p className="font-satisfy text-[24px] font-normal capitalize text-[#0b84d8] sm:text-[27px]">
+                <p className="font-satisfy text-[24px] font-normal capitalize text-[#0853a4] sm:text-[27px]">
                   What We Offer
                 </p>
               </div>
@@ -310,7 +310,7 @@ export function AboutServices() {
             <ScrollReveal variant="fade-in-up" delay={140} duration={1100}>
               <h2 className="mt-3 max-w-[650px] font-rubik text-[30px] font-extrabold leading-[1.15] text-[#102f50] sm:text-[36px] lg:text-[42px]">
                 Complete Travel Solutions
-                <span className="block text-[#0b84d8]">
+                <span className="block text-[#0853a4]">
                   Under One Roof
                 </span>
               </h2>
@@ -350,7 +350,7 @@ export function AboutServices() {
 
         {/* CTA strip */}
         <ScrollReveal variant="fade-in-up" delay={400} duration={1100}>
-          <div className="relative mt-8 overflow-hidden rounded-[18px] bg-[#0b84d8] px-6 py-6 shadow-[0_16px_45px_rgba(11,132,216,0.22)] sm:px-8 lg:flex lg:items-center lg:justify-between">
+          <div className="relative mt-8 overflow-hidden rounded-[18px] bg-[#0853a4] px-6 py-6 shadow-[0_16px_45px_rgba(8,83,164,0.22)] sm:px-8 lg:flex lg:items-center lg:justify-between">
             <div className="pointer-events-none absolute -right-8 -top-16 h-52 w-52 rounded-full border-[38px] border-white/[0.07]" />
 
             <div className="relative">

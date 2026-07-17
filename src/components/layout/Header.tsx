@@ -87,7 +87,7 @@ export function Header() {
     <>
       {/* MAIN NAVIGATION */}
       <header
-        className={`sticky top-0 z-50 bg-white transition-all duration-350 ease-out ${scrolled ? 'shadow-[0_8px_30px_rgba(7,31,67,0.08)] bg-white/95 backdrop-blur-md' : 'shadow-none'
+        className={`sticky top-0 z-50 bg-white transition-all duration-350 ease-out ${scrolled ? 'shadow-[0_8px_30px_rgba(8,83,164,0.08)] bg-white/95 backdrop-blur-md' : 'shadow-none'
           }`}
       >
         <div
@@ -111,17 +111,17 @@ export function Header() {
                     <button
                       type="button"
                       className={`flex items-center gap-1.5 whitespace-nowrap text-[13px] xl:text-[14.5px] font-semibold tracking-[0.02em] transition-colors duration-250 cursor-pointer focus:outline-none ${parentActive
-                        ? "text-[#0b84d8]"
-                        : "text-[#100c08] hover:text-[#0b84d8]"
+                        ? "text-[#0853a4]"
+                        : "text-[#100c08] hover:text-[#0853a4]"
                         }`}
                     >
                       {item.label}
-                      <ChevronDownIcon className={`h-4 w-4 transition-transform duration-250 group-hover:rotate-180 text-slate-500 group-hover:text-[#0b84d8] ${parentActive ? 'text-[#0b84d8]' : ''}`} />
+                      <ChevronDownIcon className={`h-4 w-4 transition-transform duration-250 group-hover:rotate-180 text-slate-500 group-hover:text-[#0853a4] ${parentActive ? 'text-[#0853a4]' : ''}`} />
                     </button>
 
                     {/* Dropdown menu panel */}
                     <div className="absolute left-1/2 -translate-x-1/2 top-full pt-4 w-56 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform -translate-y-2 group-hover:translate-y-0 z-50 pointer-events-none group-hover:pointer-events-auto">
-                      <div className="bg-white border border-slate-100 rounded-lg shadow-[0_12px_30px_rgba(7,31,67,0.1)] p-2 flex flex-col gap-0.5">
+                      <div className="bg-white border border-slate-100 rounded-lg shadow-[0_12px_30px_rgba(8,83,164,0.1)] p-2 flex flex-col gap-0.5">
                         {item.dropdownItems.map((subItem) => {
                           const subActive = isPathActive(subItem.href);
                           return (
@@ -129,8 +129,8 @@ export function Header() {
                               key={subItem.label}
                               to={subItem.href}
                               className={`block rounded-md px-4 py-2.5 text-[13.5px] font-semibold transition-colors ${subActive
-                                ? "bg-[#0b84d8]/10 text-[#0b84d8]"
-                                : "text-[#100c08] hover:bg-[#0b84d8]/10 hover:text-[#0b84d8]"
+                                ? "bg-[#0853a4]/10 text-[#0853a4]"
+                                : "text-[#100c08] hover:bg-[#0853a4]/10 hover:text-[#0853a4]"
                                 }`}
                             >
                               {subItem.label}
@@ -149,8 +149,8 @@ export function Header() {
                   key={item.label}
                   to={item.href}
                   className={`flex items-center gap-1 whitespace-nowrap text-[13px] xl:text-[14.5px] font-semibold tracking-[0.02em] transition-colors duration-250 2xl:text-[15.5px] ${linkActive
-                    ? "text-[#0b84d8]"
-                    : "text-[#100c08] hover:text-[#0b84d8]"
+                    ? "text-[#0853a4]"
+                    : "text-[#100c08] hover:text-[#0853a4]"
                     }`}
                 >
                   {item.label}
@@ -162,7 +162,7 @@ export function Header() {
           {/* Call / Book CTA (Visible >= 1280px / xl) */}
           <div className="hidden items-center gap-4 xl:flex xl:gap-6">
             <a href="tel:+919908117712" className="flex items-center gap-3">
-              <span className="text-[#0b84d8]">
+              <span className="text-[#0853a4]">
                 <PhoneIcon className="h-8 w-8 xl:h-9 xl:w-9" />
               </span>
 
@@ -171,7 +171,7 @@ export function Header() {
                   To More Inquiry
                 </span>
 
-                <span className="block text-[16px] xl:text-[18px] font-extrabold leading-tight text-[#0b84d8] 2xl:text-[20px] font-rubik">
+                <span className="block text-[16px] xl:text-[18px] font-extrabold leading-tight text-[#0853a4] 2xl:text-[20px] font-rubik">
                   +91 99081 17712
                 </span>
               </span>
@@ -181,7 +181,7 @@ export function Header() {
 
             <Link
               to="/contact"
-              className="btn-primary min-h-[42px] xl:min-h-[50px] rounded-[6px] px-5 xl:px-6 text-[13px] xl:text-[14px] font-bold shadow-[0_12px_24px_rgba(11,132,216,0.18)] font-rubik"
+              className="btn-primary min-h-[42px] xl:min-h-[50px] rounded-[6px] px-5 xl:px-6 text-[13px] xl:text-[14px] font-bold shadow-[0_12px_24px_rgba(8,83,164,0.18)] font-rubik"
             >
               Book Now
             </Link>
@@ -192,7 +192,7 @@ export function Header() {
             {/* Quick Call Icon Button (Always visible on mobile/tablet for instant support) */}
             <a
               href="tel:+919908117712"
-              className="flex items-center justify-center h-10 w-10 rounded-full bg-[#0b84d8]/10 hover:bg-[#0b84d8]/20 text-[#0b84d8] transition-colors focus:outline-none focus:ring-2 focus:ring-[#0b84d8]/30"
+              className="flex items-center justify-center h-10 w-10 rounded-full bg-[#0853a4]/10 hover:bg-[#0853a4]/20 text-[#0853a4] transition-colors focus:outline-none focus:ring-2 focus:ring-[#0853a4]/30"
               aria-label="Call Inquiry"
             >
               <PhoneIcon className="h-5 w-5" />
@@ -201,7 +201,7 @@ export function Header() {
             {/* Quick Book Now Button (Visible starting from sm / 640px width) */}
             <Link
               to="/contact"
-              className="hidden sm:inline-flex btn-primary min-h-[38px] rounded-[6px] px-4 text-[12.5px] font-bold shadow-[0_8px_16px_rgba(11,132,216,0.12)] font-rubik items-center justify-center transition-all"
+              className="hidden sm:inline-flex btn-primary min-h-[38px] rounded-[6px] px-4 text-[12.5px] font-bold shadow-[0_8px_16px_rgba(8,83,164,0.12)] font-rubik items-center justify-center transition-all"
             >
               Book Now
             </Link>
@@ -210,7 +210,7 @@ export function Header() {
             <button
               type="button"
               onClick={() => setMobileMenuOpen((previous) => !previous)}
-              className="text-[#100c08] p-2 hover:text-[#0b84d8] transition-colors focus:outline-none focus:ring-2 focus:ring-[#0b84d8]/30 rounded-lg"
+              className="text-[#100c08] p-2 hover:text-[#0853a4] transition-colors focus:outline-none focus:ring-2 focus:ring-[#0853a4]/30 rounded-lg"
               aria-label="Toggle navigation"
               aria-expanded={mobileMenuOpen}
             >
@@ -247,7 +247,7 @@ export function Header() {
               setMobileMenuOpen(false);
               setOpenDropdown(null);
             }}
-            className="p-1.5 text-slate-500 hover:text-[#0b84d8] hover:bg-slate-50 rounded-full transition-colors focus:outline-none"
+            className="p-1.5 text-slate-500 hover:text-[#0853a4] hover:bg-slate-50 rounded-full transition-colors focus:outline-none"
             aria-label="Close menu"
           >
             <CloseIcon />
@@ -267,13 +267,13 @@ export function Header() {
                       type="button"
                       onClick={() => setOpenDropdown(isOpen ? null : item.label)}
                       className={`flex items-center justify-between w-full rounded-lg px-4 py-3 text-[15px] font-semibold transition-all cursor-pointer focus:outline-none ${parentActive
-                        ? "bg-[#0b84d8]/10 text-[#0b84d8]"
-                        : "text-[#100c08] hover:bg-slate-50 hover:text-[#0b84d8]"
+                        ? "bg-[#0853a4]/10 text-[#0853a4]"
+                        : "text-[#100c08] hover:bg-slate-50 hover:text-[#0853a4]"
                         }`}
                     >
                       <span>{item.label}</span>
                       <ChevronDownIcon
-                        className={`h-4 w-4 text-slate-500 transition-transform duration-300 ${isOpen ? 'rotate-180 text-[#0b84d8]' : ''} ${parentActive ? 'text-[#0b84d8]' : ''}`}
+                        className={`h-4 w-4 text-slate-500 transition-transform duration-300 ${isOpen ? 'rotate-180 text-[#0853a4]' : ''} ${parentActive ? 'text-[#0853a4]' : ''}`}
                       />
                     </button>
 
@@ -294,8 +294,8 @@ export function Header() {
                                 setMobileMenuOpen(false);
                               }}
                               className={`block rounded-lg px-3 py-2 text-[14px] font-semibold transition-colors ${subActive
-                                ? "bg-[#0b84d8]/10 text-[#0b84d8]"
-                                : "text-[#100c08]/80 hover:bg-slate-50 hover:text-[#0b84d8]"
+                                ? "bg-[#0853a4]/10 text-[#0853a4]"
+                                : "text-[#100c08]/80 hover:bg-slate-50 hover:text-[#0853a4]"
                                 }`}
                             >
                               {subItem.label}
@@ -315,12 +315,12 @@ export function Header() {
                   to={item.href}
                   onClick={() => setMobileMenuOpen(false)}
                   className={`flex items-center justify-between rounded-lg px-4 py-3 text-[15px] font-semibold transition-all group ${linkActive
-                    ? "bg-[#0b84d8]/10 text-[#0b84d8]"
-                    : "text-[#100c08] hover:bg-slate-50 hover:text-[#0b84d8]"
+                    ? "bg-[#0853a4]/10 text-[#0853a4]"
+                    : "text-[#100c08] hover:bg-slate-50 hover:text-[#0853a4]"
                     }`}
                 >
                   <span>{item.label}</span>
-                  <span className="opacity-0 -translate-x-2 text-[#0b84d8] transition-all group-hover:opacity-100 group-hover:translate-x-0">
+                  <span className="opacity-0 -translate-x-2 text-[#0853a4] transition-all group-hover:opacity-100 group-hover:translate-x-0">
                     ➔
                   </span>
                 </Link>
@@ -334,16 +334,16 @@ export function Header() {
           <div className="flex flex-col gap-4 font-rubik">
             <a
               href="tel:+919908117712"
-              className="flex items-center gap-3.5 rounded-lg border border-slate-200 bg-white px-4 py-3 hover:border-[#0b84d8] hover:text-[#0b84d8] transition-all group"
+              className="flex items-center gap-3.5 rounded-lg border border-slate-200 bg-white px-4 py-3 hover:border-[#0853a4] hover:text-[#0853a4] transition-all group"
             >
-              <span className="text-[#0b84d8] bg-slate-100 rounded-full p-2 group-hover:bg-[#0b84d8]/10 transition-colors">
+              <span className="text-[#0853a4] bg-slate-100 rounded-full p-2 group-hover:bg-[#0853a4]/10 transition-colors">
                 <PhoneIcon className="h-5 w-5" />
               </span>
               <div>
                 <span className="block text-[11px] font-medium text-slate-500 uppercase tracking-wider">
                   To More Inquiry
                 </span>
-                <span className="block text-[15px] font-bold text-[#100c08] group-hover:text-[#0b84d8]">
+                <span className="block text-[15px] font-bold text-[#100c08] group-hover:text-[#0853a4]">
                   +91 99081 17712
                 </span>
               </div>
@@ -355,7 +355,7 @@ export function Header() {
                 setMobileMenuOpen(false);
                 setOpenDropdown(null);
               }}
-              className="btn-primary flex items-center justify-center w-full min-h-[48px] rounded-lg text-sm font-bold shadow-[0_12px_24px_rgba(11,132,216,0.15)] text-center cursor-pointer"
+              className="btn-primary flex items-center justify-center w-full min-h-[48px] rounded-lg text-sm font-bold shadow-[0_12px_24px_rgba(8,83,164,0.15)] text-center cursor-pointer"
             >
               Book Now
             </Link>

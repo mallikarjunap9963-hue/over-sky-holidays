@@ -30,25 +30,25 @@ export function SafetySystems() {
               className="relative flex items-center overflow-hidden bg-[#fdfaf7] px-5 py-16 sm:px-10 lg:px-16 xl:px-24 h-full"
               style={{
                 backgroundImage:
-                  "radial-gradient(circle at 20% 20%, rgba(11,132,216,0.08) 0 2px, transparent 2px), radial-gradient(circle at 75% 70%, rgba(11,132,216,0.06) 0 2px, transparent 2px)",
+                  "radial-gradient(circle at 20% 20%, rgba(8,83,164,0.08) 0 2px, transparent 2px), radial-gradient(circle at 75% 70%, rgba(8,83,164,0.06) 0 2px, transparent 2px)",
                 backgroundSize: "85px 85px, 110px 110px",
               }}
             >
               {/* Decorative map-style circles */}
-              <div className="pointer-events-none absolute -left-36 bottom-0 h-80 w-80 rounded-full border border-[#0b84d8]/5" />
+              <div className="pointer-events-none absolute -left-36 bottom-0 h-80 w-80 rounded-full border border-[#0853a4]/5" />
 
-              <div className="pointer-events-none absolute -left-20 bottom-14 h-52 w-52 rounded-full border border-[#0b84d8]/5" />
+              <div className="pointer-events-none absolute -left-20 bottom-14 h-52 w-52 rounded-full border border-[#0853a4]/5" />
 
               <div className="relative z-10 w-full max-w-[660px]">
                 {/* SMALL TITLE */}
                 <div className="flex items-center gap-3">
-                  <span className="h-px w-9 bg-[#0b84d8]" />
+                  <span className="h-px w-9 bg-[#0853a4]" />
 
-                  <p className="font-satisfy text-[24px] font-normal text-[#0b84d8] capitalize">
+                  <p className="font-satisfy text-[24px] font-normal text-[#0853a4] capitalize">
                     {safetySlides[activeSafetySlide].subtitle}
                   </p>
 
-                  <span className="h-px w-9 bg-[#0b84d8]" />
+                  <span className="h-px w-9 bg-[#0853a4]" />
                 </div>
 
                 {/* MAIN TITLE */}
@@ -65,7 +65,7 @@ export function SafetySystems() {
                 <div className="mt-9 grid gap-x-8 gap-y-6 sm:grid-cols-2 font-jost">
                   {safetySlides[activeSafetySlide].points.map((point) => (
                     <div key={point} className="flex items-center gap-3">
-                      <span className="h-2.5 w-2.5 shrink-0 rounded-full bg-[#0b84d8]" />
+                      <span className="h-2.5 w-2.5 shrink-0 rounded-full bg-[#0853a4]" />
 
                       <p className="text-[14px] font-semibold text-[#100c08] sm:text-[15px]">
                         {point}
@@ -85,7 +85,7 @@ export function SafetySystems() {
                         previous === 0 ? safetySlides.length - 1 : previous - 1,
                       )
                     }
-                    className="flex items-center gap-3 text-[#0b84d8] transition hover:text-[#100c08]"
+                    className="flex items-center gap-3 text-[#0853a4] transition hover:text-[#100c08]"
                     aria-label="Previous safety slide"
                   >
 
@@ -94,7 +94,7 @@ export function SafetySystems() {
                   </button>
 
                   <div className="flex items-end gap-3 font-rubik">
-                    <span className="text-[30px] font-medium text-[#0b84d8]">
+                    <span className="text-[30px] font-medium text-[#0853a4]">
                       {activeSafetySlide + 1}
                     </span>
 
@@ -112,7 +112,7 @@ export function SafetySystems() {
                         (previous) => (previous + 1) % safetySlides.length,
                       )
                     }
-                    className="flex items-center gap-3 text-[#0b84d8] transition hover:text-[#100c08]"
+                    className="flex items-center gap-3 text-[#0853a4] transition hover:text-[#100c08]"
                     aria-label="Next safety slide"
                   >
                     <span className="h-px w-10 bg-current" />

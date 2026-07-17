@@ -53,7 +53,7 @@ export function TravelerTestimonials() {
       className="relative overflow-hidden bg-[#f7f4f0] px-5 py-10 sm:px-8"
     >
       {/* Background Decorations */}
-      <div className="pointer-events-none absolute -left-40 top-10 h-[420px] w-[420px] rounded-full bg-[#0b84d8]/[0.06] blur-[100px]" />
+      <div className="pointer-events-none absolute -left-40 top-10 h-[420px] w-[420px] rounded-full bg-[#0853a4]/[0.06] blur-[100px]" />
 
       <div className="pointer-events-none absolute -right-40 bottom-0 h-[420px] w-[420px] rounded-full bg-[#fbb03b]/[0.07] blur-[100px]" />
 
@@ -76,13 +76,13 @@ export function TravelerTestimonials() {
           className="text-center"
         >
           <div className="flex items-center justify-center gap-3">
-            <span className="h-px w-10 bg-gradient-to-r from-transparent to-[#0b84d8]" />
+            <span className="h-px w-10 bg-gradient-to-r from-transparent to-[#0853a4]" />
 
-            <p className="font-satisfy text-[24px] font-normal capitalize text-[#0b84d8] sm:text-[27px]">
+            <p className="font-satisfy text-[24px] font-normal capitalize text-[#0853a4] sm:text-[27px]">
               Testimonials
             </p>
 
-            <span className="h-px w-10 bg-gradient-to-l from-transparent to-[#0b84d8]" />
+            <span className="h-px w-10 bg-gradient-to-l from-transparent to-[#0853a4]" />
           </div>
 
           <h2 className="mt-3 font-rubik text-[34px] font-bold leading-[1.15] tracking-[-0.03em] text-[#100c08] sm:text-[42px] lg:text-[50px]">
@@ -114,8 +114,8 @@ export function TravelerTestimonials() {
                     onClick={() => selectReviewTab(tab)}
                     aria-pressed={isActive}
                     className={`relative flex min-h-[52px] min-w-[150px] flex-1 items-center justify-center gap-2.5 rounded-[10px] px-5 font-rubik text-[13px] font-semibold transition-all duration-300 ${isActive
-                        ? "bg-[#0b84d8] text-white shadow-[0_8px_22px_rgba(11,132,216,0.22)]"
-                        : "text-[#454545] hover:bg-[#0b84d8]/[0.06] hover:text-[#0b84d8]"
+                        ? "bg-[#0853a4] text-white shadow-[0_8px_22px_rgba(8,83,164,0.22)]"
+                        : "text-[#454545] hover:bg-[#0853a4]/[0.06] hover:text-[#0853a4]"
                       }`}
                   >
                     <span
@@ -153,10 +153,10 @@ export function TravelerTestimonials() {
                 >
                   <article className="group flex h-full min-h-[430px] flex-col">
                     {/* Main Review Card */}
-                    <div className="relative flex min-h-[350px] flex-1 flex-col rounded-[18px] border border-slate-200/80 bg-white px-7 pb-8 pt-7 shadow-[0_12px_45px_rgba(16,12,8,0.055)] transition-all duration-500 hover:-translate-y-1.5 hover:border-[#0b84d8]/25 hover:shadow-[0_22px_55px_rgba(16,12,8,0.10)] sm:px-8">
+                    <div className="relative flex min-h-[350px] flex-1 flex-col rounded-[18px] border border-slate-200/80 bg-white px-7 pb-8 pt-7 shadow-[0_12px_45px_rgba(16,12,8,0.055)] transition-all duration-500 hover:-translate-y-1.5 hover:border-[#0853a4]/25 hover:shadow-[0_22px_55px_rgba(16,12,8,0.10)] sm:px-8">
                       {/* Top Row */}
                       <div className="flex h-[45px] items-start justify-between">
-                        <div className="inline-flex h-[34px] items-center gap-2 rounded-full bg-[#0b84d8]/[0.08] px-3.5 font-jost text-[11px] font-semibold uppercase tracking-[0.08em] text-[#0b84d8]">
+                        <div className="inline-flex h-[34px] items-center gap-2 rounded-full bg-[#0853a4]/[0.08] px-3.5 font-jost text-[11px] font-semibold uppercase tracking-[0.08em] text-[#0853a4]">
                           <ReviewSourceIcon source={review.source} />
 
                           <span className="whitespace-nowrap">
@@ -164,10 +164,10 @@ export function TravelerTestimonials() {
                           </span>
                         </div>
 
-                        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#0b84d8]/[0.07]">
+                        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#0853a4]/[0.07]">
                           <svg
                             viewBox="0 0 24 24"
-                            className="h-5 w-5 fill-[#0b84d8]"
+                            className="h-5 w-5 fill-[#0853a4]"
                             aria-hidden="true"
                           >
                             <path d="M7.17 6C4.87 6 3 7.87 3 10.17V18h7v-7H6.08c0-1.11.9-2.08 2.09-2.08V6Zm10 0C14.87 6 13 7.87 13 10.17V18h7v-7h-3.92c0-1.11.9-2.08 2.09-2.08V6Z" />
@@ -232,7 +232,7 @@ export function TravelerTestimonials() {
                     {/* Traveler Profile */}
                     <div className="relative z-10 flex min-h-[80px] items-center gap-4 px-7 pt-6">
                       <div className="relative shrink-0">
-                        <div className="absolute inset-0 rounded-full bg-[#0b84d8]/20 blur-md transition-transform duration-300 group-hover:scale-125" />
+                        <div className="absolute inset-0 rounded-full bg-[#0853a4]/20 blur-md transition-transform duration-300 group-hover:scale-125" />
 
                         <img
                           src={review.avatar}
@@ -298,8 +298,8 @@ export function TravelerTestimonials() {
                     onClick={() => setReviewSlide(index)}
                     aria-label={`Show testimonial ${index + 1}`}
                     className={`h-2 rounded-full transition-all duration-300 ${isActive
-                        ? "w-8 bg-[#0b84d8]"
-                        : "w-2 bg-slate-300 hover:bg-[#0b84d8]/50"
+                        ? "w-8 bg-[#0853a4]"
+                        : "w-2 bg-slate-300 hover:bg-[#0853a4]/50"
                       }`}
                   />
                 )

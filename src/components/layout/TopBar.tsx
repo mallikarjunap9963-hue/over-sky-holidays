@@ -12,15 +12,15 @@ export function TopBar() {
           {/* Email */}
           <a
             href="mailto:info@openskyholidays.com"
-            className="hidden items-center gap-1.5 text-[12px] transition-colors hover:text-[#0b84d8] lg:flex"
+            className="hidden items-center gap-1.5 text-[12px] transition-colors hover:text-[#0853a4] lg:flex"
           >
-            <span className="flex h-6 w-5 items-center justify-center text-[#0b84d8] scale-75">
+            <span className="flex h-6 w-5 items-center justify-center text-[#0853a4] scale-75">
               <MailIcon />
             </span>
 
             <span className="font-medium text-slate-300">
               Email:
-              <span className="ml-1 font-semibold text-[#0b84d8]">
+              <span className="ml-1 font-semibold text-[#0853a4]">
                 info@openskyholidays.com
               </span>
             </span>
@@ -32,7 +32,7 @@ export function TopBar() {
             Travels Needs.
             <Link
               to="/tours/domestic"
-              className="ml-1 font-semibold text-[#fbb03b] underline underline-offset-2 transition-colors hover:text-[#0b84d8]"
+              className="ml-1 font-semibold text-[#fbb03b] underline underline-offset-2 transition-colors hover:text-[#0853a4]"
             >
               Book Your Tour
             </Link>
@@ -47,7 +47,7 @@ export function TopBar() {
                 target={social.href && social.href !== "#social" ? "_blank" : undefined}
                 rel={social.href && social.href !== "#social" ? "noopener noreferrer" : undefined}
                 aria-label={social.label}
-                className="flex h-6 w-6 items-center justify-center rounded-full border border-white/50 text-[10px] text-white transition-all duration-300 hover:border-[#0b84d8] hover:bg-[#0b84d8] hover:text-white"
+                className="flex h-6 w-6 items-center justify-center rounded-full border border-white/50 text-[10px] text-white transition-all duration-300 hover:border-[#0853a4] hover:bg-[#0853a4] hover:text-white"
               >
                 <span className="scale-75">
                   {social.icon}

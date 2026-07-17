@@ -16,8 +16,8 @@ export function ServiceContent({ data, subtitle }: ServiceContentProps) {
         <div>
           <ScrollReveal variant="fade-in-right" duration={1300}>
             <div className="flex items-center gap-3">
-              <span className="h-px w-8 bg-[#0b84d8]" />
-              <p className="font-satisfy text-[24px] font-normal text-[#0b84d8] capitalize">
+              <span className="h-px w-8 bg-[#0853a4]" />
+              <p className="font-satisfy text-[24px] font-normal text-[#0853a4] capitalize">
                 About Our {subtitle}
               </p>
             </div>

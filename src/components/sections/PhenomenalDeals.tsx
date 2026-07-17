@@ -11,7 +11,7 @@ export function PhenomenalDeals() {
         className="relative overflow-hidden bg-white px-5 py-10 sm:px-8"
       >
         {/* Decorative background */}
-        <div className="pointer-events-none absolute -left-32 top-10 h-80 w-80 rounded-full bg-[#0b84d8]/5 blur-3xl" />
+        <div className="pointer-events-none absolute -left-32 top-10 h-80 w-80 rounded-full bg-[#0853a4]/5 blur-3xl" />
 
         <div className="pointer-events-none absolute -right-32 bottom-0 h-96 w-96 rounded-full bg-[#fbb03b]/5 blur-3xl" />
 
@@ -19,13 +19,13 @@ export function PhenomenalDeals() {
           {/* Section heading */}
           <ScrollReveal variant="fade-in-up" duration={1200} className="text-center">
             <div className="flex items-center justify-center gap-3">
-              <span className="h-px w-8 bg-[#0b84d8]" />
+              <span className="h-px w-8 bg-[#0853a4]" />
 
-              <p className="font-satisfy text-[24px] font-normal text-[#0b84d8] capitalize">
+              <p className="font-satisfy text-[24px] font-normal text-[#0853a4] capitalize">
                 Hurry Up
               </p>
 
-              <span className="h-px w-8 bg-[#0b84d8]" />
+              <span className="h-px w-8 bg-[#0853a4]" />
             </div>
 
             <h2 className="mt-4 font-rubik text-[36px] font-bold leading-tight text-[#100c08] sm:text-[44px] lg:text-[52px]">
@@ -50,7 +50,7 @@ export function PhenomenalDeals() {
                   className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-110"
                 />
 
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0b84d8]/95 via-transparent to-[#100c08]/10" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0853a4]/95 via-transparent to-[#100c08]/10" />
 
                 {/* Inner border */}
                 <div className="pointer-events-none absolute inset-4 rounded-[6px] border border-white/55" />
@@ -71,7 +71,7 @@ export function PhenomenalDeals() {
 
                   <Link
                     to="/contact"
-                    className="mt-6 inline-flex min-h-[44px] items-center justify-center rounded-[5px] bg-white px-6 text-[13px] font-bold text-[#0b84d8] transition hover:-translate-y-1 hover:bg-[#100c08] hover:text-white font-rubik"
+                    className="mt-6 inline-flex min-h-[44px] items-center justify-center rounded-[5px] bg-white px-6 text-[13px] font-bold text-[#0853a4] transition hover:-translate-y-1 hover:bg-[#100c08] hover:text-white font-rubik"
                   >
                     Book Now
                   </Link>
@@ -98,7 +98,7 @@ export function PhenomenalDeals() {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-black/10" />
 
                   {/* Bottom colored shape */}
-                  <div className="absolute inset-x-0 bottom-0 min-h-[106px] bg-[#0b84d8] px-6 py-5 text-white [clip-path:polygon(0_18%,70%_0,100%_24%,100%_100%,0_100%)] sm:px-8">
+                  <div className="absolute inset-x-0 bottom-0 min-h-[106px] bg-[#0853a4] px-6 py-5 text-white [clip-path:polygon(0_18%,70%_0,100%_24%,100%_100%,0_100%)] sm:px-8">
                     <div className="flex h-full items-end justify-between gap-5">
                       <div>
                         <p className="font-satisfy text-[16px] font-normal capitalize">
@@ -126,10 +126,10 @@ export function PhenomenalDeals() {
                 duration={1350}
               >
                 <article className="group relative min-h-[235px] overflow-hidden rounded-[7px] bg-[#100c08]">
-                  <div className="absolute inset-0 bg-gradient-to-r from-[#100c08] via-[#100c08] to-[#0b84d8]" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-[#100c08] via-[#100c08] to-[#0853a4]" />
 
                   {/* Decorative circles */}
-                  <div className="absolute -right-20 -top-24 h-[300px] w-[300px] rounded-full bg-[#0b84d8]/45" />
+                  <div className="absolute -right-20 -top-24 h-[300px] w-[300px] rounded-full bg-[#0853a4]/45" />
 
                   <div className="absolute -right-12 bottom-[-130px] h-[280px] w-[280px] overflow-hidden rounded-full">
                     <img
@@ -191,7 +191,7 @@ export function PhenomenalDeals() {
 
                     <Link
                       to="/contact"
-                      className="mt-8 inline-flex min-h-[43px] shrink-0 items-center justify-center rounded-[5px] bg-[#100c08] px-6 text-[13px] font-bold text-white transition hover:-translate-y-1 hover:bg-[#0b84d8] font-rubik"
+                      className="mt-8 inline-flex min-h-[43px] shrink-0 items-center justify-center rounded-[5px] bg-[#100c08] px-6 text-[13px] font-bold text-white transition hover:-translate-y-1 hover:bg-[#0853a4] font-rubik"
                     >
                       Book Now
                     </Link>
@@ -220,7 +220,7 @@ export function PhenomenalDeals() {
           <ScrollReveal variant="fade-in-up" delay={700} duration={1300} className="mt-12 text-center">
             <Link
               to="/tours/domestic"
-              className="btn-primary rounded-full min-h-[52px] px-9 text-[14px] font-bold shadow-[0_12px_30px_rgba(11,132,216,0.22)]"
+              className="btn-primary rounded-full min-h-[52px] px-9 text-[14px] font-bold shadow-[0_12px_30px_rgba(8,83,164,0.22)]"
             >
               View All Special Offers
               <svg

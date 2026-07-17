@@ -53,7 +53,7 @@ export function ServiceCTA() {
             </p>
             <Link 
               to="/contact"
-              className="inline-flex items-center gap-2 bg-white text-[#031d47] px-8 py-3.5 rounded-md font-bold font-jost hover:bg-[#0b84d8] hover:text-white transition-all duration-300 w-max shadow-lg"
+              className="inline-flex items-center gap-2 bg-white text-[#031d47] px-8 py-3.5 rounded-md font-bold font-jost hover:bg-[#0853a4] hover:text-white transition-all duration-300 w-max shadow-lg"
             >
               <PhoneCall className="w-5 h-5" />
               Contact Our Expert

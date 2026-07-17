@@ -26,7 +26,7 @@ export default function TourBookingForm({
               <Check size={30} strokeWidth={3} />
             </div>
 
-            <h2 className="mt-5 text-2xl font-black text-[#09255b] font-rubik">
+            <h2 className="mt-5 text-2xl font-black text-[#0853a4] font-rubik">
               Enquiry Submitted
             </h2>
 
@@ -38,14 +38,14 @@ export default function TourBookingForm({
             <button
               type="button"
               onClick={onReset}
-              className="mt-6 rounded-xl bg-[#0874cb] px-6 py-3 text-sm font-bold text-white transition hover:bg-[#065da5] font-rubik"
+              className="mt-6 rounded-xl bg-[#0853a4] px-6 py-3 text-sm font-bold text-white transition hover:bg-[#064a8f] font-rubik"
             >
               Submit Another Enquiry
             </button>
           </div>
         ) : (
           <>
-            <h2 className="text-2xl font-black text-[#09255b] font-rubik">
+            <h2 className="text-2xl font-black text-[#0853a4] font-rubik">
               Book Your {tourName} Tour
             </h2>
 
@@ -139,14 +139,14 @@ export default function TourBookingForm({
 
               <button
                 type="submit"
-                className="w-full rounded-xl bg-gradient-to-r from-[#0874cb] to-[#7937ed] px-5 py-4 text-sm font-black uppercase tracking-wider text-white shadow-lg transition duration-300 hover:-translate-y-0.5 hover:shadow-xl font-rubik"
+                className="w-full rounded-xl bg-gradient-to-r from-[#0853a4] to-[#0853a4] px-5 py-4 text-sm font-black uppercase tracking-wider text-white shadow-lg transition duration-300 hover:-translate-y-0.5 hover:shadow-xl font-rubik"
               >
                 Book Now
               </button>
             </form>
 
             <p className="mt-5 flex items-center justify-center gap-2 text-xs font-medium text-slate-500 font-jost">
-              <ShieldCheck size={17} className="text-[#0874cb]" />
+              <ShieldCheck size={17} className="text-[#0853a4]" />
               Your details are safe with us
             </p>
           </>
@@ -167,7 +167,7 @@ function BookingField({
         {label}
       </span>
 
-      <span className="flex items-center gap-3 rounded-xl border border-slate-200 px-4 transition focus-within:border-[#0874cb] focus-within:ring-4 focus-within:ring-blue-50">
+      <span className="flex items-center gap-3 rounded-xl border border-slate-200 px-4 transition focus-within:border-[#0853a4] focus-within:ring-4 focus-within:ring-blue-50">
         <span className="shrink-0 text-slate-400">
           {icon}
         </span>

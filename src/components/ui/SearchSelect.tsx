@@ -4,7 +4,7 @@ import { ChevronDownIcon } from '../icons/Icons';
 export function SearchSelect({ label, options, icon, value, onChange }: SearchSelectProps) {
   return (
     <label className="flex min-h-[76px] items-start gap-3 border-b border-[#bae6fd] px-4 py-3 font-rubik sm:min-h-[82px] sm:items-center sm:px-5 lg:border-b-0 lg:border-r">
-      <span className="shrink-0 text-[#0b84d8]">{icon}</span>
+      <span className="shrink-0 text-[#0853a4]">{icon}</span>
 
       <span className="min-w-0 flex-1">
         <span className="block text-[12px] font-medium text-slate-500">
