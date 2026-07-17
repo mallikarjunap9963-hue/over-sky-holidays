@@ -49,7 +49,7 @@ export function AboutUs() {
       <section
         ref={sectionRef}
         id="about"
-        className="relative overflow-hidden bg-white px-5 py-10 sm:px-8"
+        className="relative overflow-hidden bg-white px-4 sm:px-8 lg:px-12 py-12 sm:py-16 lg:py-20"
       >
         <div className="pointer-events-none absolute inset-0">
           <div
@@ -73,9 +73,9 @@ export function AboutUs() {
           ))}
         </div>
 
-        <div className="relative mx-auto grid max-w-[1320px] items-start gap-12 lg:grid-cols-2 lg:gap-16">
+        <div className="relative mx-auto grid max-w-[1360px] items-center gap-10 lg:grid-cols-12 lg:gap-12 xl:gap-16">
           {/* ===== LEFT: TEXT CONTENT ===== */}
-          <div className="flex flex-col gap-6">
+          <div className="flex flex-col gap-5 sm:gap-6 lg:col-span-6 xl:col-span-6">
             {/* Section label */}
             <ScrollReveal variant="fade-in-left" delay={50} duration={1200}>
               <div className="flex items-center gap-3">
@@ -91,7 +91,7 @@ export function AboutUs() {
 
             {/* Main heading */}
             <ScrollReveal variant="fade-in-left" delay={200} duration={1300}>
-              <h2 className="font-rubik text-[32px] font-bold leading-[1.15] tracking-[-0.02em] text-[#100c08] sm:text-[40px] lg:text-[46px]">
+              <h2 className="font-rubik text-[30px] sm:text-[36px] lg:text-[40px] xl:text-[45px] font-bold leading-[1.18] tracking-[-0.02em] text-[#100c08]">
                 Let&apos;s know About Our Journey For Open Sky Holidays.
               </h2>
             </ScrollReveal>
@@ -137,9 +137,9 @@ export function AboutUs() {
 
             {/* Tab content */}
             <ScrollReveal variant="fade-in-left" delay={500} duration={1300}>
-              <div className="min-h-[160px] font-jost">
+              <div className="min-h-[150px] font-jost text-[14.5px] sm:text-[15.5px] leading-[1.85] text-slate-600">
                 {activeAboutTab === 'mission' ? (
-                  <p className="text-[15px] leading-[1.9] text-slate-600">
+                  <p>
                     Established in 2020, Open Sky Holidays is one of India&apos;s
                     trusted travel agents and tour operators. Our mission is to make
                     domestic and international travel simple, memorable and accessible
@@ -149,7 +149,7 @@ export function AboutUs() {
                     solutions.
                   </p>
                 ) : (
-                  <p className="text-[15px] leading-[1.9] text-slate-600">
+                  <p>
                     Every traveler has different expectations, budgets and interests.
                     Our team listens carefully and creates customized holiday packages
                     for families, couples, groups and corporate travelers. From the
@@ -199,7 +199,7 @@ export function AboutUs() {
           </div>
 
           {/* ===== RIGHT: 3D ANIMATED GLOBE ===== */}
-          <ScrollReveal variant="fade-in-right" delay={200} duration={1450} className="relative w-full h-full min-h-[400px] flex items-center justify-center">
+          <ScrollReveal variant="fade-in-right" delay={200} duration={1450} className="relative w-full flex items-center justify-center lg:col-span-6 xl:col-span-6">
             <AnimatedGlobe />
           </ScrollReveal>
         </div>

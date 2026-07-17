@@ -208,15 +208,15 @@ function ResponsiveCamera() {
     const aspect = size.width / size.height;
     const fovRad = (45 / 2) * (Math.PI / 180);
 
-    // Calculate distance needed for vertical fit
-    const distY = (GLOBE_RADIUS * 1.08) / Math.sin(fovRad);
-    // Calculate distance needed for horizontal fit
+    // Calculate distance needed for vertical fit (keeps globe full and grand on desktop)
+    const distY = (GLOBE_RADIUS * 1.02) / Math.sin(fovRad);
+    // Calculate distance needed for horizontal fit (prevents right/left clipping on narrow/zoomed screens)
     const horizFovRad = Math.atan(aspect * Math.tan(fovRad));
-    const distX = (GLOBE_RADIUS * 1.08) / Math.sin(horizFovRad);
+    const distX = (GLOBE_RADIUS * 1.06) / Math.sin(horizFovRad);
 
     // Use whichever distance is larger so the sphere fits both horizontally and vertically
     const targetDist = Math.max(distY, distX);
-    const yPos = 0.6;
+    const yPos = 0.5;
     const zPos = Math.sqrt(Math.max(1, targetDist * targetDist - yPos * yPos));
 
     camera.position.set(0, yPos, zPos);
