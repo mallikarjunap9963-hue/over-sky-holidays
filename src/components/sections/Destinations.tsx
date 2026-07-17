@@ -49,11 +49,11 @@ export function Destinations() {
     <>
       <section
         id="destination"
-        className="relative overflow-hidden bg-[#F8F8F8] px-5 py-16 sm:px-8 lg:py-24"
+        className="relative overflow-hidden bg-[#F8F8F8] px-5 py-10 sm:px-8"
       >
         <div className="relative mx-auto max-w-[1320px]">
           {/* HEADER SECTION */}
-          <ScrollReveal variant="fade-in-up" duration={1200} className="mb-10 text-center sm:mb-12 lg:mb-14">
+          <ScrollReveal variant="fade-in-up" duration={1200} className="mb-8 text-center sm:mb-10">
             <div className="flex items-center justify-center gap-3">
               <span className="h-[1px] w-8 bg-[#0853a4]" />
 

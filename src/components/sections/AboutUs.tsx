@@ -49,7 +49,7 @@ export function AboutUs() {
       <section
         ref={sectionRef}
         id="about"
-        className="relative overflow-hidden bg-white px-4 sm:px-8 lg:px-12 py-12 sm:py-16 lg:py-20"
+        className="relative overflow-hidden bg-white px-5 py-8 sm:py-10 sm:px-8"
       >
         <div className="pointer-events-none absolute inset-0">
           <div
@@ -73,7 +73,7 @@ export function AboutUs() {
           ))}
         </div>
 
-        <div className="relative mx-auto grid max-w-[1360px] items-center gap-10 lg:grid-cols-12 lg:gap-12 xl:gap-16">
+        <div className="relative mx-auto grid max-w-[1360px] items-center gap-8 lg:grid-cols-12 lg:gap-10">
           {/* ===== LEFT: TEXT CONTENT ===== */}
           <div className="flex flex-col gap-4 sm:gap-5 lg:col-span-6 xl:col-span-6">
             {/* Section label */}

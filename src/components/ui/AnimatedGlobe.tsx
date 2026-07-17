@@ -1,4 +1,4 @@
-import { useRef, Suspense, useEffect } from 'react';
+import { useRef, Suspense } from 'react';
 import { Canvas, useFrame, useLoader, useThree } from '@react-three/fiber';
 import { OrbitControls, Html, Sphere, Float } from '@react-three/drei';
 import * as THREE from 'three';
@@ -202,27 +202,33 @@ function GlobeGroup() {
 
 function ResponsiveCamera() {
   const { camera, size } = useThree();
+  const prevSize = useRef({ width: 0, height: 0 });
 
   useFrame(() => {
     if (!camera || !size.width || !size.height) return;
+
+    // Only update camera when canvas size actually changes (resize/zoom/mount)
+    // Never run during user drag/orbit rotation to prevent flickering/fighting
+    if (Math.abs(size.width - prevSize.current.width) < 1 && Math.abs(size.height - prevSize.current.height) < 1) {
+      return;
+    }
+    prevSize.current = { width: size.width, height: size.height };
+
     const aspect = size.width / size.height;
     const fovRad = (45 / 2) * (Math.PI / 180);
 
-    // Calculate distance needed for vertical fit (keeps globe full and grand on desktop)
+    // Calculate distance needed for vertical fit
     const distY = (GLOBE_RADIUS * 1.05) / Math.sin(fovRad);
-    // Calculate distance needed for horizontal fit (prevents right/left clipping on narrow/zoomed screens)
+    // Calculate distance needed for horizontal fit
     const horizFovRad = Math.atan(aspect * Math.tan(fovRad));
     const distX = (GLOBE_RADIUS * 1.08) / Math.sin(horizFovRad);
 
-    // Use whichever distance is larger so the sphere fits both horizontally and vertically
     const targetDist = Math.max(distY, distX);
-    const yPos = 0.5;
+    const yPos = 0.6;
     const zPos = Math.sqrt(Math.max(1, targetDist * targetDist - yPos * yPos));
 
-    if (Math.abs(camera.position.z - zPos) > 0.01 || Math.abs(camera.position.y - yPos) > 0.01) {
-      camera.position.set(0, yPos, zPos);
-      camera.updateProjectionMatrix();
-    }
+    camera.position.set(0, yPos, zPos);
+    camera.updateProjectionMatrix();
   });
 
   return null;
@@ -275,8 +281,8 @@ export function AnimatedGlobe() {
           autoRotate={false}
           enableDamping={true}
           dampingFactor={0.05}
-          minPolarAngle={Math.PI / 3}
-          maxPolarAngle={Math.PI / 2}
+          minPolarAngle={Math.PI / 2.15}
+          maxPolarAngle={Math.PI / 2.15}
         />
       </Canvas>
     </div>
