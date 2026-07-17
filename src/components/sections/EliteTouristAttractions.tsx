@@ -32,16 +32,6 @@ export function EliteTouristAttractions() {
     setAttractionSlide(0);
   };
 
-  const previousAttractionSlide = () => {
-    setAttractionSlide((previous) =>
-      previous === 0 ? selectedAttractionPackages.length - 1 : previous - 1,
-    );
-  };
-
-  const nextAttractionSlide = () => {
-    setAttractionSlide((previous) => (previous + 1) % selectedAttractionPackages.length);
-  };
-
   return (
     <>
       {/* ================= ELITE TOURIST ATTRACTIONS START ================= */}

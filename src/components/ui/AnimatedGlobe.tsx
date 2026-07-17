@@ -1,6 +1,7 @@
 import { useRef, Suspense } from 'react';
 import { Canvas, useFrame, useLoader, useThree } from '@react-three/fiber';
 import { OrbitControls, Html, Sphere, Float } from '@react-three/drei';
+import { useNavigate } from 'react-router-dom';
 import * as THREE from 'three';
 
 import { attractionPackages } from '../../data';
@@ -73,7 +74,7 @@ const locations = [
 const locationLocalPositions = locations.map(loc => getPosFromLatLon(loc.lat, loc.lon, GLOBE_RADIUS));
 
 // Single animated flight route
-function FlightRoute({ destination }: { destination: typeof locations[0] }) {
+function FlightRoute({ destination, onCountryClick }: { destination: typeof locations[0]; onCountryClick: (name: string) => void }) {
   const destPos = getPosFromLatLon(destination.lat, destination.lon, GLOBE_RADIUS);
   const meshRef = useRef<THREE.Mesh>(null);
   const tagRef = useRef<HTMLDivElement>(null);
@@ -101,18 +102,31 @@ function FlightRoute({ destination }: { destination: typeof locations[0] }) {
       {/* Route line removed as requested */}
 
       {/* Destination Marker & Card */}
-      <mesh ref={meshRef} position={destPos}>
-        {/* Blue dot removed as requested */}
+      <mesh
+        ref={meshRef}
+        position={destPos}
+        onClick={(e) => {
+          e.stopPropagation();
+          onCountryClick(destination.name);
+        }}
+        onPointerOver={() => {
+          document.body.style.cursor = 'pointer';
+        }}
+        onPointerOut={() => {
+          document.body.style.cursor = 'auto';
+        }}
+      >
+        {/* Invisible hit sphere so clicking directly on the country coordinate triggers navigation */}
+        <sphereGeometry args={[0.26, 16, 16]} />
+        <meshBasicMaterial transparent opacity={0.001} />
+
         <Html zIndexRange={[100, 0]} center>
           <div
             ref={tagRef}
             className="flex items-center gap-1.5 transform -translate-y-5 pointer-events-auto whitespace-nowrap cursor-pointer transition-all duration-300 hover:scale-110 group"
-            onClick={() => {
-              if (destination.name === 'India') {
-                window.location.href = '/tours/domestic';
-              } else {
-                window.location.href = '/tours/international';
-              }
+            onClick={(e) => {
+              e.stopPropagation();
+              onCountryClick(destination.name);
             }}
           >
             <svg className="h-5 w-5 text-red-500 drop-shadow-md group-hover:animate-bounce" fill="currentColor" viewBox="0 0 20 20">
@@ -128,7 +142,7 @@ function FlightRoute({ destination }: { destination: typeof locations[0] }) {
   );
 }
 
-function GlobeGroup() {
+function GlobeGroup({ onCountryClick }: { onCountryClick: (name: string) => void }) {
   const specMap = useLoader(THREE.TextureLoader, '/earth-specular.jpg');
   const groupRef = useRef<THREE.Group>(null);
 
@@ -194,7 +208,7 @@ function GlobeGroup() {
 
       {/* Render all flight routes */}
       {locations.filter(l => !l.isHub).map(loc => (
-        <FlightRoute key={loc.id} destination={loc} />
+        <FlightRoute key={loc.id} destination={loc} onCountryClick={onCountryClick} />
       ))}
     </group>
   );
@@ -235,6 +249,16 @@ function ResponsiveCamera() {
 }
 
 export function AnimatedGlobe() {
+  const navigate = useNavigate();
+
+  const handleCountryClick = (countryName: string) => {
+    if (countryName === 'India') {
+      navigate('/tours/domestic');
+    } else {
+      navigate('/tours/international');
+    }
+  };
+
   return (
     <div className="relative w-full max-w-[280px] sm:max-w-[480px] lg:max-w-[600px] aspect-square max-h-[45vh] sm:max-h-[72vh] mx-auto flex items-center justify-center cursor-grab active:cursor-grabbing">
 
@@ -273,7 +297,7 @@ export function AnimatedGlobe() {
         </Float>
 
         <Suspense fallback={null}>
-          <GlobeGroup />
+          <GlobeGroup onCountryClick={handleCountryClick} />
         </Suspense>
         <OrbitControls
           enableZoom={false}
