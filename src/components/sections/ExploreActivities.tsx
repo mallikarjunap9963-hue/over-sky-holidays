@@ -186,7 +186,7 @@ export function ExploreActivities() {
                   className="relative overflow-hidden rounded-[14px] bg-white border border-slate-200/80 p-7 sm:p-9 shadow-[0_12px_45px_rgba(8,83,164,0.065)] font-jost min-h-[460px] flex flex-col justify-between"
                 >
                   {/* Pure 3D Globe centered in the middle card background — NO rings/circles */}
-                  <div className="pointer-events-none absolute inset-0 m-auto flex h-[320px] w-[320px] items-center justify-center opacity-30 sm:h-[380px] sm:w-[380px] z-0">
+                  <div className="pointer-events-none absolute inset-0 m-auto flex h-[200px] w-[200px] sm:h-[380px] sm:w-[380px] items-center justify-center opacity-25 sm:opacity-30 z-0">
                     <Canvas
                       camera={{ position: [0, 0, 4.8], fov: 45 }}
                       dpr={[1, 1.5]}

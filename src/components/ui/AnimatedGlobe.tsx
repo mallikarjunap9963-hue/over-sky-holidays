@@ -236,7 +236,7 @@ function ResponsiveCamera() {
 
 export function AnimatedGlobe() {
   return (
-    <div className="relative w-full max-w-[600px] aspect-square max-h-[72vh] mx-auto flex items-center justify-center cursor-grab active:cursor-grabbing">
+    <div className="relative w-full max-w-[280px] sm:max-w-[480px] lg:max-w-[600px] aspect-square max-h-[45vh] sm:max-h-[72vh] mx-auto flex items-center justify-center cursor-grab active:cursor-grabbing">
 
       {/* Floating Instructions Heading */}
       <div className="absolute bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 z-10 pointer-events-none text-center w-full px-4">

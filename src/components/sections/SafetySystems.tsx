@@ -22,12 +22,12 @@ export function SafetySystems() {
         className="relative overflow-hidden bg-[#fbf8f2] py-10"
       >
         <div className="relative mx-auto max-w-[1320px]">
-          <div className="relative grid min-h-[650px] lg:grid-cols-2">
+          <div className="relative grid min-h-[460px] lg:min-h-[480px] lg:grid-cols-2 rounded-[14px] overflow-hidden border border-slate-200/60 shadow-sm">
             {/* LEFT CONTENT */}
             <ScrollReveal
               variant="fade-in-left"
               duration={1300}
-              className="relative flex items-center overflow-hidden bg-[#fdfaf7] px-5 py-16 sm:px-10 lg:px-16 xl:px-24 h-full"
+              className="relative flex items-center overflow-hidden bg-[#fdfaf7] px-6 py-10 sm:px-10 lg:px-12 xl:px-16 h-full"
               style={{
                 backgroundImage:
                   "radial-gradient(circle at 20% 20%, rgba(8,83,164,0.08) 0 2px, transparent 2px), radial-gradient(circle at 75% 70%, rgba(8,83,164,0.06) 0 2px, transparent 2px)",
@@ -127,7 +127,7 @@ export function SafetySystems() {
             <ScrollReveal
               variant="fade-in-right"
               duration={1400}
-              className="relative min-h-[520px] overflow-hidden lg:min-h-[650px] h-full"
+              className="relative min-h-[340px] sm:min-h-[400px] lg:min-h-[480px] overflow-hidden h-full"
             >
               {safetySlides.map((slide, index) => (
                 <img

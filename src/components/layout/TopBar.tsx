@@ -6,7 +6,7 @@ export function TopBar() {
   return (
     <>
       {/* TOP INFORMATION BAR */}
-      <section className="bg-[#100c08] text-white">
+      <section className="hidden sm:block bg-[#100c08] text-white">
         <div className="mx-auto flex min-h-[35px] max-w-[1540px] flex-col items-center justify-center gap-2 px-4 py-2 sm:flex-row sm:justify-between sm:gap-4 sm:px-8 sm:py-0 lg:px-10">
 
           {/* Email */}
