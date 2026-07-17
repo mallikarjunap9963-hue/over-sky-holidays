@@ -416,7 +416,7 @@ export const attractionPackages: Record<AttractionTab, AttractionPackage[]> = {
       price: "₹32,999",
       oldPrice: "₹38,999",
       image:
-        "https://media.gettyimages.com/id/561446709/photo/tulip-garden-in-srinagar-kashmir-india.jpg?s=1024x1024&w=gi&k=20&c=J-MDe3qDN1jHKjV-l6k6Wa_uB1Z9vdzuyB0TKu71yGU=",
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-EQLYdL1GB_kgbtH8XXXuuc2vgzlkdwsTmTwfsUCzBg&s=10",
     },
     {
       id: 3,
@@ -525,7 +525,7 @@ export const attractionPackages: Record<AttractionTab, AttractionPackage[]> = {
       price: "₹24,999",
       oldPrice: "₹29,999",
       image:
-        "https://media.gettyimages.com/id/481688239/photo/group-of-people-rafting-in-ganges-river-rishikesh-uttarakhand-india.jpg?s=1024x1024&w=gi&k=20&c=MONtOy7054-DMSb4vvHO_vFJcpGgjfX48dstb6Ovwt4=",
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUDrTmp8-5jIeRx7w9Y0F-lEfozpp6w5OiTkzyZ3QVSQ&s=10",
     },
     {
       id: 13,
@@ -537,7 +537,7 @@ export const attractionPackages: Record<AttractionTab, AttractionPackage[]> = {
       price: "₹6,999",
       oldPrice: "₹8,999",
       image:
-        "https://commons.wikimedia.org/wiki/Special:FilePath/Tirumala%20Venkateswara%20Temple.jpg?width=1200",
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcShFOP0OMjscPOnxcqt2lyA3G--cRfTfiYNLz46JQpRMg&s=10",
     },
     {
       id: 14,
@@ -549,7 +549,7 @@ export const attractionPackages: Record<AttractionTab, AttractionPackage[]> = {
       price: "₹9,999",
       oldPrice: "₹12,999",
       image:
-        "https://images.unsplash.com/photo-1705927122615-02dcef3b1465?q=80&w=713&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwca0brSqk-pCF0EaCNVzwVEXLzpKQ2oNF1K3P4Jh7Rw&s=10",
     },
   ],
 

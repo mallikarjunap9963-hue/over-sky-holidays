@@ -333,8 +333,9 @@ const destinationImageSets: Array<{
       ]
     },
     {
-      matches: ["kashmir", "srinagar", "gulmarg", "pahalgam", "sonmarg"],
+      matches: ["jammu", "kashmir", "srinagar", "gulmarg", "pahalgam", "sonmarg"],
       images: [
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-EQLYdL1GB_kgbtH8XXXuuc2vgzlkdwsTmTwfsUCzBg&s=10",
         commonsImage("Dal Lake Srinagar Kashmir India.jpg"),
         commonsImage("Gulmarg Kashmir.jpg"),
         commonsImage("Pahalgam Valley.jpg"),
@@ -404,10 +405,19 @@ const destinationImageSets: Array<{
     {
       matches: ["badrinath"],
       images: [
-        commonsImage("Badrinath Temple Uttarakhand.jpg"),
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUDrTmp8-5jIeRx7w9Y0F-lEfozpp6w5OiTkzyZ3QVSQ&s=10",
         commonsImage("Badrinath town.jpg"),
         commonsImage("Neelkanth peak Badrinath.jpg"),
         commonsImage("Alaknanda River Badrinath.jpg")
+      ]
+    },
+    {
+      matches: ["char dham", "char dham yatra", "chardham"],
+      images: [
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwca0brSqk-pCF0EaCNVzwVEXLzpKQ2oNF1K3P4Jh7Rw&s=10",
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUDrTmp8-5jIeRx7w9Y0F-lEfozpp6w5OiTkzyZ3QVSQ&s=10",
+        commonsImage("Kedarnath Temple in Uttarakhand.jpg"),
+        commonsImage("Gangotri temple.jpg")
       ]
     },
     {
@@ -422,7 +432,7 @@ const destinationImageSets: Array<{
     {
       matches: ["tirupati", "tirupathi"],
       images: [
-        commonsImage("Tirumala Venkateswara Temple.jpg"),
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcShFOP0OMjscPOnxcqt2lyA3G--cRfTfiYNLz46JQpRMg&s=10",
         commonsImage("Tirumala hills.jpg"),
         commonsImage("Srivari Padalu Tirumala.jpg"),
         commonsImage("Kapila Theertham Tirupati.jpg")

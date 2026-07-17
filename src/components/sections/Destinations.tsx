@@ -29,7 +29,7 @@ const destinationCards = [
   {
     title: 'Jammu & Kashmir',
     image:
-      'https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1200&q=85',
+      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-EQLYdL1GB_kgbtH8XXXuuc2vgzlkdwsTmTwfsUCzBg&s=10',
     href: '/tours/domestic',
     layoutClass: 'lg:col-span-5 md:col-span-6',
     tours: '18 Tours',
