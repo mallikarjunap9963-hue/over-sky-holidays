@@ -5,18 +5,35 @@ import { X } from 'lucide-react';
 export function WhatsAppWidget() {
   const [isOpen, setIsOpen] = useState(false);
   const [showTooltip, setShowTooltip] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
   const widgetRef = useRef<HTMLDivElement>(null);
   const phoneNumber = "919908117712"; // Used for the wa.me link
   const companyName = "Open Sky Holidays";
 
   useEffect(() => {
+    const handleScroll = () => {
+      // Hide while in Hero section (top 300px), show when scrolled down past Hero section
+      if (window.scrollY > 300) {
+        setIsVisible(true);
+      } else {
+        setIsVisible(false);
+        setIsOpen(false);
+      }
+    };
+
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  useEffect(() => {
     // Show tooltip automatically after a few seconds
     const timer = setTimeout(() => {
-      if (!isOpen) setShowTooltip(true);
+      if (!isOpen && isVisible) setShowTooltip(true);
     }, 3000);
 
     return () => clearTimeout(timer);
-  }, [isOpen]);
+  }, [isOpen, isVisible]);
 
   useEffect(() => {
     // Close when clicking outside
@@ -29,8 +46,10 @@ export function WhatsAppWidget() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  if (!isVisible) return null;
+
   return (
-    <div ref={widgetRef} className="fixed bottom-6 right-6 z-[9999] flex flex-col items-end">
+    <div ref={widgetRef} className="fixed bottom-6 right-6 z-[9999] flex flex-col items-end animate-[fadeIn_0.3s_ease-out]">
       <AnimatePresence>
         {isOpen && (
           <motion.div

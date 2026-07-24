@@ -18,7 +18,7 @@ interface StatItem {
 
 const stats: StatItem[] = [
   {
-    value: 10532,
+    value: 10250,
     suffix: "+",
     label: "Customers",
     icon: Plane,
@@ -143,7 +143,8 @@ export function AboutStats() {
         }
       },
       {
-        threshold: 0.25,
+        threshold: 0.2,
+        rootMargin: "0px 0px -60px 0px",
       }
     )
 

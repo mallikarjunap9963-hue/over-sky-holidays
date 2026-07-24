@@ -19,23 +19,32 @@ export function AboutUs() {
         if (entry.isIntersecting && !hasAnimated.current) {
           hasAnimated.current = true;
 
-          const duration = 1400;
-          const frameDuration = 1000 / 60;
-          const totalFrames = Math.round(duration / frameDuration);
-          let frame = 0;
+          const targetCount = 10250;
+          const duration = 1600;
+          let startTime: number | null = null;
 
-          const counter = window.setInterval(() => {
-            frame += 1;
-            const progress = Math.min(frame / totalFrames, 1);
-            setCustomerCount(Math.round(progress * 10200));
+          const animate = (timestamp: number) => {
+            if (!startTime) startTime = timestamp;
+            const elapsedTime = timestamp - startTime;
+            const progress = Math.min(elapsedTime / duration, 1);
+            // Smooth ease-out animation
+            const easeOut = 1 - Math.pow(1 - progress, 3);
+            setCustomerCount(Math.round(easeOut * targetCount));
 
-            if (progress === 1) {
-              window.clearInterval(counter);
+            if (progress < 1) {
+              requestAnimationFrame(animate);
+            } else {
+              setCustomerCount(targetCount);
             }
-          }, frameDuration);
+          };
+
+          requestAnimationFrame(animate);
         }
       },
-      { threshold: 0.3 }
+      {
+        threshold: 0.15,
+        rootMargin: "0px 0px -60px 0px",
+      }
     );
 
     observer.observe(sectionEl);

@@ -1,4 +1,4 @@
-import { useRef, Suspense } from 'react';
+import { useRef, useState, useEffect, Suspense } from 'react';
 import { Canvas, useFrame, useLoader, useThree } from '@react-three/fiber';
 import { OrbitControls, Html, Sphere, Float } from '@react-three/drei';
 import { useNavigate } from 'react-router-dom';
@@ -20,20 +20,18 @@ function getPosFromLatLon(lat: number, lon: number, radius: number) {
   return new THREE.Vector3(x, y, z);
 }
 
-
-
 const countryCoordinates: Record<string, { lat: number, lon: number, name: string }> = {
   "INDIA": { lat: 22.5937, lon: 78.9629, name: "India" },
   "UAE": { lat: 25.2048, lon: 55.2708, name: "UAE" },
   "SINGAPORE": { lat: 1.3521, lon: 103.8198, name: "Singapore" },
-  "THAILAND": { lat: 13.7563, lon: 100.5018, name: "Thailand" },
-  "NEPAL": { lat: 28.3949, lon: 84.1240, name: "Nepal" },
+  "THAILAND": { lat: 15.5000, lon: 98.5000, name: "Thailand" },
+  "NEPAL": { lat: 29.5000, lon: 81.0000, name: "Nepal" },
   "USA": { lat: 38.9072, lon: -77.0369, name: "USA" },
   "UNITED KINGDOM": { lat: 51.5072, lon: -0.1276, name: "United Kingdom" },
-  "ASIA EXPLORER": { lat: 14.0583, lon: 108.2772, name: "Vietnam & Cambodia" },
+  "ASIA EXPLORER": { lat: 12.5000, lon: 109.5000, name: "Vietnam & Cambodia" },
   "HONG KONG": { lat: 22.3193, lon: 114.1694, name: "Hong Kong" },
   "GREECE": { lat: 36.3932, lon: 25.4615, name: "Greece" },
-  "BHUTAN": { lat: 27.5142, lon: 90.4336, name: "Bhutan" },
+  "BHUTAN": { lat: 27.5000, lon: 92.5000, name: "Bhutan" },
   "MALDIVES": { lat: 4.1755, lon: 73.5093, name: "Maldives" },
   "INDONESIA": { lat: -8.4095, lon: 115.1889, name: "Indonesia" },
   "SRI LANKA": { lat: 7.8731, lon: 80.7718, name: "Sri Lanka" }
@@ -44,7 +42,6 @@ const allTours = [...attractionPackages.Domestic, ...attractionPackages.Internat
 const uniqueCountriesMap = new Map();
 
 allTours.forEach(tour => {
-  // If it's in the Domestic package, treat it as "INDIA" regardless of the messy data.
   const isDomestic = attractionPackages.Domestic.some(d => d.id === tour.id && d.title === tour.title);
   const countryCode = isDomestic ? "INDIA" : tour.country;
 
@@ -69,24 +66,36 @@ const locations = [
   ...Array.from(uniqueCountriesMap.values())
 ];
 
-
 // Precompute local positions of all pins to check visibility dynamically
 const locationLocalPositions = locations.map(loc => getPosFromLatLon(loc.lat, loc.lon, GLOBE_RADIUS));
 
-// Single animated flight route
-function FlightRoute({ destination, onCountryClick }: { destination: typeof locations[0]; onCountryClick: (name: string) => void }) {
+// Single animated flight route & country landing tag
+function FlightRoute({
+  destination,
+  isLanded,
+  onCountryClick
+}: {
+  destination: typeof locations[0];
+  isLanded: boolean;
+  onCountryClick: (name: string) => void;
+}) {
   const destPos = getPosFromLatLon(destination.lat, destination.lon, GLOBE_RADIUS);
   const meshRef = useRef<THREE.Mesh>(null);
   const tagRef = useRef<HTMLDivElement>(null);
 
   useFrame((state) => {
     if (meshRef.current && tagRef.current) {
+      if (!isLanded) {
+        tagRef.current.style.opacity = '0';
+        tagRef.current.style.pointerEvents = 'none';
+        return;
+      }
+
       const worldPos = new THREE.Vector3();
       meshRef.current.getWorldPosition(worldPos);
       const camNormal = state.camera.position.clone().normalize();
       const dot = worldPos.normalize().dot(camNormal);
 
-      // Hide very early (dot < 0.75) so that long country names NEVER cross the visual edge of the globe
       if (dot < 0.75) {
         tagRef.current.style.opacity = '0';
         tagRef.current.style.pointerEvents = 'none';
@@ -99,9 +108,6 @@ function FlightRoute({ destination, onCountryClick }: { destination: typeof loca
 
   return (
     <group>
-      {/* Route line removed as requested */}
-
-      {/* Destination Marker & Card */}
       <mesh
         ref={meshRef}
         position={destPos}
@@ -116,20 +122,22 @@ function FlightRoute({ destination, onCountryClick }: { destination: typeof loca
           document.body.style.cursor = 'auto';
         }}
       >
-        {/* Invisible hit sphere so clicking directly on the country coordinate triggers navigation */}
         <sphereGeometry args={[0.26, 16, 16]} />
         <meshBasicMaterial transparent opacity={0.001} />
 
         <Html zIndexRange={[100, 0]} center>
           <div
             ref={tagRef}
-            className="flex items-center gap-1.5 transform -translate-y-5 pointer-events-auto whitespace-nowrap cursor-pointer transition-all duration-300 hover:scale-110 group"
+            className={`flex items-center gap-1.5 transform -translate-y-5 pointer-events-auto whitespace-nowrap cursor-pointer transition-all duration-500 ease-out hover:scale-110 group ${isLanded
+              ? 'scale-100 opacity-100'
+              : 'scale-50 opacity-0'
+              }`}
             onClick={(e) => {
               e.stopPropagation();
               onCountryClick(destination.name);
             }}
           >
-            <svg className="h-5 w-5 text-red-500 drop-shadow-md group-hover:animate-bounce" fill="currentColor" viewBox="0 0 20 20">
+            <svg className="h-5 w-5 text-red-500 shrink-0 drop-shadow-md group-hover:animate-bounce" fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
             </svg>
             <span className="font-rubik text-[14px] font-bold text-slate-800 drop-shadow-[0_1px_1px_rgba(255,255,255,0.8)] leading-none group-hover:text-[#0853a4] transition-colors">
@@ -142,7 +150,13 @@ function FlightRoute({ destination, onCountryClick }: { destination: typeof loca
   );
 }
 
-function GlobeGroup({ onCountryClick }: { onCountryClick: (name: string) => void }) {
+function GlobeGroup({
+  onCountryClick,
+  landedCount
+}: {
+  onCountryClick: (name: string) => void;
+  landedCount: number;
+}) {
   const specMap = useLoader(THREE.TextureLoader, '/earth-specular.jpg');
   const groupRef = useRef<THREE.Group>(null);
 
@@ -153,23 +167,20 @@ function GlobeGroup({ onCountryClick }: { onCountryClick: (name: string) => void
       let maxDot = -1;
       const camNormal = state.camera.position.clone().normalize();
 
-      // Find the pin that is most directly facing the camera
       for (const localPos of locationLocalPositions) {
         const worldPos = localPos.clone().applyMatrix4(groupRef.current.matrixWorld);
         const dot = worldPos.normalize().dot(camNormal);
         if (dot > maxDot) maxDot = dot;
       }
 
-      // Since tags are visible when dot > 0.75, we slow down when any pin enters the visible zone (maxDot > 0.70)
-      // When no pins are visible (maxDot <= 0.70), we move faster across oceans/empty regions.
       const targetSpeed = maxDot > 0.70 ? 0.0012 : 0.014;
-
-      // Smoothly interpolate the speed
       speedRef.current += (targetSpeed - speedRef.current) * 0.05;
 
       groupRef.current.rotation.y += speedRef.current;
     }
   });
+
+  const countryLocations = locations.filter(l => !l.isHub);
 
   return (
     <group ref={groupRef} rotation={[0, -3.25, 0]}>
@@ -206,9 +217,14 @@ function GlobeGroup({ onCountryClick }: { onCountryClick: (name: string) => void
         <meshBasicMaterial color="#0853a4" transparent opacity={0.04} side={THREE.BackSide} />
       </Sphere>
 
-      {/* Render all flight routes */}
-      {locations.filter(l => !l.isHub).map(loc => (
-        <FlightRoute key={loc.id} destination={loc} onCountryClick={onCountryClick} />
+      {/* Render all country pins with staggered landing */}
+      {countryLocations.map((loc, idx) => (
+        <FlightRoute
+          key={loc.id}
+          destination={loc}
+          isLanded={idx < landedCount}
+          onCountryClick={onCountryClick}
+        />
       ))}
     </group>
   );
@@ -221,8 +237,6 @@ function ResponsiveCamera() {
   useFrame(() => {
     if (!camera || !size.width || !size.height) return;
 
-    // Only update camera when canvas size actually changes (resize/zoom/mount)
-    // Never run during user drag/orbit rotation to prevent flickering/fighting
     if (Math.abs(size.width - prevSize.current.width) < 1 && Math.abs(size.height - prevSize.current.height) < 1) {
       return;
     }
@@ -231,9 +245,7 @@ function ResponsiveCamera() {
     const aspect = size.width / size.height;
     const fovRad = (45 / 2) * (Math.PI / 180);
 
-    // Calculate distance needed for vertical fit
     const distY = (GLOBE_RADIUS * 1.05) / Math.sin(fovRad);
-    // Calculate distance needed for horizontal fit
     const horizFovRad = Math.atan(aspect * Math.tan(fovRad));
     const distX = (GLOBE_RADIUS * 1.08) / Math.sin(horizFovRad);
 
@@ -250,6 +262,46 @@ function ResponsiveCamera() {
 
 export function AnimatedGlobe() {
   const navigate = useNavigate();
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [inView, setInView] = useState(false);
+  const [landedCount, setLandedCount] = useState(0);
+
+  // Trigger when section comes into viewport
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setInView(true);
+        }
+      },
+      { threshold: 0.25 }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  // Staggered landing sequence: country names land one by one
+  useEffect(() => {
+    if (!inView) return;
+
+    let current = 0;
+    const totalCount = locations.filter(l => !l.isHub).length;
+
+    const interval = setInterval(() => {
+      current += 1;
+      setLandedCount(current);
+
+      if (current >= totalCount) {
+        clearInterval(interval);
+      }
+    }, 240);
+
+    return () => clearInterval(interval);
+  }, [inView]);
 
   const handleCountryClick = (countryName: string) => {
     if (countryName === 'India') {
@@ -260,7 +312,10 @@ export function AnimatedGlobe() {
   };
 
   return (
-    <div className="relative w-full max-w-[280px] sm:max-w-[480px] lg:max-w-[600px] aspect-square max-h-[45vh] sm:max-h-[72vh] mx-auto flex items-center justify-center cursor-grab active:cursor-grabbing">
+    <div
+      ref={containerRef}
+      className="relative w-full max-w-[280px] sm:max-w-[480px] lg:max-w-[600px] aspect-square max-h-[45vh] sm:max-h-[72vh] mx-auto flex items-center justify-center cursor-grab active:cursor-grabbing"
+    >
 
       {/* Floating Instructions Heading */}
       <div className="absolute bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 z-10 pointer-events-none text-center w-full px-4">
@@ -297,7 +352,10 @@ export function AnimatedGlobe() {
         </Float>
 
         <Suspense fallback={null}>
-          <GlobeGroup onCountryClick={handleCountryClick} />
+          <GlobeGroup
+            onCountryClick={handleCountryClick}
+            landedCount={landedCount}
+          />
         </Suspense>
         <OrbitControls
           enableZoom={false}

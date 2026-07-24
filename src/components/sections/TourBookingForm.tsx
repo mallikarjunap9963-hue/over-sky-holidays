@@ -8,6 +8,7 @@ import {
   ShieldCheck,
 } from "lucide-react"
 import type { BookingFormProps, BookingFieldProps } from "../../types/tours"
+import { CustomSelect } from "../ui/CustomSelect"
 
 export default function TourBookingForm({
   tourName,
@@ -17,6 +18,14 @@ export default function TourBookingForm({
   onSubmit,
   onReset,
 }: BookingFormProps) {
+  const travelerOptions = Array.from({ length: 10 }, (_, index) => {
+    const count = index + 1
+    return {
+      label: `${count} Traveler${count > 1 ? "s" : ""}`,
+      value: String(count)
+    }
+  })
+
   return (
     <aside className="lg:sticky lg:top-24">
       <div className="rounded-[28px] border border-slate-200 bg-white p-6 shadow-[0_25px_80px_rgba(15,42,91,0.18)] md:p-8">
@@ -115,27 +124,19 @@ export default function TourBookingForm({
                 />
               </BookingField>
 
-              <BookingField
-                label="Number of Travelers"
-                icon={<Users size={18} />}
-              >
-                <select
+              <div>
+                <label className="mb-2 block text-sm font-bold text-[#10254c] font-rubik">
+                  Number of Travelers
+                </label>
+                <CustomSelect
                   value={form.travelers}
-                  onChange={(event) =>
-                    onChange("travelers", event.target.value)
-                  }
-                  className="h-12 w-full cursor-pointer bg-transparent text-sm text-slate-700 outline-none font-jost"
-                >
-                  {Array.from(
-                    { length: 10 },
-                    (_, index) => index + 1
-                  ).map((count) => (
-                    <option key={count} value={count}>
-                      {count} Traveler{count > 1 ? "s" : ""}
-                    </option>
-                  ))}
-                </select>
-              </BookingField>
+                  onChange={(val) => onChange("travelers", val)}
+                  options={travelerOptions}
+                  placeholder="Select Travelers"
+                  icon={<Users size={18} />}
+                  heightClass="h-12"
+                />
+              </div>
 
               <button
                 type="submit"

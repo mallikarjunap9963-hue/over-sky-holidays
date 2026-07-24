@@ -23,7 +23,7 @@ export function PopupContact() {
     e.preventDefault();
     if (!formData.name || !formData.phone || !formData.email) return;
     setSubmitted(true);
-    
+
     // Automatically reset and close after submission
     setTimeout(() => {
       setIsOpen(false);
@@ -118,7 +118,7 @@ export function PopupContact() {
 
                   {/* Form Fields */}
                   <form onSubmit={handleSubmit} className="mt-5 space-y-4">
-                    
+
                     {/* Name Input */}
                     <div className="relative group">
                       <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-[#0853a4] transition-colors z-10">

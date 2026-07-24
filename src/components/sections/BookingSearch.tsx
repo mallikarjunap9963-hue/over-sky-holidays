@@ -75,7 +75,7 @@ export function BookingSearch() {
         {/* SEARCH FORM */}
         <form
           onSubmit={handleSearch}
-          className="grid overflow-hidden rounded-b-[26px] rounded-t-[4px] bg-white border border-[#bae6fd] shadow-[0_18px_50px_rgba(16,12,8,0.08)] lg:grid-cols-[1.05fr_1.05fr_1fr_1.05fr_175px]"
+          className="relative grid rounded-b-[26px] rounded-t-[4px] bg-white border border-[#bae6fd] shadow-[0_18px_50px_rgba(16,12,8,0.08)] lg:grid-cols-[1.05fr_1.05fr_1fr_1.05fr_175px] z-20"
         >
           <SearchSelect
             label="Destination"

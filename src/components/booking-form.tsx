@@ -1,4 +1,17 @@
 import { useState } from 'react';
+import {
+  Plane,
+  Sparkles,
+  User,
+  Phone,
+  Mail,
+  CalendarDays,
+  MapPin,
+  Users,
+  Compass,
+  CheckCircle2
+} from 'lucide-react';
+import { CustomSelect } from './ui/CustomSelect';
 
 export function BookNowForm() {
   const [submitted, setSubmitted] = useState(false);
@@ -17,7 +30,7 @@ export function BookNowForm() {
     e.preventDefault();
     if (!formData.name || !formData.phone || !formData.email) return;
     setSubmitted(true);
-    
+
     // Automatically reset success message after 4 seconds
     setTimeout(() => {
       setSubmitted(false);
@@ -35,15 +48,15 @@ export function BookNowForm() {
   };
 
   const destinationsList = [
-    "Goa", "Kullu & Manali", "Ooty & Kodaikanal", "Kerala", "Delhi & Agra", 
-    "Darjeeling & Nainital", "Rishikesh & Haridwar", "Kedarnath & Badrinath", 
-    "Meghalaya", "Tirupati Balaji", "Maldives", "Nepal & Bhutan", 
-    "Bangkok", "Dubai", "Singapore", "Sri Lanka", "Andaman & Nicobar Islands", 
+    "Goa", "Kullu & Manali", "Ooty & Kodaikanal", "Kerala", "Delhi & Agra",
+    "Darjeeling & Nainital", "Rishikesh & Haridwar", "Kedarnath & Badrinath",
+    "Meghalaya", "Tirupati Balaji", "Maldives", "Nepal & Bhutan",
+    "Bangkok", "Dubai", "Singapore", "Sri Lanka", "Andaman & Nicobar Islands",
     "Bali", "USA", "United Kingdom (UK)", "Vietnam & Cambodia", "Hong Kong"
   ];
 
   return (
-    <div className="w-full p-5 sm:p-7 font-jost flex flex-col justify-center bg-gradient-to-br from-sky-50/60 via-white to-blue-50/40 relative overflow-hidden">
+    <div className="w-full p-5 sm:p-7 font-jost flex flex-col justify-center bg-gradient-to-br from-sky-50/60 via-white to-blue-50/40 relative">
       {/* Soft sky-like background decorative blurs */}
       <div className="absolute top-0 right-0 h-40 w-40 rounded-full bg-sky-200/25 blur-3xl pointer-events-none" />
       <div className="absolute bottom-4 left-4 h-36 w-36 rounded-full bg-blue-200/20 blur-3xl pointer-events-none" />
@@ -51,9 +64,7 @@ export function BookNowForm() {
       {submitted ? (
         <div className="flex flex-col items-center justify-center py-20 text-center animate-[scaleIn_0.35s_ease-out] relative z-10">
           <div className="flex h-14 w-14 items-center justify-center rounded-full bg-[#25d366]/10 border border-[#25d366]/30 text-[#25d366] mb-4">
-            <svg className="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="3">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-            </svg>
+            <CheckCircle2 className="h-8 w-8 text-[#25d366]" />
           </div>
           <h3 className="font-rubik text-[22px] font-bold text-slate-900">Inquiry Received!</h3>
           <p className="mt-2 text-slate-500 max-w-[320px] text-[14px]">
@@ -63,10 +74,10 @@ export function BookNowForm() {
       ) : (
         <div className="relative z-10">
           {/* Top Book Now Flight Badge */}
-          <div className="flex items-center justify-center gap-2 text-[10px] font-bold uppercase tracking-widest text-[#0853a4] font-rubik">
-            <span>✈</span>
+          <div className="flex items-center justify-center gap-2 text-[11px] font-bold uppercase tracking-widest text-[#0853a4] font-rubik">
+            <Plane className="h-3.5 w-3.5 text-[#0853a4] transform -rotate-45" />
             <span>Book Now</span>
-            <span>✈</span>
+            <Sparkles className="h-3.5 w-3.5 text-[#ffb400]" />
           </div>
 
           {/* Form Heading */}
@@ -81,15 +92,13 @@ export function BookNowForm() {
 
           {/* Form Fields */}
           <form onSubmit={handleSubmit} className="mt-5 space-y-2.5">
-            
+
             {/* Name & Phone Row */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
               {/* Name Input */}
               <div className="relative group">
-                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-[#0853a4] transition-colors z-10">
-                  <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                  </svg>
+                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-[#0853a4] transition-colors z-10 pointer-events-none">
+                  <User className="h-4 w-4" />
                 </span>
                 <input
                   type="text"
@@ -103,10 +112,8 @@ export function BookNowForm() {
 
               {/* Phone Number Input */}
               <div className="relative group">
-                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-[#0853a4] transition-colors z-10">
-                  <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.94.725l.548 2.2a1 1 0 01-.321.988l-1.305.98a10.582 10.582 0 004.872 4.872l.98-1.305a1 1 0 01.988-.321l2.2.548a1 1 0 01.725.94V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                  </svg>
+                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-[#0853a4] transition-colors z-10 pointer-events-none">
+                  <Phone className="h-4 w-4" />
                 </span>
                 <input
                   type="tel"
@@ -123,10 +130,8 @@ export function BookNowForm() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
               {/* Email Address */}
               <div className="relative group">
-                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-[#0853a4] transition-colors z-10">
-                  <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                  </svg>
+                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-[#0853a4] transition-colors z-10 pointer-events-none">
+                  <Mail className="h-4 w-4" />
                 </span>
                 <input
                   type="email"
@@ -140,10 +145,8 @@ export function BookNowForm() {
 
               {/* Travel Date */}
               <div className="relative group">
-                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-[#0853a4] transition-colors z-10">
-                  <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                  </svg>
+                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-[#0853a4] transition-colors z-10 pointer-events-none">
+                  <CalendarDays className="h-4 w-4" />
                 </span>
                 <input
                   type="text"
@@ -160,85 +163,45 @@ export function BookNowForm() {
             </div>
 
             {/* Destination Dropdown */}
-            <div className="relative group">
-              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-[#0853a4] transition-colors z-10 pointer-events-none">
-                <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                  <circle cx="12" cy="10" r="2" />
-                </svg>
-              </span>
-              <select
-                value={formData.destination}
-                onChange={(e) => setFormData({ ...formData, destination: e.target.value })}
-                className="w-full h-[38px] pl-9.5 pr-10 rounded-lg border border-slate-200 bg-slate-50/50 text-[#100c08] outline-none focus:border-[#0853a4] focus:bg-white focus:ring-4 focus:ring-[#0853a4]/5 transition-all text-[13px] appearance-none cursor-pointer"
-              >
-                <option value="">Destination</option>
-                {destinationsList.map((dest) => (
-                  <option key={dest} value={dest}>
-                    {dest}
-                  </option>
-                ))}
-              </select>
-              <span className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none">
-                <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-                </svg>
-              </span>
-            </div>
+            <CustomSelect
+              value={formData.destination}
+              onChange={(val) => setFormData({ ...formData, destination: val })}
+              options={destinationsList}
+              placeholder="Destination"
+              icon={<MapPin className="h-4 w-4" />}
+            />
 
             {/* Travelers & Tour Type Row */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
               {/* No. of Travelers */}
-              <div className="relative group">
-                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-[#0853a4] transition-colors z-10 pointer-events-none">
-                  <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                  </svg>
-                </span>
-                <select
-                  value={formData.travelers}
-                  onChange={(e) => setFormData({ ...formData, travelers: e.target.value })}
-                  className="w-full h-[38px] pl-9.5 pr-10 rounded-lg border border-slate-200 bg-slate-50/50 text-[#100c08] outline-none focus:border-[#0853a4] focus:bg-white focus:ring-4 focus:ring-[#0853a4]/5 transition-all text-[13px] appearance-none cursor-pointer"
-                >
-                  <option value="">No. of Travelers</option>
-                  <option value="1">1 Traveler</option>
-                  <option value="2">2 Travelers</option>
-                  <option value="3-5">3 - 5 Travelers</option>
-                  <option value="6+">6+ Travelers</option>
-                </select>
-                <span className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none">
-                  <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-                  </svg>
-                </span>
-              </div>
+              <CustomSelect
+                value={formData.travelers}
+                onChange={(val) => setFormData({ ...formData, travelers: val })}
+                options={[
+                  { label: "1 Traveler", value: "1" },
+                  { label: "2 Travelers", value: "2" },
+                  { label: "3 - 5 Travelers", value: "3-5" },
+                  { label: "6+ Travelers", value: "6+" }
+                ]}
+                placeholder="No. of Travelers"
+                icon={<Users className="h-4 w-4" />}
+              />
 
               {/* Tour Type */}
-              <div className="relative group">
-                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-[#0853a4] transition-colors z-10 pointer-events-none">
-                  <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                  </svg>
-                </span>
-                <select
-                  value={formData.tourType}
-                  onChange={(e) => setFormData({ ...formData, tourType: e.target.value })}
-                  className="w-full h-[38px] pl-9.5 pr-10 rounded-lg border border-slate-200 bg-slate-50/50 text-[#100c08] outline-none focus:border-[#0853a4] focus:bg-white focus:ring-4 focus:ring-[#0853a4]/5 transition-all text-[13px] appearance-none cursor-pointer"
-                >
-                  <option value="">Tour Type</option>
-                  <option value="Domestic">Domestic Tour</option>
-                  <option value="International">International Tour</option>
-                  <option value="Islands">Islands Tour</option>
-                  <option value="Pilgrimage">Pilgrimage Yatra</option>
-                  <option value="Honeymoon">Honeymoon Tour</option>
-                  <option value="Family">Family Tour</option>
-                </select>
-                <span className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none">
-                  <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-                  </svg>
-                </span>
-              </div>
+              <CustomSelect
+                value={formData.tourType}
+                onChange={(val) => setFormData({ ...formData, tourType: val })}
+                options={[
+                  "Domestic Tour",
+                  "International Tour",
+                  "Islands Tour",
+                  "Pilgrimage Yatra",
+                  "Honeymoon Tour",
+                  "Family Tour"
+                ]}
+                placeholder="Tour Type"
+                icon={<Compass className="h-4 w-4" />}
+              />
             </div>
 
             {/* Requirements Textarea */}
