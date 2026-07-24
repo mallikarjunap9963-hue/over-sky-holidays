@@ -3,14 +3,16 @@ import { useNavigate } from 'react-router-dom';
 import type { FormEvent } from 'react';
 import type { SearchTab } from '../../types';
 import { searchTabs, attractionPackages } from '../../data';
-import { LocationIcon, BookingTabIcon, ClockIcon, CategoryIcon } from '../icons/Icons';
+import { LocationIcon, BookingTabIcon, CategoryIcon } from '../icons/Icons';
 import { SearchSelect } from '../ui/SearchSelect';
+import { SearchDatePicker } from '../ui/SearchDatePicker';
 
 
 export function BookingSearch() {
   const navigate = useNavigate();
   const [activeSearchTab, setActiveSearchTab] = useState<SearchTab>("Domestic");
   const [destination, setDestination] = useState<string>("Select Destination");
+  const [travelDate, setTravelDate] = useState<string>("");
 
   const handleSearch = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -97,24 +99,10 @@ export function BookingSearch() {
             icon={<BookingTabIcon type="Tour" className="h-7 w-7 text-[#0853a4]" />}
           />
 
-          <SearchSelect
+          <SearchDatePicker
             label="When"
-            options={[
-              "Select Month",
-              "January",
-              "February",
-              "March",
-              "April",
-              "May",
-              "June",
-              "July",
-              "August",
-              "September",
-              "October",
-              "November",
-              "December",
-            ]}
-            icon={<ClockIcon className="text-[#0853a4]" />}
+            value={travelDate}
+            onChange={(date) => setTravelDate(date)}
           />
 
           <SearchSelect
