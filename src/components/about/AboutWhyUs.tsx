@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { ScrollReveal } from '../ui/ScrollReveal';
+import aboutUsWhyChooseUsImg from '../../assets/about us -why choose us.png';
 
 const reasons = [
   {
@@ -114,8 +115,8 @@ export function AboutWhyUs() {
           <ScrollReveal variant="fade-in-right" delay={200} duration={1400} className="relative">
             <div className="overflow-hidden rounded-3xl border border-slate-100 shadow-lg">
               <img
-                src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=1000&q=85"
-                alt="Road trip along beautiful landscapes"
+                src={aboutUsWhyChooseUsImg}
+                alt="Open Sky Holidays Why Choose Us"
                 className="h-[400px] w-full object-cover transition duration-700 hover:scale-105 sm:h-[480px]"
               />
             </div>
