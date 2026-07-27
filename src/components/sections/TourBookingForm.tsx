@@ -140,7 +140,7 @@ export default function TourBookingForm({
 
               <button
                 type="submit"
-                className="w-full rounded-xl bg-gradient-to-r from-[#0853a4] to-[#0853a4] px-5 py-4 text-sm font-black uppercase tracking-wider text-white shadow-lg transition duration-300 hover:-translate-y-0.5 hover:shadow-xl font-rubik"
+                className="btn-primary w-full min-h-[48px] rounded-[6px] text-sm font-bold shadow-[0_12px_24px_rgba(8,83,164,0.18)] uppercase tracking-wider font-rubik cursor-pointer"
               >
                 Book Now
               </button>

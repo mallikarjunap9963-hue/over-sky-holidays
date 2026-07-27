@@ -174,7 +174,7 @@ export function AboutUs() {
               <div className="flex flex-wrap items-center gap-6 sm:gap-8 pt-2 sm:pt-3">
                 <Link
                   to="/about"
-                  className="btn-primary min-h-[48px] sm:min-h-[52px] rounded-[5px] px-7 sm:px-8 text-[14.5px] sm:text-[15px] font-bold shadow-[0_12px_30px_rgba(8,83,164,0.2)]"
+                  className="btn-primary min-h-[48px] sm:min-h-[52px] rounded-[6px] px-7 sm:px-8 text-[14.5px] sm:text-[15px] font-bold shadow-[0_12px_30px_rgba(8,83,164,0.2)]"
                 >
                   More About
                 </Link>

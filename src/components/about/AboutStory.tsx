@@ -1,4 +1,7 @@
 import { ScrollReveal } from '../ui/ScrollReveal';
+import aboutUsImg from '../../assets/about us img.png';
+import aboutUs2ndImg from '../../assets/about us 2nd img.png';
+import aboutUs3rdImg from '../../assets/about us 3 rd img.png';
 
 export function AboutStory() {
   return (
@@ -16,29 +19,29 @@ export function AboutStory() {
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
           {/* Story Images collage (Left) */}
           <ScrollReveal variant="fade-in-left" delay={50} duration={1200} className="relative">
-            <div className="grid grid-cols-2 gap-4">
-              {/* Tall image */}
-              <div className="overflow-hidden rounded-2xl shadow-lg border border-slate-100">
+            <div className="grid grid-cols-2 gap-4 h-[420px] sm:h-[465px]">
+              {/* Tall 1st image */}
+              <div className="overflow-hidden rounded-2xl shadow-lg border border-slate-100 h-full w-full">
                 <img
-                  src="https://images.unsplash.com/photo-1527631746610-bca00a040d60?auto=format&fit=crop&w=800&q=85"
-                  alt="Friends enjoying a mountain tour"
-                  className="h-[380px] w-full object-cover transition duration-700 hover:scale-105 sm:h-[450px]"
+                  src={aboutUsImg}
+                  alt="Open Sky Holidays Team"
+                  className="h-full w-full object-cover object-center transition duration-700 hover:scale-105"
                 />
               </div>
-              {/* Stacked images */}
-              <div className="flex flex-col gap-4 pt-10">
-                <div className="overflow-hidden rounded-2xl shadow-md border border-slate-100">
+              {/* Stacked 2nd & 3rd images */}
+              <div className="flex flex-col gap-4 h-full">
+                <div className="overflow-hidden rounded-2xl shadow-md border border-slate-100 flex-1 min-h-0">
                   <img
-                    src="https://images.unsplash.com/photo-1573843981267-be1999ff37cd?auto=format&fit=crop&w=700&q=85"
-                    alt="Maldives luxury resort"
-                    className="h-[180px] w-full object-cover transition duration-700 hover:scale-105 sm:h-[210px]"
+                    src={aboutUs2ndImg}
+                    alt="Open Sky Holidays Travel Consultation"
+                    className="h-full w-full object-cover transition duration-700 hover:scale-105"
                   />
                 </div>
-                <div className="overflow-hidden rounded-2xl shadow-md border border-slate-100">
+                <div className="overflow-hidden rounded-2xl shadow-md border border-slate-100 flex-1 min-h-0">
                   <img
-                    src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=700&q=85"
-                    alt="Tourists exploring landmarks"
-                    className="h-[180px] w-full object-cover transition duration-700 hover:scale-105 sm:h-[210px]"
+                    src={aboutUs3rdImg}
+                    alt="Open Sky Holidays Travel Essentials"
+                    className="h-full w-full object-cover transition duration-700 hover:scale-105"
                   />
                 </div>
               </div>

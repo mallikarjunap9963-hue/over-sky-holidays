@@ -71,7 +71,7 @@ export function PhenomenalDeals() {
 
                   <Link
                     to="/contact"
-                    className="mt-6 inline-flex min-h-[44px] items-center justify-center rounded-[5px] bg-white px-6 text-[13px] font-bold text-[#0853a4] transition hover:-translate-y-1 hover:bg-[#100c08] hover:text-white font-rubik"
+                    className="btn-primary mt-6 min-h-[44px] rounded-[6px] px-6 text-[13px] font-bold shadow-[0_12px_24px_rgba(8,83,164,0.18)] font-rubik"
                   >
                     Book Now
                   </Link>
@@ -155,7 +155,7 @@ export function PhenomenalDeals() {
 
                     <Link
                       to="/contact"
-                      className="mt-6 inline-flex min-h-[44px] w-fit items-center justify-center rounded-[5px] bg-[#fbb03b] px-6 text-[13px] font-bold text-[#100c08] transition hover:-translate-y-1 hover:bg-white hover:text-[#100c08] font-rubik"
+                      className="btn-primary mt-6 min-h-[44px] w-fit rounded-[6px] px-6 text-[13px] font-bold shadow-[0_12px_24px_rgba(8,83,164,0.18)] font-rubik"
                     >
                       Book Now
                     </Link>
@@ -191,7 +191,7 @@ export function PhenomenalDeals() {
 
                     <Link
                       to="/contact"
-                      className="mt-8 inline-flex min-h-[43px] shrink-0 items-center justify-center rounded-[5px] bg-[#100c08] px-6 text-[13px] font-bold text-white transition hover:-translate-y-1 hover:bg-[#0853a4] font-rubik"
+                      className="btn-primary mt-8 min-h-[43px] shrink-0 rounded-[6px] px-6 text-[13px] font-bold shadow-[0_12px_24px_rgba(8,83,164,0.18)] font-rubik"
                     >
                       Book Now
                     </Link>
@@ -220,7 +220,7 @@ export function PhenomenalDeals() {
           <ScrollReveal variant="fade-in-up" delay={700} duration={1300} className="mt-12 text-center">
             <Link
               to="/tours/domestic"
-              className="btn-primary rounded-full min-h-[52px] px-9 text-[14px] font-bold shadow-[0_12px_30px_rgba(8,83,164,0.22)]"
+              className="btn-primary rounded-[6px] min-h-[52px] px-9 text-[14px] font-bold shadow-[0_12px_30px_rgba(8,83,164,0.22)]"
             >
               View All Special Offers
               <svg

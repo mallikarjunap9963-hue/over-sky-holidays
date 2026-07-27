@@ -148,7 +148,7 @@ export function Destinations() {
 
                 <Link
                   to="/tours/domestic"
-                  className="mt-8 rounded-[4px] bg-[#5da747] px-8 py-3.5 text-[15px] font-bold text-white transition hover:bg-[#4d9039] shadow-md hover:shadow-lg"
+                  className="btn-primary mt-8 min-h-[48px] rounded-[6px] px-8 text-[15px] font-bold shadow-[0_12px_24px_rgba(8,83,164,0.18)] font-rubik"
                 >
                   View All Destination
                 </Link>

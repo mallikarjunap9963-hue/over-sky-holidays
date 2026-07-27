@@ -25,7 +25,7 @@ export function BlogDetailsPage() {
       <div className="flex min-h-[60vh] flex-col items-center justify-center text-center px-4">
         <h1 className="font-rubik text-4xl font-bold text-[#100c08] mb-4">Blog Post Not Found</h1>
         <p className="font-jost text-lg text-slate-500 mb-8">The article you are looking for does not exist or has been removed.</p>
-        <Link to="/blogs" className="btn-primary rounded-full px-8 py-3 font-bold">
+        <Link to="/blogs" className="btn-primary rounded-[6px] min-h-[48px] px-8 text-sm font-bold shadow-[0_12px_24px_rgba(8,83,164,0.18)] font-rubik">
           Back to Blogs
         </Link>
       </div>

@@ -192,7 +192,7 @@ export function UltimateTravelExperience() {
                       {/* ACTION BUTTON */}
                       <div className="mt-5 flex items-center justify-end">
                         {isTour ? (
-                          <span className="btn-primary min-h-[40px] shrink-0 rounded-[4px] px-4 text-[12px] font-bold text-white">
+                          <span className="btn-primary min-h-[40px] shrink-0 rounded-[6px] px-4 text-[12px] font-bold text-white font-rubik shadow-sm">
                             Book A Trip
                             <svg
                               viewBox="0 0 24 24"
@@ -208,7 +208,7 @@ export function UltimateTravelExperience() {
                         ) : (
                           <Link
                             to="/contact"
-                            className="btn-primary min-h-[40px] shrink-0 rounded-[4px] px-4 text-[12px] font-bold text-white"
+                            className="btn-primary min-h-[40px] shrink-0 rounded-[6px] px-4 text-[12px] font-bold text-white font-rubik shadow-sm"
                           >
                             Book A Trip
                             <svg
@@ -235,7 +235,7 @@ export function UltimateTravelExperience() {
           <ScrollReveal variant="fade-in-up" delay={300} duration={1300} className="mt-12 text-center">
             <Link
               to="/tours/domestic"
-              className="btn-primary min-h-[52px] rounded-[5px] px-8 text-[14px] font-bold"
+              className="btn-primary min-h-[52px] rounded-[6px] px-8 text-[14px] font-bold shadow-[0_12px_24px_rgba(8,83,164,0.18)] font-rubik"
             >
               View All Packages
               <svg

@@ -168,7 +168,7 @@ export function EliteTouristAttractions() {
           <ScrollReveal variant="fade-in-up" delay={300} duration={1300} className="mt-12 flex justify-center">
             <Link
               to={activeAttractionTab === "Domestic" ? "/tours/domestic" : "/tours/international"}
-              className="btn-primary rounded-full min-h-[52px] px-9 text-[14px] font-bold shadow-[0_12px_28px_rgba(8,83,164,0.25)] inline-flex items-center justify-center"
+              className="btn-primary rounded-[6px] min-h-[52px] px-9 text-[14px] font-bold shadow-[0_12px_28px_rgba(8,83,164,0.25)] inline-flex items-center justify-center font-rubik"
             >
               View All Packages
             </Link>

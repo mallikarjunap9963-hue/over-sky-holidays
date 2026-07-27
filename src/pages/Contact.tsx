@@ -414,10 +414,10 @@ export function Contact({ variant = 'full' }: ContactProps) {
                       {/* Submit Button */}
                       <button
                         type="submit"
-                        className="w-full h-[42px] rounded-lg bg-[#0853a4] hover:bg-[#064a8f] text-white font-bold text-[14px] flex items-center justify-center gap-2.5 transition duration-300 hover:-translate-y-0.5 active:translate-y-0 shadow-md shadow-[#0853a4]/15 cursor-pointer font-rubik"
+                        className="btn-primary w-full min-h-[44px] rounded-[6px] text-[14px] font-bold shadow-[0_12px_24px_rgba(8,83,164,0.18)] font-rubik cursor-pointer gap-2.5"
                       >
                         <span>SUBMIT ENQUIRY</span>
-                        <svg className="h-4 w-4 transform rotate-45" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
+                        <svg className="h-4 w-4 transform rotate-45 z-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
                           <path strokeLinecap="round" strokeLinejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
                         </svg>
                       </button>

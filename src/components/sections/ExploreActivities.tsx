@@ -235,7 +235,7 @@ export function ExploreActivities() {
                   <div className="activity-content-anim relative z-10 mt-9 flex flex-col gap-6 sm:flex-row sm:items-center pt-2">
                     <Link
                       to="/contact"
-                      className="btn-primary min-h-[52px] w-fit rounded-[5px] px-8 text-[14px] font-bold shadow-md shadow-[#0853a4]/20"
+                      className="btn-primary min-h-[52px] w-fit rounded-[6px] px-8 text-[14px] font-bold shadow-[0_12px_24px_rgba(8,83,164,0.18)] font-rubik"
                     >
                       Check Availability
                     </Link>

@@ -99,8 +99,7 @@ export function AboutWhyUs() {
             <ScrollReveal variant="fade-in-left" delay={850} duration={1200}>
               <Link
                 to="/contact"
-                className="mt-2 inline-flex w-fit items-center gap-2 rounded-full px-7 py-3 font-rubik text-[14px] font-bold text-white transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5"
-                style={{ background: 'linear-gradient(135deg, #0853a4, #0066b0)' }}
+                className="btn-primary mt-2 min-h-[46px] rounded-[6px] px-7 text-[14px] font-bold shadow-[0_12px_24px_rgba(8,83,164,0.18)] font-rubik gap-2"
               >
                 Get in Touch
                 <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2.5">

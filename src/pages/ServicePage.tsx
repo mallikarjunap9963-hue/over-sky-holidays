@@ -10,6 +10,11 @@ import { ServiceCTA } from '../components/services/ServiceCTA';
 
 export function ServicePage() {
   const { id } = useParams<{ id: string }>();
+
+  // Scroll to top when page changes
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }, [id]);
   
   // If no ID or invalid ID, redirect to home
   if (!id || !servicesData[id]) {
@@ -17,11 +22,6 @@ export function ServicePage() {
   }
 
   const data = servicesData[id];
-
-  // Scroll to top when page changes
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'instant' });
-  }, [id]);
 
   return (
     <div className="bg-white min-h-screen">

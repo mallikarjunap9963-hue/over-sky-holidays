@@ -233,7 +233,7 @@ function BlogCard({ post, index }: { post: typeof blogPosts[0]; index: number })
           {/* Read More link */}
           <Link
             to={`/blogs/${post.id}`}
-            className="mt-4 inline-flex items-center gap-2 font-rubik text-[13.5px] font-semibold text-[#0853a4]"
+            className="mt-4 inline-flex items-center gap-2 font-rubik text-[13.5px] font-semibold text-[#0853a4] hover:text-[#064a8f]"
           >
             Read More
             <svg
