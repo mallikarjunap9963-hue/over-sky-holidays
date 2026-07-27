@@ -5,10 +5,10 @@ import breadcrumbImg from '../../assets/breadcrumb.png';
 interface ServiceHeroProps {
   title: string;
   subtitle: string;
-  heroImage: string;
+  heroImage?: string;
 }
 
-export function ServiceHero({ title, subtitle, heroImage }: ServiceHeroProps) {
+export function ServiceHero({ title, subtitle }: ServiceHeroProps) {
   return (
     <section className="relative isolate overflow-hidden bg-[#100c08]">
       {/* Background Image */}
