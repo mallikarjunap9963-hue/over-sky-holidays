@@ -25,15 +25,15 @@ export default function TourDetailsHero({
         className="absolute inset-0 h-full w-full object-cover"
       />
 
-      <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/50 to-black/5" />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-transparent to-black/30" />
+      <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/40 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
 
       <div className="relative mx-auto flex min-h-[570px] max-w-[1320px] flex-col px-5 pb-20 pt-7 sm:px-8 lg:min-h-[620px] lg:px-10 lg:pb-24">
         {/* Top Row */}
         <div className="flex items-start justify-between gap-6 font-jost">
           <nav
             aria-label="Breadcrumb"
-            className="inline-flex items-center gap-2 rounded-xl border border-white/15 bg-[#0853a4]/40 px-4 py-2.5 backdrop-blur-md font-jost"
+            className="inline-flex items-center gap-2 rounded-xl border border-white/20 bg-white/10 px-4 py-2.5 backdrop-blur-md font-jost shadow-sm"
           >
             <Link
               to="/"

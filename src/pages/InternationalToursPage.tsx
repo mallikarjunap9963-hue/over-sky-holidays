@@ -2,11 +2,12 @@ import { Link, useSearchParams } from "react-router-dom"
 import { MapPin, ArrowRight } from "lucide-react"
 import { attractionPackages } from "../data"
 import { ScrollReveal } from "../components/ui/ScrollReveal"
+import breadcrumbImg from "../assets/breadcrumb.png"
 
 export function InternationalToursPage() {
   const [searchParams] = useSearchParams();
   const searchDestination = searchParams.get("destination");
-  
+
   let internationalTours = attractionPackages.International;
   if (searchDestination) {
     internationalTours = internationalTours.filter(
@@ -17,35 +18,27 @@ export function InternationalToursPage() {
   return (
     <main className="min-h-screen bg-slate-50/50 font-jost">
       {/* ================= PROFESSIONAL BREADCRUMB BANNER ================= */}
-      <section className="relative isolate overflow-hidden bg-[#0853a4]">
+      <section className="relative isolate overflow-hidden bg-[#100c08]">
         {/* Background Image */}
         <div className="absolute inset-0 -z-20">
           <img
-            src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=2000&q=90"
+            src={breadcrumbImg}
             alt="International Tours Hero"
             className="h-full w-full object-cover object-center"
           />
         </div>
 
-        {/* Dark Overlay */}
-        <div className="absolute inset-0 -z-10 bg-gradient-to-r from-[#0853a4]/95 via-[#0853a4]/82 to-[#0853a4]/45" />
+        {/* Dark Left, Clear Right Overlay */}
+        <div className="absolute inset-0 -z-10 bg-gradient-to-r from-black/85 via-black/40 to-transparent" />
 
         {/* Bottom Gradient */}
-        <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#0853a4]/60 to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-black/40 to-transparent" />
 
         {/* Decorative Circle */}
         <div className="pointer-events-none absolute -right-24 -top-28 h-[340px] w-[340px] rounded-full border border-white/10" />
         <div className="pointer-events-none absolute -right-10 -top-16 h-[240px] w-[240px] rounded-full border border-white/10" />
 
-        {/* Decorative Dots */}
-        <div className="pointer-events-none absolute right-[8%] top-1/2 hidden -translate-y-1/2 grid-cols-6 gap-3 opacity-20 lg:grid">
-          {Array.from({ length: 36 }).map((_, index) => (
-            <span
-              key={index}
-              className="h-1.5 w-1.5 rounded-full bg-white"
-            />
-          ))}
-        </div>
+
 
         <div className="relative mx-auto flex min-h-[220px] max-w-[1320px] items-center px-5 py-10 sm:min-h-[250px] sm:px-8 lg:min-h-[280px] lg:px-10">
           <ScrollReveal variant="fade-in-up" duration={1000}>
@@ -82,7 +75,7 @@ export function InternationalToursPage() {
               {/* Breadcrumb */}
               <nav
                 aria-label="Breadcrumb"
-                className="mt-4.5 inline-flex items-center gap-2 rounded-xl border border-white/15 bg-[#0853a4]/40 px-4 py-2.5 backdrop-blur-md"
+                className="mt-4.5 inline-flex items-center gap-2 rounded-xl border border-white/20 bg-white/10 px-4 py-2.5 backdrop-blur-md shadow-sm"
               >
                 <Link
                   to="/"
