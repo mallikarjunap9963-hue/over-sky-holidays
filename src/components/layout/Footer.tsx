@@ -4,6 +4,9 @@ import { PhoneIcon, LocationIcon } from '../icons/Icons';
 import logo from '../../assets/logo-removebg-preview.png';
 
 export function Footer() {
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   return (
     <>
@@ -22,8 +25,9 @@ export function Footer() {
             {/* COMPANY DETAILS */}
             <div>
               <Link
-                to="/#home"
-                className="inline-flex rounded-[12px] bg-white px-4 py-3"
+                to="/"
+                onClick={scrollToTop}
+                className="inline-flex rounded-[12px] bg-white px-4 py-3 cursor-pointer"
               >
                 <img
                   src={logo}
@@ -67,21 +71,22 @@ export function Footer() {
 
               <ul className="mt-6 space-y-3.5">
                 {[
-                  ["Home", "/#home"],
-                  ["About Us", "/about"],
-                  ["Domestic Tours", "/#domestic-tours"],
-                  ["International Tours", "/#international-tours"],
-                  ["Services", "/#services"],
-                  ["Blogs", "/blogs"],
-                  ["Contact Us", "/contact"],
-                ].map(([label, href]) => (
-                  <li key={label}>
+                  { label: "Home", href: "/" },
+                  { label: "About Us", href: "/about" },
+                  { label: "Domestic Tours", href: "/tours/domestic" },
+                  { label: "International Tours", href: "/tours/international" },
+                  { label: "Services", href: "/about#services" },
+                  { label: "Blogs", href: "/blogs" },
+                  { label: "Contact Us", href: "/contact" },
+                ].map((item) => (
+                  <li key={item.label}>
                     <Link
-                      to={href}
+                      to={item.href}
+                      onClick={scrollToTop}
                       className="group flex items-center gap-3 text-[14px] text-white/80 transition hover:translate-x-1 hover:text-[#fbb03b]"
                     >
                       <span className="h-1.5 w-1.5 rounded-full bg-[#fbb03b] transition group-hover:bg-[#fbb03b]" />
-                      {label}
+                      {item.label}
                     </Link>
                   </li>
                 ))}
@@ -98,20 +103,21 @@ export function Footer() {
 
               <ul className="mt-6 space-y-3.5">
                 {[
-                  "Goa",
-                  "Kullu - Manali & Shimla",
-                  "Kerala",
-                  "Dubai",
-                  "Maldives",
-                  "Singapore & Malaysia",
+                  { label: "Goa", href: "/tour/domestic/3" },
+                  { label: "Kullu - Manali & Shimla", href: "/tour/domestic/4" },
+                  { label: "Kerala", href: "/tour/domestic/1" },
+                  { label: "Dubai", href: "/tour/international/1" },
+                  { label: "Maldives", href: "/tour/international/11" },
+                  { label: "Singapore & Malaysia", href: "/tour/international/2" },
                 ].map((tour) => (
-                  <li key={tour}>
+                  <li key={tour.label}>
                     <Link
-                      to="/#tours"
+                      to={tour.href}
+                      onClick={scrollToTop}
                       className="group flex items-center gap-3 text-[14px] text-white/80 transition hover:translate-x-1 hover:text-[#fbb03b]"
                     >
                       <span className="h-1.5 w-1.5 rounded-full bg-[#fbb03b] transition group-hover:bg-[#fbb03b]" />
-                      {tour}
+                      {tour.label}
                     </Link>
                   </li>
                 ))}
@@ -212,25 +218,25 @@ export function Footer() {
             </p>
 
             <div className="flex items-center gap-6">
-              <a
-                href="#privacy"
+              <Link
+                to="/contact"
+                onClick={scrollToTop}
                 className="text-[13px] text-white/85 transition hover:text-[#fbb03b]"
               >
                 Privacy Policy
-              </a>
+              </Link>
 
-              <a
-                href="#terms"
+              <Link
+                to="/contact"
+                onClick={scrollToTop}
                 className="text-[13px] text-white/85 transition hover:text-[#fbb03b]"
               >
                 Terms & Conditions
-              </a>
+              </Link>
             </div>
           </div>
         </div>
       </footer>
-
-      {/* ================= FOOTER END ================= */}
     </>
   );
 }

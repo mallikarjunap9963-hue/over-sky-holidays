@@ -12,6 +12,7 @@ import {
   CheckCircle2
 } from 'lucide-react';
 import { CustomSelect } from './ui/CustomSelect';
+import { CustomDatePicker } from './ui/CustomDatePicker';
 
 export function BookNowForm() {
   const [submitted, setSubmitted] = useState(false);
@@ -144,22 +145,13 @@ export function BookNowForm() {
               </div>
 
               {/* Travel Date */}
-              <div className="relative group">
-                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-[#0853a4] transition-colors z-10 pointer-events-none">
-                  <CalendarDays className="h-4 w-4" />
-                </span>
-                <input
-                  type="text"
-                  onFocus={(e) => (e.target.type = "date")}
-                  onBlur={(e) => {
-                    if (!e.target.value) e.target.type = "text";
-                  }}
-                  value={formData.travelDate}
-                  onChange={(e) => setFormData({ ...formData, travelDate: e.target.value })}
-                  placeholder="Travel Date *"
-                  className="w-full h-[38px] pl-9.5 pr-3 rounded-lg border border-slate-200 bg-slate-50/50 text-[#100c08] placeholder:text-slate-500 outline-none focus:border-[#0853a4] focus:bg-white focus:ring-4 focus:ring-[#0853a4]/5 transition-all text-[13px]"
-                />
-              </div>
+              <CustomDatePicker
+                value={formData.travelDate}
+                onChange={(dateStr) => setFormData({ ...formData, travelDate: dateStr })}
+                placeholder="Travel Date *"
+                heightClass="h-[38px]"
+                direction="down"
+              />
             </div>
 
             {/* Destination Dropdown */}

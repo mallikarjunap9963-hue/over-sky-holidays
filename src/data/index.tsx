@@ -109,7 +109,7 @@ export const socialLinks = [
   {
     label: "WhatsApp",
     icon: <Icons.WhatsappIcon />,
-    href: "https://wa.me/919908117712",
+    href: "https://wa.me/919908117712?text=Hello%20Open%20Sky%20Holidays!%20I%20would%20like%20to%20inquire%20about%20tour%20packages%20and%20travel%20details.%20Please%20assist%20me.",
   },
   {
     label: "Instagram",

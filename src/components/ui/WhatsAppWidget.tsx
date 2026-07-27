@@ -9,6 +9,7 @@ export function WhatsAppWidget() {
   const widgetRef = useRef<HTMLDivElement>(null);
   const phoneNumber = "919908117712"; // Used for the wa.me link
   const companyName = "Open Sky Holidays";
+  const defaultMessage = encodeURIComponent("Hello Open Sky Holidays! I would like to inquire about tour packages and travel details. Please assist me.");
 
   useEffect(() => {
     const handleScroll = () => {
@@ -81,7 +82,7 @@ export function WhatsAppWidget() {
               
               {/* Chat Card */}
               <a 
-                href={`https://wa.me/${phoneNumber}`} 
+                href={`https://wa.me/${phoneNumber}?text=${defaultMessage}`} 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="flex items-center gap-4 bg-white p-4 rounded-[12px] shadow-sm border-l-[3px] border-l-[#25D366] hover:shadow-md transition-all group"

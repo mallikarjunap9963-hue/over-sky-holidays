@@ -9,6 +9,7 @@ import {
 } from "lucide-react"
 import type { BookingFormProps, BookingFieldProps } from "../../types/tours"
 import { CustomSelect } from "../ui/CustomSelect"
+import { CustomDatePicker } from "../ui/CustomDatePicker"
 
 export default function TourBookingForm({
   tourName,
@@ -109,20 +110,19 @@ export default function TourBookingForm({
                 />
               </BookingField>
 
-              <BookingField
-                label="Travel Date"
-                icon={<CalendarDays size={18} />}
-              >
-                <input
-                  required
-                  type="date"
+              <div>
+                <label className="mb-2 block text-sm font-bold text-[#10254c] font-rubik">
+                  Travel Date
+                </label>
+                <CustomDatePicker
                   value={form.travelDate}
-                  onChange={(event) =>
-                    onChange("travelDate", event.target.value)
-                  }
-                  className="h-12 w-full bg-transparent text-sm text-slate-700 outline-none font-jost"
+                  onChange={(dateStr) => onChange("travelDate", dateStr)}
+                  placeholder="Select Travel Date"
+                  icon={<CalendarDays size={18} />}
+                  heightClass="h-12 border-slate-200 focus-within:border-[#0853a4]"
+                  direction="down"
                 />
-              </BookingField>
+              </div>
 
               <div>
                 <label className="mb-2 block text-sm font-bold text-[#10254c] font-rubik">
