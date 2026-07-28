@@ -4,15 +4,9 @@ import {
   type FormEvent,
 } from "react"
 import { Link, useParams } from "react-router-dom"
-import {
-  BedDouble,
-  Camera,
-  Headphones,
-  MapPin,
-} from "lucide-react"
-
 import { attractionPackages, experienceItems } from "../data"
 import { getTourDetailInfo } from "../data/tourDetailsData"
+import { getPlaceImage } from "../data/placeImages"
 import type { BookingFormData } from "../types/tours"
 import { formatCategoryName, getInclusionTitle, getInclusionIcon } from "../utils/tourHelpers"
 import SectionHeading from "../components/ui/SectionHeading"
@@ -20,8 +14,8 @@ import TourBookingForm from "../components/sections/TourBookingForm"
 import TourDetailsHero from "../components/sections/tour-details/TourDetailsHero"
 import PlacesCovered from "../components/sections/tour-details/PlacesCovered"
 import TourGallery from "../components/sections/tour-details/TourGallery"
-import TourHighlights from "../components/sections/tour-details/TourHighlights"
 import GalleryLightbox from "../components/sections/tour-details/GalleryLightbox"
+import RecommendedTours from "../components/sections/tour-details/RecommendedTours"
 
 const initialBookingForm: BookingFormData = {
   fullName: "",
@@ -91,8 +85,8 @@ export default function TourDetailsPage() {
     type?.toLowerCase() === "domestic"
       ? "/tours/domestic"
       : type?.toLowerCase() === "international"
-      ? "/tours/international"
-      : "/";
+        ? "/tours/international"
+        : "/";
 
   /*
    * The existing data appears to contain destination attractions
@@ -103,35 +97,44 @@ export default function TourDetailsPage() {
     if (!tour || !detail) return []
 
     if (Array.isArray(detail.highlights) && detail.highlights.length > 0) {
-      return detail.highlights.map((place: any, index: number) => ({
-        id: `${place.title}-${index}`,
-        name: place.title,
-        image:
-          place.image ||
-          detail.gallery?.[index] ||
-          tour.image ||
-          "",
-        description:
-          place.description ||
-          `Explore ${place.title} during your ${tourName} tour.`,
-      }))
+      return detail.highlights.map((place: any, index: number) => {
+        const mappedImg = getPlaceImage(place.title || "")
+
+        return {
+          id: `${place.title}-${index}`,
+          name: place.title,
+          image:
+            mappedImg ||
+            (typeof place.image === "string" && place.image ? place.image : "") ||
+            detail.gallery?.[index] ||
+            tour.image ||
+            "",
+          description:
+            place.description ||
+            `Explore ${place.title} during your ${tourName} tour.`,
+        }
+      })
     }
 
     if (Array.isArray(tour.locations) && tour.locations.length > 0) {
-      return tour.locations.map((location: string, index: number) => ({
-        id: `${location}-${index}`,
-        name: location,
-        image:
-          detail.gallery?.[index] ||
-          tour.image ||
-          "",
-        description: `Visit and explore ${location} during this tour.`,
-      }))
+      return tour.locations.map((location: string, index: number) => {
+        const mappedImg = getPlaceImage(location || "")
+
+        return {
+          id: `${location}-${index}`,
+          name: location,
+          image:
+            mappedImg ||
+            detail.gallery?.[index] ||
+            tour.image ||
+            "",
+          description: `Visit and explore ${location} during this tour.`,
+        }
+      })
     }
 
     return []
   }, [tour, detail, tourName])
-
 
   const galleryImages = useMemo(() => {
     if (!tour || !detail) return []
@@ -140,7 +143,7 @@ export default function TourDetailsPage() {
       tour.image,
       ...(Array.isArray(detail.gallery) ? detail.gallery : []),
       ...placesCovered.map((place: any) => place.image),
-    ].filter((image): image is string => Boolean(image))
+    ].filter((image): image is string => Boolean(image) && typeof image === "string" && image.trim().length > 0)
 
     return Array.from(new Set(images))
   }, [tour, detail, placesCovered])
@@ -150,46 +153,15 @@ export default function TourDetailsPage() {
       return []
     }
 
-    return detail.inclusions.map((item: string, index: number) => ({
-      id: `${item}-${index}`,
-      title: getInclusionTitle(item),
-      description: item,
-      icon: getInclusionIcon(item),
-    }))
+    return detail.inclusions
+      .map((item: string, index: number) => ({
+        id: `${item}-${index}`,
+        title: getInclusionTitle(item),
+        description: item,
+        icon: getInclusionIcon(item),
+      }))
+      .slice(0, 6)
   }, [detail])
-
-  const tourHighlights = useMemo(() => {
-    const locations = tour?.locations || []
-
-    return [
-      {
-        title: "Beautiful Destinations",
-        description:
-          locations.length > 0
-            ? `Explore ${locations.slice(0, 3).join(", ")} and more.`
-            : "Explore beautiful attractions and memorable destinations.",
-        icon: MapPin,
-      },
-      {
-        title: "Comfortable Stay",
-        description:
-          "Enjoy comfortable accommodation according to the selected package.",
-        icon: BedDouble,
-      },
-      {
-        title: "Guided Sightseeing",
-        description:
-          "Visit the major attractions included in your tour package.",
-        icon: Camera,
-      },
-      {
-        title: "Travel Assistance",
-        description:
-          "Get reliable support and assistance throughout your journey.",
-        icon: Headphones,
-      },
-    ]
-  }, [tour])
 
   const updateBookingField = (
     field: keyof BookingFormData,
@@ -241,6 +213,17 @@ export default function TourDetailsPage() {
     )
   }
 
+  const allTourImages = useMemo(() => {
+    const list: string[] = []
+    galleryImages.forEach((img) => {
+      if (img && !list.includes(img)) list.push(img)
+    })
+    placesCovered.forEach((p: any) => {
+      if (p.image && !list.includes(p.image)) list.push(p.image)
+    })
+    return list
+  }, [galleryImages, placesCovered])
+
   return (
     <main className="min-h-screen bg-white font-jost">
       <TourDetailsHero
@@ -253,21 +236,25 @@ export default function TourDetailsPage() {
 
       {/* MAIN CONTENT */}
       <section className="relative z-10 bg-white">
-        <div className="mx-auto grid max-w-[1320px] gap-10 px-5 py-14 sm:px-8 lg:grid-cols-[minmax(0,1fr)_370px] lg:px-10 lg:py-16">
+        <div className="mx-auto grid max-w-[1320px] gap-10 px-5 py-10 sm:px-8 lg:grid-cols-[minmax(0,1fr)_370px] lg:px-10 lg:py-12">
           {/* LEFT CONTENT */}
           <div className="min-w-0">
             {/* About */}
             <section>
-              <SectionHeading title="About This Tour" />
+              <SectionHeading subtitle="Overview" title="About This Tour" />
 
-              <p className="max-w-3xl text-[15px] leading-8 text-slate-600 md:text-base font-jost">
-                {detail.about}
-              </p>
+              <div className="max-w-3xl space-y-4 text-[15px] leading-8 text-slate-600 md:text-base font-jost">
+                {String(detail.about || "")
+                  .split("\n\n")
+                  .map((paragraph: string, idx: number) => (
+                    <p key={idx}>{paragraph}</p>
+                  ))}
+              </div>
             </section>
 
             {/* Package Inclusions */}
-            <section className="mt-12">
-              <SectionHeading title="Package Inclusions" />
+            <section className="mt-10">
+              <SectionHeading subtitle="What's Included" title="Package Inclusions" />
 
               {packageInclusions.length > 0 ? (
                 <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
@@ -305,8 +292,8 @@ export default function TourDetailsPage() {
             </section>
           </div>
 
-          {/* OVERLAPPING BOOKING FORM */}
-          <div className="lg:-mt-[350px]">
+          {/* BOOKING FORM SIDEBAR */}
+          <div>
             <TourBookingForm
               tourName={tourName}
               form={bookingForm}
@@ -319,7 +306,10 @@ export default function TourDetailsPage() {
         </div>
       </section>
 
-      <PlacesCovered placesCovered={placesCovered} />
+      <PlacesCovered
+        placesCovered={placesCovered}
+        onImageClick={setSelectedGalleryImage}
+      />
 
       <TourGallery
         galleryImages={galleryImages}
@@ -327,12 +317,16 @@ export default function TourDetailsPage() {
         onImageClick={setSelectedGalleryImage}
       />
 
-      <TourHighlights tourHighlights={tourHighlights} />
+      <RecommendedTours
+        currentTourId={tour?.id}
+        currentCategory={type}
+        currentTour={tour}
+      />
 
       {/* TERMS BAR */}
-      <section className="bg-[#0853a4] py-5 text-white">
+      <section className="bg-white py-5 text-slate-800 border-t border-slate-200/60 font-jost">
         <div className="mx-auto flex max-w-[1320px] flex-col items-center justify-center gap-3 px-5 text-center text-sm sm:flex-row sm:px-8 lg:px-10">
-          <span className="flex items-center gap-2 font-semibold">
+          <span className="flex items-center gap-2 font-semibold font-rubik text-[#0853a4]">
             <svg
               viewBox="0 0 24 24"
               className="h-5 w-5 shrink-0 text-[#25d366]"
@@ -345,11 +339,10 @@ export default function TourDetailsPage() {
             Terms and Conditions Apply
           </span>
 
-          <span className="hidden h-5 w-px bg-white/40 sm:block" />
+          <span className="hidden h-5 w-px bg-[#0853a4]/20 sm:block" />
 
-          <span className="text-white/80">
-            Package availability and final pricing must be confirmed
-            before booking.
+          <span className="text-slate-500 font-jost">
+            Package availability and final pricing must be confirmed before booking.
           </span>
         </div>
       </section>
@@ -357,6 +350,7 @@ export default function TourDetailsPage() {
       {selectedGalleryImage && (
         <GalleryLightbox
           selectedGalleryImage={selectedGalleryImage}
+          images={allTourImages}
           tourName={tourName}
           onClose={() => setSelectedGalleryImage(null)}
         />

@@ -6,6 +6,7 @@ import {
   Car,
   Plane,
   Sparkles,
+  Headphones,
 } from "lucide-react"
 
 export function formatCategoryName(value: string) {
@@ -18,6 +19,17 @@ export function formatCategoryName(value: string) {
 
 export function getInclusionTitle(inclusion: string) {
   const value = inclusion.toLowerCase()
+
+  if (
+    value.includes("24/7") ||
+    value.includes("support") ||
+    value.includes("assistance") ||
+    value.includes("manager") ||
+    value.includes("executive") ||
+    value.includes("help")
+  ) {
+    return "24/7 Support"
+  }
 
   if (value.includes("accommodation")) {
     return "Accommodation"
@@ -68,6 +80,17 @@ export function getInclusionTitle(inclusion: string) {
 
 export function getInclusionIcon(inclusion: string) {
   const value = inclusion.toLowerCase()
+
+  if (
+    value.includes("24/7") ||
+    value.includes("support") ||
+    value.includes("assistance") ||
+    value.includes("manager") ||
+    value.includes("executive") ||
+    value.includes("help")
+  ) {
+    return Headphones
+  }
 
   if (value.includes("accommodation")) {
     return BedDouble

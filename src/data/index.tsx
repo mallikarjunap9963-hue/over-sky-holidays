@@ -428,7 +428,7 @@ export const attractionPackages: Record<AttractionTab, AttractionPackage[]> = {
       price: "₹18,999",
       oldPrice: "₹22,999",
       image:
-        "https://t3.ftcdn.net/jpg/02/43/24/76/360_F_243247620_Clg6rXsX4K0lhPWip3oo9Oee28J30L23.jpg",
+        "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=1200&q=90",
     },
     {
       id: 4,

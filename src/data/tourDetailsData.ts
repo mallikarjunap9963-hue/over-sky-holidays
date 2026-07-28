@@ -2,6 +2,92 @@ import type { TourDetailInfo, ItineraryDay, TourHighlight } from '../types';
 
 // Handcrafted detailed tour packages info
 export const handcraftedTourDetails: Record<string, TourDetailInfo> = {
+  // Goa Beach Tour
+  "domestic-3": {
+    about: `Goa Beach Tour - Experience the ultimate tropical vacation along India's most celebrated coastline. Famous for its sun-drenched golden beaches, swaying palm groves, Portuguese heritage architecture, and energetic nightlife, Goa offers a perfect mix of relaxation and excitement.
+
+Over the course of your 4-day beach getaway, you will explore famous North Goa beaches like Baga and Anjuna, admire the historic 17th-century Fort Aguada lighthouse, visit UNESCO-listed Portuguese churches in Old Goa, and enjoy tranquil evening boat cruises along the Mandovi River.
+
+Our team at Open Sky Holidays ensures a complete hassle-free experience with handpicked premium beach resort stays, private AC cab transfers, airport/railway station pickups, and 24/7 dedicated trip coordinator assistance throughout your trip.`,
+    features: [
+      { icon: "Beach Exploration", label: "Beach Exploration" },
+      { icon: "Water Sports", label: "Water Sports" },
+      { icon: "Portuguese Heritage", label: "Portuguese Heritage" },
+      { icon: "Nightlife & Shacks", label: "Nightlife & Shacks" },
+      { icon: "Sunset Cruise", label: "Sunset Cruise" }
+    ],
+    highlights: [
+      { title: "Anjuna Beach", image: "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=600&q=80", description: "Famous for scenic palm groves, flea markets, and peaceful sunset views." },
+      { title: "Baga Beach", image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80", description: "Popular for thrilling water sports, lively beach shacks, and golden sands." },
+      { title: "Old Goa Church", image: "https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=600&q=80", description: "Historic UNESCO World Heritage site with Portuguese colonial architecture." },
+      { title: "Fort Aguada", image: "https://images.unsplash.com/photo-1590523277543-a94d2e4eb00b?auto=format&fit=crop&w=600&q=80", description: "17th-century Portuguese fortress and lighthouse overlooking the Arabian Sea." },
+      { title: "Night Life", image: "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=600&q=80", description: "Vibrant evening beach clubs, live music shacks, and river cruises." }
+    ],
+    bestTime: "Oct - May",
+    packageType: "Customized",
+    rating: 4.9,
+    reviewsCount: 184,
+    happyTravelers: "450+ Happy Travelers",
+    itinerary: [
+      {
+        day: 1,
+        title: "Arrival in Goa & Beach Relaxation",
+        description: "Arrive at Goa Airport/Railway station. Transfer to your pre-booked beach resort in a private AC cab. Spend the evening relaxing at Baga beach and enjoying sunset views at local shacks.",
+        image: "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=600&q=80",
+        points: ["Airport Pick-up & Transfer", "Resort Check-in", "Sunset at Baga Beach", "Evening Shack Dinner"]
+      },
+      {
+        day: 2,
+        title: "North Goa Beaches & Fort Aguada",
+        description: "Full day sightseeing tour of North Goa. Visit Fort Aguada lighthouse, Sinquerim beach, Calangute beach, Baga beach, and Anjuna beach. Optional water sports activities.",
+        image: "https://images.unsplash.com/photo-1590523277543-a94d2e4eb00b?auto=format&fit=crop&w=600&q=80",
+        points: ["Fort Aguada Lighthouse", "Calangute Beach", "Anjuna Flea Market", "Water Sports at Baga"]
+      },
+      {
+        day: 3,
+        title: "South Goa Heritage & Mandovi River Cruise",
+        description: "Explore the rich Portuguese heritage of South Goa. Visit the Basilica of Bom Jesus, Se Cathedral, Mangueshi Temple, and enjoy an evening sunset boat cruise on the Mandovi River.",
+        image: "https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=600&q=80",
+        points: ["Old Goa Churches", "Mangueshi Temple", "Miramar Beach", "Mandovi River Cruise"]
+      },
+      {
+        day: 4,
+        title: "Departure from Goa",
+        description: "Enjoy a leisurely breakfast at the resort. Time for last-minute shopping at Panjim market before transferring to the airport or railway station for your journey home.",
+        image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80",
+        points: ["Buffet Breakfast", "Souvenir Shopping", "Airport/Station Transfer", "Departure"]
+      }
+    ],
+    inclusions: [
+      "3 Nights accommodation in a premium beach resort",
+      "Daily buffet breakfast at the resort",
+      "Private AC cab for all transfers & sightseeing",
+      "North Goa sightseeing tour (Baga, Anjuna, Aguada)",
+      "South Goa heritage tour & Mandovi River sunset cruise ticket",
+      "24/7 Dedicated Customer & Emergency Travel Support"
+    ],
+    exclusions: [
+      "Flight or train tickets to/from Goa",
+      "Lunch, dinner, or extra drinks not mentioned",
+      "Water sports activities (scuba, jet ski, paragliding)",
+      "Personal expenses (shopping, tips, laundry)"
+    ],
+    hotels: [
+      { name: "La Cabana Beach Resort & Spa", location: "North Goa", rating: 4, image: "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=600&q=80", tags: ["Beachfront", "Swimming Pool", "Free Breakfast"] },
+      { name: "Resort Rio Luxury Stay", location: "Baga, Goa", rating: 4, image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80", tags: ["Spa & Wellness", "Close to Baga Beach", "Fine Dining"] }
+    ],
+    gallery: [
+      "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1590523277543-a94d2e4eb00b?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=800&q=80"
+    ],
+    faqs: [
+      { question: "What is the best time to visit Goa?", answer: "The peak travel season is October through May, featuring sunny beach weather, pleasant breezes, water sports, and active nightlife." },
+      { question: "Are water sports included in the package?", answer: "Water sports (parasailing, jet skiing, banana rides) can be added as optional add-ons during your tour." }
+    ]
+  },
   // Santorini Escape
   "international-9": {
     about: "Santorini is one of the most breathtaking islands in Greece, famous for its whitewashed buildings, blue domes, stunning sunsets, and crystal-clear waters. This 6-day journey offers the perfect mix of relaxation, sightseeing, adventure, and culture. Stroll through cliffside villages, sail across the volcanic caldera, and taste world-class local wines while overlooking the deep blue Aegean Sea.",
@@ -73,9 +159,8 @@ export const handcraftedTourDetails: Record<string, TourDetailInfo> = {
       "Daily buffet breakfast at the hotel",
       "Private roundtrip airport/port transfers",
       "Guided Oia village sunset walking tour",
-      "Half-day volcanic beaches and Akrotiri tour",
-      "Guided wine tasting tour (3 wineries, 5+ tastings)",
-      "Caldera Catamaran Sailing Cruise with BBQ buffet and drinks"
+      "Caldera Catamaran Sailing Cruise with BBQ buffet and drinks",
+      "24/7 Dedicated Customer & Emergency Travel Support"
     ],
     exclusions: [
       "International flights and travel insurance",
@@ -740,16 +825,18 @@ export function getTourDetailInfo(
     ? [
       "Accommodation on Twin Sharing Basis",
       isMaldives ? "4 Star / 5 Star Hotel" : "3 Star / 4 Star Hotel",
-      "All Meals",
-      "Sightseeing",
-      "Airport Pickup & Drop"
+      "All Meals & Daily Breakfast",
+      "Sightseeing & Guided Monument Tours",
+      "Airport Pickup & Drop Transfers",
+      "24/7 Dedicated Customer & Emergency Travel Support"
     ]
     : [
       `${daysCount - 1} Nights accommodation in premium hotels/resorts`,
       "Daily buffet breakfast at hotels",
       "Private AC vehicle for all airport/station transfers and sightseeing",
       "Guided tours for major monuments and attractions mentioned in the itinerary",
-      "All fuel costs, driver allowances, toll gates, and state parking taxes"
+      "All fuel costs, driver allowances, toll gates, and state parking taxes",
+      "24/7 Dedicated Customer & Emergency Travel Support"
     ];
 
   const hotels = isInternational
@@ -775,7 +862,11 @@ export function getTourDetailInfo(
     ];
 
   return {
-    about: `${finalTitle}. This meticulously planned vacation offers the perfect combination of scenery, historical monuments, local shopping, and adventure activities. Over the course of ${durationStr.toLowerCase()}, you'll discover the unique charm of ${tourLocations.join(', ')} with our 24/7 dedicated travel support and comfortable stays.`,
+    about: `${finalTitle} - Experience an unforgettable holiday filled with scenic landscapes, vibrant local culture, and memorable travel moments. Designed specifically for travelers seeking both relaxation and adventure, this package takes you through the most iconic destinations across ${tourLocations.join(', ')}.
+
+Over the course of your ${durationStr.toLowerCase()} getaway, you will discover famous landmarks, breathtaking natural viewpoints, historic heritage sites, and authentic local food markets. Whether you're exploring with family, your partner, or friends, every day is curated to offer a seamless blend of guided sightseeing and personal leisure time.
+
+Our team at Open Sky Holidays ensures a complete hassle-free experience with pre-booked premium hotel accommodations, private AC vehicle transfers, airport/railway pickups, and 24/7 dedicated trip assistance throughout your entire journey.`,
     features,
     highlights: highlights.slice(0, 5),
     bestTime: type === 'domestic' || type === 'pilgrimage' ? 'Oct - Apr' : 'Year Round',

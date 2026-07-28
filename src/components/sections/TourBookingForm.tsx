@@ -59,8 +59,6 @@ export default function TourBookingForm({
               Book Your {tourName} Tour
             </h2>
 
-            <div className="mt-3 h-1 w-11 rounded-full bg-[#ffb400]" />
-
             <form onSubmit={onSubmit} className="mt-7 space-y-5">
               <BookingField
                 label="Full Name"

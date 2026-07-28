@@ -4,9 +4,10 @@ import SectionHeading from "../../ui/SectionHeading"
 
 type PlacesCoveredProps = {
   placesCovered: any[]
+  onImageClick?: (image: string) => void
 }
 
-export default function PlacesCovered({ placesCovered }: PlacesCoveredProps) {
+export default function PlacesCovered({ placesCovered, onImageClick }: PlacesCoveredProps) {
   const placesSliderRef = useRef<HTMLDivElement>(null)
 
   const scrollPlaces = (direction: "left" | "right") => {
@@ -17,9 +18,9 @@ export default function PlacesCovered({ placesCovered }: PlacesCoveredProps) {
   }
 
   return (
-    <section className="pb-16">
+    <section className="py-10 sm:py-12 font-jost">
       <div className="mx-auto max-w-[1320px] px-5 sm:px-8 lg:px-10">
-        <SectionHeading title="Places Covered" />
+        <SectionHeading subtitle="Attractions & Sights" title="Places Covered" />
 
         {placesCovered.length > 0 ? (
           <div className="relative">
@@ -39,12 +40,18 @@ export default function PlacesCovered({ placesCovered }: PlacesCoveredProps) {
               {placesCovered.map((place) => (
                 <article
                   key={place.id}
-                  className="group w-[260px] shrink-0 snap-start overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl sm:w-[280px]"
+                  onClick={() => onImageClick?.(place.image)}
+                  className="group w-[260px] shrink-0 snap-start overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl sm:w-[280px] cursor-pointer"
                 >
                   <div className="h-48 overflow-hidden bg-slate-100">
                     <img
-                      src={place.image}
+                      src={place.image || "https://images.unsplash.com/photo-1600011689032-8b628b8a874b?auto=format&fit=crop&w=600&q=80"}
                       alt={place.name}
+                      referrerPolicy="no-referrer"
+                      onError={(e) => {
+                        e.currentTarget.onerror = null;
+                        e.currentTarget.src = "https://images.unsplash.com/photo-1600011689032-8b628b8a874b?auto=format&fit=crop&w=600&q=80";
+                      }}
                       className="h-full w-full object-cover transition duration-700 group-hover:scale-110"
                     />
                   </div>

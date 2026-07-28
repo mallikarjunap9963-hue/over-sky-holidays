@@ -127,6 +127,7 @@ export interface ItineraryDay {
 export interface TourHighlight {
   title: string;
   image: string;
+  description?: string;
 }
 
 export interface TourHotel {
