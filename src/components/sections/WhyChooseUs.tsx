@@ -61,16 +61,28 @@ export function WhyChooseUs() {
                 iconColor: "text-[#0853a4]",
                 icon: (
                   <svg
-                    viewBox="0 0 64 64"
+                    viewBox="0 0 80 80"
                     className="h-14 w-14"
                     fill="none"
                     stroke="currentColor"
-                    strokeWidth="2"
+                    strokeWidth="2.3"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                     aria-hidden="true"
                   >
-                    <circle cx="32" cy="32" r="25" />
-                    <path d="M8 32h48M32 7c8 8 12 16 12 25S40 49 32 57M32 7c-8 8-12 16-12 25s4 17 12 25" />
-                    <path d="m39 21 13-7-6 13-4-4-7 6-3-3 7-5Z" />
+                    {/* Globe circle */}
+                    <circle cx="34" cy="44" r="22" />
+                    {/* Latitude and Longitude lines */}
+                    <path d="M12 44h44" />
+                    <path d="M34 22c6.5 7 10 14.5 10 22s-3.5 15-10 22" />
+                    <path d="M34 22c-6.5 7-10 14.5-10 22s3.5 15 10 22" />
+                    {/* Airplane flying across top left of globe */}
+                    <path d="M32 18 L52 8 L44 26 L38 20 L28 26 L26 21 L32 18 Z" strokeWidth="2.2" />
+                    <path d="M44 12 L38 20" />
+                    {/* Motion lines / sparkles around plane */}
+                    <path d="M18 16c-2 2-3 4-3 6" strokeWidth="1.8" />
+                    <path d="M24 10c-1-3 0-5 2-6" strokeWidth="1.8" />
+                    <path d="M54 18c3 0 5-1 7-3" strokeWidth="1.8" />
                   </svg>
                 ),
               },
@@ -83,17 +95,30 @@ export function WhyChooseUs() {
                 iconColor: "text-[#f4a51c]",
                 icon: (
                   <svg
-                    viewBox="0 0 64 64"
+                    viewBox="0 0 80 80"
                     className="h-14 w-14"
                     fill="none"
                     stroke="currentColor"
-                    strokeWidth="2"
+                    strokeWidth="2.3"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                     aria-hidden="true"
                   >
-                    <path d="M11 18h28l14 14-20 20L11 30V18Z" />
-                    <circle cx="21" cy="27" r="4" />
-                    <path d="M36 23c-5-4-12 3-5 7 7 3 1 11-6 7M30 21v19" />
-                    <path d="m45 10-5 10M54 17l-10 5" />
+                    {/* Lightning bolt badge */}
+                    <path
+                      d="M42 8 L22 40 h14 L26 70 L56 34 H40 L48 8 Z"
+                      strokeWidth="2.5"
+                    />
+                    {/* Circle badge with % inside */}
+                    <circle cx="30" cy="28" r="9" fill="white" strokeWidth="2.2" />
+                    <path d="M26 32 l8-8" strokeWidth="2" />
+                    <circle cx="27" cy="25" r="1.5" fill="currentColor" />
+                    <circle cx="33" cy="31" r="1.5" fill="currentColor" />
+                    {/* Burst lines around lightning */}
+                    <path d="M58 16l6-4" strokeWidth="2" />
+                    <path d="M62 28h7" strokeWidth="2" />
+                    <path d="M52 50l6 5" strokeWidth="2" />
+                    <path d="M16 20l-5-4" strokeWidth="2" />
                   </svg>
                 ),
               },
@@ -106,17 +131,31 @@ export function WhyChooseUs() {
                 iconColor: "text-[#c9be00]",
                 icon: (
                   <svg
-                    viewBox="0 0 64 64"
+                    viewBox="0 0 80 80"
                     className="h-14 w-14"
                     fill="none"
                     stroke="currentColor"
-                    strokeWidth="2"
+                    strokeWidth="2.3"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                     aria-hidden="true"
                   >
-                    <rect x="10" y="14" width="44" height="40" rx="6" />
-                    <path d="M10 25h44M20 8v12M44 8v12" />
-                    <path d="M20 33h7v7h-7zM36 33h7v7h-7zM20 44h7v7h-7z" />
-                    <path d="m37 47 4 4 8-10" />
+                    {/* Spiral binder loops on top */}
+                    <path d="M24 10v8M38 10v8M52 10v8" strokeWidth="3" />
+                    <path d="M20 12c0-3 8-3 8 0M34 12c0-3 8-3 8 0M48 12c0-3 8-3 8 0" strokeWidth="2.2" />
+                    {/* Calendar body */}
+                    <rect x="14" y="16" width="50" height="50" rx="7" strokeWidth="2.4" />
+                    <path d="M14 28h50" strokeWidth="2" />
+                    {/* Grid dots / squares */}
+                    <rect x="22" y="34" width="5" height="5" rx="1" />
+                    <rect x="32" y="34" width="5" height="5" rx="1" />
+                    <rect x="42" y="34" width="5" height="5" rx="1" />
+                    <rect x="22" y="44" width="5" height="5" rx="1" />
+                    <rect x="32" y="44" width="5" height="5" rx="1" />
+                    <rect x="22" y="54" width="5" height="5" rx="1" />
+                    {/* Checkmark badge inside calendar */}
+                    <circle cx="48" cy="50" r="10" fill="white" strokeWidth="2.2" />
+                    <path d="m43 50 3.5 3.5 7.5-7.5" strokeWidth="2.5" />
                   </svg>
                 ),
               },
@@ -129,17 +168,28 @@ export function WhyChooseUs() {
                 iconColor: "text-[#d4c500]",
                 icon: (
                   <svg
-                    viewBox="0 0 64 64"
+                    viewBox="0 0 80 80"
                     className="h-14 w-14"
                     fill="none"
                     stroke="currentColor"
-                    strokeWidth="2"
+                    strokeWidth="2.3"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                     aria-hidden="true"
                   >
-                    <circle cx="25" cy="20" r="9" />
-                    <path d="M10 52v-8c0-9 7-15 15-15s15 6 15 15v8" />
-                    <path d="M47 17v30M47 17l10 6-10 6" />
-                    <path d="M18 20h14M21 16v8M29 16v8" />
+                    {/* Person / Guide head */}
+                    <circle cx="28" cy="24" r="8" strokeWidth="2.3" />
+                    {/* Guide Cap with visor */}
+                    <path d="M18 22h20" strokeWidth="2.8" />
+                    <path d="M20 22c0-5 3.5-8 8-8s8 3.5 8 8" strokeWidth="2" />
+                    {/* Guide body */}
+                    <path d="M14 62v-10c0-7 6-12 14-12s14 5 14 12v10" strokeWidth="2.3" />
+                    {/* Arm holding flag pole */}
+                    <path d="M38 48l16-12" strokeWidth="2.3" />
+                    {/* Flag pole */}
+                    <path d="M54 14v50" strokeWidth="2.6" />
+                    {/* Triangular flag */}
+                    <path d="M54 16l18 8-18 8Z" fill="none" strokeWidth="2.3" />
                   </svg>
                 ),
               },
@@ -152,18 +202,27 @@ export function WhyChooseUs() {
                 iconColor: "text-[#22a66f]",
                 icon: (
                   <svg
-                    viewBox="0 0 64 64"
+                    viewBox="0 0 80 80"
                     className="h-14 w-14"
                     fill="none"
                     stroke="currentColor"
-                    strokeWidth="2"
+                    strokeWidth="2.3"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                     aria-hidden="true"
                   >
-                    <circle cx="39" cy="22" r="14" />
-                    <path d="M39 14v8l6 4" />
-                    <path d="M16 52c0-9 7-15 15-15 6 0 11 3 14 8" />
-                    <path d="M9 45c7-2 13 0 18 6 4 5 11 5 17 1l11-8" />
-                    <path d="M52 15h5v10h-5" />
+                    {/* Clock face */}
+                    <circle cx="36" cy="30" r="16" strokeWidth="2.4" />
+                    <path d="M36 20v10l6 4" strokeWidth="2.4" />
+                    {/* Circular arrow around clock */}
+                    <path d="M22 24a18 18 0 0 1 26-6" strokeWidth="2" />
+                    <path d="M48 14l3 5-5 1" strokeWidth="2" />
+                    {/* '24' text next to clock */}
+                    <path d="M54 32h5v6h-5v-6z" strokeWidth="1.5" />
+                    <path d="M55 24h3v5M61 24v9" strokeWidth="1.8" />
+                    {/* Open hand supporting clock underneath */}
+                    <path d="M10 60c8-6 16-5 24-2l16 4c6 2 12-1 16-6" strokeWidth="2.5" />
+                    <path d="M10 52c6-1 12 1 18 5" strokeWidth="2.2" />
                   </svg>
                 ),
               },
@@ -176,19 +235,29 @@ export function WhyChooseUs() {
                 iconColor: "text-[#f39b19]",
                 icon: (
                   <svg
-                    viewBox="0 0 64 64"
+                    viewBox="0 0 80 80"
                     className="h-14 w-14"
                     fill="none"
                     stroke="currentColor"
-                    strokeWidth="2"
+                    strokeWidth="2.3"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                     aria-hidden="true"
                   >
-                    <rect x="8" y="11" width="41" height="39" rx="5" />
-                    <path d="M8 22h41M18 6v11M39 6v11" />
-                    <path d="m19 34 8 8M27 34l-8 8" />
-                    <path d="m33 34 8 8M41 34l-8 8" />
-                    <circle cx="48" cy="46" r="10" />
-                    <path d="M48 40v6l4 3" />
+                    {/* Calendar top edge with dashes */}
+                    <path d="M14 18h46" strokeWidth="2.8" strokeDasharray="3 3" />
+                    {/* Calendar box frame */}
+                    <rect x="14" y="20" width="46" height="44" rx="6" strokeWidth="2.4" />
+                    {/* Criss-cross / shuffle arrows */}
+                    {/* Top curve left to right */}
+                    <path d="M22 36c8 0 12 12 24 12" strokeWidth="2.4" />
+                    <path d="M42 44l4 4-4 4" strokeWidth="2.2" />
+                    {/* Bottom curve left to right */}
+                    <path d="M22 48c8 0 12-12 24-12" strokeWidth="2.4" />
+                    <path d="M42 32l4 4-4 4" strokeWidth="2.2" />
+                    {/* Clock face on bottom right corner */}
+                    <circle cx="56" cy="56" r="11" fill="white" strokeWidth="2.3" />
+                    <path d="M56 49v7l4 3" strokeWidth="2.2" />
                   </svg>
                 ),
               },
@@ -199,12 +268,10 @@ export function WhyChooseUs() {
                 delay={index * 100}
                 duration={1300}
               >
-                <article
-                  className={`group relative overflow-hidden rounded-[18px] border border-slate-200/80 ${feature.background} px-6 py-8 transition duration-300 hover:-translate-y-2 hover:border-[#0853a4]/30 hover:shadow-[0_20px_45px_rgba(16,12,8,0.06)] sm:px-8 h-full`}
-                >
+                <article className="group relative h-full overflow-hidden rounded-[18px] border border-slate-100 bg-white p-6 shadow-[0_10px_30px_rgba(0,0,0,0.04)] transition-all duration-300 hover:-translate-y-1.5 hover:border-[#0853a4]/20 hover:shadow-[0_20px_40px_rgba(8,83,164,0.08)] sm:p-8">
                   <div className="flex flex-col gap-6 sm:flex-row sm:items-center font-jost">
                     <div
-                      className={`flex h-[100px] w-[100px] shrink-0 items-center justify-center rounded-full ${feature.iconBackground} ${feature.iconColor} transition duration-500 group-hover:rotate-[8deg] group-hover:scale-105`}
+                      className={`flex shrink-0 items-center justify-center ${feature.iconColor} transition duration-500 group-hover:rotate-[6deg] group-hover:scale-105`}
                     >
                       {feature.icon}
                     </div>
@@ -214,7 +281,7 @@ export function WhyChooseUs() {
                         {feature.title}
                       </h3>
 
-                      <p className="mt-4 text-[14px] leading-7 text-slate-600 sm:text-[15px]">
+                      <p className="mt-3 text-[14px] leading-7 text-slate-600 sm:text-[15px]">
                         {feature.description}
                       </p>
                     </div>

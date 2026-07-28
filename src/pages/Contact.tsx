@@ -169,6 +169,135 @@ export function Contact({ variant = 'full' }: ContactProps) {
         </section>
       )}
 
+      {/* ================= CONTACT CARDS INFO SECTION ================= */}
+      <section className="relative bg-slate-50 pt-12 pb-4 px-4 sm:px-6 lg:px-8 xl:px-10 overflow-hidden">
+        <div className="relative mx-auto max-w-[1200px]">
+          {/* Section Header */}
+          <ScrollReveal variant="fade-in-up" duration={1200} className="text-center mb-12">
+            <div className="flex items-center justify-center gap-3">
+              <span className="h-px w-8 bg-[#0853a4]" />
+
+              <p className="font-satisfy text-[24px] font-normal text-[#0853a4] capitalize">
+                Reach Out To Us
+              </p>
+
+              <span className="h-px w-8 bg-[#0853a4]" />
+            </div>
+
+            <h2 className="mt-4 font-rubik text-[32px] font-bold leading-tight text-[#100c08] sm:text-[40px] lg:text-[46px]">
+              We'd Love To Hear From You
+            </h2>
+
+            <p className="mt-3 text-slate-500 font-jost text-[14px] sm:text-[15px] max-w-[600px] mx-auto leading-relaxed">
+              Connect with our travel team for customized tour packages, instant booking queries, or office visits.
+            </p>
+          </ScrollReveal>
+
+          {/* 4 Contact Cards Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+
+            {/* Card 1: Phone / Call */}
+            <ScrollReveal variant="fade-in-up" delay={100} duration={1200}>
+              <a
+                href="tel:+919908117712"
+                className="group relative flex flex-col items-center text-center p-6 rounded-2xl bg-white border border-slate-200/80 shadow-[0_10px_30px_rgba(0,0,0,0.04)] transition-all duration-300 hover:-translate-y-1.5 hover:border-[#0853a4]/30 hover:shadow-[0_20px_40px_rgba(8,83,164,0.08)] h-full"
+              >
+                <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-[#0853a4] to-[#042d5c] text-white shadow-md shadow-[#0853a4]/20 transition-transform duration-500 group-hover:scale-110 mb-4">
+                  <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.94.725l.548 2.2a1 1 0 01-.321.988l-1.305.98a10.582 10.582 0 004.872 4.872l.98-1.305a1 1 0 01.988-.321l2.2.548a1 1 0 01.725.94V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                  </svg>
+                </div>
+                <h3 className="font-rubik text-[18px] font-bold text-[#100c08] group-hover:text-[#0853a4] transition-colors">
+                  Call Us 24/7
+                </h3>
+                <p className="mt-1 font-jost text-[13px] text-slate-500">
+                  For Instant Support & Booking
+                </p>
+                <span className="mt-3 font-rubik text-[15px] font-bold text-[#0853a4]">
+                  +91 99081 17712
+                </span>
+              </a>
+            </ScrollReveal>
+
+            {/* Card 2: Email */}
+            <ScrollReveal variant="fade-in-up" delay={200} duration={1200}>
+              <a
+                href="mailto:info@openskyholidays.com"
+                className="group relative flex flex-col items-center text-center p-6 rounded-2xl bg-white border border-slate-200/80 shadow-[0_10px_30px_rgba(0,0,0,0.04)] transition-all duration-300 hover:-translate-y-1.5 hover:border-[#0853a4]/30 hover:shadow-[0_20px_40px_rgba(8,83,164,0.08)] h-full"
+              >
+                <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-[#fbb03b] to-[#f39c12] text-slate-900 shadow-md shadow-[#fbb03b]/20 transition-transform duration-500 group-hover:scale-110 mb-4">
+                  <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  </svg>
+                </div>
+                <h3 className="font-rubik text-[18px] font-bold text-[#100c08] group-hover:text-[#0853a4] transition-colors">
+                  Mail Us
+                </h3>
+                <p className="mt-1 font-jost text-[13px] text-slate-500">
+                  Send Us Your Travel Plan
+                </p>
+                <span className="mt-3 font-rubik text-[14px] font-bold text-[#0853a4] break-all">
+                  info@openskyholidays.com
+                </span>
+              </a>
+            </ScrollReveal>
+
+            {/* Card 3: Office Address */}
+            <ScrollReveal variant="fade-in-up" delay={300} duration={1200}>
+              <a
+                href="https://www.google.com/maps/search/?api=1&query=Shyamlal+Building+Begumpet+Hyderabad+500018"
+                target="_blank"
+                rel="noreferrer"
+                className="group relative flex flex-col items-center text-center p-6 rounded-2xl bg-white border border-slate-200/80 shadow-[0_10px_30px_rgba(0,0,0,0.04)] transition-all duration-300 hover:-translate-y-1.5 hover:border-[#0853a4]/30 hover:shadow-[0_20px_40px_rgba(8,83,164,0.08)] h-full"
+              >
+                <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-700 text-white shadow-md shadow-emerald-500/20 transition-transform duration-500 group-hover:scale-110 mb-4">
+                  <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                    <circle cx="12" cy="10" r="2.5" />
+                  </svg>
+                </div>
+                <h3 className="font-rubik text-[18px] font-bold text-[#100c08] group-hover:text-[#0853a4] transition-colors">
+                  Our Location
+                </h3>
+                <p className="mt-1 font-jost text-[12.5px] text-slate-500 leading-snug">
+                  #1-11-110, Shyamlal Building, Begumpet, Hyderabad - 500018
+                </p>
+                <span className="mt-3 font-rubik text-[13px] font-semibold text-emerald-600 flex items-center gap-1">
+                  <span>View On Map</span>
+                  <span>→</span>
+                </span>
+              </a>
+            </ScrollReveal>
+
+            {/* Card 4: WhatsApp Direct */}
+            <ScrollReveal variant="fade-in-up" delay={400} duration={1200}>
+              <a
+                href="https://wa.me/919908117712?text=Hi%20Open%20Sky%20Holidays%2C%20I%20want%20to%20inquire%20about%20a%20tour%20package."
+                target="_blank"
+                rel="noreferrer"
+                className="group relative flex flex-col items-center text-center p-6 rounded-2xl bg-white border border-slate-200/80 shadow-[0_10px_30px_rgba(0,0,0,0.04)] transition-all duration-300 hover:-translate-y-1.5 hover:border-[#25d366]/40 hover:shadow-[0_20px_40px_rgba(37,211,102,0.12)] h-full"
+              >
+                <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#25d366] text-white shadow-md shadow-[#25d366]/25 transition-transform duration-500 group-hover:scale-110 mb-4">
+                  <svg className="h-6 w-6 fill-current" viewBox="0 0 24 24">
+                    <path d="M12.03 2.5a9.54 9.54 0 0 0-8.1 14.65L2.5 21.5l4.5-1.18A9.52 9.52 0 1 0 12.03 2.5zm5.17 13.06c-.22.61-1.28 1.16-1.8 1.25-.5.1-1.16.27-3.32-.62-2.6-1.07-4.26-3.73-4.4-3.9-.13-.18-1.04-1.39-1.04-2.65s.67-1.87.9-2.1c.23-.23.5-.29.67-.29.17 0 .34 0 .49.02.16.01.37-.06.57.43.21.5.72 1.76.78 1.88.06.13.1.28.02.43-.08.15-.12.24-.24.38-.11.13-.24.28-.33.39-.1.12-.22.25-.09.47.13.22.58.95 1.23 1.54.83.75 1.55.98 1.77 1.09.22.1.35.08.48-.07.13-.15.55-.65.7-.87.15-.22.3-.18.5-.1.2.08 1.28.6 1.5.72.22.11.37.17.42.26.05.1.05.54-.17 1.15z" />
+                  </svg>
+                </div>
+                <h3 className="font-rubik text-[18px] font-bold text-[#100c08] group-hover:text-[#25d366] transition-colors">
+                  WhatsApp Us
+                </h3>
+                <p className="mt-1 font-jost text-[13px] text-slate-500">
+                  Quick Tour Customization
+                </p>
+                <span className="mt-3 font-rubik text-[14px] font-bold text-[#25d366]">
+                  Chat Now →
+                </span>
+              </a>
+            </ScrollReveal>
+
+          </div>
+        </div>
+      </section>
+
       {/* ================= CONTACT FORM SECTION ================= */}
       <section
         id={variant === 'form-only' ? 'contact' : undefined}
