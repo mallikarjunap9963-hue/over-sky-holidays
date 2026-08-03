@@ -1,6 +1,6 @@
 import { useMemo } from "react"
 import { Link } from "react-router-dom"
-import { MapPin, Clock, Star, ArrowRight, Sparkles } from "lucide-react"
+import { MapPin, ArrowRight, Sparkles } from "lucide-react"
 import { attractionPackages } from "../../../data"
 import { ScrollReveal } from "../../ui/ScrollReveal"
 
@@ -139,94 +139,76 @@ export default function RecommendedTours({
         </ScrollReveal>
 
         {/* Recommended Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {recommendedList.map((tour, index) => {
-            const tourTitle = tour.tourType || tour.title || "Tour Package"
+            const tourTitle = tour.title || tour.tourType || "Tour Package"
             const tourDuration = tour.duration || "5 Days / 4 Nights"
-            const tourPrice = tour.price || "Contact For Best Price"
-            const tourLocations = Array.isArray(tour.locations)
-              ? tour.locations.slice(0, 3).join(", ")
-              : tour.locations || "Multiple Destinations"
-
+            const tourCountry = tour.country || (tour.routeType === "international" ? "International" : "INDIA")
             const detailLink = `/tour/${tour.routeType}/${tour.id}`
+            const locationsList = Array.isArray(tour.locations) ? tour.locations : []
 
             return (
               <ScrollReveal
                 key={`${tour.id}-${index}`}
                 variant="fade-in-up"
-                delay={index * 150}
+                delay={(index % 3) * 100}
                 duration={1200}
               >
-                <article className="group relative flex flex-col overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-[0_10px_30px_rgba(15,23,42,0.05)] transition-all duration-300 hover:-translate-y-2 hover:border-[#0853a4]/30 hover:shadow-[0_20px_45px_rgba(8,83,164,0.12)] h-full">
-
-                  {/* Tour Image & Badges */}
-                  <div className="relative h-[220px] w-full overflow-hidden bg-slate-100">
+                <Link
+                  to={detailLink}
+                  onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+                  className="group flex flex-col h-full overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_20px_45px_rgba(8,83,164,0.06)] cursor-pointer"
+                >
+                  {/* Image */}
+                  <div className="relative aspect-[16/10] overflow-hidden bg-slate-100">
                     <img
                       src={tour.image || "/slider1.png"}
                       alt={tourTitle}
-                      className="h-full w-full object-cover transition duration-700 group-hover:scale-110"
+                      loading="lazy"
+                      className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                     />
-
-                    {/* Gradient Overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20 opacity-80" />
-
-                    {/* Category Badge */}
-                    <div className="absolute top-3.5 left-3.5 rounded-full bg-[#0853a4]/90 px-3.5 py-1 text-[11px] font-bold text-white uppercase tracking-wider backdrop-blur-md font-rubik shadow-sm">
-                      {tour.categoryType}
-                    </div>
-
-                    {/* Rating Badge */}
-                    <div className="absolute top-3.5 right-3.5 flex items-center gap-1 rounded-full bg-white/90 px-2.5 py-1 text-[11px] font-bold text-slate-800 backdrop-blur-md shadow-sm">
-                      <Star className="h-3.5 w-3.5 fill-[#fbb03b] text-[#fbb03b]" />
-                      <span>4.9</span>
-                    </div>
-
-                    {/* Duration Badge */}
-                    <div className="absolute bottom-3 left-3.5 flex items-center gap-1.5 text-white text-[12px] font-medium font-jost">
-                      <Clock className="h-4 w-4 text-[#fbb03b]" />
-                      <span>{tourDuration}</span>
-                    </div>
+                    <span className="absolute left-4 top-4 bg-[#100c08] px-3 py-1.5 text-[11px] font-bold uppercase tracking-wider text-white font-rubik rounded-md">
+                      {tourDuration}
+                    </span>
                   </div>
 
-                  {/* Card Body */}
-                  <div className="flex flex-1 flex-col justify-between p-5 font-jost">
-                    <div>
-                      {/* Locations */}
-                      <div className="flex items-center gap-1.5 text-[12.5px] font-semibold text-[#0853a4]">
-                        <MapPin className="h-3.5 w-3.5 shrink-0" />
-                        <span className="truncate">{tourLocations}</span>
-                      </div>
+                  {/* Content */}
+                  <div className="flex flex-col flex-grow p-6 font-jost">
+                    <span className="flex items-center gap-1 text-xs font-black uppercase tracking-wider text-[#0853a4] font-rubik">
+                      <MapPin size={13} className="shrink-0" />
+                      {tourCountry}
+                    </span>
 
-                      {/* Title */}
-                      <h3 className="mt-2 font-rubik text-[20px] font-bold text-[#100c08] leading-snug transition duration-300 group-hover:text-[#0853a4]">
-                        {tourTitle}
-                      </h3>
+                    <h3 className="mt-2 font-rubik text-xl font-bold leading-snug text-[#100c08] transition group-hover:text-[#0853a4]">
+                      {tourTitle}
+                    </h3>
+
+                    {/* Locations Covered */}
+                    <div className="mt-4 flex flex-wrap gap-1.5">
+                      {locationsList.slice(0, 4).map((loc: string) => (
+                        <span
+                          key={loc}
+                          className="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-600"
+                        >
+                          {loc}
+                        </span>
+                      ))}
+                      {locationsList.length > 4 && (
+                        <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-600">
+                          +{locationsList.length - 4} More
+                        </span>
+                      )}
                     </div>
 
-                    {/* Card Footer: Price & CTA */}
-                    <div className="mt-6 flex items-center justify-between border-t border-slate-100 pt-4">
-                      <div>
-                        <span className="block text-[11px] font-semibold uppercase tracking-wider text-slate-500">
-                          Starting From
-                        </span>
-                        <span className="font-rubik text-[18px] font-extrabold text-[#100c08]">
-                          {tourPrice}
-                        </span>
-                      </div>
-
-                      <Link
-                        to={detailLink}
-                        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-                        className="inline-flex items-center gap-2 rounded-xl bg-[#0853a4] px-4 py-2.5 text-[13px] font-bold text-white transition duration-300 hover:bg-[#064285] hover:shadow-md cursor-pointer font-rubik"
-                      >
-                        <span>Details</span>
-                        <ArrowRight className="h-4 w-4" />
-                      </Link>
+                    {/* Footer Button */}
+                    <div className="mt-auto pt-6 flex items-center justify-end border-t border-slate-100">
+                      <span className="inline-flex items-center gap-1.5 rounded-full bg-[#0853a4]/10 px-4 py-2.5 text-xs font-bold text-[#0853a4] transition group-hover:bg-[#0853a4] group-hover:text-white font-rubik">
+                        Explore More
+                        <ArrowRight size={14} className="transition-transform group-hover:translate-x-0.5" />
+                      </span>
                     </div>
-
                   </div>
-
-                </article>
+                </Link>
               </ScrollReveal>
             )
           })}
