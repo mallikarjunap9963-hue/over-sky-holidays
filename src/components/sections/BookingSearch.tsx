@@ -26,7 +26,6 @@ export function BookingSearch() {
     }
   };
 
-  // Determine dynamic options based on the active tab
   let destinationOptions = ["Select Destination"];
   if (activeSearchTab === "Domestic") {
     destinationOptions = [
@@ -53,9 +52,7 @@ export function BookingSearch() {
 
   return (
     <>
-      {/* BOOKING SEARCH PANEL */}
       <div className="relative z-30 mx-auto -mt-12 w-[calc(100%-18px)]  sm:w-[calc(100%-40px)] lg:-mt-16 font-rubik">
-        {/* SEARCH TABS */}
         <div className="mx-auto flex max-w-[860px] overflow-x-auto rounded-t-[22px] bg-[#f0f9ff] shadow-[0_-8px_24px_rgba(16,12,8,0.05)] border-t border-x border-[#bae6fd]">
           {searchTabs.map((tab) => (
             <button
@@ -74,7 +71,6 @@ export function BookingSearch() {
           ))}
         </div>
 
-        {/* SEARCH FORM */}
         <form
           onSubmit={handleSearch}
           className="relative grid rounded-b-[26px] rounded-t-[4px] bg-white border border-[#bae6fd] shadow-[0_18px_50px_rgba(16,12,8,0.08)] lg:grid-cols-[1.05fr_1.05fr_1fr_1.05fr_175px] z-20"
@@ -125,7 +121,6 @@ export function BookingSearch() {
           </button>
         </form>
       </div>
-      {/* ================= ABOUT US SECTION START ================= */}
     </>
   );
 }
