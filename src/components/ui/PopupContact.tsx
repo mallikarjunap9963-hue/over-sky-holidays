@@ -1,9 +1,13 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { enquiriesApi } from '../../api/enquiriesApi';
+import { Loader2, AlertCircle } from 'lucide-react';
 
 export function PopupContact() {
   const [isOpen, setIsOpen] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
@@ -19,25 +23,62 @@ export function PopupContact() {
     return () => clearTimeout(timer);
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.name || !formData.phone || !formData.email) return;
-    setSubmitted(true);
+    setError(null);
+    if (!formData.name || !formData.phone || !formData.email) {
+      setError('Please fill in all required fields.');
+      return;
+    }
 
-    // Automatically reset and close after submission
-    setTimeout(() => {
-      setIsOpen(false);
-      setTimeout(() => {
-        setSubmitted(false);
-        setFormData({
-          name: '',
-          phone: '',
-          email: '',
-          description: ''
-        });
-      }, 500);
-    }, 3500);
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    const formattedDate = tomorrow.toISOString().split('T')[0];
+
+    setLoading(true);
+    try {
+      const res = await enquiriesApi.submitEnquiry({
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        travel_date: formattedDate,
+        destination: 'General Holiday Enquiry',
+        travelers: 2,
+        tour_type: 'Domestic Tour',
+        message: formData.description || undefined,
+      });
+
+      if (res.success || res.status) {
+        setSubmitted(true);
+        // Automatically reset and close after submission
+        setTimeout(() => {
+          setIsOpen(false);
+          setTimeout(() => {
+            setSubmitted(false);
+            setFormData({
+              name: '',
+              phone: '',
+              email: '',
+              description: ''
+            });
+          }, 500);
+        }, 3500);
+      } else {
+        if (res.errors) {
+          const firstErr = Object.values(res.errors)[0]?.[0];
+          setError(firstErr || res.message || 'Failed to submit enquiry.');
+        } else {
+          setError(res.message || 'Failed to submit enquiry.');
+        }
+      }
+    } catch (err: any) {
+      console.error('Popup enquiry error:', err);
+      setError('Unable to send enquiry. Please try again.');
+    } finally {
+      setLoading(false);
+    }
   };
+
 
   return (
     <AnimatePresence>
@@ -116,6 +157,13 @@ export function PopupContact() {
                     Fill in the details below and we'll get back to you with the travel options.
                   </p>
 
+                  {error && (
+                    <div className="mt-3 flex items-start gap-2 rounded-xl border border-red-200 bg-red-50 p-2.5 text-xs text-red-700 font-jost">
+                      <AlertCircle size={15} className="mt-0.5 shrink-0 text-red-500" />
+                      <span>{error}</span>
+                    </div>
+                  )}
+
                   {/* Form Fields */}
                   <form onSubmit={handleSubmit} className="mt-5 space-y-4">
 
@@ -189,14 +237,25 @@ export function PopupContact() {
                     {/* Submit Button */}
                     <button
                       type="submit"
-                      className="btn-primary w-full min-h-[44px] mt-2 rounded-[6px] text-[14px] font-bold shadow-[0_12px_24px_rgba(8,83,164,0.18)] font-rubik cursor-pointer gap-2"
+                      disabled={loading}
+                      className="btn-primary w-full min-h-[44px] mt-2 rounded-[6px] text-[14px] font-bold shadow-[0_12px_24px_rgba(8,83,164,0.18)] font-rubik cursor-pointer gap-2 disabled:opacity-60 flex items-center justify-center"
                     >
-                      <span>SUBMIT ENQUIRY</span>
-                      <svg className="h-4 w-4 transform rotate-45 z-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
-                      </svg>
+                      {loading ? (
+                        <>
+                          <Loader2 className="h-4 w-4 animate-spin" />
+                          <span>SUBMITTING...</span>
+                        </>
+                      ) : (
+                        <>
+                          <span>SUBMIT ENQUIRY</span>
+                          <svg className="h-4 w-4 transform rotate-45 z-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                          </svg>
+                        </>
+                      )}
                     </button>
                   </form>
+
 
                   {/* Footer features row */}
                   <div className="mt-4 pt-3.5 border-t border-slate-100 grid grid-cols-3 gap-2 text-center text-[#100c08] font-rubik">

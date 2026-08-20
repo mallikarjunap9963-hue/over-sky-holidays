@@ -53,7 +53,10 @@ export type BookingFormProps = {
   ) => void
   onSubmit: (event: React.FormEvent<HTMLFormElement>) => void
   onReset: () => void
+  loading?: boolean
+  error?: string | null
 }
+
 
 export type BookingFieldProps = {
   label: string

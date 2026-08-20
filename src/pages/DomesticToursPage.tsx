@@ -1,5 +1,7 @@
+import { useState, useEffect } from "react"
 import { Link, useSearchParams } from "react-router-dom"
-import { MapPin, ArrowRight } from "lucide-react"
+import { MapPin, ArrowRight, Loader2, AlertCircle } from "lucide-react"
+import { toursApi } from "../api/toursApi"
 import { attractionPackages } from "../data"
 import { ScrollReveal } from "../components/ui/ScrollReveal"
 import breadcrumbImg from "../assets/breadcrumb.png"
@@ -8,12 +10,56 @@ export function DomesticToursPage() {
   const [searchParams] = useSearchParams();
   const searchDestination = searchParams.get("destination");
 
-  let domesticTours = attractionPackages.Domestic;
-  if (searchDestination) {
-    domesticTours = domesticTours.filter(
-      (tour) => tour.title.toLowerCase() === searchDestination.toLowerCase()
-    );
-  }
+  const [tours, setTours] = useState<any[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    let isMounted = true;
+    async function loadDomesticTours() {
+      setLoading(true);
+      try {
+        const res = await toursApi.getDomesticTours();
+        if (!isMounted) return;
+
+
+        let toursList = res.tours;
+        if (!res.isLive || toursList.length === 0) {
+          // Graceful fallback to static data if live API has no domestic tours yet
+          toursList = attractionPackages.Domestic as any[];
+        }
+
+        if (searchDestination) {
+          const query = searchDestination.toLowerCase();
+          toursList = toursList.filter(
+            (tour) =>
+              tour.title.toLowerCase().includes(query) ||
+              (tour.country && tour.country.toLowerCase().includes(query)) ||
+              (tour.locations && tour.locations.some((l: string) => l.toLowerCase().includes(query)))
+          );
+        }
+
+        setTours(toursList);
+      } catch (err: any) {
+        if (!isMounted) return;
+        console.error("Failed to fetch domestic tours:", err);
+        // Fallback to static data on error
+        let fallback = attractionPackages.Domestic as any[];
+        if (searchDestination) {
+          const query = searchDestination.toLowerCase();
+          fallback = fallback.filter((tour) => tour.title.toLowerCase().includes(query));
+        }
+        setTours(fallback);
+      } finally {
+        if (isMounted) setLoading(false);
+      }
+
+    }
+
+    loadDomesticTours();
+    return () => {
+      isMounted = false;
+    };
+  }, [searchDestination]);
 
   return (
     <main className="min-h-screen bg-slate-50/50 font-jost">
@@ -37,8 +83,6 @@ export function DomesticToursPage() {
         {/* Decorative Circle */}
         <div className="pointer-events-none absolute -right-24 -top-28 h-[340px] w-[340px] rounded-full border border-white/10" />
         <div className="pointer-events-none absolute -right-10 -top-16 h-[240px] w-[240px] rounded-full border border-white/10" />
-
-
 
         <div className="relative mx-auto flex min-h-[220px] max-w-[1320px] items-center px-5 py-10 sm:min-h-[250px] sm:px-8 lg:min-h-[280px] lg:px-10">
           <ScrollReveal variant="fade-in-up" duration={1000}>
@@ -131,72 +175,100 @@ export function DomesticToursPage() {
 
       {/* TOUR GRID LIST */}
       <section className="mx-auto max-w-[1320px] px-5 py-16 sm:px-8 lg:px-10">
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {domesticTours.map((tour, index) => (
-            <ScrollReveal
-              key={tour.id}
-              variant="fade-in-up"
-              delay={(index % 3) * 100}
-              duration={1200}
+        {loading ? (
+          <div className="flex min-h-[300px] flex-col items-center justify-center py-20 text-center">
+            <Loader2 size={36} className="animate-spin text-[#0853a4]" />
+            <p className="mt-4 font-rubik text-base font-semibold text-slate-700">
+              Loading domestic tour packages...
+            </p>
+          </div>
+        ) : tours.length === 0 ? (
+          <div className="flex min-h-[300px] flex-col items-center justify-center rounded-2xl border border-dashed border-slate-200 bg-white p-12 text-center">
+            <AlertCircle size={40} className="text-slate-400" />
+            <h3 className="mt-4 font-rubik text-xl font-bold text-slate-800">
+              No Domestic Tours Found
+            </h3>
+            <p className="mt-2 font-jost text-sm text-slate-500">
+              We couldn't find any domestic tour matching your criteria.
+            </p>
+            <Link
+              to="/tours/domestic"
+              className="mt-6 rounded-full bg-[#0853a4] px-6 py-2.5 font-rubik text-xs font-bold text-white transition hover:bg-[#064a8f]"
             >
-              <Link
-                to={`/tour/domestic/${tour.id}`}
-                className="group flex flex-col h-full overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_20px_45px_rgba(8,83,164,0.06)]"
+              View All Domestic Tours
+            </Link>
+          </div>
+        ) : (
+          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+            {tours.map((tour, index) => (
+              <ScrollReveal
+                key={tour.id || tour.slug || index}
+                variant="fade-in-up"
+                delay={(index % 3) * 100}
+                duration={1200}
               >
-                {/* Image */}
-                <div className="relative aspect-[16/10] overflow-hidden bg-slate-100">
-                  <img
-                    src={tour.image}
-                    alt={tour.title}
-                    loading="lazy"
-                    className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                  />
-                  <span className="absolute left-4 top-4 bg-[#100c08] px-3 py-1.5 text-[11px] font-bold uppercase tracking-wider text-white font-rubik rounded-md">
-                    {tour.duration}
-                  </span>
-                </div>
-
-                {/* Content */}
-                <div className="flex flex-col flex-grow p-6">
-                  <span className="flex items-center gap-1 text-xs font-black uppercase tracking-wider text-[#0853a4] font-rubik">
-                    <MapPin size={13} className="shrink-0" />
-                    {tour.country}
-                  </span>
-
-                  <h3 className="mt-2 font-rubik text-xl font-bold leading-snug text-[#100c08] transition group-hover:text-[#0853a4]">
-                    {tour.title}
-                  </h3>
-
-                  {/* Locations Covered */}
-                  <div className="mt-4 flex flex-wrap gap-1.5">
-                    {tour.locations.slice(0, 4).map((loc) => (
-                      <span
-                        key={loc}
-                        className="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-600"
-                      >
-                        {loc}
-                      </span>
-                    ))}
-                    {tour.locations.length > 4 && (
-                      <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-600">
-                        +{tour.locations.length - 4} More
-                      </span>
-                    )}
-                  </div>
-
-                  {/* Footer Button */}
-                  <div className="mt-auto pt-6 flex items-center justify-end border-t border-slate-100">
-                    <span className="inline-flex items-center gap-1.5 rounded-full bg-[#0853a4]/10 px-4 py-2.5 text-xs font-bold text-[#0853a4] transition group-hover:bg-[#0853a4] group-hover:text-white font-rubik">
-                      Explore More
-                      <ArrowRight size={14} className="transition-transform group-hover:translate-x-0.5" />
+                <Link
+                  to={`/tour/domestic/${tour.id || tour.slug}`}
+                  className="group flex flex-col h-full overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_20px_45px_rgba(8,83,164,0.06)]"
+                >
+                  {/* Image */}
+                  <div className="relative aspect-[16/10] overflow-hidden bg-slate-100">
+                    <img
+                      src={tour.image}
+                      alt={tour.title}
+                      loading="lazy"
+                      className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                    />
+                    <span className="absolute left-4 top-4 bg-[#100c08] px-3 py-1.5 text-[11px] font-bold uppercase tracking-wider text-white font-rubik rounded-md">
+                      {tour.duration}
                     </span>
                   </div>
-                </div>
-              </Link>
-            </ScrollReveal>
-          ))}
-        </div>
+
+                  {/* Content */}
+                  <div className="flex flex-col flex-grow p-6">
+                    <span className="flex items-center gap-1 text-xs font-black uppercase tracking-wider text-[#0853a4] font-rubik">
+                      <MapPin size={13} className="shrink-0" />
+                      {tour.country || 'India'}
+                    </span>
+
+                    <h3 className="mt-2 font-rubik text-xl font-bold leading-snug text-[#100c08] transition group-hover:text-[#0853a4]">
+                      {tour.title}
+                    </h3>
+
+                    {/* Locations Covered */}
+                    {Array.isArray(tour.locations) && tour.locations.length > 0 && (
+                      <div className="mt-4 flex flex-wrap gap-1.5">
+                        {tour.locations.slice(0, 4).map((loc: string) => (
+                          <span
+                            key={loc}
+                            className="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-600"
+                          >
+                            {loc}
+                          </span>
+                        ))}
+                        {tour.locations.length > 4 && (
+                          <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-600">
+                            +{tour.locations.length - 4} More
+                          </span>
+                        )}
+                      </div>
+                    )}
+
+                    {/* Footer Button */}
+                    <div className="mt-auto pt-6 flex items-center justify-end border-t border-slate-100">
+                      <span className="inline-flex items-center gap-1.5 rounded-full bg-[#0853a4]/10 px-4 py-2.5 text-xs font-bold text-[#0853a4] transition group-hover:bg-[#0853a4] group-hover:text-white font-rubik">
+                        Explore More
+                        <ArrowRight size={14} className="transition-transform group-hover:translate-x-0.5" />
+                      </span>
+                    </div>
+                  </div>
+                </Link>
+              </ScrollReveal>
+            ))}
+          </div>
+        )}
       </section>
     </main>
   )
 }
+

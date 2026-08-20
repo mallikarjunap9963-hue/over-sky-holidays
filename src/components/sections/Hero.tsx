@@ -1,28 +1,48 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { slides } from '../../data';
-
+import { contentApi } from '../../api/contentApi';
+import { slides as staticSlides } from '../../data';
 import { ScrollReveal } from '../ui/ScrollReveal';
 
 export function Hero() {
-
+  const [heroSlides, setHeroSlides] = useState<any[]>(staticSlides);
   const [currentSlide, setCurrentSlide] = useState(0);
 
   useEffect(() => {
-    const intervalId = window.setInterval(() => {
-      setCurrentSlide((previous) => (previous + 1) % slides.length);
-    }, 3000);
-
-    return () => window.clearInterval(intervalId);
+    let isMounted = true;
+    async function loadHeroes() {
+      try {
+        const res = await contentApi.getHeroes();
+        if (isMounted && res.isLive && res.heroes.length > 0) {
+          setHeroSlides(res.heroes);
+        }
+      } catch (err) {
+        console.error("Error fetching hero slides:", err);
+      }
+    }
+    loadHeroes();
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
-  const activeSlide = slides[currentSlide];
+  useEffect(() => {
+    if (heroSlides.length === 0) return;
+    const intervalId = window.setInterval(() => {
+      setCurrentSlide((previous) => (previous + 1) % heroSlides.length);
+    }, 4000);
+
+    return () => window.clearInterval(intervalId);
+  }, [heroSlides]);
+
+  const activeSlide = heroSlides[currentSlide] || heroSlides[0] || staticSlides[0];
 
   return (
     <>
       {/* HERO SECTION */}
       <div className="relative w-full h-[calc(100vh-212px)] lg:h-[calc(100vh-199px)] min-h-[480px] lg:min-h-[320px] overflow-hidden bg-[#100c08] shadow-[0_30px_80px_rgba(16,12,8,0.15)]">
-        {slides.map((slide, index) => (
+        {heroSlides.map((slide, index) => (
+
           <div
             key={slide.id}
             className={`absolute inset-0 bg-cover bg-center transition-all duration-1000 ${currentSlide === index
@@ -66,9 +86,9 @@ export function Hero() {
 
         {/* SLIDER DOTS */}
         <ScrollReveal variant="fade-in" delay={1150} duration={1500} className="absolute bottom-9 left-1/2 z-20 hidden -translate-x-1/2 items-center gap-2 sm:flex">
-          {slides.map((slide, index) => (
+          {heroSlides.map((slide, index) => (
             <button
-              key={slide.id}
+              key={slide.id || index}
               type="button"
               onClick={() => setCurrentSlide(index)}
               className={`h-1.5 rounded-full transition-all ${currentSlide === index
@@ -79,6 +99,7 @@ export function Hero() {
             />
           ))}
         </ScrollReveal>
+
       </div>
 
       {/* BOOKING SEARCH PANEL */}

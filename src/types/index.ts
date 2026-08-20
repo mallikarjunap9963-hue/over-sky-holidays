@@ -106,6 +106,7 @@ export type SearchSelectProps = {
 
 export type BlogPost = {
   id: number;
+  slug?: string;
   title: string;
   excerpt: string;
   date: string;
@@ -115,6 +116,7 @@ export type BlogPost = {
   readTime: string;
   content?: string;
 };
+
 
 export interface ItineraryDay {
   day: number;

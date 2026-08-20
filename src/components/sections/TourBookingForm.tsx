@@ -6,6 +6,8 @@ import {
   CalendarDays,
   Users,
   ShieldCheck,
+  Loader2,
+  AlertCircle,
 } from "lucide-react"
 import type { BookingFormProps, BookingFieldProps } from "../../types/tours"
 import { CustomSelect } from "../ui/CustomSelect"
@@ -18,6 +20,8 @@ export default function TourBookingForm({
   onChange,
   onSubmit,
   onReset,
+  loading = false,
+  error = null,
 }: BookingFormProps) {
   const travelerOptions = Array.from({ length: 10 }, (_, index) => {
     const count = index + 1
@@ -58,6 +62,13 @@ export default function TourBookingForm({
             <h2 className="text-2xl font-black text-[#0853a4] font-rubik">
               Book Your {tourName} Tour
             </h2>
+
+            {error && (
+              <div className="mt-4 flex items-start gap-2.5 rounded-xl border border-red-200 bg-red-50 p-3 text-xs text-red-700 font-jost">
+                <AlertCircle size={16} className="mt-0.5 shrink-0 text-red-500" />
+                <span>{error}</span>
+              </div>
+            )}
 
             <form onSubmit={onSubmit} className="mt-7 space-y-5">
               <BookingField
@@ -138,9 +149,17 @@ export default function TourBookingForm({
 
               <button
                 type="submit"
-                className="btn-primary w-full min-h-[48px] rounded-[6px] text-sm font-bold shadow-[0_12px_24px_rgba(8,83,164,0.18)] uppercase tracking-wider font-rubik cursor-pointer"
+                disabled={loading}
+                className="btn-primary w-full min-h-[48px] rounded-[6px] text-sm font-bold shadow-[0_12px_24px_rgba(8,83,164,0.18)] uppercase tracking-wider font-rubik cursor-pointer disabled:opacity-60 flex items-center justify-center gap-2"
               >
-                Book Now
+                {loading ? (
+                  <>
+                    <Loader2 size={18} className="animate-spin" />
+                    <span>Submitting...</span>
+                  </>
+                ) : (
+                  <span>Book Now</span>
+                )}
               </button>
             </form>
 

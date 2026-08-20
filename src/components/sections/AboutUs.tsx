@@ -1,13 +1,33 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { contentApi } from '../../api/contentApi';
 import { ScrollReveal } from '../ui/ScrollReveal';
 import { AnimatedGlobe } from '../ui/AnimatedGlobe';
 
 export function AboutUs() {
   const [activeAboutTab, setActiveAboutTab] = useState<'mission' | 'customer'>('mission');
   const [customerCount, setCustomerCount] = useState(0);
+  const [aboutData, setAboutData] = useState<any>(null);
   const sectionRef = useRef<HTMLElement>(null);
   const hasAnimated = useRef(false);
+
+  useEffect(() => {
+    let isMounted = true;
+    async function loadAboutSection() {
+      try {
+        const res = await contentApi.getAboutSectionActive();
+        if (isMounted && res.isLive && res.about) {
+          setAboutData(res.about);
+        }
+      } catch (err) {
+        console.error("Error loading about section:", err);
+      }
+    }
+    loadAboutSection();
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   useEffect(() => {
     const sectionEl = sectionRef.current;
@@ -51,6 +71,7 @@ export function AboutUs() {
 
     return () => observer.disconnect();
   }, []);
+
 
   return (
     <>
@@ -101,7 +122,7 @@ export function AboutUs() {
             {/* Main heading */}
             <ScrollReveal variant="fade-in-left" delay={200} duration={1300}>
               <h2 className="font-rubik text-[26px] sm:text-[32px] md:text-[36px] lg:text-[38px] xl:text-[42px] font-bold leading-[1.2] tracking-[-0.015em] text-[#100c08]">
-                Let&apos;s know About Our Journey For Open Sky Holidays.
+                {aboutData?.title || "Let's know About Our Journey For Open Sky Holidays."}
               </h2>
             </ScrollReveal>
 
@@ -149,13 +170,8 @@ export function AboutUs() {
               <div className="min-h-[120px] sm:min-h-[130px] font-jost text-[14px] sm:text-[15px] leading-[1.75] text-slate-600">
                 {activeAboutTab === 'mission' ? (
                   <p>
-                    Established in 2020, Open Sky Holidays is one of India&apos;s
-                    trusted travel agents and tour operators. Our mission is to make
-                    domestic and international travel simple, memorable and accessible
-                    through carefully planned tours, reliable services and complete
-                    customer support. We offer holiday packages, flight tickets, hotel
-                    bookings, passport guidance, visa assistance and MICE travel
-                    solutions.
+                    {aboutData?.description ||
+                      "Established in 2020, Open Sky Holidays is one of India's trusted travel agents and tour operators. Our mission is to make domestic and international travel simple, memorable and accessible through carefully planned tours, reliable services and complete customer support. We offer holiday packages, flight tickets, hotel bookings, passport guidance, visa assistance and MICE travel solutions."}
                   </p>
                 ) : (
                   <p>
@@ -168,6 +184,7 @@ export function AboutUs() {
                 )}
               </div>
             </ScrollReveal>
+
 
             {/* Button + customer count */}
             <ScrollReveal variant="fade-in-left" delay={650} duration={1400}>

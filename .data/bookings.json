@@ -1,0 +1,148 @@
+[
+  {
+    "id": "book_1786944518316_mo37c",
+    "bookingReference": "OSH-MMR0-7JB7",
+    "providerBookingId": 1,
+    "type": "tour_inquiry",
+    "tourId": 1,
+    "tourName": "DUBAI TOUR",
+    "guestDetails": {
+      "name": "Malli Test",
+      "email": "malli@example.com",
+      "phone": "+91 9876543210"
+    },
+    "travelDate": "2026-10-15",
+    "travelers": 2,
+    "status": "CANCELLED",
+    "createdAt": "2026-08-17T05:28:38.316Z",
+    "updatedAt": "2026-08-17T05:28:38.324Z",
+    "rawProviderResponse": {
+      "success": true,
+      "message": "Tour booking inquiry submitted successfully.",
+      "data": {
+        "id": 1,
+        "tour_id": 1,
+        "tour_title": "DUBAI TOUR",
+        "name": "Malli Test",
+        "phone": "+91 9876543210",
+        "email": "malli@example.com",
+        "travel_date": "2026-10-15",
+        "travelers": 2,
+        "status": "new",
+        "created_at": "2026-08-17T05:28:38+00:00",
+        "updated_at": "2026-08-17T05:28:38+00:00"
+      }
+    },
+    "cancellationReason": "Change of schedule",
+    "cancelledAt": "2026-08-17T05:28:38.324Z"
+  },
+  {
+    "id": "enq_1786944519494_j4n2c",
+    "bookingReference": "OSH-MNNQ-I9MX",
+    "providerBookingId": 1,
+    "type": "general_enquiry",
+    "guestDetails": {
+      "name": "Traveler Jane",
+      "email": "jane@example.com",
+      "phone": "+1 555-0199"
+    },
+    "destination": "Dubai",
+    "tourType": "International Tours",
+    "travelDate": "2026-11-20",
+    "travelers": 2,
+    "status": "INQUIRY_SENT",
+    "createdAt": "2026-08-17T05:28:39.494Z",
+    "updatedAt": "2026-08-17T05:28:39.494Z",
+    "rawProviderResponse": {
+      "status": true,
+      "message": "Your enquiry has been submitted successfully.",
+      "data": {
+        "status": "new",
+        "name": "Traveler Jane",
+        "email": "jane@example.com",
+        "phone": "+1 555-0199",
+        "travel_date": "2026-11-20T00:00:00.000000Z",
+        "destination": "Dubai",
+        "travelers": 2,
+        "tour_type": "International Tours",
+        "message": "Looking for luxury package options.",
+        "updated_at": "2026-08-17T05:28:39.000000Z",
+        "created_at": "2026-08-17T05:28:39.000000Z",
+        "id": 1
+      }
+    }
+  },
+  {
+    "id": "book_1786945052885_rz9ub",
+    "bookingReference": "OSH-Y385-M747",
+    "providerBookingId": 2,
+    "type": "tour_inquiry",
+    "tourId": 1,
+    "tourName": "DUBAI TOUR",
+    "guestDetails": {
+      "name": "Malli Test",
+      "email": "malli@example.com",
+      "phone": "+91 9876543210"
+    },
+    "travelDate": "2026-10-15",
+    "travelers": 2,
+    "status": "CANCELLED",
+    "createdAt": "2026-08-17T05:37:32.885Z",
+    "updatedAt": "2026-08-17T05:37:32.894Z",
+    "rawProviderResponse": {
+      "success": true,
+      "message": "Tour booking inquiry submitted successfully.",
+      "data": {
+        "id": 2,
+        "tour_id": 1,
+        "tour_title": "DUBAI TOUR",
+        "name": "Malli Test",
+        "phone": "+91 9876543210",
+        "email": "malli@example.com",
+        "travel_date": "2026-10-15",
+        "travelers": 2,
+        "status": "new",
+        "created_at": "2026-08-17T05:37:33+00:00",
+        "updated_at": "2026-08-17T05:37:33+00:00"
+      }
+    },
+    "cancellationReason": "Change of schedule",
+    "cancelledAt": "2026-08-17T05:37:32.894Z"
+  },
+  {
+    "id": "enq_1786945054018_bqj7r",
+    "bookingReference": "OSH-Y43M-6IH4",
+    "providerBookingId": 2,
+    "type": "general_enquiry",
+    "guestDetails": {
+      "name": "Traveler Jane",
+      "email": "jane@example.com",
+      "phone": "+1 555-0199"
+    },
+    "destination": "Dubai",
+    "tourType": "International Tours",
+    "travelDate": "2026-11-20",
+    "travelers": 2,
+    "status": "INQUIRY_SENT",
+    "createdAt": "2026-08-17T05:37:34.018Z",
+    "updatedAt": "2026-08-17T05:37:34.018Z",
+    "rawProviderResponse": {
+      "status": true,
+      "message": "Your enquiry has been submitted successfully.",
+      "data": {
+        "status": "new",
+        "name": "Traveler Jane",
+        "email": "jane@example.com",
+        "phone": "+1 555-0199",
+        "travel_date": "2026-11-20T00:00:00.000000Z",
+        "destination": "Dubai",
+        "travelers": 2,
+        "tour_type": "International Tours",
+        "message": "Looking for luxury package options.",
+        "updated_at": "2026-08-17T05:37:34.000000Z",
+        "created_at": "2026-08-17T05:37:34.000000Z",
+        "id": 2
+      }
+    }
+  }
+]

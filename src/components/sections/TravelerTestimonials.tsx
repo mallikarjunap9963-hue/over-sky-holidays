@@ -1,24 +1,43 @@
 import { useEffect, useMemo, useState } from "react"
 import type { ReviewSource } from "../../types"
-import { reviewTabs, travelerReviews } from "../../data"
+import { reviewTabs, travelerReviews as staticReviews } from "../../data"
+import { contentApi } from "../../api/contentApi"
 import { ReviewSourceIcon } from "../icons/Icons"
 import { ScrollReveal } from "../ui/ScrollReveal"
 
 export function TravelerTestimonials() {
-  const [activeReviewTab, setActiveReviewTab] =
-    useState<ReviewSource>("All Reviews")
-
+  const [reviewsList, setReviewsList] = useState<any[]>(staticReviews)
+  const [activeReviewTab, setActiveReviewTab] = useState<ReviewSource>("All Reviews")
   const [reviewSlide, setReviewSlide] = useState(0)
+
+  useEffect(() => {
+    let isMounted = true
+    async function loadTestimonials() {
+      try {
+        const res = await contentApi.getTestimonials()
+        if (isMounted && res.isLive && res.testimonials.length > 0) {
+          setReviewsList(res.testimonials)
+        }
+      } catch (err) {
+        console.error("Error fetching testimonials:", err)
+      }
+    }
+    loadTestimonials()
+    return () => {
+      isMounted = false
+    }
+  }, [])
 
   const filteredTravelerReviews = useMemo(() => {
     if (activeReviewTab === "All Reviews") {
-      return travelerReviews
+      return reviewsList
     }
 
-    return travelerReviews.filter(
+    return reviewsList.filter(
       (review) => review.source === activeReviewTab
     )
-  }, [activeReviewTab])
+  }, [activeReviewTab, reviewsList])
+
 
   useEffect(() => {
     if (filteredTravelerReviews.length <= 1) return

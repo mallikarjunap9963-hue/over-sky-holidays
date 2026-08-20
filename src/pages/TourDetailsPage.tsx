@@ -1,9 +1,12 @@
 import {
   useMemo,
   useState,
+  useEffect,
   type FormEvent,
 } from "react"
 import { Link, useParams } from "react-router-dom"
+import { Loader2 } from "lucide-react"
+import { toursApi } from "../api/toursApi"
 import { attractionPackages, experienceItems } from "../data"
 import { getTourDetailInfo } from "../data/tourDetailsData"
 import { getPlaceImage } from "../data/placeImages"
@@ -35,71 +38,116 @@ export default function TourDetailsPage() {
     type = "packages"
   }
 
-  const idNum = Number.parseInt(id || "", 10)
-
-  let tour: any = null
-
-  if (type === "packages") {
-    tour = experienceItems["Tour Packages"]?.find(
-      (item: any) => item.id === idNum
-    )
-  } else {
-    const categoryKey = Object.keys(attractionPackages).find(
-      (key) => key.toLowerCase() === type?.toLowerCase()
-    )
-
-    if (categoryKey) {
-      tour = (attractionPackages as any)[categoryKey]?.find(
-        (item: any) => item.id === idNum
-      )
-    }
-  }
-
-  const detail = tour
-    ? getTourDetailInfo(
-      type || "",
-      idNum,
-      tour.title || tour.tourType || "",
-      tour.locations || [],
-      tour.duration || "",
-      tour.price || "",
-      tour.country || "",
-      tour.image || ""
-    )
-    : null
-
-  const [bookingForm, setBookingForm] =
-    useState<BookingFormData>(initialBookingForm)
-
-  const [bookingSubmitted, setBookingSubmitted] = useState(false)
+  const [tour, setTour] = useState<any>(null)
+  const [loading, setLoading] = useState<boolean>(true)
+  const [bookingForm, setBookingForm] = useState<BookingFormData>(initialBookingForm)
+  const [bookingLoading, setBookingLoading] = useState<boolean>(false)
+  const [bookingError, setBookingError] = useState<string | null>(null)
+  const [bookingSubmitted, setBookingSubmitted] = useState<boolean>(false)
   const [selectedGalleryImage, setSelectedGalleryImage] = useState<string | null>(null)
 
-  const tourName = tour?.tourType || tour?.title || "Tour Package"
+  useEffect(() => {
+    let isMounted = true
+    async function loadTour() {
+      if (!id) return
+      setLoading(true)
+      try {
+        const res = await toursApi.getTourById(id)
+        if (!isMounted) return
+
+        if (res.isLive && res.tour) {
+          setTour(res.tour)
+        } else {
+          // Static fallback if API does not have this tour ID
+          const idNum = Number.parseInt(id, 10)
+          let fallbackTour: any = null
+
+          if (type === "packages") {
+            fallbackTour = experienceItems["Tour Packages"]?.find((item: any) => item.id === idNum)
+          } else {
+            const categoryKey = Object.keys(attractionPackages).find(
+              (key) => key.toLowerCase() === type?.toLowerCase()
+            )
+            if (categoryKey) {
+              fallbackTour = (attractionPackages as any)[categoryKey]?.find(
+                (item: any) => item.id === idNum
+              )
+            }
+            if (!fallbackTour) {
+              fallbackTour = [...attractionPackages.Domestic, ...attractionPackages.International].find(
+                (item: any) => item.id === idNum || String(item.id) === id
+              )
+            }
+          }
+
+          if (fallbackTour) {
+            const detail = getTourDetailInfo(
+              type || "",
+              idNum,
+              fallbackTour.title || fallbackTour.tourType || "",
+              fallbackTour.locations || [],
+              fallbackTour.duration || "",
+              fallbackTour.price || "",
+              fallbackTour.country || "",
+              fallbackTour.image || ""
+            )
+            setTour({
+              ...fallbackTour,
+              detail,
+            })
+          } else {
+            setTour(null)
+          }
+        }
+      } catch (err) {
+        if (!isMounted) return
+        console.error("Error loading tour details:", err)
+        setTour(null)
+      } finally {
+        if (isMounted) setLoading(false)
+      }
+    }
+
+    loadTour()
+    return () => {
+      isMounted = false
+    }
+  }, [id, type])
+
+  const detail = tour?.detail || null
+  const tourName = tour?.title || tour?.tourType || "Tour Package"
 
   const categoryLabel =
     type === "packages"
       ? "Tour Package"
-      : `${formatCategoryName(type || "")} Tour`
+      : `${formatCategoryName(type || tour?.category || "")} Tour`
 
   const categoryLink =
-    type?.toLowerCase() === "domestic"
+    type?.toLowerCase() === "domestic" || tour?.category?.toLowerCase() === "domestic"
       ? "/tours/domestic"
-      : type?.toLowerCase() === "international"
+      : type?.toLowerCase() === "international" || tour?.category?.toLowerCase() === "international"
         ? "/tours/international"
-        : "/";
+        : "/"
 
-  /*
-   * The existing data appears to contain destination attractions
-   * inside detail.highlights. We use those as Places Covered.
-   * If highlights are unavailable, the page falls back to locations.
-   */
   const placesCovered = useMemo(() => {
-    if (!tour || !detail) return []
+    if (!tour) return []
 
-    if (Array.isArray(detail.highlights) && detail.highlights.length > 0) {
+    // If backend features has place_covered items
+    if (Array.isArray(tour.features) && tour.features.length > 0) {
+      const placesFromFeatures = tour.features.filter((f: any) => f.type === "place_covered")
+      if (placesFromFeatures.length > 0) {
+        return placesFromFeatures.map((place: any, index: number) => ({
+          id: `${place.title}-${index}`,
+          name: place.title,
+          image: place.image_url || getPlaceImage(place.title || "") || tour.image || "",
+          description: place.description || `Explore ${place.title} during your ${tourName} tour.`,
+        }))
+      }
+    }
+
+    if (detail && Array.isArray(detail.highlights) && detail.highlights.length > 0) {
       return detail.highlights.map((place: any, index: number) => {
         const mappedImg = getPlaceImage(place.title || "")
-
         return {
           id: `${place.title}-${index}`,
           name: place.title,
@@ -119,13 +167,12 @@ export default function TourDetailsPage() {
     if (Array.isArray(tour.locations) && tour.locations.length > 0) {
       return tour.locations.map((location: string, index: number) => {
         const mappedImg = getPlaceImage(location || "")
-
         return {
           id: `${location}-${index}`,
           name: location,
           image:
             mappedImg ||
-            detail.gallery?.[index] ||
+            detail?.gallery?.[index] ||
             tour.image ||
             "",
           description: `Visit and explore ${location} during this tour.`,
@@ -137,11 +184,11 @@ export default function TourDetailsPage() {
   }, [tour, detail, tourName])
 
   const galleryImages = useMemo(() => {
-    if (!tour || !detail) return []
+    if (!tour) return []
 
     const images = [
       tour.image,
-      ...(Array.isArray(detail.gallery) ? detail.gallery : []),
+      ...(Array.isArray(detail?.gallery) ? detail.gallery : []),
       ...placesCovered.map((place: any) => place.image),
     ].filter((image): image is string => Boolean(image) && typeof image === "string" && image.trim().length > 0)
 
@@ -173,22 +220,74 @@ export default function TourDetailsPage() {
     }))
   }
 
-  const handleBookingSubmit = (
-    event: FormEvent<HTMLFormElement>
-  ) => {
+  const handleBookingSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
+    setBookingError(null)
 
-    const enquiryData = {
-      tourId: tour?.id,
-      tourName,
-      category: categoryLabel,
-      ...bookingForm,
+    if (!bookingForm.fullName || !bookingForm.mobile || !bookingForm.email) {
+      setBookingError("Please fill in all required fields.")
+      return
     }
 
-    console.log("Tour booking enquiry:", enquiryData)
+    // Default travel date to tomorrow if unselected
+    let formattedDate = bookingForm.travelDate
+    if (!formattedDate) {
+      const tomorrow = new Date()
+      tomorrow.setDate(tomorrow.getDate() + 1)
+      formattedDate = tomorrow.toISOString().split("T")[0]
+    }
 
-    setBookingSubmitted(true)
-    setBookingForm(initialBookingForm)
+    setBookingLoading(true)
+    try {
+      const payload = {
+        tour_id: Number(tour?.tourId || tour?.id || 1),
+        name: bookingForm.fullName,
+        phone: bookingForm.mobile,
+        email: bookingForm.email,
+        travel_date: formattedDate,
+        travelers: Number(bookingForm.travelers) || 2,
+      }
+
+      const res = await toursApi.submitTourInquiry(payload)
+      if (res.success || res.status) {
+        setBookingSubmitted(true)
+        setBookingForm(initialBookingForm)
+      } else {
+        if (res.errors) {
+          const firstErr = Object.values(res.errors)[0]?.[0]
+          setBookingError(firstErr || res.message || "Failed to submit booking inquiry.")
+        } else {
+          setBookingError(res.message || "Failed to submit booking inquiry.")
+        }
+      }
+    } catch (err: any) {
+      console.error("Booking submission error:", err)
+      setBookingError("Unable to submit booking inquiry. Please try again.")
+    } finally {
+      setBookingLoading(false)
+    }
+  }
+
+  const allTourImages = useMemo(() => {
+    const list: string[] = []
+    galleryImages.forEach((img) => {
+      if (img && !list.includes(img)) list.push(img)
+    })
+    placesCovered.forEach((p: any) => {
+      if (p.image && !list.includes(p.image)) list.push(p.image)
+    })
+    return list
+  }, [galleryImages, placesCovered])
+
+  if (loading) {
+    return (
+      <main className="flex min-h-[70vh] flex-col items-center justify-center bg-white px-5 text-center font-jost">
+        <Loader2 size={40} className="animate-spin text-[#0853a4]" />
+        <h2 className="mt-4 font-rubik text-xl font-bold text-slate-800">
+          Loading Tour Details...
+        </h2>
+      </main>
+    )
   }
 
   if (!tour || !detail) {
@@ -212,17 +311,6 @@ export default function TourDetailsPage() {
       </main>
     )
   }
-
-  const allTourImages = useMemo(() => {
-    const list: string[] = []
-    galleryImages.forEach((img) => {
-      if (img && !list.includes(img)) list.push(img)
-    })
-    placesCovered.forEach((p: any) => {
-      if (p.image && !list.includes(p.image)) list.push(p.image)
-    })
-    return list
-  }, [galleryImages, placesCovered])
 
   return (
     <main className="min-h-screen bg-white font-jost">
@@ -258,8 +346,9 @@ export default function TourDetailsPage() {
 
               {packageInclusions.length > 0 ? (
                 <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-                  {packageInclusions.map((item) => {
+                  {packageInclusions.map((item: any) => {
                     const Icon = item.icon
+
 
                     return (
                       <article
@@ -301,6 +390,8 @@ export default function TourDetailsPage() {
               onChange={updateBookingField}
               onSubmit={handleBookingSubmit}
               onReset={() => setBookingSubmitted(false)}
+              loading={bookingLoading}
+              error={bookingError}
             />
           </div>
         </div>
@@ -357,4 +448,4 @@ export default function TourDetailsPage() {
       )}
     </main>
   )
-}
+}

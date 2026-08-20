@@ -1,5 +1,6 @@
-import { useEffect, useMemo, useRef } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { blogsApi } from '../../api/blogsApi';
 import { blogPosts } from '../../data';
 import { Canvas, useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
@@ -8,6 +9,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
+
 
 /* ──────────────────────────────────────────────
    Three.js — Floating particles background
@@ -59,12 +61,10 @@ function FloatingParticles() {
   );
 }
 
-/* Framer Motion variants removed — using inline props for v12 compatibility */
-
 /* ──────────────────────────────────────────────
    Blog Card component with GSAP hover tilt
    ────────────────────────────────────────────── */
-function BlogCard({ post, index }: { post: typeof blogPosts[0]; index: number }) {
+function BlogCard({ post, index }: { post: any; index: number }) {
   const cardRef = useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLDivElement>(null);
   const glowRef = useRef<HTMLDivElement>(null);
@@ -160,7 +160,7 @@ function BlogCard({ post, index }: { post: typeof blogPosts[0]; index: number })
         <div className="relative h-[230px] overflow-hidden">
           <div ref={imageRef} className="h-full w-full will-change-transform">
             <img
-              src={post.imageUrl}
+              src={post.imageUrl || post.image}
               alt={post.title}
               loading="lazy"
               className="h-full w-full object-cover"
@@ -232,7 +232,7 @@ function BlogCard({ post, index }: { post: typeof blogPosts[0]; index: number })
 
           {/* Read More link */}
           <Link
-            to={`/blogs/${post.id}`}
+            to={`/blogs/${post.slug || post.id}`}
             className="mt-4 inline-flex items-center gap-2 font-rubik text-[13.5px] font-semibold text-[#0853a4] hover:text-[#064a8f]"
           >
             Read More
@@ -259,6 +259,34 @@ function BlogCard({ post, index }: { post: typeof blogPosts[0]; index: number })
 export function Blogs({ showAll = false }: { showAll?: boolean }) {
   const sectionRef = useRef<HTMLElement>(null);
   const isInView = useInView(sectionRef, { once: true, amount: 0.15 });
+
+  const [blogs, setBlogs] = useState<any[]>([]);
+
+  useEffect(() => {
+    let isMounted = true;
+    async function loadBlogs() {
+      try {
+        const res = await blogsApi.getBlogs();
+        if (!isMounted) return;
+
+        if (res.isLive && res.blogs.length > 0) {
+          setBlogs(res.blogs);
+        } else {
+          setBlogs(blogPosts);
+        }
+      } catch (err) {
+        if (!isMounted) return;
+        console.error("Failed to fetch blogs:", err);
+        setBlogs(blogPosts);
+      }
+    }
+
+
+    loadBlogs();
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   // GSAP scroll-triggered heading parallax + accent line animation
   useEffect(() => {
@@ -295,7 +323,8 @@ export function Blogs({ showAll = false }: { showAll?: boolean }) {
     return () => ctx.revert();
   }, []);
 
-  const displayedBlogs = showAll ? blogPosts : blogPosts.slice(0, 3);
+  const displayedBlogs = showAll ? blogs : blogs.slice(0, 3);
+
 
   return (
     <>

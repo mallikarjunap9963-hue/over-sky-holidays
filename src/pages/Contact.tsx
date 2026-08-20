@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ScrollReveal } from '../components/ui/ScrollReveal';
+import { enquiriesApi } from '../api/enquiriesApi';
+import { Loader2, AlertCircle } from 'lucide-react';
 import breadcrumbImg from '../assets/breadcrumb.png';
 
 interface ContactProps {
@@ -9,37 +11,88 @@ interface ContactProps {
 
 export function Contact({ variant = 'full' }: ContactProps) {
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
     email: '',
     travelDate: '',
     destination: '',
-    travelers: '',
-    tourType: '',
+    travelers: '2',
+    tourType: 'Domestic Tour',
     message: ''
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.name || !formData.phone || !formData.email) return;
-    setSubmitted(true);
+    setError(null);
+    if (!formData.name || !formData.phone || !formData.email) {
+      setError('Please fill in your name, phone number, and email address.');
+      return;
+    }
 
-    // Automatically reset success message after 4 seconds
-    setTimeout(() => {
-      setSubmitted(false);
-      setFormData({
-        name: '',
-        phone: '',
-        email: '',
-        travelDate: '',
-        destination: '',
-        travelers: '',
-        tourType: '',
-        message: ''
+    // Default travel date to tomorrow if omitted
+    let formattedDate = formData.travelDate;
+    if (!formattedDate) {
+      const tomorrow = new Date();
+      tomorrow.setDate(tomorrow.getDate() + 1);
+      formattedDate = tomorrow.toISOString().split('T')[0];
+    }
+
+    // Parse numeric travelers
+    let travelersNum = 2;
+    if (formData.travelers === '1') travelersNum = 1;
+    else if (formData.travelers === '2') travelersNum = 2;
+    else if (formData.travelers === '3-5') travelersNum = 4;
+    else if (formData.travelers === '6+') travelersNum = 6;
+    else if (!isNaN(Number(formData.travelers))) travelersNum = Number(formData.travelers);
+
+    setLoading(true);
+    try {
+      const res = await enquiriesApi.submitEnquiry({
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        travel_date: formattedDate,
+        destination: formData.destination || 'General Travel Enquiry',
+        travelers: travelersNum,
+        tour_type: formData.tourType || 'Domestic Tour',
+        message: formData.message || undefined,
       });
-    }, 4000);
+
+      if (res.success || res.status) {
+        setSubmitted(true);
+        // Automatically reset success message after 4 seconds
+        setTimeout(() => {
+          setSubmitted(false);
+          setFormData({
+            name: '',
+            phone: '',
+            email: '',
+            travelDate: '',
+            destination: '',
+            travelers: '2',
+            tourType: 'Domestic Tour',
+            message: ''
+          });
+        }, 4000);
+      } else {
+        if (res.errors) {
+          const firstErr = Object.values(res.errors)[0]?.[0];
+          setError(firstErr || res.message || 'Failed to submit enquiry. Please check your inputs.');
+        } else {
+          setError(res.message || 'Failed to submit enquiry. Please try again.');
+        }
+      }
+    } catch (err: any) {
+      console.error('Enquiry submission error:', err);
+      setError('Network error. Unable to send enquiry. Please try again.');
+    } finally {
+      setLoading(false);
+    }
   };
+
 
   const destinationsList = [
     "Goa", "Kullu & Manali", "Ooty & Kodaikanal", "Kerala", "Delhi & Agra",
@@ -357,8 +410,16 @@ export function Contact({ variant = 'full' }: ContactProps) {
                       Fill in the details below and we'll get back to you with the best travel options.
                     </p>
 
+                    {error && (
+                      <div className="mt-4 flex items-start gap-2.5 rounded-xl border border-red-200 bg-red-50 p-3 text-xs text-red-700 font-jost">
+                        <AlertCircle size={16} className="mt-0.5 shrink-0 text-red-500" />
+                        <span>{error}</span>
+                      </div>
+                    )}
+
                     {/* Form Fields */}
                     <form onSubmit={handleSubmit} className="mt-6 space-y-3">
+
 
                       {/* Name & Phone Row */}
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -538,12 +599,22 @@ export function Contact({ variant = 'full' }: ContactProps) {
                       {/* Submit Button */}
                       <button
                         type="submit"
-                        className="btn-primary w-full min-h-[44px] rounded-[6px] text-[14px] font-bold shadow-[0_12px_24px_rgba(8,83,164,0.18)] font-rubik cursor-pointer gap-2.5"
+                        disabled={loading}
+                        className="btn-primary w-full min-h-[44px] rounded-[6px] text-[14px] font-bold shadow-[0_12px_24px_rgba(8,83,164,0.18)] font-rubik cursor-pointer gap-2.5 disabled:opacity-60 flex items-center justify-center"
                       >
-                        <span>SUBMIT ENQUIRY</span>
-                        <svg className="h-4 w-4 transform rotate-45 z-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
-                        </svg>
+                        {loading ? (
+                          <>
+                            <Loader2 className="h-4 w-4 animate-spin" />
+                            <span>SUBMITTING...</span>
+                          </>
+                        ) : (
+                          <>
+                            <span>SUBMIT ENQUIRY</span>
+                            <svg className="h-4 w-4 transform rotate-45 z-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
+                              <path strokeLinecap="round" strokeLinejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                            </svg>
+                          </>
+                        )}
                       </button>
                     </form>
 

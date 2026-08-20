@@ -1,0 +1,20 @@
+import { Router } from 'express';
+import { contentController } from '../controllers/content.controller.js';
+
+const router = Router();
+
+router.get('/heroes', contentController.getHeroes.bind(contentController));
+router.get('/testimonials', contentController.getTestimonials.bind(contentController));
+router.get('/offer-banners', contentController.getOfferBanners.bind(contentController));
+router.get('/page-banners', contentController.getPageBanners.bind(contentController));
+router.get('/page-banners/page/:page', contentController.getPageBanners.bind(contentController));
+router.get('/adventures', contentController.getAdventures.bind(contentController));
+router.get('/adventure-categories', contentController.getAdventureCategories.bind(contentController));
+router.get('/about', contentController.getAboutSection.bind(contentController));
+router.get('/why-choose', contentController.getWhyChoose.bind(contentController));
+router.get('/travel-support', contentController.getTravelSupport.bind(contentController));
+router.get('/our-processes', contentController.getOurProcesses.bind(contentController));
+router.get('/counters', contentController.getCounters.bind(contentController));
+router.get('/core-values', contentController.getCoreValues.bind(contentController));
+
+export default router;
