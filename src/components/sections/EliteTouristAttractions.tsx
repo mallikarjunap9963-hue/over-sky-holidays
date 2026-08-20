@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import type { AttractionTab } from '../../types';
 import { attractionTabs, attractionPackages } from '../../data';
+import { toursApi } from '../../api/toursApi';
 import { ScrollReveal } from '../ui/ScrollReveal';
 import { BookingModal } from '../ui/BookingModal';
 
@@ -10,23 +11,56 @@ export function EliteTouristAttractions() {
   const [attractionSlide, setAttractionSlide] = useState(0);
   const [modalOpen, setModalOpen] = useState(false);
 
+  const [domesticApiPackages, setDomesticApiPackages] = useState<any[]>([]);
+  const [internationalApiPackages, setInternationalApiPackages] = useState<any[]>([]);
+
+  useEffect(() => {
+    let isMounted = true;
+    async function fetchLiveTours() {
+      try {
+        const [domRes, intRes] = await Promise.all([
+          toursApi.getTours({ tour_type_id: 2 }),
+          toursApi.getTours({ tour_type_id: 3 }),
+        ]);
+        if (!isMounted) return;
+
+        if (domRes.isLive && domRes.tours.length > 0) {
+          setDomesticApiPackages(domRes.tours);
+        }
+        if (intRes.isLive && intRes.tours.length > 0) {
+          setInternationalApiPackages(intRes.tours);
+        }
+      } catch (err) {
+        console.error("Failed to fetch live tours for homepage attractions:", err);
+      }
+    }
+
+    fetchLiveTours();
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  const selectedAttractionPackages = activeAttractionTab === "Domestic"
+    ? (domesticApiPackages.length > 0 ? domesticApiPackages : attractionPackages.Domestic)
+    : (internationalApiPackages.length > 0 ? internationalApiPackages : attractionPackages.International);
+
   // Auto-scroll continuously through packages
   useEffect(() => {
-    const currentPackages = attractionPackages[activeAttractionTab];
-    if (currentPackages.length <= 1) return;
+    if (selectedAttractionPackages.length <= 1) return;
 
     const autoSlider = window.setInterval(() => {
-      setAttractionSlide((previous) => (previous + 1) % currentPackages.length);
+      setAttractionSlide((previous) => (previous + 1) % selectedAttractionPackages.length);
     }, 3500);
 
     return () => window.clearInterval(autoSlider);
-  }, [activeAttractionTab]);
+  }, [selectedAttractionPackages]);
 
-  const selectedAttractionPackages = attractionPackages[activeAttractionTab];
   const visibleAttractionPackages = Array.from(
     { length: Math.min(3, selectedAttractionPackages.length) },
     (_, offset) => selectedAttractionPackages[(attractionSlide + offset) % selectedAttractionPackages.length]
   );
+
 
   const selectAttractionTab = (tab: AttractionTab) => {
     setActiveAttractionTab(tab);
