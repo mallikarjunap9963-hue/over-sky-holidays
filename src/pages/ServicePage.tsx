@@ -12,6 +12,7 @@ import { Loader2 } from 'lucide-react';
 
 export function ServicePage() {
   const { id } = useParams<{ id: string }>();
+  const activeId = id || 'passport-services';
 
   const [service, setService] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(true);
@@ -19,59 +20,65 @@ export function ServicePage() {
   // Scroll to top when page changes
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
-  }, [id]);
+  }, [activeId]);
 
   useEffect(() => {
     let isMounted = true;
     async function loadService() {
-      if (!id) return;
       setLoading(true);
       try {
-        const res = await servicesApi.getServiceById(id);
+        const res = await servicesApi.getServiceById(activeId);
         if (!isMounted) return;
 
         if (res.isLive && res.service) {
           const apiSvc: any = res.service;
-          const fallbackData: any = servicesData[id] || servicesData['passport-services'];
+          const fallbackData: any = servicesData[activeId] || servicesData['passport-services'];
 
           setService({
-            title: apiSvc.title || fallbackData.title,
-            subtitle: apiSvc.subtitle || fallbackData.subtitle,
-            heroImage: apiSvc.heroImage || fallbackData.heroImage,
+            title: apiSvc.title || fallbackData?.title || 'Travel Services',
+            subtitle: apiSvc.subtitle || fallbackData?.subtitle || 'Complete Travel Support',
+            heroImage: apiSvc.heroImage || fallbackData?.heroImage || 'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?q=80&w=2069&auto=format&fit=crop',
             highlights: Array.isArray(apiSvc.highlights) && apiSvc.highlights.length > 0
               ? apiSvc.highlights
-              : fallbackData.highlights,
+              : fallbackData?.highlights || [],
             content: {
-              mainParagraph1: apiSvc.description || fallbackData.content?.mainParagraph1,
-              mainParagraph2: fallbackData.content?.mainParagraph2,
-              offerTitle: fallbackData.content?.offerTitle,
+              mainParagraph1: apiSvc.description || fallbackData?.content?.mainParagraph1 || '',
+              mainParagraph2: fallbackData?.content?.mainParagraph2 || '',
+              offerTitle: fallbackData?.content?.offerTitle || 'What We Offer',
               offerItems: Array.isArray(apiSvc.features) && apiSvc.features.length > 0
                 ? apiSvc.features.map((f: any) => ({
                     title: f.title || f.name,
                     desc: f.description || f.detail || f.title,
                   }))
-                : fallbackData.content?.offerItems,
+                : fallbackData?.content?.offerItems || [],
             },
             processSteps: Array.isArray(apiSvc.processSteps) && apiSvc.processSteps.length > 0
               ? apiSvc.processSteps
-              : fallbackData.processSteps,
+              : fallbackData?.processSteps || [],
             documents: Array.isArray(apiSvc.documents) && apiSvc.documents.length > 0
               ? apiSvc.documents
-              : fallbackData.documents,
+              : fallbackData?.documents || [],
             whyChooseUs: Array.isArray(apiSvc.whyChooseUs) && apiSvc.whyChooseUs.length > 0
               ? apiSvc.whyChooseUs
-              : fallbackData.whyChooseUs,
+              : fallbackData?.whyChooseUs || [],
           });
-        } else if (id && servicesData[id]) {
-          setService(servicesData[id]);
         } else {
-          setService(null);
-        }
+          // Find matching key in servicesData
+          const norm = activeId.toLowerCase();
+          const matchedKey = Object.keys(servicesData).find(
+            (key) => key.toLowerCase() === norm || key.toLowerCase().includes(norm) || norm.includes(key.toLowerCase().split('-')[0])
+          ) || 'passport-services';
 
+          setService(servicesData[matchedKey] || servicesData['passport-services']);
+        }
       } catch (err) {
         if (!isMounted) return;
         console.error("Failed to load service from API:", err);
-        setService(id && servicesData[id] ? servicesData[id] : null);
+        const norm = activeId.toLowerCase();
+        const matchedKey = Object.keys(servicesData).find(
+          (key) => key.toLowerCase() === norm || key.toLowerCase().includes(norm) || norm.includes(key.toLowerCase().split('-')[0])
+        ) || 'passport-services';
+        setService(servicesData[matchedKey] || servicesData['passport-services']);
       } finally {
         if (isMounted) setLoading(false);
       }
@@ -81,7 +88,8 @@ export function ServicePage() {
     return () => {
       isMounted = false;
     };
-  }, [id]);
+  }, [activeId]);
+
 
   if (loading) {
     return (
@@ -92,10 +100,11 @@ export function ServicePage() {
     );
   }
 
-  // If no ID or invalid ID, redirect to home
-  if (!id || !service) {
+  // If service fails to load, redirect to home
+  if (!service) {
     return <Navigate to="/" replace />;
   }
+
 
   return (
     <div className="bg-white min-h-screen">

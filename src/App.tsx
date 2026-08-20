@@ -46,9 +46,12 @@ export default function App() {
           <Route path="/about" element={<AboutPage />} />
           <Route path="/blogs" element={<BlogsPage />} />
           <Route path="/blogs/:id" element={<BlogDetailsPage />} />
+          <Route path="/services" element={<ServicePage />} />
           <Route path="/services/:id" element={<ServicePage />} />
           <Route path="/contact" element={<Contact variant="full" />} />
         </Routes>
+
+
       </main>
       <Footer />
     </div>
