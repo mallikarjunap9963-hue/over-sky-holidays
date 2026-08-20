@@ -4,11 +4,11 @@ import { PhoneIcon, MenuIcon, CloseIcon, ChevronDownIcon } from '../icons/Icons'
 import logo from '../../assets/logo-removebg-preview.png';
 
 const menuItems = [
-  { label: "HOME", href: "/#home" },
+  { label: "HOME", href: "/" },
   { label: "ABOUT", href: "/about" },
   {
     label: "TOURS",
-    href: "#",
+    href: "/tours/domestic",
     dropdownItems: [
       { label: "Domestic Tours", href: "/tours/domestic" },
       { label: "International Tours", href: "/tours/international" }
@@ -16,7 +16,7 @@ const menuItems = [
   },
   {
     label: "SERVICES",
-    href: "#",
+    href: "/services",
     dropdownItems: [
       { label: "Visa", href: "/services/visa" },
       { label: "Flight Tickets", href: "/services/flight-tickets" },
@@ -34,8 +34,8 @@ export function Header() {
   const { pathname } = useLocation();
 
   const isPathActive = (href: string) => {
-    if (href === "/#home" || href === "/") {
-      return pathname === "/" || pathname === "/#home";
+    if (href === "/") {
+      return pathname === "/";
     }
     if (href === "/tours/domestic") {
       return pathname.startsWith("/tours/domestic") || pathname.includes("/tour/domestic/");
@@ -48,7 +48,7 @@ export function Header() {
 
   const isParentActive = (item: typeof menuItems[number]) => {
     if (item.dropdownItems) {
-      return item.dropdownItems.some(subItem => isPathActive(subItem.href));
+      return item.dropdownItems.some(subItem => isPathActive(subItem.href)) || isPathActive(item.href);
     }
     return isPathActive(item.href);
   };
@@ -94,7 +94,7 @@ export function Header() {
           className="mx-auto flex max-w-[1540px] items-center justify-between gap-4 px-4 sm:px-6 lg:px-8 xl:px-10 transition-all duration-350 ease-out min-h-[70px] md:min-h-[80px]"
         >
           {/* Logo link */}
-          <Link to="/#home" className="shrink-0 flex items-center">
+          <Link to="/" className="shrink-0 flex items-center">
             <img
               src={logo}
               alt="Open Sky Holidays"
@@ -108,8 +108,8 @@ export function Header() {
                 const parentActive = isParentActive(item);
                 return (
                   <div key={item.label} className="relative group flex items-center h-full py-4">
-                    <button
-                      type="button"
+                    <Link
+                      to={item.href}
                       className={`flex items-center gap-1.5 whitespace-nowrap text-[13px] lg:text-[13.5px] xl:text-[14.5px] font-semibold tracking-[0.02em] transition-colors duration-250 cursor-pointer focus:outline-none ${parentActive
                         ? "text-[#0853a4]"
                         : "text-[#100c08] hover:text-[#0853a4]"
@@ -117,7 +117,8 @@ export function Header() {
                     >
                       {item.label}
                       <ChevronDownIcon className={`h-4 w-4 transition-transform duration-250 group-hover:rotate-180 text-slate-500 group-hover:text-[#0853a4] ${parentActive ? 'text-[#0853a4]' : ''}`} />
-                    </button>
+                    </Link>
+
 
                     {/* Dropdown menu panel */}
                     <div className="absolute left-1/2 -translate-x-1/2 top-full pt-4 w-56 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform -translate-y-2 group-hover:translate-y-0 z-50 pointer-events-none group-hover:pointer-events-auto">
@@ -234,7 +235,7 @@ export function Header() {
       >
         {/* Drawer Header */}
         <div className="flex items-center justify-between px-5 py-4 border-b border-slate-100">
-          <Link to="/#home" className="flex items-center" onClick={() => setMobileMenuOpen(false)}>
+          <Link to="/" className="flex items-center" onClick={() => setMobileMenuOpen(false)}>
             <img
               src={logo}
               alt="Open Sky Holidays"
@@ -263,23 +264,29 @@ export function Header() {
                 const parentActive = isParentActive(item);
                 return (
                   <div key={item.label} className="flex flex-col">
-                    <button
-                      type="button"
-                      onClick={() => setOpenDropdown(isOpen ? null : item.label)}
-                      className={`flex items-center justify-between w-full rounded-lg px-4 py-3 text-[15px] font-semibold transition-all cursor-pointer focus:outline-none ${parentActive
-                        ? "bg-[#0853a4]/10 text-[#0853a4]"
-                        : "text-[#100c08] hover:bg-slate-50 hover:text-[#0853a4]"
-                        }`}
-                    >
-                      <span>{item.label}</span>
-                      <ChevronDownIcon
-                        className={`h-4 w-4 text-slate-500 transition-transform duration-300 ${isOpen ? 'rotate-180 text-[#0853a4]' : ''} ${parentActive ? 'text-[#0853a4]' : ''}`}
-                      />
-                    </button>
+                    <div className="flex items-center justify-between w-full rounded-lg px-4 py-3 text-[15px] font-semibold transition-all">
+                      <Link
+                        to={item.href}
+                        onClick={() => setMobileMenuOpen(false)}
+                        className={`${parentActive ? "text-[#0853a4]" : "text-[#100c08] hover:text-[#0853a4]"}`}
+                      >
+                        {item.label}
+                      </Link>
+                      <button
+                        type="button"
+                        onClick={() => setOpenDropdown(isOpen ? null : item.label)}
+                        className="p-1 text-slate-500 cursor-pointer focus:outline-none"
+                        aria-label={`Toggle ${item.label} sub-menu`}
+                      >
+                        <ChevronDownIcon
+                          className={`h-4 w-4 transition-transform duration-300 ${isOpen ? 'rotate-180 text-[#0853a4]' : ''} ${parentActive ? 'text-[#0853a4]' : ''}`}
+                        />
+                      </button>
+                    </div>
 
                     {/* Dropdown collapsible panel */}
                     <div
-                      className={`overflow-hidden transition-all duration-300 ease-in-out pl-4 ${isOpen ? 'max-h-40 opacity-100 py-1' : 'max-h-0 opacity-0 pointer-events-none'
+                      className={`overflow-hidden transition-all duration-300 ease-in-out pl-4 ${isOpen ? 'max-h-48 opacity-100 py-1' : 'max-h-0 opacity-0 pointer-events-none'
                         }`}
                     >
                       <div className="flex flex-col gap-0.5 border-l border-slate-100 ml-4 pl-3">
@@ -307,6 +314,7 @@ export function Header() {
                   </div>
                 );
               }
+
 
               const linkActive = isPathActive(item.href);
               return (

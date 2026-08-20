@@ -75,7 +75,7 @@ export function Footer() {
                   { label: "About Us", href: "/about" },
                   { label: "Domestic Tours", href: "/tours/domestic" },
                   { label: "International Tours", href: "/tours/international" },
-                  { label: "Services", href: "/about#services" },
+                  { label: "Services", href: "/services" },
                   { label: "Blogs", href: "/blogs" },
                   { label: "Contact Us", href: "/contact" },
                 ].map((item) => (
@@ -197,24 +197,20 @@ export function Footer() {
                     </span>
 
                     <span className="mt-1 block text-[14px] leading-6 text-white font-rubik">
-                      #1-11-110, Shyamlal Building, Begumpet, Hyderabad - 500
-                      018
+                      #1-11-110, Shyamlal Building, Begumpet, Hyderabad - 500 018
                     </span>
                   </span>
                 </a>
               </div>
             </div>
           </div>
-
-
         </div>
 
         {/* COPYRIGHT BAR */}
         <div className="relative border-t border-white/10 bg-black/20">
           <div className="mx-auto flex max-w-[1320px] flex-col items-center justify-between gap-4 px-5 py-5 text-center sm:px-8 md:flex-row md:text-left">
             <p className="text-[13px] text-white/85">
-              © {new Date().getFullYear()} Open Sky Holidays. All Rights
-              Reserved.
+              © {new Date().getFullYear()} Open Sky Holidays. All Rights Reserved.
             </p>
 
             <div className="flex items-center gap-6">
