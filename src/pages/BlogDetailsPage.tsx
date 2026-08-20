@@ -3,8 +3,10 @@ import { useParams, Link } from 'react-router-dom';
 import { blogsApi } from '../api/blogsApi';
 import { blogPosts } from '../data';
 import { ScrollReveal } from '../components/ui/ScrollReveal';
-import { Loader2 } from 'lucide-react';
+import { BlogDetailsSkeleton } from '../components/ui/Skeletons';
 import breadcrumbImg from '../assets/breadcrumb.png';
+
+
 
 export function BlogDetailsPage() {
   const { id } = useParams<{ id: string }>();
@@ -53,13 +55,9 @@ export function BlogDetailsPage() {
   }, [id]);
 
   if (loading) {
-    return (
-      <div className="flex min-h-[60vh] flex-col items-center justify-center text-center px-4 font-jost">
-        <Loader2 size={40} className="animate-spin text-[#0853a4]" />
-        <p className="mt-4 font-rubik text-base font-semibold text-slate-700">Loading Blog Details...</p>
-      </div>
-    );
+    return <BlogDetailsSkeleton />;
   }
+
 
   if (!post) {
     return (

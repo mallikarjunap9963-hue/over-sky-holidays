@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react"
 import { Link, useSearchParams } from "react-router-dom"
-import { MapPin, ArrowRight, Loader2, AlertCircle } from "lucide-react"
+import { MapPin, ArrowRight, AlertCircle } from "lucide-react"
 import { toursApi } from "../api/toursApi"
 import { attractionPackages } from "../data"
 import { ScrollReveal } from "../components/ui/ScrollReveal"
+import { TourGridSkeleton } from "../components/ui/Skeletons"
 import breadcrumbImg from "../assets/breadcrumb.png"
 
 export function DomesticToursPage() {
@@ -176,13 +177,9 @@ export function DomesticToursPage() {
       {/* TOUR GRID LIST */}
       <section className="mx-auto max-w-[1320px] px-5 py-16 sm:px-8 lg:px-10">
         {loading ? (
-          <div className="flex min-h-[300px] flex-col items-center justify-center py-20 text-center">
-            <Loader2 size={36} className="animate-spin text-[#0853a4]" />
-            <p className="mt-4 font-rubik text-base font-semibold text-slate-700">
-              Loading domestic tour packages...
-            </p>
-          </div>
+          <TourGridSkeleton count={6} />
         ) : tours.length === 0 ? (
+
           <div className="flex min-h-[300px] flex-col items-center justify-center rounded-2xl border border-dashed border-slate-200 bg-white p-12 text-center">
             <AlertCircle size={40} className="text-slate-400" />
             <h3 className="mt-4 font-rubik text-xl font-bold text-slate-800">

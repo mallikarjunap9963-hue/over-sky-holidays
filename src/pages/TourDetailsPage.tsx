@@ -5,14 +5,15 @@ import {
   type FormEvent,
 } from "react"
 import { Link, useParams } from "react-router-dom"
-import { Loader2 } from "lucide-react"
 import { toursApi } from "../api/toursApi"
+
 import { attractionPackages, experienceItems } from "../data"
 import { getTourDetailInfo } from "../data/tourDetailsData"
 import { getPlaceImage } from "../data/placeImages"
 import type { BookingFormData } from "../types/tours"
 import { formatCategoryName, getInclusionTitle, getInclusionIcon } from "../utils/tourHelpers"
 import SectionHeading from "../components/ui/SectionHeading"
+import { TourDetailsSkeleton } from "../components/ui/Skeletons"
 import TourBookingForm from "../components/sections/TourBookingForm"
 import TourDetailsHero from "../components/sections/tour-details/TourDetailsHero"
 import PlacesCovered from "../components/sections/tour-details/PlacesCovered"
@@ -280,15 +281,9 @@ export default function TourDetailsPage() {
   }, [galleryImages, placesCovered])
 
   if (loading) {
-    return (
-      <main className="flex min-h-[70vh] flex-col items-center justify-center bg-white px-5 text-center font-jost">
-        <Loader2 size={40} className="animate-spin text-[#0853a4]" />
-        <h2 className="mt-4 font-rubik text-xl font-bold text-slate-800">
-          Loading Tour Details...
-        </h2>
-      </main>
-    )
+    return <TourDetailsSkeleton />
   }
+
 
   if (!tour || !detail) {
     return (

@@ -2,6 +2,8 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { blogsApi } from '../../api/blogsApi';
 import { blogPosts } from '../../data';
+import { BlogGridSkeleton } from '../ui/Skeletons';
+
 import { Canvas, useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import { motion, useInView } from 'framer-motion';
@@ -261,10 +263,12 @@ export function Blogs({ showAll = false }: { showAll?: boolean }) {
   const isInView = useInView(sectionRef, { once: true, amount: 0.15 });
 
   const [blogs, setBlogs] = useState<any[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     let isMounted = true;
     async function loadBlogs() {
+      setLoading(true);
       try {
         const res = await blogsApi.getBlogs();
         if (!isMounted) return;
@@ -278,8 +282,11 @@ export function Blogs({ showAll = false }: { showAll?: boolean }) {
         if (!isMounted) return;
         console.error("Failed to fetch blogs:", err);
         setBlogs(blogPosts);
+      } finally {
+        if (isMounted) setLoading(false);
       }
     }
+
 
 
     loadBlogs();
@@ -389,11 +396,18 @@ export function Blogs({ showAll = false }: { showAll?: boolean }) {
           </div>
 
           {/* Blog cards grid — 3 or more cards with Framer Motion + GSAP tilt */}
-          <div className="mt-14 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {displayedBlogs.map((post, index) => (
-              <BlogCard key={post.id} post={post} index={index} />
-            ))}
-          </div>
+          {loading ? (
+            <div className="mt-14">
+              <BlogGridSkeleton count={3} />
+            </div>
+          ) : (
+            <div className="mt-14 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+              {displayedBlogs.map((post, index) => (
+                <BlogCard key={post.id} post={post} index={index} />
+              ))}
+            </div>
+          )}
+
 
           {/* Explore More Button */}
           {!showAll && (
