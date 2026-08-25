@@ -1,8 +1,10 @@
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ScrollReveal } from '../ui/ScrollReveal';
+import { contentApi } from '../../api/contentApi';
 import aboutUsWhyChooseUsImg from '../../assets/about us -why choose us.png';
 
-const reasons = [
+const defaultReasons = [
   {
     title: '24/7 Expert Support',
     desc: 'Our travel assistants are always available to help you navigate queries or itinerary shifts, anytime, anywhere.',
@@ -45,6 +47,30 @@ const reasons = [
 ];
 
 export function AboutWhyUs() {
+  const [reasons, setReasons] = useState<any[]>(defaultReasons);
+
+  useEffect(() => {
+    let isMounted = true;
+    async function loadWhyUs() {
+      try {
+        const res = await contentApi.getWhyChooseSectionsActive();
+        if (isMounted && res.isLive && res.items.length > 0) {
+          const mapped = res.items.map((item: any, i: number) => ({
+            title: item.heading || item.title || defaultReasons[i % defaultReasons.length].title,
+            desc: item.description || item.sub_heading || defaultReasons[i % defaultReasons.length].desc,
+            icon: defaultReasons[i % defaultReasons.length].icon,
+          }));
+          setReasons(mapped);
+        }
+      } catch (err) {
+        console.error("Error loading why choose us API:", err);
+      }
+    }
+    loadWhyUs();
+    return () => {
+      isMounted = false;
+    };
+  }, []);
   return (
     <section
       id="why-choose-us"

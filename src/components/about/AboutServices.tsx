@@ -1,5 +1,6 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
+import { contentApi } from "../../api/contentApi"
 import { ScrollReveal } from "../ui/ScrollReveal"
 import { BookingModal } from "../ui/BookingModal"
 
@@ -269,8 +270,37 @@ function CompactServiceCard({
 
 export function AboutServices() {
   const [modalOpen, setModalOpen] = useState(false)
-  const featuredServices = services.filter((service) => service.featured)
-  const compactServices = services.filter((service) => !service.featured)
+  const [servicesList, setServicesList] = useState<ServiceItem[]>(services)
+
+  useEffect(() => {
+    let isMounted = true
+    async function loadOffers() {
+      try {
+        const res = await contentApi.getWhatWeOffers()
+        if (isMounted && res.isLive && res.items.length > 0) {
+          const mapped = res.items.map((item: any, i: number) => ({
+            number: `0${i + 1}`,
+            title: item.title || services[i % services.length].title,
+            subtitle: item.subtitle || item.sub_title || services[i % services.length].subtitle,
+            description: item.description || services[i % services.length].description,
+            image: item.image_url || item.image || services[i % services.length].image,
+            icon: services[i % services.length].icon,
+            featured: i < 2,
+          }))
+          setServicesList(mapped)
+        }
+      } catch (err) {
+        console.error("Error loading what we offer API:", err)
+      }
+    }
+    loadOffers()
+    return () => {
+      isMounted = false
+    }
+  }, [])
+
+  const featuredServices = servicesList.filter((service) => service.featured)
+  const compactServices = servicesList.filter((service) => !service.featured)
 
   return (
     <>

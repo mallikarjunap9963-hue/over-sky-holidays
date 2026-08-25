@@ -6,7 +6,7 @@ import {
   Plane,
   type LucideIcon,
 } from "lucide-react"
-
+import { contentApi } from "../../api/contentApi"
 import { ScrollReveal } from "../ui/ScrollReveal"
 
 interface StatItem {
@@ -16,7 +16,7 @@ interface StatItem {
   icon: LucideIcon
 }
 
-const stats: StatItem[] = [
+const defaultStats: StatItem[] = [
   {
     value: 10250,
     suffix: "+",
@@ -119,7 +119,7 @@ function StatCard({
       </p>
 
       {/* Desktop divider */}
-      {index !== stats.length - 1 && (
+      {index !== 3 && (
         <span className="absolute right-0 top-1/2 hidden h-[80px] w-px -translate-y-1/2 bg-gradient-to-b from-transparent via-white/30 to-transparent lg:block" />
       )}
     </div>
@@ -129,6 +129,32 @@ function StatCard({
 export function AboutStats() {
   const sectionRef = useRef<HTMLElement | null>(null)
   const [started, setStarted] = useState(false)
+  const [statsList, setStatsList] = useState<StatItem[]>(defaultStats)
+
+  useEffect(() => {
+    let isMounted = true
+    async function loadCounters() {
+      try {
+        const res = await contentApi.getCounters()
+        if (isMounted && res.isLive && res.counters.length > 0) {
+          const icons = [Plane, Palmtree, Globe2, BusFront]
+          const mapped = res.counters.map((item: any, i: number) => ({
+            value: Number(item.count || item.number || item.value) || 100,
+            suffix: item.suffix || "+",
+            label: item.title || item.label || item.name || "Achievement",
+            icon: icons[i % icons.length],
+          }))
+          setStatsList(mapped)
+        }
+      } catch (err) {
+        console.error("Error loading counters API:", err)
+      }
+    }
+    loadCounters()
+    return () => {
+      isMounted = false
+    }
+  }, [])
 
   useEffect(() => {
     const currentSection = sectionRef.current
@@ -199,74 +225,12 @@ export function AboutStats() {
       <div className="absolute inset-x-0 top-0 h-20 bg-gradient-to-b from-[#041e45]/35 to-transparent" />
       <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[#041e45]/35 to-transparent" />
 
-      {/* Decorative tropical leaf */}
-      <div className="pointer-events-none absolute -right-10 -top-32 hidden h-[430px] w-[520px] rotate-[-7deg] opacity-25 lg:block">
-        <svg
-          viewBox="0 0 500 420"
-          fill="none"
-          className="h-full w-full"
-          aria-hidden="true"
-        >
-          <path
-            d="M460 5C373 85 297 181 239 405"
-            stroke="#071b51"
-            strokeWidth="18"
-            strokeLinecap="round"
-          />
-
-          <path
-            d="M438 39C372 31 318 10 276 -22C302 54 339 91 399 99"
-            fill="#071b51"
-          />
-
-          <path
-            d="M405 78C328 91 268 79 212 48C252 117 305 144 372 134"
-            fill="#071b51"
-          />
-
-          <path
-            d="M366 124C286 154 218 151 150 126C203 190 267 207 333 181"
-            fill="#071b51"
-          />
-
-          <path
-            d="M326 180C246 226 174 234 95 221C159 277 227 280 294 239"
-            fill="#071b51"
-          />
-
-          <path
-            d="M289 238C218 300 147 324 62 327C139 367 208 352 264 296"
-            fill="#071b51"
-          />
-
-          <path
-            d="M458 18C469 79 462 129 433 177C416 111 423 64 458 18Z"
-            fill="#071b51"
-          />
-
-          <path
-            d="M424 71C442 141 435 198 402 253C379 183 386 125 424 71Z"
-            fill="#071b51"
-          />
-
-          <path
-            d="M386 129C405 202 393 264 354 322C337 242 348 183 386 129Z"
-            fill="#071b51"
-          />
-
-          <path
-            d="M343 194C356 271 335 334 287 391C282 310 300 245 343 194Z"
-            fill="#071b51"
-          />
-        </svg>
-      </div>
-
       <ScrollReveal variant="fade-in" delay={100} duration={1300}>
         <div className="relative mx-auto max-w-[1540px] px-5 sm:px-8 lg:px-10">
           <div className="grid grid-cols-2 lg:grid-cols-4">
-            {stats.map((stat, index) => (
+            {statsList.map((stat, index) => (
               <StatCard
-                key={stat.label}
+                key={`${stat.label}-${index}`}
                 stat={stat}
                 started={started}
                 index={index}
