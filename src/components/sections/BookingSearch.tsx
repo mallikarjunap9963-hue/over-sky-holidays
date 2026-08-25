@@ -1,18 +1,46 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import type { FormEvent } from 'react';
 import type { SearchTab } from '../../types';
-import { searchTabs, attractionPackages } from '../../data';
+import { searchTabs } from '../../data';
+import { toursApi } from '../../api/toursApi';
 import { LocationIcon, BookingTabIcon, CategoryIcon } from '../icons/Icons';
 import { SearchSelect } from '../ui/SearchSelect';
 import { SearchDatePicker } from '../ui/SearchDatePicker';
-
 
 export function BookingSearch() {
   const navigate = useNavigate();
   const [activeSearchTab, setActiveSearchTab] = useState<SearchTab>("Domestic");
   const [destination, setDestination] = useState<string>("Select Destination");
   const [travelDate, setTravelDate] = useState<string>("");
+
+  const [domesticTitles, setDomesticTitles] = useState<string[]>([]);
+  const [internationalTitles, setInternationalTitles] = useState<string[]>([]);
+
+  useEffect(() => {
+    let isMounted = true;
+    async function loadTourTitles() {
+      try {
+        const [domRes, intRes] = await Promise.all([
+          toursApi.getDomesticTours(),
+          toursApi.getInternationalTours(),
+        ]);
+        if (!isMounted) return;
+        if (domRes.tours) {
+          setDomesticTitles(domRes.tours.map((t) => t.title));
+        }
+        if (intRes.tours) {
+          setInternationalTitles(intRes.tours.map((t) => t.title));
+        }
+      } catch (err) {
+        console.error("Error loading titles for search:", err);
+      }
+    }
+    loadTourTitles();
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   const handleSearch = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -30,23 +58,21 @@ export function BookingSearch() {
   if (activeSearchTab === "Domestic") {
     destinationOptions = [
       "Select Destination",
-      ...attractionPackages.Domestic.map((tour) => tour.title),
+      ...(domesticTitles.length > 0 ? domesticTitles : ["Goa", "Kerala", "Shimla", "Manali", "Kashmir"]),
     ];
   } else if (activeSearchTab === "International") {
     destinationOptions = [
       "Select Destination",
-      ...attractionPackages.International.map((tour) => tour.title),
+      ...(internationalTitles.length > 0 ? internationalTitles : ["Dubai", "Maldives", "Singapore", "Bali", "Thailand"]),
     ];
   } else {
-    // Fallback options if it's Visa, Flight Tickets, etc.
     destinationOptions = [
       "Select Destination",
       "Goa",
-      "Kullu - Manali & Shimla",
       "Kerala",
       "Dubai",
       "Maldives",
-      "Singapore & Malaysia",
+      "Singapore",
     ];
   }
 

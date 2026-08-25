@@ -1,5 +1,4 @@
 import { apiClient } from './apiClient';
-import { blogPosts } from '../data';
 
 export const blogService = {
   async getBlogs(params?: { category?: string; search?: string; per_page?: number }) {
@@ -12,8 +11,8 @@ export const blogService = {
           slug: b.slug,
           excerpt: b.short_description || b.content?.substring(0, 150) + '...',
           content: b.content,
-          image: b.image_url || b.image || blogPosts[0]?.imageUrl || '',
-          imageUrl: b.image_url || b.image || blogPosts[0]?.imageUrl || '',
+          image: b.image_url || b.image || '',
+          imageUrl: b.image_url || b.image || '',
           date: b.created_at ? new Date(b.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : 'Recent',
           author: b.author_name || 'Travel Expert',
           category: b.category_name || 'Destination Guide',
@@ -21,7 +20,7 @@ export const blogService = {
         isLive: true,
       };
     }
-    return { blogs: blogPosts, isLive: false };
+    return { blogs: [], isLive: false };
   },
 
   async getBlogBySlugOrId(identifier: string | number) {
@@ -35,8 +34,8 @@ export const blogService = {
           slug: b.slug,
           excerpt: b.short_description || b.content?.substring(0, 150) + '...',
           content: b.content,
-          image: b.image_url || b.image || blogPosts[0]?.imageUrl || '',
-          imageUrl: b.image_url || b.image || blogPosts[0]?.imageUrl || '',
+          image: b.image_url || b.image || '',
+          imageUrl: b.image_url || b.image || '',
           date: b.created_at ? new Date(b.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : 'Recent',
           author: b.author_name || 'Travel Expert',
           category: b.category_name || 'Destination Guide',
@@ -45,7 +44,6 @@ export const blogService = {
       };
     }
 
-    const fallback = blogPosts.find((p: any) => p.id === Number(identifier) || p.slug === String(identifier));
-    return { blog: fallback || null, isLive: false };
+    return { blog: null, isLive: false };
   },
 };

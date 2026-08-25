@@ -3,9 +3,6 @@ import { Canvas, useFrame, useLoader, useThree } from '@react-three/fiber';
 import { OrbitControls, Html, Sphere, Float } from '@react-three/drei';
 import { useNavigate } from 'react-router-dom';
 import * as THREE from 'three';
-
-import { attractionPackages } from '../../data';
-
 const GLOBE_RADIUS = 2.5;
 
 // Convert Lat/Lon to 3D Cartesian coordinates
@@ -20,50 +17,13 @@ function getPosFromLatLon(lat: number, lon: number, radius: number) {
   return new THREE.Vector3(x, y, z);
 }
 
-const countryCoordinates: Record<string, { lat: number, lon: number, name: string }> = {
-  "INDIA": { lat: 22.5937, lon: 78.9629, name: "India" },
-  "UAE": { lat: 25.2048, lon: 55.2708, name: "UAE" },
-  "SINGAPORE": { lat: 1.3521, lon: 103.8198, name: "Singapore" },
-  "THAILAND": { lat: 15.5000, lon: 98.5000, name: "Thailand" },
-  "NEPAL": { lat: 29.5000, lon: 81.0000, name: "Nepal" },
-  "USA": { lat: 38.9072, lon: -77.0369, name: "USA" },
-  "UNITED KINGDOM": { lat: 51.5072, lon: -0.1276, name: "United Kingdom" },
-  "ASIA EXPLORER": { lat: 12.5000, lon: 109.5000, name: "Vietnam & Cambodia" },
-  "HONG KONG": { lat: 22.3193, lon: 114.1694, name: "Hong Kong" },
-  "GREECE": { lat: 36.3932, lon: 25.4615, name: "Greece" },
-  "BHUTAN": { lat: 27.5000, lon: 92.5000, name: "Bhutan" },
-  "MALDIVES": { lat: 4.1755, lon: 73.5093, name: "Maldives" },
-  "INDONESIA": { lat: -8.4095, lon: 115.1889, name: "Indonesia" },
-  "SRI LANKA": { lat: 7.8731, lon: 80.7718, name: "Sri Lanka" }
-};
-
-const allTours = [...attractionPackages.Domestic, ...attractionPackages.International];
-
-const uniqueCountriesMap = new Map();
-
-allTours.forEach(tour => {
-  const isDomestic = attractionPackages.Domestic.some(d => d.id === tour.id && d.title === tour.title);
-  const countryCode = isDomestic ? "INDIA" : tour.country;
-
-  if (!uniqueCountriesMap.has(countryCode)) {
-    const coords = countryCoordinates[countryCode];
-    if (coords) {
-      uniqueCountriesMap.set(countryCode, {
-        id: tour.id.toString() + countryCode,
-        name: coords.name,
-        desc: "Country",
-        lat: coords.lat,
-        lon: coords.lon,
-        img: tour.image,
-        isHub: false
-      });
-    }
-  }
-});
-
 const locations = [
   { id: 'hyderabad', name: 'Hyderabad', desc: 'Main Hub', lat: 17.3850, lon: 78.4867, isHub: true, img: '' },
-  ...Array.from(uniqueCountriesMap.values())
+  { id: 'india', name: 'India', desc: 'Domestic', lat: 22.5937, lon: 78.9629, isHub: false, img: '' },
+  { id: 'uae', name: 'UAE', desc: 'International', lat: 25.2048, lon: 55.2708, isHub: false, img: '' },
+  { id: 'maldives', name: 'Maldives', desc: 'International', lat: 4.1755, lon: 73.5093, isHub: false, img: '' },
+  { id: 'singapore', name: 'Singapore', desc: 'International', lat: 1.3521, lon: 103.8198, isHub: false, img: '' },
+  { id: 'thailand', name: 'Thailand', desc: 'International', lat: 15.5000, lon: 98.5000, isHub: false, img: '' },
 ];
 
 // Precompute local positions of all pins to check visibility dynamically
