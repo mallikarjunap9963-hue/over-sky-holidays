@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { blogsApi } from '../api/blogsApi';
-import { blogPosts } from '../data';
 import { ScrollReveal } from '../components/ui/ScrollReveal';
 import { BlogDetailsSkeleton } from '../components/ui/Skeletons';
 import breadcrumbImg from '../assets/breadcrumb.png';
@@ -25,24 +24,21 @@ export function BlogDetailsPage() {
         const res = await blogsApi.getBlogBySlug(id);
         if (!isMounted) return;
 
-        if (res.isLive && res.blog) {
+        if (res.blog) {
           setPost(res.blog);
-          setRecentBlogs(res.recentBlogs.length > 0 ? res.recentBlogs : blogPosts.slice(0, 4));
-          setRelatedBlogs(res.relatedBlogs.length > 0 ? res.relatedBlogs : blogPosts.slice(0, 3));
+          setRecentBlogs(res.recentBlogs || []);
+          setRelatedBlogs(res.relatedBlogs || []);
         } else {
-          // Static fallback by ID or slug
-          const fallback = blogPosts.find((p) => String(p.id) === id || p.slug === id);
-          setPost(fallback || null);
-          setRecentBlogs(blogPosts.filter((p) => String(p.id) !== id).slice(0, 4));
-          setRelatedBlogs(blogPosts.filter((p) => String(p.id) !== id).slice(0, 3));
+          setPost(null);
+          setRecentBlogs([]);
+          setRelatedBlogs([]);
         }
       } catch (err) {
         if (!isMounted) return;
         console.error("Error loading blog details:", err);
-        const fallback = blogPosts.find((p) => String(p.id) === id || p.slug === id);
-        setPost(fallback || null);
-        setRecentBlogs(blogPosts.filter((p) => String(p.id) !== id).slice(0, 4));
-        setRelatedBlogs(blogPosts.filter((p) => String(p.id) !== id).slice(0, 3));
+        setPost(null);
+        setRecentBlogs([]);
+        setRelatedBlogs([]);
       } finally {
         if (isMounted) setLoading(false);
       }

@@ -1,11 +1,10 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { contentApi } from '../../api/contentApi';
-import { slides as staticSlides } from '../../data';
 import { ScrollReveal } from '../ui/ScrollReveal';
 
 export function Hero() {
-  const [heroSlides, setHeroSlides] = useState<any[]>(staticSlides);
+  const [heroSlides, setHeroSlides] = useState<any[]>([]);
   const [currentSlide, setCurrentSlide] = useState(0);
 
   useEffect(() => {
@@ -13,7 +12,7 @@ export function Hero() {
     async function loadHeroes() {
       try {
         const res = await contentApi.getHeroes();
-        if (isMounted && res.isLive && res.heroes.length > 0) {
+        if (isMounted && res.heroes && res.heroes.length > 0) {
           setHeroSlides(res.heroes);
         }
       } catch (err) {
@@ -35,7 +34,9 @@ export function Hero() {
     return () => window.clearInterval(intervalId);
   }, [heroSlides]);
 
-  const activeSlide = heroSlides[currentSlide] || heroSlides[0] || staticSlides[0];
+  const activeSlide = heroSlides[currentSlide] || heroSlides[0];
+
+  if (!activeSlide) return null;
 
   return (
     <>

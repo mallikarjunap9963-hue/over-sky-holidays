@@ -12,7 +12,7 @@ class BookingStore {
       try {
         fs.mkdirSync(dataDir, { recursive: true });
       } catch {
-        // ignore in serverless environments
+
       }
     }
     this.filePath = path.join(dataDir, 'bookings.json');
@@ -42,7 +42,6 @@ class BookingStore {
       const list = Array.from(this.bookings.values());
       fs.writeFileSync(this.filePath, JSON.stringify(list, null, 2), 'utf-8');
     } catch {
-      // ignore persistence errors in read-only / serverless envs
     }
   }
 

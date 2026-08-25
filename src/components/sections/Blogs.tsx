@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { blogsApi } from '../../api/blogsApi';
-import { blogPosts } from '../../data';
 import { BlogGridSkeleton } from '../ui/Skeletons';
 
 import { Canvas, useFrame } from '@react-three/fiber';
@@ -273,15 +272,15 @@ export function Blogs({ showAll = false }: { showAll?: boolean }) {
         const res = await blogsApi.getBlogs();
         if (!isMounted) return;
 
-        if (res.isLive && res.blogs.length > 0) {
+        if (res.blogs && res.blogs.length > 0) {
           setBlogs(res.blogs);
         } else {
-          setBlogs(blogPosts);
+          setBlogs([]);
         }
       } catch (err) {
         if (!isMounted) return;
         console.error("Failed to fetch blogs:", err);
-        setBlogs(blogPosts);
+        setBlogs([]);
       } finally {
         if (isMounted) setLoading(false);
       }

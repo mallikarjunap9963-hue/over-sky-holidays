@@ -1,18 +1,54 @@
 import { useState, useEffect } from 'react';
-import { safetySlides } from '../../data';
+import { contentApi } from '../../api/contentApi';
+import { safetySlides as defaultSlides } from '../../data';
 import { ScrollReveal } from '../ui/ScrollReveal';
 
 export function SafetySystems() {
-
+  const [slides, setSlides] = useState<any[]>(defaultSlides);
   const [activeSafetySlide, setActiveSafetySlide] = useState(0);
 
   useEffect(() => {
+    let isMounted = true;
+    async function loadProcesses() {
+      try {
+        const res = await contentApi.getOurProcessesActive();
+        if (isMounted && res.items && res.items.length > 0) {
+          const mapped = res.items.map((item: any, i: number) => ({
+            id: item.id || i,
+            subtitle: item.small_heading || "Our Process & Vision",
+            title: item.heading || "Travel Support At Every Step",
+            description: item.description || "We take full responsibility for planning, guidance and hassle-free arrangements.",
+            points: Array.isArray(item.promises) ? item.promises.map((p: any) => p.text || p) : [
+              "Hassle-free holiday arrangements",
+              "Verified travel partners & vehicles",
+              "Instant booking support & updates",
+              "End-to-end guidance from experts",
+            ],
+            image: defaultSlides[i % defaultSlides.length]?.image || defaultSlides[0].image,
+          }));
+          setSlides(mapped);
+        }
+      } catch (err) {
+        console.error("Error loading processes API:", err);
+      }
+    }
+    loadProcesses();
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  useEffect(() => {
+    if (slides.length === 0) return;
     const autoSlide = window.setInterval(() => {
-      setActiveSafetySlide((previous) => (previous + 1) % safetySlides.length);
+      setActiveSafetySlide((previous) => (previous + 1) % slides.length);
     }, 5000);
 
     return () => window.clearInterval(autoSlide);
-  }, []);
+  }, [slides]);
+
+  const current = slides[activeSafetySlide] || slides[0];
+  if (!current) return null;
 
   return (
     <>
@@ -45,7 +81,7 @@ export function SafetySystems() {
                   <span className="h-px w-9 bg-[#0853a4]" />
 
                   <p className="font-satisfy text-[24px] font-normal text-[#0853a4] capitalize">
-                    {safetySlides[activeSafetySlide].subtitle}
+                    {current.subtitle}
                   </p>
 
                   <span className="h-px w-9 bg-[#0853a4]" />
@@ -53,18 +89,18 @@ export function SafetySystems() {
 
                 {/* MAIN TITLE */}
                 <h2 className="mt-4 font-rubik text-[38px] font-bold leading-[1.15] tracking-[-0.02em] text-[#100c08] sm:text-[46px] lg:text-[52px]">
-                  {safetySlides[activeSafetySlide].title}
+                  {current.title}
                 </h2>
 
                 {/* DESCRIPTION */}
                 <p className="mt-6 max-w-[610px] text-[15px] leading-8 text-slate-600 sm:text-[16px] font-jost">
-                  {safetySlides[activeSafetySlide].description}
+                  {current.description}
                 </p>
 
                 {/* SAFETY POINTS */}
                 <div className="mt-9 grid gap-x-8 gap-y-6 sm:grid-cols-2 font-jost">
-                  {safetySlides[activeSafetySlide].points.map((point) => (
-                    <div key={point} className="flex items-center gap-3">
+                  {Array.isArray(current.points) && current.points.map((point: string, i: number) => (
+                    <div key={`${point}-${i}`} className="flex items-center gap-3">
                       <span className="h-2.5 w-2.5 shrink-0 rounded-full bg-[#0853a4]" />
 
                       <p className="text-[14px] font-semibold text-[#100c08] sm:text-[15px]">
@@ -74,22 +110,18 @@ export function SafetySystems() {
                   ))}
                 </div>
 
-
-
                 {/* SLIDER CONTROLS */}
                 <div className="mt-12 flex items-center gap-6">
                   <button
                     type="button"
                     onClick={() =>
                       setActiveSafetySlide((previous) =>
-                        previous === 0 ? safetySlides.length - 1 : previous - 1,
+                        previous === 0 ? slides.length - 1 : previous - 1,
                       )
                     }
                     className="flex items-center gap-3 text-[#0853a4] transition hover:text-[#100c08]"
                     aria-label="Previous safety slide"
                   >
-
-
                     <span className="h-px w-10 bg-current" />
                   </button>
 
@@ -101,7 +133,7 @@ export function SafetySystems() {
                     <span className="pb-1 text-[20px] text-slate-400">/</span>
 
                     <span className="pb-1 text-[20px] text-[#fbb03b]">
-                      {safetySlides.length}
+                      {slides.length}
                     </span>
                   </div>
 
@@ -109,15 +141,13 @@ export function SafetySystems() {
                     type="button"
                     onClick={() =>
                       setActiveSafetySlide(
-                        (previous) => (previous + 1) % safetySlides.length,
+                        (previous) => (previous + 1) % slides.length,
                       )
                     }
                     className="flex items-center gap-3 text-[#0853a4] transition hover:text-[#100c08]"
                     aria-label="Next safety slide"
                   >
                     <span className="h-px w-10 bg-current" />
-
-
                   </button>
                 </div>
               </div>
@@ -129,9 +159,9 @@ export function SafetySystems() {
               duration={1400}
               className="relative min-h-[340px] sm:min-h-[400px] lg:min-h-[480px] overflow-hidden h-full"
             >
-              {safetySlides.map((slide, index) => (
+              {slides.map((slide, index) => (
                 <img
-                  key={slide.id}
+                  key={slide.id || index}
                   src={slide.image}
                   alt={slide.title}
                   loading="lazy"

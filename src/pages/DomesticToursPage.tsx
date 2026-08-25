@@ -2,7 +2,6 @@ import { useState, useEffect } from "react"
 import { Link, useSearchParams } from "react-router-dom"
 import { MapPin, ArrowRight, AlertCircle } from "lucide-react"
 import { toursApi } from "../api/toursApi"
-import { attractionPackages } from "../data"
 import { ScrollReveal } from "../components/ui/ScrollReveal"
 import { TourGridSkeleton } from "../components/ui/Skeletons"
 import breadcrumbImg from "../assets/breadcrumb.png"
@@ -13,21 +12,24 @@ export function DomesticToursPage() {
 
   const [tours, setTours] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     let isMounted = true;
     async function loadDomesticTours() {
       setLoading(true);
+      setError(null);
       try {
         const res = await toursApi.getDomesticTours();
         if (!isMounted) return;
 
-
-        let toursList = res.tours;
-        if (!res.isLive || toursList.length === 0) {
-          // Graceful fallback to static data if live API has no domestic tours yet
-          toursList = attractionPackages.Domestic as any[];
+        if (res.error) {
+          setError(res.error);
+          setTours([]);
+          return;
         }
+
+        let toursList = res.tours || [];
 
         if (searchDestination) {
           const query = searchDestination.toLowerCase();
@@ -43,17 +45,11 @@ export function DomesticToursPage() {
       } catch (err: any) {
         if (!isMounted) return;
         console.error("Failed to fetch domestic tours:", err);
-        // Fallback to static data on error
-        let fallback = attractionPackages.Domestic as any[];
-        if (searchDestination) {
-          const query = searchDestination.toLowerCase();
-          fallback = fallback.filter((tour) => tour.title.toLowerCase().includes(query));
-        }
-        setTours(fallback);
+        setError("Unable to load domestic tours. Please try again later.");
+        setTours([]);
       } finally {
         if (isMounted) setLoading(false);
       }
-
     }
 
     loadDomesticTours();
@@ -178,22 +174,26 @@ export function DomesticToursPage() {
       <section className="mx-auto max-w-[1320px] px-5 py-16 sm:px-8 lg:px-10">
         {loading ? (
           <TourGridSkeleton count={6} />
+        ) : error ? (
+          <div className="flex min-h-[300px] flex-col items-center justify-center rounded-2xl border border-dashed border-red-200 bg-red-50/50 p-12 text-center">
+            <AlertCircle size={40} className="text-red-500" />
+            <h3 className="mt-4 font-rubik text-xl font-bold text-slate-800">
+              Unable to Load Domestic Tours
+            </h3>
+            <p className="mt-2 font-jost text-sm text-slate-600 max-w-md">
+              {error}
+            </p>
+          </div>
         ) : tours.length === 0 ? (
 
           <div className="flex min-h-[300px] flex-col items-center justify-center rounded-2xl border border-dashed border-slate-200 bg-white p-12 text-center">
             <AlertCircle size={40} className="text-slate-400" />
             <h3 className="mt-4 font-rubik text-xl font-bold text-slate-800">
-              No Domestic Tours Found
+              No Domestic Tours Available
             </h3>
             <p className="mt-2 font-jost text-sm text-slate-500">
-              We couldn't find any domestic tour matching your criteria.
+              No domestic tours are currently listed in the system.
             </p>
-            <Link
-              to="/tours/domestic"
-              className="mt-6 rounded-full bg-[#0853a4] px-6 py-2.5 font-rubik text-xs font-bold text-white transition hover:bg-[#064a8f]"
-            >
-              View All Domestic Tours
-            </Link>
           </div>
         ) : (
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">

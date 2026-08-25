@@ -7,8 +7,6 @@ import {
 import { Link, useParams } from "react-router-dom"
 import { toursApi } from "../api/toursApi"
 
-import { attractionPackages, experienceItems } from "../data"
-import { getTourDetailInfo } from "../data/tourDetailsData"
 import { getPlaceImage } from "../data/placeImages"
 import type { BookingFormData } from "../types/tours"
 import { formatCategoryName, getInclusionTitle, getInclusionIcon } from "../utils/tourHelpers"
@@ -56,49 +54,10 @@ export default function TourDetailsPage() {
         const res = await toursApi.getTourById(id)
         if (!isMounted) return
 
-        if (res.isLive && res.tour) {
+        if (res.tour) {
           setTour(res.tour)
         } else {
-          // Static fallback if API does not have this tour ID
-          const idNum = Number.parseInt(id, 10)
-          let fallbackTour: any = null
-
-          if (type === "packages") {
-            fallbackTour = experienceItems["Tour Packages"]?.find((item: any) => item.id === idNum)
-          } else {
-            const categoryKey = Object.keys(attractionPackages).find(
-              (key) => key.toLowerCase() === type?.toLowerCase()
-            )
-            if (categoryKey) {
-              fallbackTour = (attractionPackages as any)[categoryKey]?.find(
-                (item: any) => item.id === idNum
-              )
-            }
-            if (!fallbackTour) {
-              fallbackTour = [...attractionPackages.Domestic, ...attractionPackages.International].find(
-                (item: any) => item.id === idNum || String(item.id) === id
-              )
-            }
-          }
-
-          if (fallbackTour) {
-            const detail = getTourDetailInfo(
-              type || "",
-              idNum,
-              fallbackTour.title || fallbackTour.tourType || "",
-              fallbackTour.locations || [],
-              fallbackTour.duration || "",
-              fallbackTour.price || "",
-              fallbackTour.country || "",
-              fallbackTour.image || ""
-            )
-            setTour({
-              ...fallbackTour,
-              detail,
-            })
-          } else {
-            setTour(null)
-          }
+          setTour(null)
         }
       } catch (err) {
         if (!isMounted) return

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import type { AttractionTab } from '../../types';
-import { attractionTabs, attractionPackages } from '../../data';
+import { attractionTabs } from '../../data';
 import { toursApi } from '../../api/toursApi';
 import { ScrollReveal } from '../ui/ScrollReveal';
 import { BookingModal } from '../ui/BookingModal';
@@ -19,16 +19,16 @@ export function EliteTouristAttractions() {
     async function fetchLiveTours() {
       try {
         const [domRes, intRes] = await Promise.all([
-          toursApi.getTours({ tour_type_id: 2 }),
-          toursApi.getTours({ tour_type_id: 3 }),
+          toursApi.getDomesticTours(),
+          toursApi.getInternationalTours(),
         ]);
         if (!isMounted) return;
 
-        if (domRes.isLive && domRes.tours.length > 0) {
-          setDomesticApiPackages(domRes.tours);
+        if (domRes.isLive) {
+          setDomesticApiPackages(domRes.tours || []);
         }
-        if (intRes.isLive && intRes.tours.length > 0) {
-          setInternationalApiPackages(intRes.tours);
+        if (intRes.isLive) {
+          setInternationalApiPackages(intRes.tours || []);
         }
       } catch (err) {
         console.error("Failed to fetch live tours for homepage attractions:", err);
@@ -42,8 +42,8 @@ export function EliteTouristAttractions() {
   }, []);
 
   const selectedAttractionPackages = activeAttractionTab === "Domestic"
-    ? (domesticApiPackages.length > 0 ? domesticApiPackages : attractionPackages.Domestic)
-    : (internationalApiPackages.length > 0 ? internationalApiPackages : attractionPackages.International);
+    ? domesticApiPackages
+    : internationalApiPackages;
 
   // Auto-scroll continuously through packages
   useEffect(() => {
@@ -56,10 +56,12 @@ export function EliteTouristAttractions() {
     return () => window.clearInterval(autoSlider);
   }, [selectedAttractionPackages]);
 
-  const visibleAttractionPackages = Array.from(
-    { length: Math.min(3, selectedAttractionPackages.length) },
-    (_, offset) => selectedAttractionPackages[(attractionSlide + offset) % selectedAttractionPackages.length]
-  );
+  const visibleAttractionPackages = selectedAttractionPackages.length > 0
+    ? Array.from(
+        { length: Math.min(3, selectedAttractionPackages.length) },
+        (_, offset) => selectedAttractionPackages[(attractionSlide + offset) % selectedAttractionPackages.length]
+      )
+    : [];
 
 
   const selectAttractionTab = (tab: AttractionTab) => {
@@ -134,11 +136,17 @@ export function EliteTouristAttractions() {
           </ScrollReveal>
 
           {/* Package cards with auto-scroll */}
-          <div
-            key={`${activeAttractionTab}-${attractionSlide}`}
-            className="mt-12 grid animate-[attractionSlideIn_0.55s_ease-out] gap-8 md:grid-cols-2 lg:grid-cols-3"
-          >
-            {visibleAttractionPackages.map((item, index) => (
+          {visibleAttractionPackages.length === 0 ? (
+            <div className="mt-12 rounded-2xl border border-dashed border-slate-200 bg-slate-50/50 p-12 text-center font-jost">
+              <p className="font-rubik text-base font-semibold text-slate-700">No {activeAttractionTab} Tours Available</p>
+              <p className="mt-1 text-sm text-slate-500">Check back soon for new travel packages.</p>
+            </div>
+          ) : (
+            <div
+              key={`${activeAttractionTab}-${attractionSlide}`}
+              className="mt-12 grid animate-[attractionSlideIn_0.55s_ease-out] gap-8 md:grid-cols-2 lg:grid-cols-3"
+            >
+              {visibleAttractionPackages.map((item, index) => (
               <ScrollReveal
                 key={`${activeAttractionTab}-${item.id}`}
                 variant="fade-in-up"
@@ -197,6 +205,7 @@ export function EliteTouristAttractions() {
               </ScrollReveal>
             ))}
           </div>
+          )}
 
           {/* Bottom View All Button */}
           <ScrollReveal variant="fade-in-up" delay={300} duration={1300} className="mt-12 flex justify-center">

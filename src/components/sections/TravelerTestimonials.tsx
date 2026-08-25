@@ -1,12 +1,12 @@
 import { useEffect, useMemo, useState } from "react"
 import type { ReviewSource } from "../../types"
-import { reviewTabs, travelerReviews as staticReviews } from "../../data"
+import { reviewTabs } from "../../data"
 import { contentApi } from "../../api/contentApi"
 import { ReviewSourceIcon } from "../icons/Icons"
 import { ScrollReveal } from "../ui/ScrollReveal"
 
 export function TravelerTestimonials() {
-  const [reviewsList, setReviewsList] = useState<any[]>(staticReviews)
+  const [reviewsList, setReviewsList] = useState<any[]>([])
   const [activeReviewTab, setActiveReviewTab] = useState<ReviewSource>("All Reviews")
   const [reviewSlide, setReviewSlide] = useState(0)
 
@@ -15,7 +15,7 @@ export function TravelerTestimonials() {
     async function loadTestimonials() {
       try {
         const res = await contentApi.getTestimonials()
-        if (isMounted && res.isLive && res.testimonials.length > 0) {
+        if (isMounted && res.testimonials && res.testimonials.length > 0) {
           setReviewsList(res.testimonials)
         }
       } catch (err) {

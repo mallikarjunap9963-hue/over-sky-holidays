@@ -1,11 +1,11 @@
-import { useMemo } from "react"
+import { useEffect, useState, useMemo } from "react"
 import { Link } from "react-router-dom"
 import { MapPin, ArrowRight, Sparkles } from "lucide-react"
-import { attractionPackages } from "../../../data"
+import { toursApi } from "../../../api/toursApi"
 import { ScrollReveal } from "../../ui/ScrollReveal"
 
 type RecommendedToursProps = {
-  currentTourId?: number
+  currentTourId?: number | string
   currentCategory?: string
   currentTour?: any
 }
@@ -15,97 +15,42 @@ export default function RecommendedTours({
   currentCategory,
   currentTour,
 }: RecommendedToursProps) {
+  const [allTours, setAllTours] = useState<any[]>([])
+
+  useEffect(() => {
+    let isMounted = true
+    async function loadRecommended() {
+      try {
+        const res = await toursApi.getTours({ per_page: 50 })
+        if (isMounted && res.tours) {
+          setAllTours(res.tours)
+        }
+      } catch (err) {
+        console.error("Error loading recommended tours:", err)
+      }
+    }
+    loadRecommended()
+    return () => {
+      isMounted = false
+    }
+  }, [])
 
   const recommendedList = useMemo(() => {
-    const tourTitle = (currentTour?.title || currentTour?.tourType || "").toLowerCase()
-    const tourType = (currentTour?.tourType || "").toLowerCase()
-    const categoryLower = (currentCategory || "").toLowerCase()
+    const categoryLower = (currentCategory || currentTour?.category || "").toLowerCase()
+    const isDomestic = categoryLower.includes("domestic")
 
-    const isPilgrimage =
-      tourTitle.includes("char dham") ||
-      tourTitle.includes("kedarnath") ||
-      tourTitle.includes("badrinath") ||
-      tourTitle.includes("tirupati") ||
-      tourTitle.includes("tirupathi") ||
-      tourTitle.includes("yatra") ||
-      tourTitle.includes("haridwar") ||
-      tourType.includes("yatra") ||
-      tourType.includes("pilgrimage") ||
-      tourType.includes("balaji")
+    const filtered = allTours.filter(
+      (t) => String(t.id) !== String(currentTourId) && String(t.slug) !== String(currentTourId)
+    )
 
-    const isDomestic = categoryLower === "domestic" || currentTour?.country === "INDIA"
-    const isInternational = categoryLower === "international" || (currentTour?.country && currentTour.country !== "INDIA")
+    const sameCategory = filtered.filter((t) => {
+      const cat = (t.category || t.tourType || "").toLowerCase()
+      return isDomestic ? cat.includes("domestic") : cat.includes("international")
+    })
 
-    let pool: any[] = []
-
-    if (isPilgrimage) {
-      // Collect Pilgrimage / Yatra tours from Domestic list
-      const domesticTours = attractionPackages.Domestic || []
-      pool = domesticTours
-        .filter((item: any) => {
-          const itemTitle = (item.title || item.tourType || "").toLowerCase()
-          const itemType = (item.tourType || "").toLowerCase()
-          const isItemPilgrimage =
-            itemTitle.includes("char dham") ||
-            itemTitle.includes("kedarnath") ||
-            itemTitle.includes("badrinath") ||
-            itemTitle.includes("tirupati") ||
-            itemTitle.includes("tirupathi") ||
-            itemTitle.includes("yatra") ||
-            itemTitle.includes("haridwar") ||
-            itemType.includes("yatra") ||
-            itemType.includes("pilgrimage") ||
-            itemType.includes("balaji")
-          return isItemPilgrimage && item.id !== currentTourId
-        })
-        .map((item: any) => ({ ...item, categoryType: "Pilgrimage Yatra", routeType: "domestic" }))
-    } else if (isInternational) {
-      // Collect ONLY International tours
-      const internationalTours = attractionPackages.International || []
-      pool = internationalTours
-        .filter((item: any) => item.id !== currentTourId)
-        .map((item: any) => ({ ...item, categoryType: "International", routeType: "international" }))
-    } else if (isDomestic) {
-      // Collect ONLY Domestic tours (excluding pilgrimage if current is scenic/adventure domestic)
-      const domesticTours = attractionPackages.Domestic || []
-      pool = domesticTours
-        .filter((item: any) => {
-          if (item.id === currentTourId) return false
-          const itemTitle = (item.title || item.tourType || "").toLowerCase()
-          const itemType = (item.tourType || "").toLowerCase()
-          const isItemPilgrimage =
-            itemTitle.includes("char dham") ||
-            itemTitle.includes("kedarnath") ||
-            itemTitle.includes("badrinath") ||
-            itemTitle.includes("tirupati") ||
-            itemTitle.includes("tirupathi") ||
-            itemTitle.includes("yatra") ||
-            itemType.includes("yatra") ||
-            itemType.includes("pilgrimage")
-          return !isItemPilgrimage
-        })
-        .map((item: any) => ({ ...item, categoryType: "Domestic", routeType: "domestic" }))
-    }
-
-    // Fallback: If pool has less than 3, fill with items from appropriate category
-    if (pool.length < 3) {
-      const backupPool = isInternational
-        ? (attractionPackages.International || [])
-        : (attractionPackages.Domestic || [])
-
-      backupPool.forEach((item: any) => {
-        if (item.id !== currentTourId && !pool.some((p) => p.id === item.id)) {
-          pool.push({
-            ...item,
-            categoryType: isInternational ? "International" : "Domestic",
-            routeType: isInternational ? "international" : "domestic",
-          })
-        }
-      })
-    }
-
+    const pool = sameCategory.length > 0 ? sameCategory : filtered
     return pool.slice(0, 3)
-  }, [currentTourId, currentCategory, currentTour])
+  }, [allTours, currentTourId, currentCategory, currentTour])
 
   if (recommendedList.length === 0) return null
 
@@ -143,8 +88,9 @@ export default function RecommendedTours({
           {recommendedList.map((tour, index) => {
             const tourTitle = tour.title || tour.tourType || "Tour Package"
             const tourDuration = tour.duration || "5 Days / 4 Nights"
-            const tourCountry = tour.country || (tour.routeType === "international" ? "International" : "INDIA")
-            const detailLink = `/tour/${tour.routeType}/${tour.id}`
+            const tourCountry = tour.country || "INDIA"
+            const tourCat = (tour.category || tour.tourType || "").toLowerCase().includes("international") ? "international" : "domestic"
+            const detailLink = `/tour/${tourCat}/${tour.id || tour.slug}`
             const locationsList = Array.isArray(tour.locations) ? tour.locations : []
 
             return (

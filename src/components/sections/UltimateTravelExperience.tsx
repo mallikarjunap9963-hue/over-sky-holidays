@@ -1,12 +1,62 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import type { ExperienceTab } from '../../types';
-import { experienceTabs, experienceItems } from '../../data';
+import { experienceTabs, experienceItems as defaultExperienceItems } from '../../data';
+import { toursApi } from '../../api/toursApi';
+import { contentApi } from '../../api/contentApi';
 import { ScrollReveal } from '../ui/ScrollReveal';
 
 export function UltimateTravelExperience() {
-
   const [activeExperienceTab, setActiveExperienceTab] = useState<ExperienceTab>("Tour Packages");
+  const [itemsMap, setItemsMap] = useState<Record<string, any[]>>(defaultExperienceItems);
+
+  useEffect(() => {
+    let isMounted = true;
+    async function loadData() {
+      try {
+        const [toursRes, supportRes] = await Promise.all([
+          toursApi.getTours({ per_page: 20 }),
+          contentApi.getTravelSupportActive(),
+        ]);
+        if (!isMounted) return;
+
+        const updated: Record<string, any[]> = { ...defaultExperienceItems };
+
+        if (toursRes.isLive && toursRes.tours.length > 0) {
+          updated["Tour Packages"] = toursRes.tours.map((t) => ({
+            id: t.id || t.slug,
+            title: t.title,
+            country: t.country || "GLOBAL",
+            duration: t.duration || "Flexible Days",
+            type: t.category || "Tour Package",
+            image: t.image,
+            locations: t.locations || [t.country || t.title],
+          }));
+        }
+
+        if (supportRes.isLive && supportRes.items.length > 0) {
+          updated["Transport"] = supportRes.items.map((s, i) => ({
+            id: s.id || i,
+            title: s.heading || "Travel Support",
+            country: "SUPPORT",
+            duration: "24/7 Service",
+            type: "Assistance",
+            image: s.image_url || defaultExperienceItems["Transport"][0].image,
+            locations: s.features || ["Flight", "Cab", "Train", "Hotel"],
+          }));
+        }
+
+        setItemsMap(updated);
+      } catch (err) {
+        console.error("Error loading ultimate travel experience data:", err);
+      }
+    }
+
+    loadData();
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   return (
     <>
@@ -100,7 +150,7 @@ export function UltimateTravelExperience() {
 
           {/* CARDS */}
           <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-            {experienceItems[activeExperienceTab].map((item, index) => {
+            {(itemsMap[activeExperienceTab] || []).map((item, index) => {
               const isTour = activeExperienceTab === "Tour Packages";
               const CardWrapper = isTour ? Link : 'article';
               const wrapperProps = isTour
@@ -166,7 +216,7 @@ export function UltimateTravelExperience() {
 
                       {/* LOCATIONS */}
                       <div className="mt-4 flex min-h-[42px] flex-wrap items-center gap-x-2 gap-y-2 border-b border-dashed border-slate-200/60 pb-2">
-                        {item.locations.map((location, index) => (
+                        {item.locations.map((location: string, index: number) => (
                           <span
                             key={location}
                             className="flex items-center gap-2 text-[10px] font-medium uppercase tracking-[0.03em] text-slate-500"

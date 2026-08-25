@@ -1,8 +1,8 @@
 import { useState, useRef, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { Link } from 'react-router-dom';
-import type { ActivityName } from '../../types';
 import { activityItems } from '../../data';
+import { contentApi } from '../../api/contentApi';
 import { ActivityIcon } from '../icons/Icons';
 import { ScrollReveal } from '../ui/ScrollReveal';
 import { Canvas, useFrame } from '@react-three/fiber';
@@ -14,7 +14,7 @@ import gsap from 'gsap';
 /* ──────────────────────────────────────────────────────────────
    Three.js — Pure Monochromatic Globe for Middle Card (No Rings)
    ────────────────────────────────────────────────────────────── */
-function SmallCardGlobe({ activeActivity }: { activeActivity: ActivityName }) {
+function SmallCardGlobe({ activeActivity }: { activeActivity: string }) {
   const mainGroupRef = useRef<THREE.Group>(null);
   const targetSpeedRef = useRef(0.004);
   const currentSpeedRef = useRef(0.004);
@@ -81,9 +81,46 @@ function SmallCardGlobe({ activeActivity }: { activeActivity: ActivityName }) {
 }
 
 export function ExploreActivities() {
-  const [activeActivity, setActiveActivity] = useState<ActivityName>("Zip lining");
+  const [activitiesList, setActivitiesList] = useState<any[]>(activityItems);
+  const [activeActivity, setActiveActivity] = useState<string>("Zip lining");
   const [videoModalOpen, setVideoModalOpen] = useState(false);
-  const selectedActivity = activityItems.find((activity) => activity.name === activeActivity) ?? activityItems[0];
+
+  useEffect(() => {
+    let isMounted = true;
+    async function loadAdventures() {
+      try {
+        const res = await contentApi.getAdventures();
+        if (isMounted && res.isLive && res.adventures.length > 0) {
+          const mapped = res.adventures.map((adv: any, i: number) => ({
+            name: adv.title || adv.category?.name || `Activity ${i + 1}`,
+            badge: adv.category?.name || "Adventure",
+            title: adv.title || "Experience Extreme Outdoor Thrills",
+            description: adv.description || "Soar high and experience unmatched adrenaline with top safety gear.",
+            features: Array.isArray(adv.features) && adv.features.length > 0
+              ? adv.features
+              : ["Certified Guides", "Safety Equipment", "Photo/Video Package"],
+            images: [
+              adv.image_one_url || adv.image_one || activityItems[i % activityItems.length].images[0],
+              adv.image_two_url || adv.image_two || activityItems[i % activityItems.length].images[1],
+            ].filter(Boolean),
+          }));
+          setActivitiesList(mapped);
+          if (mapped[0]?.name) {
+            setActiveActivity(mapped[0].name);
+          }
+        }
+      } catch (err) {
+        console.error("Error loading adventures API:", err);
+      }
+    }
+
+    loadAdventures();
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  const selectedActivity = activitiesList.find((activity) => activity.name === activeActivity) ?? activitiesList[0] ?? activityItems[0];
   const sectionContainerRef = useRef<HTMLDivElement>(null);
 
   // Smooth GSAP staggered entrance on middle card contents when activity changes
@@ -143,7 +180,7 @@ export function ExploreActivities() {
           <div className="mt-14 grid items-center gap-10 lg:grid-cols-[340px_minmax(0,1fr)_260px] xl:gap-12">
             {/* Activity selector (Left Column) */}
             <ScrollReveal variant="fade-in-left" delay={150} duration={1300} className="grid grid-cols-2 gap-4 font-rubik">
-              {activityItems.map((activity) => {
+              {activitiesList.map((activity) => {
                 const isActive = activeActivity === activity.name;
 
                 return (
@@ -219,7 +256,7 @@ export function ExploreActivities() {
 
                     {/* Features */}
                     <div className="activity-content-anim mt-7 flex flex-wrap gap-x-7 gap-y-4">
-                      {selectedActivity.features.map((feature) => (
+                      {selectedActivity.features.map((feature: string) => (
                         <div key={feature} className="flex items-center gap-2.5">
                           <span className="h-2.5 w-2.5 shrink-0 rounded-full bg-[#0853a4]" />
 
@@ -281,7 +318,7 @@ export function ExploreActivities() {
                   transition={{ duration: 0.4, ease: "easeOut" }}
                   className="grid gap-5 sm:grid-cols-2 lg:grid-cols-1"
                 >
-                  {selectedActivity.images.map((image, index) => (
+                  {selectedActivity.images.map((image: string, index: number) => (
                     <div
                       key={image}
                       className="group relative overflow-hidden rounded-[8px] shadow-sm"
