@@ -14,6 +14,7 @@ export function DomesticToursPage() {
   const searchDestination = searchParams.get("destination");
   const searchType = searchParams.get("type");
   const searchCategory = searchParams.get("category");
+  const searchDate = searchParams.get("date");
 
   const [tours, setTours] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
@@ -81,6 +82,15 @@ export function DomesticToursPage() {
             (tour.category && tour.category.toLowerCase().includes(catQ)) ||
             (tour.title && tour.title.toLowerCase().includes(catQ))
           );
+        }
+
+        if (searchDate) {
+          toursList = toursList.filter((tour: any) => {
+            if (tour.available_dates && Array.isArray(tour.available_dates)) {
+              return tour.available_dates.includes(searchDate);
+            }
+            return tour.status !== false;
+          });
         }
 
         setTours(toursList);
