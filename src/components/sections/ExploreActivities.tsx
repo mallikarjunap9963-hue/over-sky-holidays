@@ -98,11 +98,9 @@ export function ExploreActivities() {
             id: adv.id || i,
             name: adv.category?.name || adv.title || `Activity ${i + 1}`,
             badge: adv.category?.name || "Adventure",
-            title: adv.title || "Experience Extreme Outdoor Thrills",
-            description: adv.description || "Exciting adventure guided by verified travel professionals.",
-            features: Array.isArray(adv.features) && adv.features.length > 0
-              ? adv.features
-              : ["Certified Guides", "Safety Equipment", "Photo/Video Package"],
+            title: adv.title || "",
+            description: adv.description || "",
+            features: Array.isArray(adv.features) ? adv.features : [],
             images: [
               formatImageUrl(adv.image_one_url || adv.image_one),
               formatImageUrl(adv.image_two_url || adv.image_two),

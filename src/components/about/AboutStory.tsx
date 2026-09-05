@@ -34,19 +34,18 @@ export function AboutStory() {
     };
   }, []);
 
-  const heading = storyData?.heading || storyData?.title || "Crafting Unforgettable Journeys Since 2020.";
-  const description = storyData?.description || "Established in 2020, Open Sky Holidays has dedicated itself to transforming standard trips into deeply personalized, lifelong travel memories. Starting as a localized tours operator, our commitment to quality quickly expanded our horizon.<br>Today, we stand as one of India's trusted, comprehensive travel agencies. We are proud to offer seamlessly integrated domestic & international holiday packages, flight bookings, premium hotels, passport support, and visa solutions.";
+  if (!storyData) {
+    return null;
+  }
 
-  const img1 = formatImageUrl(storyData?.images?.[0] || storyData?.image_one_url, aboutUsImg);
-  const img2 = formatImageUrl(storyData?.images?.[1] || storyData?.image_two_url, aboutUs2ndImg);
-  const img3 = formatImageUrl(storyData?.images?.[2] || storyData?.image_three_url, aboutUs3rdImg);
+  const heading = storyData.heading || storyData.title || "";
+  const description = storyData.description || "";
 
-  const features = Array.isArray(storyData?.features) && storyData.features.length > 0
-    ? storyData.features
-    : [
-        { heading: "100% Customized", sub_heading: "Tailored to your budget" },
-        { heading: "End-To-End Care", sub_heading: "From flight to destination" },
-      ];
+  const img1 = formatImageUrl(storyData.images?.[0]?.url || storyData.images?.[0]?.path || storyData.images?.[0] || storyData.image_one_url, aboutUsImg);
+  const img2 = formatImageUrl(storyData.images?.[1]?.url || storyData.images?.[1]?.path || storyData.images?.[1] || storyData.image_two_url, aboutUs2ndImg);
+  const img3 = formatImageUrl(storyData.images?.[2]?.url || storyData.images?.[2]?.path || storyData.images?.[2] || storyData.image_three_url, aboutUs3rdImg);
+
+  const features = Array.isArray(storyData.features) ? storyData.features : [];
 
   return (
     <section

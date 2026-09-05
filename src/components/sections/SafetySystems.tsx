@@ -31,16 +31,12 @@ export function SafetySystems() {
         if (res.items && Array.isArray(res.items) && res.items.length > 0) {
           const mapped: ProcessSlide[] = res.items.map((item: any, i: number) => ({
             id: item.id || i,
-            subtitle: item.small_heading || "Our Process & Vision",
-            title: item.heading || "Travel Support At Every Step",
-            description: item.description || "We take full responsibility for planning, guidance and hassle-free arrangements.",
+            subtitle: item.small_heading || "",
+            title: item.heading || "",
+            description: item.description || "",
             points: Array.isArray(item.promises)
-              ? item.promises.map((p: any) => (typeof p === 'object' ? p.text || '' : String(p))).filter(Boolean)
-              : [
-                "Hassle-free holiday arrangements",
-                "Verified travel partners & vehicles",
-                "Instant booking support & updates",
-              ],
+              ? item.promises.map((p: any) => (typeof p === 'object' ? p.text || p.title || '' : String(p))).filter(Boolean)
+              : [],
             image: formatImageUrl(item.image_url || item.image, DEFAULT_SLIDE_IMAGES[i % DEFAULT_SLIDE_IMAGES.length]),
           }));
           setSlides(mapped);

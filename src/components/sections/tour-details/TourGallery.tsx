@@ -2,12 +2,6 @@ import { useState } from "react"
 import { Eye, Plus, Play, X } from "lucide-react"
 import { ScrollReveal } from "../../ui/ScrollReveal"
 
-import slider1 from "../../../assets/slider1.png"
-import slider2 from "../../../assets/slider2.png"
-import slider3 from "../../../assets/slider3.png"
-import slider4 from "../../../assets/slider4.png"
-import slider5 from "../../../assets/slider5.png"
-
 type TourGalleryProps = {
   galleryImages: string[]
   tourName: string
@@ -21,12 +15,15 @@ export default function TourGallery({
 }: TourGalleryProps) {
   const [showVideoModal, setShowVideoModal] = useState(false)
 
-  // Fallback images if list is small
-  const mainImage = galleryImages[0] || slider1
-  const img1 = galleryImages[1] || galleryImages[0] || slider2
-  const img2 = galleryImages[2] || galleryImages[0] || slider3
-  const img3 = galleryImages[3] || galleryImages[0] || slider4
-  const img4 = galleryImages[4] || galleryImages[0] || slider5
+  if (!galleryImages || galleryImages.length === 0) {
+    return null;
+  }
+
+  const mainImage = galleryImages[0]
+  const img1 = galleryImages[1] || galleryImages[0]
+  const img2 = galleryImages[2] || galleryImages[0]
+  const img3 = galleryImages[3] || galleryImages[0]
+  const img4 = galleryImages[4] || galleryImages[0]
 
   return (
     <>

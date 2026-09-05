@@ -58,13 +58,13 @@ export function Contact({ variant = 'full' }: ContactProps) {
     };
   }, []);
 
-  const phone = contact?.phone || "+91 99081 17712";
+  const phone = contact?.phone || "";
   const phoneClean = phone.replace(/[^0-9+]/g, '');
-  const email = contact?.email || "info@openskyholidays.com";
-  const address = contact?.address || "#1-11-110, Shyamlal Building, Begumpet, Hyderabad - 500018";
-  const mapLink = contact?.map_link || "https://www.google.com/maps/search/?api=1&query=Shyamlal+Building+Begumpet+Hyderabad+500018";
-  const whatsappNum = (contact?.whatsapp_number || contact?.phone || "919908117712").replace(/[^0-9]/g, '');
-  const mapSrc = contact?.map_embed_url?.match(/src="([^"]+)"/)?.[1] || "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3806.5186641775836!2d78.45524677516599!3d17.43485748346061!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb90b9b3e944cd%3A0xc665e7178cf2338c!2sShyamlal%20Building!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin";
+  const email = contact?.email || "";
+  const address = contact?.address || "";
+  const mapLink = contact?.map_link || (address ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}` : "");
+  const whatsappNum = (contact?.whatsapp_number || contact?.phone || "").replace(/[^0-9]/g, '');
+  const mapSrc = contact?.map_embed_url?.match(/src="([^"]+)"/)?.[1] || "";
   const bannerImg = formatImageUrl(banner?.image_url || banner?.image || banner?.banner_image, breadcrumbImg);
   const bannerTitle = banner?.title || "Contact Us";
 

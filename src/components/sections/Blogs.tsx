@@ -269,7 +269,9 @@ export function Blogs({ showAll = false }: { showAll?: boolean }) {
     async function loadBlogs() {
       setLoading(true);
       try {
-        const res = await blogsApi.getBlogs();
+        const res = showAll
+          ? await blogsApi.getAllBlogs()
+          : await blogsApi.getBlogs({ per_page: 6 });
         if (!isMounted) return;
 
         if (res.blogs && res.blogs.length > 0) {
@@ -286,13 +288,11 @@ export function Blogs({ showAll = false }: { showAll?: boolean }) {
       }
     }
 
-
-
     loadBlogs();
     return () => {
       isMounted = false;
     };
-  }, []);
+  }, [showAll]);
 
   // GSAP scroll-triggered heading parallax + accent line animation
   useEffect(() => {
@@ -330,7 +330,6 @@ export function Blogs({ showAll = false }: { showAll?: boolean }) {
   }, []);
 
   const displayedBlogs = showAll ? blogs : blogs.slice(0, 3);
-
 
   return (
     <>
@@ -399,11 +398,20 @@ export function Blogs({ showAll = false }: { showAll?: boolean }) {
             <div className="mt-14">
               <BlogGridSkeleton count={3} />
             </div>
-          ) : (
+          ) : displayedBlogs.length > 0 ? (
             <div className="mt-14 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
               {displayedBlogs.map((post, index) => (
                 <BlogCard key={post.id} post={post} index={index} />
               ))}
+            </div>
+          ) : (
+            <div className="mt-14 rounded-2xl border border-slate-200 bg-white p-12 text-center shadow-sm">
+              <p className="font-rubik text-lg font-semibold text-[#100c08]">
+                No blog articles published yet
+              </p>
+              <p className="mt-2 font-jost text-sm text-slate-500">
+                Check back soon for new travel stories, tips, and destination guides.
+              </p>
             </div>
           )}
 

@@ -13,6 +13,8 @@ export function BlogDetailsPage() {
   const [post, setPost] = useState<any>(null);
   const [recentBlogs, setRecentBlogs] = useState<any[]>([]);
   const [relatedBlogs, setRelatedBlogs] = useState<any[]>([]);
+  const [previousBlog, setPreviousBlog] = useState<any>(null);
+  const [nextBlog, setNextBlog] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
@@ -28,10 +30,14 @@ export function BlogDetailsPage() {
           setPost(res.blog);
           setRecentBlogs(res.recentBlogs || []);
           setRelatedBlogs(res.relatedBlogs || []);
+          setPreviousBlog(res.previousBlog || null);
+          setNextBlog(res.nextBlog || null);
         } else {
           setPost(null);
           setRecentBlogs([]);
           setRelatedBlogs([]);
+          setPreviousBlog(null);
+          setNextBlog(null);
         }
       } catch (err) {
         if (!isMounted) return;
@@ -39,6 +45,8 @@ export function BlogDetailsPage() {
         setPost(null);
         setRecentBlogs([]);
         setRelatedBlogs([]);
+        setPreviousBlog(null);
+        setNextBlog(null);
       } finally {
         if (isMounted) setLoading(false);
       }
@@ -54,7 +62,6 @@ export function BlogDetailsPage() {
     return <BlogDetailsSkeleton />;
   }
 
-
   if (!post) {
     return (
       <div className="flex min-h-[60vh] flex-col items-center justify-center text-center px-4 font-jost">
@@ -67,15 +74,23 @@ export function BlogDetailsPage() {
     );
   }
 
-  const tableOfContents = Array.isArray(post.tableOfContents) && post.tableOfContents.length > 0
-    ? post.tableOfContents
-    : [
-        { number: '01', title: "Kerala – God's Own Country" },
-        { number: '02', title: "Rajasthan – The Land of Kings" },
-        { number: '03', title: "Goa – The Beach Paradise" },
-        { number: '04', title: "Himachal Pradesh – Mountain Retreat" },
-        { number: '05', title: "Dubai – City of Gold" },
-      ];
+  const tableOfContents = (() => {
+    if (Array.isArray(post.tableOfContents) && post.tableOfContents.length > 0) {
+      return post.tableOfContents;
+    }
+    if (post.content && typeof post.content === 'string') {
+      const headingMatches = [...post.content.matchAll(/<h[23][^>]*>(.*?)<\/h[23]>/gi)];
+      if (headingMatches.length > 0) {
+        return headingMatches
+          .map((m, idx) => ({
+            number: String(idx + 1).padStart(2, '0'),
+            title: m[1].replace(/<[^>]*>/g, '').trim(),
+          }))
+          .filter((h) => h.title.length > 0);
+      }
+    }
+    return [];
+  })();
 
   return (
     <article className="bg-[#f4f7f9] pb-24">
@@ -315,32 +330,34 @@ export function BlogDetailsPage() {
             </div>
 
             {/* Prev / Next Post Links */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-12">
-              {relatedBlogs[0] && (
-                <Link to={`/blogs/${relatedBlogs[0].slug || relatedBlogs[0].id}`} className="group bg-white rounded-[12px] p-4 flex items-center gap-4 border border-slate-100 shadow-sm hover:shadow-md transition-all">
-                  <img src={relatedBlogs[0].imageUrl || relatedBlogs[0].image} alt="Prev" className="h-[60px] w-[80px] rounded-[8px] object-cover" />
-                  <div>
-                    <span className="flex items-center gap-1 font-jost text-[12px] font-semibold text-[#0853a4] mb-1 group-hover:-translate-x-1 transition-transform">
-                      <svg viewBox="0 0 24 24" className="h-3 w-3" fill="none" stroke="currentColor" strokeWidth="2"><path d="M19 12H5M12 19l-7-7 7-7" /></svg>
-                      Previous Article
-                    </span>
-                    <h5 className="font-rubik text-[13px] font-bold leading-tight text-[#100c08] line-clamp-2">{relatedBlogs[0].title}</h5>
-                  </div>
-                </Link>
-              )}
-              {relatedBlogs[1] && (
-                <Link to={`/blogs/${relatedBlogs[1].slug || relatedBlogs[1].id}`} className="group bg-white rounded-[12px] p-4 flex items-center gap-4 border border-slate-100 shadow-sm hover:shadow-md transition-all text-right flex-row-reverse">
-                  <img src={relatedBlogs[1].imageUrl || relatedBlogs[1].image} alt="Next" className="h-[60px] w-[80px] rounded-[8px] object-cover" />
-                  <div>
-                    <span className="flex items-center justify-end gap-1 font-jost text-[12px] font-semibold text-[#0853a4] mb-1 group-hover:translate-x-1 transition-transform">
-                      Next Article
-                      <svg viewBox="0 0 24 24" className="h-3 w-3" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
-                    </span>
-                    <h5 className="font-rubik text-[13px] font-bold leading-tight text-[#100c08] line-clamp-2">{relatedBlogs[1].title}</h5>
-                  </div>
-                </Link>
-              )}
-            </div>
+            {(previousBlog || nextBlog || relatedBlogs[0]) && (
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-12">
+                {(previousBlog || relatedBlogs[0]) && (
+                  <Link to={`/blogs/${(previousBlog || relatedBlogs[0]).slug || (previousBlog || relatedBlogs[0]).id}`} className="group bg-white rounded-[12px] p-4 flex items-center gap-4 border border-slate-100 shadow-sm hover:shadow-md transition-all">
+                    <img src={(previousBlog || relatedBlogs[0]).imageUrl || (previousBlog || relatedBlogs[0]).image} alt="Prev" className="h-[60px] w-[80px] rounded-[8px] object-cover" />
+                    <div>
+                      <span className="flex items-center gap-1 font-jost text-[12px] font-semibold text-[#0853a4] mb-1 group-hover:-translate-x-1 transition-transform">
+                        <svg viewBox="0 0 24 24" className="h-3 w-3" fill="none" stroke="currentColor" strokeWidth="2"><path d="M19 12H5M12 19l-7-7 7-7" /></svg>
+                        Previous Article
+                      </span>
+                      <h5 className="font-rubik text-[13px] font-bold leading-tight text-[#100c08] line-clamp-2">{(previousBlog || relatedBlogs[0]).title}</h5>
+                    </div>
+                  </Link>
+                )}
+                {(nextBlog || relatedBlogs[1]) && (
+                  <Link to={`/blogs/${(nextBlog || relatedBlogs[1]).slug || (nextBlog || relatedBlogs[1]).id}`} className="group bg-white rounded-[12px] p-4 flex items-center gap-4 border border-slate-100 shadow-sm hover:shadow-md transition-all text-right flex-row-reverse">
+                    <img src={(nextBlog || relatedBlogs[1]).imageUrl || (nextBlog || relatedBlogs[1]).image} alt="Next" className="h-[60px] w-[80px] rounded-[8px] object-cover" />
+                    <div>
+                      <span className="flex items-center justify-end gap-1 font-jost text-[12px] font-semibold text-[#0853a4] mb-1 group-hover:translate-x-1 transition-transform">
+                        Next Article
+                        <svg viewBox="0 0 24 24" className="h-3 w-3" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+                      </span>
+                      <h5 className="font-rubik text-[13px] font-bold leading-tight text-[#100c08] line-clamp-2">{(nextBlog || relatedBlogs[1]).title}</h5>
+                    </div>
+                  </Link>
+                )}
+              </div>
+            )}
 
             {/* You May Also Like */}
             {relatedBlogs.length > 0 && (
@@ -403,17 +420,19 @@ export function BlogDetailsPage() {
             </div>
 
             {/* Sidebar: Table of Contents */}
-            <div className="bg-white rounded-[16px] p-6 sm:p-8 border border-slate-100 shadow-sm">
-              <h3 className="font-rubik text-[18px] font-bold text-[#0853a4] mb-6">Table of Contents</h3>
-              <ul className="space-y-3 font-jost text-[14px] text-slate-600">
-                {tableOfContents.map((item: any, idx: number) => (
-                  <li key={idx} className="flex gap-3">
-                    <span className="text-slate-400 font-bold">{item.number || `0${idx + 1}`}.</span>
-                    <span>{item.title}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
+            {tableOfContents.length > 0 && (
+              <div className="bg-white rounded-[16px] p-6 sm:p-8 border border-slate-100 shadow-sm">
+                <h3 className="font-rubik text-[18px] font-bold text-[#0853a4] mb-6">Table of Contents</h3>
+                <ul className="space-y-3 font-jost text-[14px] text-slate-600">
+                  {tableOfContents.map((item: any, idx: number) => (
+                    <li key={idx} className="flex gap-3">
+                      <span className="text-slate-400 font-bold">{item.number || `0${idx + 1}`}.</span>
+                      <span>{item.title}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
 
             {/* Sidebar: Recent Blogs */}
             {recentBlogs.length > 0 && (
