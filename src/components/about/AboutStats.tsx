@@ -16,31 +16,6 @@ interface StatItem {
   icon: LucideIcon
 }
 
-const defaultStats: StatItem[] = [
-  {
-    value: 10250,
-    suffix: "+",
-    label: "Customers",
-    icon: Plane,
-  },
-  {
-    value: 25,
-    suffix: "+",
-    label: "Destinations",
-    icon: Palmtree,
-  },
-  {
-    value: 500,
-    label: "Tours",
-    icon: Globe2,
-  },
-  {
-    value: 2,
-    label: "Tour Types",
-    icon: BusFront,
-  },
-]
-
 function useCountUp(
   target: number,
   started: boolean,
@@ -129,12 +104,14 @@ function StatCard({
 export function AboutStats() {
   const sectionRef = useRef<HTMLElement | null>(null)
   const [started, setStarted] = useState(false)
-  const [statsList, setStatsList] = useState<StatItem[]>(defaultStats)
+  const [statsList, setStatsList] = useState<StatItem[]>([])
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     let isMounted = true
     async function loadCounters() {
       try {
+        setIsLoading(true)
         const res = await contentApi.getCountersActive()
         if (isMounted && res.isLive && res.counters.length > 0) {
           const icons = [Plane, Palmtree, Globe2, BusFront]
@@ -170,6 +147,8 @@ export function AboutStats() {
         }
       } catch (err) {
         console.error("Error loading counters API:", err)
+      } finally {
+        if (isMounted) setIsLoading(false)
       }
     }
     loadCounters()
@@ -251,14 +230,24 @@ export function AboutStats() {
       <ScrollReveal variant="fade-in" delay={100} duration={1300}>
         <div className="relative mx-auto max-w-[1540px] px-5 sm:px-8 lg:px-10">
           <div className="grid grid-cols-2 lg:grid-cols-4">
-            {statsList.map((stat, index) => (
-              <StatCard
-                key={`${stat.label}-${index}`}
-                stat={stat}
-                started={started}
-                index={index}
-              />
-            ))}
+            {isLoading ? (
+              [0, 1, 2, 3].map((idx) => (
+                <div key={idx} className="flex min-h-[150px] sm:min-h-[170px] lg:min-h-[190px] flex-col items-center justify-center px-4 py-6 text-center animate-pulse">
+                  <div className="h-12 w-12 rounded-full bg-white/20 mb-3" />
+                  <div className="h-8 w-24 rounded bg-white/20 mb-2" />
+                  <div className="h-4 w-16 rounded bg-white/20" />
+                </div>
+              ))
+            ) : (
+              statsList.map((stat, index) => (
+                <StatCard
+                  key={`${stat.label}-${index}`}
+                  stat={stat}
+                  started={started}
+                  index={index}
+                />
+              ))
+            )}
           </div>
         </div>
       </ScrollReveal>

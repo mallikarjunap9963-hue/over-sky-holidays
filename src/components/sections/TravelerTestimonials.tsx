@@ -1,12 +1,14 @@
 import { useEffect, useMemo, useState } from "react"
 import type { ReviewSource } from "../../types"
-import { reviewTabs, travelerReviews as defaultReviews } from "../../data"
 import { contentApi } from "../../api/contentApi"
 import { ReviewSourceIcon } from "../icons/Icons"
 import { ScrollReveal } from "../ui/ScrollReveal"
 
+const REVIEW_TABS: ReviewSource[] = ["All Reviews", "Tripadvisor", "Google", "Facebook"]
+
 export function TravelerTestimonials() {
-  const [reviewsList, setReviewsList] = useState<any[]>(defaultReviews)
+  const [reviewsList, setReviewsList] = useState<any[]>([])
+  const [isLoading, setIsLoading] = useState(true)
   const [activeReviewTab, setActiveReviewTab] = useState<ReviewSource>("All Reviews")
   const [reviewSlide, setReviewSlide] = useState(0)
 
@@ -14,12 +16,15 @@ export function TravelerTestimonials() {
     let isMounted = true
     async function loadTestimonials() {
       try {
+        setIsLoading(true)
         const res = await contentApi.getTestimonials()
         if (isMounted && res.testimonials && res.testimonials.length > 0) {
           setReviewsList(res.testimonials)
         }
       } catch (err) {
         console.error("Error fetching testimonials:", err)
+      } finally {
+        if (isMounted) setIsLoading(false)
       }
     }
     loadTestimonials()
@@ -123,7 +128,7 @@ export function TravelerTestimonials() {
         >
           <div className="overflow-hidden rounded-[14px] border border-slate-200/70 bg-white p-1.5 shadow-[0_12px_40px_rgba(16,12,8,0.06)]">
             <div className="flex overflow-x-auto scrollbar-hide">
-              {reviewTabs.map((tab) => {
+              {REVIEW_TABS.map((tab) => {
                 const isActive = activeReviewTab === tab
 
                 return (
@@ -157,7 +162,25 @@ export function TravelerTestimonials() {
 
         {/* Testimonial Carousel */}
         <div className="relative mt-14">
-          {visibleTravelerReviews.length > 0 ? (
+          {isLoading ? (
+            <div className="grid auto-rows-fr gap-7 md:grid-cols-2 xl:grid-cols-3">
+              {[1, 2, 3].map((n) => (
+                <div key={n} className="flex min-h-[430px] flex-col animate-pulse">
+                  <div className="min-h-[350px] flex-1 rounded-[18px] border border-slate-200 bg-white p-7">
+                    <div className="flex justify-between items-center mb-6">
+                      <div className="h-6 w-24 bg-slate-200 rounded-full" />
+                      <div className="h-10 w-10 bg-slate-200 rounded-full" />
+                    </div>
+                    <div className="space-y-3">
+                      <div className="h-4 bg-slate-200 rounded w-full" />
+                      <div className="h-4 bg-slate-200 rounded w-5/6" />
+                      <div className="h-4 bg-slate-200 rounded w-4/6" />
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : visibleTravelerReviews.length > 0 ? (
             <div
               key={`${activeReviewTab}-${reviewSlide}`}
               className="grid animate-[testimonialSlideIn_0.55s_ease-out] auto-rows-fr gap-7 md:grid-cols-2 xl:grid-cols-3"

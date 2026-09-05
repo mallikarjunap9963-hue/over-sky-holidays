@@ -1,8 +1,8 @@
 import { useState, useRef, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { Link } from 'react-router-dom';
-import { activityItems } from '../../data';
 import { contentApi } from '../../api/contentApi';
+import { formatImageUrl } from '../../api/imageHelper';
 import { ActivityIcon } from '../icons/Icons';
 import { ScrollReveal } from '../ui/ScrollReveal';
 import { Canvas, useFrame } from '@react-three/fiber';
@@ -81,8 +81,9 @@ function SmallCardGlobe({ activeActivity }: { activeActivity: string }) {
 }
 
 export function ExploreActivities() {
-  const [activitiesList, setActivitiesList] = useState<any[]>(activityItems);
-  const [activeActivity, setActiveActivity] = useState<string>("Zip lining");
+  const [activitiesList, setActivitiesList] = useState<any[]>([]);
+  const [activeActivity, setActiveActivity] = useState<string>("");
+  const [loading, setLoading] = useState(true);
   const [videoModalOpen, setVideoModalOpen] = useState(false);
 
   useEffect(() => {
@@ -90,27 +91,36 @@ export function ExploreActivities() {
     async function loadAdventures() {
       try {
         const res = await contentApi.getAdventures();
-        if (isMounted && res.isLive && res.adventures.length > 0) {
+        if (!isMounted) return;
+
+        if (res.isLive && Array.isArray(res.adventures) && res.adventures.length > 0) {
           const mapped = res.adventures.map((adv: any, i: number) => ({
-            name: adv.title || adv.category?.name || `Activity ${i + 1}`,
+            id: adv.id || i,
+            name: adv.category?.name || adv.title || `Activity ${i + 1}`,
             badge: adv.category?.name || "Adventure",
             title: adv.title || "Experience Extreme Outdoor Thrills",
-            description: adv.description || "Soar high and experience unmatched adrenaline with top safety gear.",
+            description: adv.description || "Exciting adventure guided by verified travel professionals.",
             features: Array.isArray(adv.features) && adv.features.length > 0
               ? adv.features
               : ["Certified Guides", "Safety Equipment", "Photo/Video Package"],
             images: [
-              adv.image_one_url || adv.image_one || activityItems[i % activityItems.length].images[0],
-              adv.image_two_url || adv.image_two || activityItems[i % activityItems.length].images[1],
+              formatImageUrl(adv.image_one_url || adv.image_one),
+              formatImageUrl(adv.image_two_url || adv.image_two),
             ].filter(Boolean),
+            videoLink: adv.video_link,
           }));
           setActivitiesList(mapped);
           if (mapped[0]?.name) {
             setActiveActivity(mapped[0].name);
           }
+        } else {
+          setActivitiesList([]);
         }
       } catch (err) {
         console.error("Error loading adventures API:", err);
+        setActivitiesList([]);
+      } finally {
+        if (isMounted) setLoading(false);
       }
     }
 
@@ -120,19 +130,37 @@ export function ExploreActivities() {
     };
   }, []);
 
-  const selectedActivity = activitiesList.find((activity) => activity.name === activeActivity) ?? activitiesList[0] ?? activityItems[0];
+  const selectedActivity = activitiesList.find((activity) => activity.name === activeActivity) ?? activitiesList[0];
   const sectionContainerRef = useRef<HTMLDivElement>(null);
 
   // Smooth GSAP staggered entrance on middle card contents when activity changes
   useEffect(() => {
-    if (sectionContainerRef.current) {
+    if (sectionContainerRef.current && selectedActivity) {
       gsap.fromTo(
         sectionContainerRef.current.querySelectorAll('.activity-content-anim'),
         { opacity: 0.8, y: 10 },
         { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out', stagger: 0.06 }
       );
     }
-  }, [activeActivity]);
+  }, [activeActivity, selectedActivity]);
+
+  if (loading) {
+    return (
+      <section id="activities" className="relative overflow-hidden bg-[#f8fbff] px-5 py-10 sm:px-8">
+        <div className="relative z-10 mx-auto max-w-[1320px]">
+          <div className="text-center">
+            <div className="mx-auto h-4 w-32 animate-pulse rounded bg-slate-200" />
+            <div className="mx-auto mt-4 h-10 w-80 animate-pulse rounded bg-slate-200" />
+          </div>
+          <div className="mt-14 h-96 animate-pulse rounded-2xl bg-slate-100" />
+        </div>
+      </section>
+    );
+  }
+
+  if (activitiesList.length === 0 || !selectedActivity) {
+    return null;
+  }
 
   return (
     <>

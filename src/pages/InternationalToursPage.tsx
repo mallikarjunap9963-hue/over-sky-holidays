@@ -13,6 +13,8 @@ import breadcrumbImg from "../assets/breadcrumb.png"
 export function InternationalToursPage() {
   const [searchParams] = useSearchParams();
   const searchDestination = searchParams.get("destination");
+  const searchType = searchParams.get("type");
+  const searchCategory = searchParams.get("category");
 
   const [tours, setTours] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
@@ -66,6 +68,22 @@ export function InternationalToursPage() {
           );
         }
 
+        if (searchType) {
+          const typeQ = searchType.toLowerCase();
+          toursList = toursList.filter((tour) =>
+            (tour.tourType && tour.tourType.toLowerCase().includes(typeQ)) ||
+            (tour.category && tour.category.toLowerCase().includes(typeQ))
+          );
+        }
+
+        if (searchCategory) {
+          const catQ = searchCategory.toLowerCase();
+          toursList = toursList.filter((tour) =>
+            (tour.category && tour.category.toLowerCase().includes(catQ)) ||
+            (tour.title && tour.title.toLowerCase().includes(catQ))
+          );
+        }
+
         setTours(toursList);
       } catch (err: any) {
         if (!isMounted) return;
@@ -81,7 +99,7 @@ export function InternationalToursPage() {
     return () => {
       isMounted = false;
     };
-  }, [searchDestination]);
+  }, [searchDestination, searchType, searchCategory]);
 
   return (
     <main className="min-h-screen bg-slate-50/50 font-jost">

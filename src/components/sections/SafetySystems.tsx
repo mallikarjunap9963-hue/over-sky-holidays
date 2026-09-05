@@ -1,35 +1,57 @@
 import { useState, useEffect } from 'react';
 import { contentApi } from '../../api/contentApi';
-import { safetySlides as defaultSlides } from '../../data';
+import { formatImageUrl } from '../../api/imageHelper';
 import { ScrollReveal } from '../ui/ScrollReveal';
+import homePageFacilityImg from '../../assets/home page facilty.png';
+import homePageAssistanceImg from '../../assets/home page assitence.png';
+
+interface ProcessSlide {
+  id: number | string;
+  subtitle: string;
+  title: string;
+  description: string;
+  points: string[];
+  image: string;
+}
+
+const DEFAULT_SLIDE_IMAGES = [homePageFacilityImg, homePageAssistanceImg];
 
 export function SafetySystems() {
-  const [slides, setSlides] = useState<any[]>(defaultSlides);
+  const [slides, setSlides] = useState<ProcessSlide[]>([]);
   const [activeSafetySlide, setActiveSafetySlide] = useState(0);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     let isMounted = true;
     async function loadProcesses() {
       try {
         const res = await contentApi.getOurProcessesActive();
-        if (isMounted && res.items && res.items.length > 0) {
-          const mapped = res.items.map((item: any, i: number) => ({
+        if (!isMounted) return;
+
+        if (res.items && Array.isArray(res.items) && res.items.length > 0) {
+          const mapped: ProcessSlide[] = res.items.map((item: any, i: number) => ({
             id: item.id || i,
             subtitle: item.small_heading || "Our Process & Vision",
             title: item.heading || "Travel Support At Every Step",
             description: item.description || "We take full responsibility for planning, guidance and hassle-free arrangements.",
-            points: Array.isArray(item.promises) ? item.promises.map((p: any) => p.text || p) : [
-              "Hassle-free holiday arrangements",
-              "Verified travel partners & vehicles",
-              "Instant booking support & updates",
-              "End-to-end guidance from experts",
-            ],
-            image: defaultSlides[i % defaultSlides.length]?.image || defaultSlides[0].image,
+            points: Array.isArray(item.promises)
+              ? item.promises.map((p: any) => (typeof p === 'object' ? p.text || '' : String(p))).filter(Boolean)
+              : [
+                "Hassle-free holiday arrangements",
+                "Verified travel partners & vehicles",
+                "Instant booking support & updates",
+              ],
+            image: formatImageUrl(item.image_url || item.image, DEFAULT_SLIDE_IMAGES[i % DEFAULT_SLIDE_IMAGES.length]),
           }));
           setSlides(mapped);
+        } else {
+          setSlides([]);
         }
       } catch (err) {
         console.error("Error loading processes API:", err);
+        setSlides([]);
+      } finally {
+        if (isMounted) setLoading(false);
       }
     }
     loadProcesses();
@@ -39,16 +61,29 @@ export function SafetySystems() {
   }, []);
 
   useEffect(() => {
-    if (slides.length === 0) return;
+    if (slides.length <= 1) return;
     const autoSlide = window.setInterval(() => {
       setActiveSafetySlide((previous) => (previous + 1) % slides.length);
     }, 5000);
 
     return () => window.clearInterval(autoSlide);
-  }, [slides]);
+  }, [slides.length]);
+
+  if (loading) {
+    return (
+      <section id="services" className="relative overflow-hidden bg-[#fbf8f2] py-10">
+        <div className="relative mx-auto max-w-[1320px]">
+          <div className="min-h-[460px] animate-pulse rounded-[14px] bg-slate-200/60" />
+        </div>
+      </section>
+    );
+  }
+
+  if (slides.length === 0) {
+    return null;
+  }
 
   const current = slides[activeSafetySlide] || slides[0];
-  if (!current) return null;
 
   return (
     <>
@@ -72,7 +107,6 @@ export function SafetySystems() {
             >
               {/* Decorative map-style circles */}
               <div className="pointer-events-none absolute -left-36 bottom-0 h-80 w-80 rounded-full border border-[#0853a4]/5" />
-
               <div className="pointer-events-none absolute -left-20 bottom-14 h-52 w-52 rounded-full border border-[#0853a4]/5" />
 
               <div className="relative z-10 w-full max-w-[660px]">
@@ -98,25 +132,27 @@ export function SafetySystems() {
                 </p>
 
                 {/* SAFETY POINTS */}
-                <div className="mt-9 grid gap-x-8 gap-y-6 sm:grid-cols-2 font-jost">
-                  {Array.isArray(current.points) && current.points.map((point: string, i: number) => (
-                    <div key={`${point}-${i}`} className="flex items-center gap-3">
-                      <span className="h-2.5 w-2.5 shrink-0 rounded-full bg-[#0853a4]" />
-
-                      <p className="text-[14px] font-semibold text-[#100c08] sm:text-[15px]">
+                <div className="mt-8 grid gap-4 sm:grid-cols-2">
+                  {current.points.map((point: string, i: number) => (
+                    <div key={i} className="flex items-center gap-3 font-jost">
+                      <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#0853a4] text-xs font-bold text-white shadow-sm">
+                        ✓
+                      </span>
+                      <span className="text-[15px] font-medium text-[#100c08]">
                         {point}
-                      </p>
+                      </span>
                     </div>
                   ))}
                 </div>
 
                 {/* SLIDER CONTROLS */}
-                <div className="mt-12 flex items-center gap-6">
+                <div className="mt-10 flex items-center gap-6">
                   <button
                     type="button"
                     onClick={() =>
-                      setActiveSafetySlide((previous) =>
-                        previous === 0 ? slides.length - 1 : previous - 1,
+                      setActiveSafetySlide(
+                        (previous) =>
+                          (previous - 1 + slides.length) % slides.length,
                       )
                     }
                     className="flex items-center gap-3 text-[#0853a4] transition hover:text-[#100c08]"
@@ -181,5 +217,3 @@ export function SafetySystems() {
     </>
   );
 }
-
-

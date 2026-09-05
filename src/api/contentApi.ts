@@ -108,7 +108,8 @@ export const contentApi = {
       ? res.data
       : (Array.isArray((res.data as any)?.data) ? (res.data as any).data : []);
     if (res.success && list.length > 0) {
-      return { story: list[0], stories: list, isLive: true };
+      const activeStory = list.find((s: any) => s.status === true || s.status === 1 || s.status === 'active') || list[0];
+      return { story: activeStory, stories: list, isLive: !!activeStory };
     }
     return { story: null, stories: [], isLive: false };
   },

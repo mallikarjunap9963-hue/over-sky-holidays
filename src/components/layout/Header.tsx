@@ -365,7 +365,7 @@ export function Header() {
         <div className="border-t border-slate-100 bg-slate-50/50 p-5 mt-auto">
           <div className="flex flex-col gap-4 font-rubik">
             <a
-              href="tel:+919908117712"
+              href={`tel:${phoneTel}`}
               className="flex items-center gap-3.5 rounded-lg border border-slate-200 bg-white px-4 py-3 hover:border-[#0853a4] hover:text-[#0853a4] transition-all group"
             >
               <span className="text-[#0853a4] bg-slate-100 rounded-full p-2 group-hover:bg-[#0853a4]/10 transition-colors">
@@ -376,7 +376,7 @@ export function Header() {
                   To More Inquiry
                 </span>
                 <span className="block text-[15px] font-bold text-[#100c08] group-hover:text-[#0853a4]">
-                  +91 99081 17712
+                  {phoneDisplay}
                 </span>
               </div>
             </a>

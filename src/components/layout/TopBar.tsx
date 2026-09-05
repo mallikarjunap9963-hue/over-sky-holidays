@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { socialLinks } from "../../data";
 import { MailIcon } from "../icons/Icons";
 import { contentApi } from "../../api/contentApi";
 import type { ApiTopHeader } from "../../api/types";
@@ -30,6 +29,13 @@ export function TopBar() {
   const tagline = topHeader?.tagline || "The World Is Waiting. One Stop Destination For All Your Tours & Travels Needs.";
   const buttonText = topHeader?.button_text || "Book Your Tour";
   const buttonUrl = topHeader?.button_url && topHeader.button_url !== "#" ? topHeader.button_url : "/tours/domestic";
+
+  const socialList = topHeader?.social_links && topHeader.social_links.length > 0
+    ? topHeader.social_links
+    : [
+        { platform: "Instagram", url: "https://www.instagram.com/openskyholidays/", icon: "fa-brands fa-instagram" },
+        { platform: "Facebook", url: "https://www.facebook.com/openskyholidays", icon: "fa-brands fa-facebook-f" },
+      ];
 
   return (
     <>
@@ -78,18 +84,16 @@ export function TopBar() {
 
           {/* Social Icons */}
           <div className="hidden items-center gap-2 border-l border-white/15 pl-5 lg:flex">
-            {socialLinks.map((social) => (
+            {socialList.map((social, idx) => (
               <a
-                key={social.label}
-                href={social.href || "#social"}
-                target={social.href && social.href !== "#social" ? "_blank" : undefined}
-                rel={social.href && social.href !== "#social" ? "noopener noreferrer" : undefined}
-                aria-label={social.label}
+                key={social.platform || idx}
+                href={social.url || social.link || "#social"}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={social.platform || "Social"}
                 className="flex h-6 w-6 items-center justify-center rounded-full border border-white/50 text-[10px] text-white transition-all duration-300 hover:border-[#fbb03b] hover:bg-[#fbb03b] hover:text-[#100c08]"
               >
-                <span className="scale-75">
-                  {social.icon}
-                </span>
+                <i className={social.icon || (social.platform?.toLowerCase().includes("instagram") ? "fa-brands fa-instagram" : "fa-brands fa-facebook-f")} />
               </a>
             ))}
           </div>

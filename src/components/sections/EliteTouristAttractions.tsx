@@ -1,10 +1,20 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import type { AttractionTab } from '../../types';
-import { attractionTabs } from '../../data';
 import { toursApi } from '../../api/toursApi';
 import { ScrollReveal } from '../ui/ScrollReveal';
 import { BookingModal } from '../ui/BookingModal';
+
+const ATTRACTION_TABS: { name: AttractionTab; image: string }[] = [
+  {
+    name: "Domestic",
+    image: "https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&w=1400&q=90",
+  },
+  {
+    name: "International",
+    image: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1400&q=90",
+  },
+];
 
 export function EliteTouristAttractions() {
   const [activeAttractionTab, setActiveAttractionTab] = useState<AttractionTab>("Domestic");
@@ -102,7 +112,7 @@ export function EliteTouristAttractions() {
 
           {/* Destination tabs */}
           <ScrollReveal variant="fade-in-up" delay={200} duration={1300} className="mx-auto mt-12 grid max-w-[450px] overflow-hidden rounded-[8px] border border-slate-200 bg-white grid-cols-2 sm:grid-cols-2 font-rubik">
-            {attractionTabs.map((tab) => {
+            {ATTRACTION_TABS.map((tab) => {
               const isActive = activeAttractionTab === tab.name;
 
               return (

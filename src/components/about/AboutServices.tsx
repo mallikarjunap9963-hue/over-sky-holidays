@@ -15,128 +15,50 @@ type ServiceItem = {
   featured?: boolean
 }
 
-const services: ServiceItem[] = [
-  {
-    number: "01",
-    title: "Domestic Tours",
-    subtitle: "Discover Incredible India",
-    description:
-      "Explore mountains, beaches, heritage cities and spiritual destinations with carefully planned holiday packages.",
-    image:
-      "https://images.unsplash.com/photo-1524492412937-b28074a5d7da?auto=format&fit=crop&w=1400&q=85",
-    featured: true,
-    icon: (
-      <svg
-        viewBox="0 0 24 24"
-        className="h-6 w-6"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 1 1 18 0Z" />
-        <circle cx="12" cy="10" r="3" />
-      </svg>
-    ),
-  },
-  {
-    number: "02",
-    title: "International Tours",
-    subtitle: "Travel Beyond Borders",
-    description:
-      "Discover iconic destinations across Asia, Europe, the Middle East and beautiful island countries.",
-    image:
-      "https://images.unsplash.com/photo-1499856871958-5b9627545d1a?auto=format&fit=crop&w=1400&q=85",
-    featured: true,
-    icon: (
-      <svg
-        viewBox="0 0 24 24"
-        className="h-6 w-6"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
+function getServiceIcon(title: string): React.ReactNode {
+  const t = title.toLowerCase()
+  if (t.includes('international') || t.includes('world') || t.includes('globe')) {
+    return (
+      <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
         <circle cx="12" cy="12" r="10" />
         <path d="M2 12h20" />
         <path d="M12 2a15 15 0 0 1 4 10 15 15 0 0 1-4 10 15 15 0 0 1-4-10 15 15 0 0 1 4-10Z" />
       </svg>
-    ),
-  },
-  {
-    number: "03",
-    title: "Visa Services",
-    subtitle: "Simple Visa Assistance",
-    description:
-      "Complete guidance for documentation, applications, appointments and visa tracking.",
-    image:
-      "https://images.unsplash.com/photo-1569974498991-d3c12a504f95?auto=format&fit=crop&w=1000&q=85",
-    icon: (
-      <svg
-        viewBox="0 0 24 24"
-        className="h-6 w-6"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
+    )
+  }
+  if (t.includes('visa')) {
+    return (
+      <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
         <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z" />
         <path d="M14 2v6h6" />
         <path d="M8 13h8" />
         <path d="M8 17h6" />
       </svg>
-    ),
-  },
-  {
-    number: "04",
-    title: "Flight Tickets",
-    subtitle: "Fly At The Best Fares",
-    description:
-      "Book domestic and international flights across major airlines with convenient schedules.",
-    image:
-      "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=1000&q=85",
-    icon: (
-      <svg
-        viewBox="0 0 24 24"
-        className="h-6 w-6"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
+    )
+  }
+  if (t.includes('flight') || t.includes('ticket') || t.includes('air')) {
+    return (
+      <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
         <path d="M17.8 19.2 16 11l3.5-3.5C21 6 21 4 19 2s-4-2-5.5-.5L10 5 1.8 6.2l4.9 4.9-2 2.2 6.1 1.9 1.9 6.1 2.2-2 4.9 4.9Z" />
       </svg>
-    ),
-  },
-  {
-    number: "05",
-    title: "Passport Services",
-    subtitle: "Passport Made Easy",
-    description:
-      "Get support for new passports, renewals, corrections and Tatkal applications.",
-    image:
-      "https://images.unsplash.com/photo-1543286386-713bdd548da4?auto=format&fit=crop&w=1000&q=85",
-    icon: (
-      <svg
-        viewBox="0 0 24 24"
-        className="h-6 w-6"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
+    )
+  }
+  if (t.includes('passport')) {
+    return (
+      <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
         <rect x="4" y="2" width="16" height="20" rx="2" />
         <circle cx="12" cy="10" r="3" />
         <path d="M7 17h10" />
       </svg>
-    ),
-  },
-]
+    )
+  }
+  return (
+    <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 1 1 18 0Z" />
+      <circle cx="12" cy="10" r="3" />
+    </svg>
+  )
+}
 
 const ArrowIcon = () => (
   <svg
@@ -281,27 +203,31 @@ function CompactServiceCard({
 
 export function AboutServices() {
   const [modalOpen, setModalOpen] = useState(false)
-  const [servicesList, setServicesList] = useState<ServiceItem[]>(services)
+  const [servicesList, setServicesList] = useState<ServiceItem[]>([])
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     let isMounted = true
     async function loadOffers() {
       try {
+        setIsLoading(true)
         const res = await contentApi.getWhatWeOffers()
         if (isMounted && res.isLive && res.items.length > 0) {
           const mapped = res.items.map((item: any, i: number) => ({
             number: `0${i + 1}`,
-            title: item.title || services[i % services.length].title,
-            subtitle: item.subtitle || item.sub_title || services[i % services.length].subtitle,
-            description: item.description || services[i % services.length].description,
-            image: formatImageUrl(item.image_url || item.image, services[i % services.length].image),
-            icon: services[i % services.length].icon,
+            title: item.title || `Service ${i + 1}`,
+            subtitle: item.subtitle || item.sub_title || "Specialized Service",
+            description: item.description || "",
+            image: formatImageUrl(item.image_url || item.image),
+            icon: getServiceIcon(item.title || ''),
             featured: i < 2,
           }))
           setServicesList(mapped)
         }
       } catch (err) {
         console.error("Error loading what we offer API:", err)
+      } finally {
+        if (isMounted) setIsLoading(false)
       }
     }
     loadOffers()
@@ -367,27 +293,44 @@ export function AboutServices() {
           </ScrollReveal>
         </div>
 
-        {/* Two large featured services */}
-        <div className="grid gap-6 lg:grid-cols-2">
-          {featuredServices.map((service, index) => (
-            <FeaturedServiceCard
-              key={service.title}
-              service={service}
-              index={index}
-            />
-          ))}
-        </div>
+        {isLoading ? (
+          <>
+            <div className="grid gap-6 lg:grid-cols-2">
+              {[1, 2].map((i) => (
+                <div key={i} className="min-h-[430px] rounded-[22px] bg-slate-200 animate-pulse" />
+              ))}
+            </div>
+            <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {[1, 2, 3].map((i) => (
+                <div key={i} className="min-h-[310px] rounded-[20px] bg-slate-200 animate-pulse" />
+              ))}
+            </div>
+          </>
+        ) : (
+          <>
+            {/* Two large featured services */}
+            <div className="grid gap-6 lg:grid-cols-2">
+              {featuredServices.map((service, index) => (
+                <FeaturedServiceCard
+                  key={service.title}
+                  service={service}
+                  index={index}
+                />
+              ))}
+            </div>
 
-        {/* Three smaller services */}
-        <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {compactServices.map((service, index) => (
-            <CompactServiceCard
-              key={service.title}
-              service={service}
-              index={index}
-            />
-          ))}
-        </div>
+            {/* Three smaller services */}
+            <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {compactServices.map((service, index) => (
+                <CompactServiceCard
+                  key={service.title}
+                  service={service}
+                  index={index}
+                />
+              ))}
+            </div>
+          </>
+        )}
 
         {/* CTA strip */}
         <ScrollReveal variant="fade-in-up" delay={400} duration={1100}>

@@ -1,54 +1,84 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import type { ExperienceTab } from '../../types';
-import { experienceTabs, experienceItems as defaultExperienceItems } from '../../data';
 import { toursApi } from '../../api/toursApi';
 import { contentApi } from '../../api/contentApi';
+import { formatImageUrl } from '../../api/imageHelper';
 import { ScrollReveal } from '../ui/ScrollReveal';
+
+const EXPERIENCE_TABS: ExperienceTab[] = ["Tour Packages", "Hotel", "Transport"];
 
 export function UltimateTravelExperience() {
   const [activeExperienceTab, setActiveExperienceTab] = useState<ExperienceTab>("Tour Packages");
-  const [itemsMap, setItemsMap] = useState<Record<string, any[]>>(defaultExperienceItems);
+  const [itemsMap, setItemsMap] = useState<Record<string, any[]>>({
+    "Tour Packages": [],
+    "Hotel": [],
+    "Transport": [],
+  });
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     let isMounted = true;
     async function loadData() {
       try {
-        const [toursRes, supportRes] = await Promise.all([
-          toursApi.getTours({ per_page: 20 }),
+        setIsLoading(true);
+        const [domRes, intlRes, supportRes] = await Promise.all([
+          toursApi.getDomesticTours(),
+          toursApi.getInternationalTours(),
           contentApi.getTravelSupportActive(),
         ]);
         if (!isMounted) return;
 
-        const updated: Record<string, any[]> = { ...defaultExperienceItems };
+        const updated: Record<string, any[]> = {
+          "Tour Packages": [],
+          "Hotel": [],
+          "Transport": [],
+        };
 
-        if (toursRes.isLive && toursRes.tours.length > 0) {
-          updated["Tour Packages"] = toursRes.tours.map((t) => ({
-            id: t.id || t.slug,
+        if (domRes.isLive && domRes.tours.length > 0) {
+          updated["Tour Packages"] = domRes.tours.map((t) => ({
+            id: t.id,
             title: t.title,
-            country: t.country || "GLOBAL",
+            country: t.country || "INDIA",
             duration: t.duration || "Flexible Days",
-            type: t.category || "Tour Package",
-            image: t.image,
-            locations: t.locations || [t.country || t.title],
+            type: t.category || "Domestic Tour",
+            category: t.category || "domestic",
+            image: formatImageUrl(t.image),
+            locations: t.locations && t.locations.length > 0 ? t.locations : [t.country || t.title],
+          }));
+        }
+
+        if (intlRes.isLive && intlRes.tours.length > 0) {
+          updated["Hotel"] = intlRes.tours.map((t) => ({
+            id: t.id,
+            title: t.title,
+            country: t.country || "INTERNATIONAL",
+            duration: t.duration || "Resort Stay",
+            type: "Hotel & Resort",
+            category: "international",
+            image: formatImageUrl(t.image),
+            locations: t.locations && t.locations.length > 0 ? t.locations : [t.country || t.title],
           }));
         }
 
         if (supportRes.isLive && supportRes.items.length > 0) {
           updated["Transport"] = supportRes.items.map((s, i) => ({
-            id: s.id || i,
-            title: s.heading || "Travel Support",
-            country: "SUPPORT",
-            duration: "24/7 Service",
-            type: "Assistance",
-            image: s.image_url || defaultExperienceItems["Transport"][0].image,
-            locations: s.features || ["Flight", "Cab", "Train", "Hotel"],
+            id: s.id || i + 1,
+            title: s.heading || "Transport & Transfer Support",
+            country: "ASSISTANCE",
+            duration: "24/7 Available",
+            type: "Transport",
+            category: "support",
+            image: formatImageUrl(s.image_url || s.image),
+            locations: s.features || ["Airport Pickup", "Cab Rental", "Train Booking", "Luxury Bus"],
           }));
         }
 
         setItemsMap(updated);
       } catch (err) {
         console.error("Error loading ultimate travel experience data:", err);
+      } finally {
+        if (isMounted) setIsLoading(false);
       }
     }
 
@@ -88,7 +118,7 @@ export function UltimateTravelExperience() {
 
             {/* TABS */}
             <div className="mt-7 flex flex-wrap items-center justify-center gap-6 sm:gap-9 font-rubik">
-              {experienceTabs.map((tab) => (
+              {EXPERIENCE_TABS.map((tab) => (
                 <button
                   key={tab}
                   type="button"
@@ -150,11 +180,25 @@ export function UltimateTravelExperience() {
 
           {/* CARDS */}
           <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-            {(itemsMap[activeExperienceTab] || []).map((item, index) => {
-              const isTour = activeExperienceTab === "Tour Packages";
+            {isLoading ? (
+              [1, 2, 3].map((i) => (
+                <div key={i} className="h-[430px] rounded-[18px] border border-slate-200 bg-white p-3 animate-pulse">
+                  <div className="h-[235px] rounded-[7px] bg-slate-200" />
+                  <div className="p-4 space-y-3">
+                    <div className="h-5 bg-slate-200 rounded w-3/4" />
+                    <div className="h-4 bg-slate-200 rounded w-1/2" />
+                  </div>
+                </div>
+              ))
+            ) : (itemsMap[activeExperienceTab] || []).length === 0 ? (
+              <div className="col-span-full py-12 text-center rounded-[18px] border border-slate-200 bg-slate-50/50">
+                <p className="font-rubik text-base text-slate-500">No items currently available in this category.</p>
+              </div>
+            ) : (itemsMap[activeExperienceTab] || []).map((item, index) => {
+              const isTour = activeExperienceTab === "Tour Packages" || activeExperienceTab === "Hotel";
               const CardWrapper = isTour ? Link : 'article';
               const wrapperProps = isTour
-                ? { to: `/tour/packages/${item.id}` }
+                ? { to: `/tour/${item.category || (activeExperienceTab === 'Hotel' ? 'international' : 'domestic')}/${item.id}` }
                 : {} as any;
 
               return (

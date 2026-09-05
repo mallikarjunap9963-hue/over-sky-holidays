@@ -2,84 +2,120 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ScrollReveal } from '../ui/ScrollReveal';
 import { toursApi } from '../../api/toursApi';
+import { formatImageUrl } from '../../api/imageHelper';
 
-const defaultDestinationCards = [
-  {
-    title: 'Goa',
-    image:
-      'https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=900&q=85',
-    href: '/tours/domestic?destination=Goa',
-    layoutClass: 'lg:col-span-4 md:col-span-6',
-    tours: '30 Tours',
-  },
-  {
-    title: 'Dubai',
-    image:
-      'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1200&q=85',
-    href: '/tours/international?destination=Dubai',
-    layoutClass: 'lg:col-span-4 md:col-span-6',
-    tours: '25 Tours',
-  },
-  {
-    title: 'Bangkok',
-    image:
-      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaHJwKE_qh33v0rPkR003M_xWSz-fF5rjt1vDAa5mpeA&s=10',
-    href: '/tours/international?destination=Bangkok',
-    layoutClass: 'lg:col-span-4 md:col-span-6',
-    tours: '20 Tours',
-  },
-  {
-    title: 'Jammu & Kashmir',
-    image:
-      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-EQLYdL1GB_kgbtH8XXXuuc2vgzlkdwsTmTwfsUCzBg&s=10',
-    href: '/tours/domestic?destination=Kashmir',
-    layoutClass: 'lg:col-span-5 md:col-span-6',
-    tours: '18 Tours',
-  },
-  {
-    title: 'Singapore',
-    image:
-      'https://images.unsplash.com/photo-1525625293386-3f8f99389edd?auto=format&fit=crop&w=900&q=85',
-    href: '/tours/international?destination=Singapore',
-    layoutClass: 'lg:col-span-3 md:col-span-6',
-    tours: '15 Tours',
-  },
+interface DestinationCard {
+  title: string;
+  image: string;
+  href: string;
+  layoutClass: string;
+  tours: string;
+}
+
+const LAYOUT_CLASSES = [
+  'lg:col-span-4 md:col-span-6',
+  'lg:col-span-4 md:col-span-6',
+  'lg:col-span-4 md:col-span-6',
+  'lg:col-span-5 md:col-span-6',
+  'lg:col-span-3 md:col-span-6',
+  'lg:col-span-4 md:col-span-6',
 ];
 
 export function Destinations() {
-  const [destinationCards, setDestinationCards] = useState(defaultDestinationCards);
+  const [destinationCards, setDestinationCards] = useState<DestinationCard[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     let isMounted = true;
     async function loadDestinations() {
       try {
         const res = await toursApi.getAllTours();
-        if (!isMounted || !res.isLive || res.tours.length === 0) return;
+        if (!isMounted) return;
 
-        const dynamicCards = defaultDestinationCards.map((d) => {
-          const matching = res.tours.filter((t: any) =>
-            t.title.toLowerCase().includes(d.title.toLowerCase()) ||
-            (t.country && t.country.toLowerCase().includes(d.title.toLowerCase())) ||
-            (t.locations && t.locations.some((l: string) => l.toLowerCase().includes(d.title.toLowerCase())))
-          );
-          const count = matching.length > 0 ? matching.length : parseInt(d.tours, 10);
-          const img = matching[0]?.image || d.image;
-          return {
-            ...d,
-            tours: `${count} Tour${count === 1 ? '' : 's'}`,
-            image: img,
-          };
-        });
-        setDestinationCards(dynamicCards);
+        if (res.isLive && Array.isArray(res.tours) && res.tours.length > 0) {
+          const destMap = new Map<string, { title: string; image: string; count: number; isDomestic: boolean }>();
+
+          res.tours.forEach((t: any) => {
+            const rawName = t.country || t.state || t.location || t.title;
+            if (!rawName) return;
+            const cleanName = String(rawName).split(',')[0].trim();
+            const normalized = cleanName.charAt(0).toUpperCase() + cleanName.slice(1);
+
+            const isDomestic =
+              (t.category && String(t.category).toLowerCase().includes('domestic')) ||
+              (t.tourType && String(t.tourType).toLowerCase().includes('domestic')) ||
+              (t.tour_type?.slug === 'domestic');
+
+            const tourImg = formatImageUrl(t.image || t.thumbnail_url || t.thumbnail);
+
+            if (!destMap.has(normalized)) {
+              destMap.set(normalized, {
+                title: normalized,
+                image: tourImg,
+                count: 1,
+                isDomestic,
+              });
+            } else {
+              const current = destMap.get(normalized)!;
+              current.count += 1;
+              if (!current.image && tourImg) {
+                current.image = tourImg;
+              }
+            }
+          });
+
+          const dynamicCards: DestinationCard[] = Array.from(destMap.values())
+            .slice(0, 5)
+            .map((item, idx) => ({
+              title: item.title,
+              image: item.image,
+              href: `/tours/${item.isDomestic ? 'domestic' : 'international'}?destination=${encodeURIComponent(item.title)}`,
+              layoutClass: LAYOUT_CLASSES[idx % LAYOUT_CLASSES.length],
+              tours: `${item.count} Tour${item.count === 1 ? '' : 's'}`,
+            }));
+
+          setDestinationCards(dynamicCards);
+        } else {
+          setDestinationCards([]);
+        }
       } catch (err) {
-        console.error("Failed to load dynamic destinations:", err);
+        console.error("Failed to load dynamic destinations from tours:", err);
+        setDestinationCards([]);
+      } finally {
+        if (isMounted) setLoading(false);
       }
     }
+
     loadDestinations();
     return () => {
       isMounted = false;
     };
   }, []);
+
+  if (loading) {
+    return (
+      <section id="destination" className="relative overflow-hidden bg-[#F8F8F8] px-5 py-10 sm:px-8">
+        <div className="relative mx-auto max-w-[1320px]">
+          <div className="mb-8 text-center sm:mb-10">
+            <div className="mx-auto h-4 w-32 animate-pulse rounded bg-slate-200" />
+            <div className="mx-auto mt-3 h-10 w-72 animate-pulse rounded bg-slate-200" />
+          </div>
+          <div className="grid gap-6 md:grid-cols-12">
+            {[1, 2, 3, 4, 5, 6].map((i) => (
+              <div
+                key={i}
+                className={`h-[340px] animate-pulse rounded-[16px] bg-slate-200 ${LAYOUT_CLASSES[(i - 1) % LAYOUT_CLASSES.length]}`}
+              />
+            ))}
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  if (destinationCards.length === 0) {
+    return null;
+  }
 
   return (
     <>
@@ -117,7 +153,7 @@ export function Destinations() {
               >
                 <Link
                   to={destination.href}
-                  className="group relative block min-h-[320px] sm:min-h-[380px] overflow-hidden rounded-[16px] shadow-md transition-shadow hover:shadow-xl h-full"
+                  className="group relative block min-h-[320px] sm:min-h-[380px] overflow-hidden rounded-[16px] shadow-md transition-shadow hover:shadow-xl h-full bg-slate-800"
                 >
                   <img
                     src={destination.image}
@@ -133,7 +169,7 @@ export function Destinations() {
                     <h4 className="font-rubik text-[22px] font-bold text-white mb-3 translate-y-4 transition-transform duration-500 group-hover:translate-y-0 drop-shadow-md">
                       {destination.title}
                     </h4>
-                    
+
                     {/* Green Brush-Stroke Pill */}
                     <div className="relative inline-block translate-y-4 transition-transform duration-500 delay-75 group-hover:translate-y-0 shadow-sm">
                       <div className="absolute inset-0 bg-[#5da747] [clip-path:polygon(4%_0,96%_0,100%_20%,97%_82%,5%_100%,0_78%)]" />
@@ -161,13 +197,13 @@ export function Destinations() {
               className="lg:col-span-4 md:col-span-12"
             >
               <div className="relative flex min-h-[320px] sm:min-h-[380px] flex-col items-center justify-center overflow-hidden rounded-[16px] bg-gradient-to-br from-[#FCEDCA] via-[#E8F1D5] to-[#D5ECA3] px-6 text-center h-full">
-                
+
                 {/* Decorative planes */}
                 <svg className="absolute left-6 top-8 h-10 w-10 text-gray-500/20 rotate-[-45deg]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                  <path d="M22 2 11 13M22 2l-7 20-4-9-9-4 20-7z"/>
+                  <path d="M22 2 11 13M22 2l-7 20-4-9-9-4 20-7z" />
                 </svg>
                 <svg className="absolute bottom-6 right-6 h-10 w-10 text-gray-500/20 rotate-[45deg]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                  <path d="M22 2 11 13M22 2l-7 20-4-9-9-4 20-7z"/>
+                  <path d="M22 2 11 13M22 2l-7 20-4-9-9-4 20-7z" />
                 </svg>
 
                 {/* Ribbon */}
@@ -183,7 +219,7 @@ export function Destinations() {
                 </h3>
 
                 <Link
-                  to="/tours/domestic"
+                  to="/tours/international"
                   className="btn-primary mt-8 min-h-[48px] rounded-[6px] px-8 text-[15px] font-bold shadow-[0_12px_24px_rgba(8,83,164,0.18)] font-rubik"
                 >
                   View All Destination
@@ -196,4 +232,3 @@ export function Destinations() {
     </>
   );
 }
-

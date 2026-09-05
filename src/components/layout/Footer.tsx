@@ -1,29 +1,23 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { socialLinks } from '../../data';
 import { PhoneIcon, LocationIcon } from '../icons/Icons';
 import logo from '../../assets/logo-removebg-preview.png';
 import { contentApi } from '../../api/contentApi';
 import { toursApi } from '../../api/toursApi';
-import type { ApiContactSection } from '../../api/types';
+import type { ApiContactSection, ApiTopHeader } from '../../api/types';
 
 export function Footer() {
   const [contact, setContact] = useState<ApiContactSection | null>(null);
-  const [popularTours, setPopularTours] = useState<Array<{ label: string; href: string }>>([
-    { label: "Goa Beach Tour", href: "/tour/domestic/4" },
-    { label: "Kullu & Manali", href: "/tour/domestic/5" },
-    { label: "Kerala Tour", href: "/tour/domestic/2" },
-    { label: "Dubai Tour", href: "/tour/international/15" },
-    { label: "Island Escape", href: "/tour/international/27" },
-    { label: "Santorini Escape", href: "/tour/international/23" },
-  ]);
+  const [topHeader, setTopHeader] = useState<ApiTopHeader | null>(null);
+  const [popularTours, setPopularTours] = useState<Array<{ label: string; href: string }>>([]);
 
   useEffect(() => {
     let isMounted = true;
     async function loadFooterData() {
       try {
-        const [contactRes, toursRes] = await Promise.all([
+        const [contactRes, headerRes, toursRes] = await Promise.all([
           contentApi.getContactSectionActive(),
+          contentApi.getTopHeaderActive(),
           toursApi.getAllTours(),
         ]);
 
@@ -31,6 +25,10 @@ export function Footer() {
 
         if (contactRes.isLive && contactRes.contact) {
           setContact(contactRes.contact);
+        }
+
+        if (headerRes.isLive && headerRes.header) {
+          setTopHeader(headerRes.header);
         }
 
         if (toursRes.isLive && toursRes.tours.length > 0) {
@@ -106,16 +104,22 @@ export function Footer() {
 
               {/* SOCIAL ICONS */}
               <div className="mt-6 flex items-center gap-3">
-                {socialLinks.map((social) => (
+                {(topHeader?.social_links && topHeader.social_links.length > 0
+                  ? topHeader.social_links
+                  : [
+                      { platform: "Instagram", url: "https://www.instagram.com/openskyholidays/", icon: "fa-brands fa-instagram" },
+                      { platform: "Facebook", url: "https://www.facebook.com/openskyholidays", icon: "fa-brands fa-facebook-f" },
+                    ]
+                ).map((social, idx) => (
                   <a
-                    key={social.label}
-                    href={social.href || "#social"}
-                    target={social.href && social.href !== "#social" ? "_blank" : undefined}
-                    rel={social.href && social.href !== "#social" ? "noopener noreferrer" : undefined}
-                    aria-label={social.label}
+                    key={social.platform || idx}
+                    href={social.url || (social as any).link || "#social"}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={social.platform || "Social"}
                     className="flex h-10 w-10 items-center justify-center rounded-full border border-white/25 text-white transition duration-300 hover:-translate-y-1 hover:border-white hover:bg-white hover:text-[#0853a4]"
                   >
-                    {social.icon}
+                    <i className={social.icon || (social.platform?.toLowerCase().includes("instagram") ? "fa-brands fa-instagram" : "fa-brands fa-facebook-f")} />
                   </a>
                 ))}
               </div>

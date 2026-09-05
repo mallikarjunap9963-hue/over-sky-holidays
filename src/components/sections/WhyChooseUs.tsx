@@ -3,7 +3,16 @@ import { contentApi } from '../../api/contentApi';
 import { formatImageUrl } from '../../api/imageHelper';
 import { ScrollReveal } from '../ui/ScrollReveal';
 
-function renderFeatureIcon(item: any, fallbackIcon: ReactNode): ReactNode {
+const ICON_COLORS = [
+  'text-[#0853a4]',
+  'text-[#f4a51c]',
+  'text-[#c9be00]',
+  'text-[#d4c500]',
+  'text-[#22a66f]',
+  'text-[#f39b19]',
+];
+
+function renderFeatureIcon(item: any): ReactNode {
   if (item.image_url) {
     return (
       <img
@@ -41,151 +50,43 @@ function renderFeatureIcon(item: any, fallbackIcon: ReactNode): ReactNode {
     }
   }
 
-  return fallbackIcon;
+  // Generic fallback travel icon if neither fontawesome nor image is provided
+  return (
+    <svg viewBox="0 0 80 80" className="h-12 w-12" fill="none" stroke="currentColor" strokeWidth="2.3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <circle cx="40" cy="40" r="24" />
+      <path d="M16 40h48M40 16c8 9 12 16 12 24s-4 15-12 24M40 16c-8 9-12 16-12 24s4 15 12 24" />
+    </svg>
+  );
 }
 
 export function WhyChooseUs() {
   const [whyItems, setWhyItems] = useState<any[]>([]);
-
-  const defaultList = [
-    {
-      title: "Worldwide Coverage",
-      description:
-        "Explore domestic and international destinations with complete planning and trusted travel support.",
-      iconColor: "text-[#0853a4]",
-      icon: (
-        <svg viewBox="0 0 80 80" className="h-14 w-14" fill="none" stroke="currentColor" strokeWidth="2.3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-          <circle cx="34" cy="44" r="22" />
-          <path d="M12 44h44" />
-          <path d="M34 22c6.5 7 10 14.5 10 22s-3.5 15-10 22" />
-          <path d="M34 22c-6.5 7-10 14.5-10 22s3.5 15 10 22" />
-          <path d="M32 18 L52 8 L44 26 L38 20 L28 26 L26 21 L32 18 Z" strokeWidth="2.2" />
-          <path d="M44 12 L38 20" />
-          <path d="M18 16c-2 2-3 4-3 6" strokeWidth="1.8" />
-          <path d="M24 10c-1-3 0-5 2-6" strokeWidth="1.8" />
-          <path d="M54 18c3 0 5-1 7-3" strokeWidth="1.8" />
-        </svg>
-      ),
-    },
-    {
-      title: "Value For Money",
-      description:
-        "Enjoy transparent pricing and thoughtfully designed packages suited to your travel needs and budget.",
-      iconColor: "text-[#f4a51c]",
-      icon: (
-        <svg viewBox="0 0 80 80" className="h-14 w-14" fill="none" stroke="currentColor" strokeWidth="2.3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-          <path d="M42 8 L22 40 h14 L26 70 L56 34 H40 L48 8 Z" strokeWidth="2.5" />
-          <circle cx="30" cy="28" r="9" fill="white" strokeWidth="2.2" />
-          <path d="M26 32 l8-8" strokeWidth="2" />
-          <circle cx="27" cy="25" r="1.5" fill="currentColor" />
-          <circle cx="33" cy="31" r="1.5" fill="currentColor" />
-          <path d="M58 16l6-4" strokeWidth="2" />
-          <path d="M62 28h7" strokeWidth="2" />
-          <path d="M52 50l6 5" strokeWidth="2" />
-          <path d="M16 20l-5-4" strokeWidth="2" />
-        </svg>
-      ),
-    },
-    {
-      title: "Fast Booking",
-      description:
-        "Book tours, flights, hotels, visa assistance and transport services conveniently in one place.",
-      iconColor: "text-[#c9be00]",
-      icon: (
-        <svg viewBox="0 0 80 80" className="h-14 w-14" fill="none" stroke="currentColor" strokeWidth="2.3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-          <path d="M24 10v8M38 10v8M52 10v8" strokeWidth="3" />
-          <path d="M20 12c0-3 8-3 8 0M34 12c0-3 8-3 8 0M48 12c0-3 8-3 8 0" strokeWidth="2.2" />
-          <rect x="14" y="16" width="50" height="50" rx="7" strokeWidth="2.4" />
-          <path d="M14 28h50" strokeWidth="2" />
-          <rect x="22" y="34" width="5" height="5" rx="1" />
-          <rect x="32" y="34" width="5" height="5" rx="1" />
-          <rect x="42" y="34" width="5" height="5" rx="1" />
-          <rect x="22" y="44" width="5" height="5" rx="1" />
-          <rect x="32" y="44" width="5" height="5" rx="1" />
-          <rect x="22" y="54" width="5" height="5" rx="1" />
-          <circle cx="48" cy="50" r="10" fill="white" strokeWidth="2.2" />
-          <path d="m43 50 3.5 3.5 7.5-7.5" strokeWidth="2.5" />
-        </svg>
-      ),
-    },
-    {
-      title: "Customized Tours",
-      description:
-        "Personalized holiday packages for families, couples, groups, corporate travelers and special events.",
-      iconColor: "text-[#d4c500]",
-      icon: (
-        <svg viewBox="0 0 80 80" className="h-14 w-14" fill="none" stroke="currentColor" strokeWidth="2.3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-          <circle cx="28" cy="24" r="8" strokeWidth="2.3" />
-          <path d="M18 22h20" strokeWidth="2.8" />
-          <path d="M20 22c0-5 3.5-8 8-8s8 3.5 8 8" strokeWidth="2" />
-          <path d="M14 62v-10c0-7 6-12 14-12s14 5 14 12v10" strokeWidth="2.3" />
-          <path d="M38 48l16-12" strokeWidth="2.3" />
-          <path d="M54 14v50" strokeWidth="2.6" />
-          <path d="M54 16l18 8-18 8Z" fill="none" strokeWidth="2.3" />
-        </svg>
-      ),
-    },
-    {
-      title: "Complete Support 24/7",
-      description:
-        "Our travel team assists you before, during and after your journey for a smooth and worry-free experience.",
-      iconColor: "text-[#22a66f]",
-      icon: (
-        <svg viewBox="0 0 80 80" className="h-14 w-14" fill="none" stroke="currentColor" strokeWidth="2.3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-          <circle cx="36" cy="30" r="16" strokeWidth="2.4" />
-          <path d="M36 20v10l6 4" strokeWidth="2.4" />
-          <path d="M22 24a18 18 0 0 1 26-6" strokeWidth="2" />
-          <path d="M48 14l3 5-5 1" strokeWidth="2" />
-          <path d="M54 32h5v6h-5v-6z" strokeWidth="1.5" />
-          <path d="M55 24h3v5M61 24v9" strokeWidth="1.8" />
-          <path d="M10 60c8-6 16-5 24-2l16 4c6 2 12-1 16-6" strokeWidth="2.5" />
-          <path d="M10 52c6-1 12 1 18 5" strokeWidth="2.2" />
-        </svg>
-      ),
-    },
-    {
-      title: "Safe & Flexible Travel",
-      description:
-        "Travel confidently with verified partners, secure arrangements and flexible customized travel planning.",
-      iconColor: "text-[#f39b19]",
-      icon: (
-        <svg viewBox="0 0 80 80" className="h-14 w-14" fill="none" stroke="currentColor" strokeWidth="2.3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-          <path d="M14 18h46" strokeWidth="2.8" strokeDasharray="3 3" />
-          <rect x="14" y="20" width="46" height="44" rx="6" strokeWidth="2.4" />
-          <path d="M22 36c8 0 12 12 24 12" strokeWidth="2.4" />
-          <path d="M42 44l4 4-4 4" strokeWidth="2.2" />
-          <path d="M22 48c8 0 12-12 24-12" strokeWidth="2.4" />
-          <path d="M42 32l4 4-4 4" strokeWidth="2.2" />
-          <circle cx="56" cy="56" r="11" fill="white" strokeWidth="2.3" />
-          <path d="M56 49v7l4 3" strokeWidth="2.2" />
-        </svg>
-      ),
-    },
-  ];
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     let isMounted = true;
     async function loadWhyChooseUs() {
       try {
         const res = await contentApi.getWhyChooseSectionsActive();
-        if (isMounted && res.isLive && res.items.length > 0) {
-          const mapped = res.items.map((item: any, i: number) => {
-            const fallback = defaultList.find(
-              (d) => d.title.toLowerCase().trim() === (item.title || '').toLowerCase().trim()
-            ) || defaultList[i % defaultList.length];
+        if (!isMounted) return;
 
-            return {
-              id: item.id || i,
-              title: item.title || fallback.title,
-              description: item.description || fallback.description,
-              iconColor: fallback.iconColor || "text-[#0853a4]",
-              icon: renderFeatureIcon(item, fallback.icon),
-            };
-          });
+        if (res.isLive && Array.isArray(res.items) && res.items.length > 0) {
+          const mapped = res.items.map((item: any, i: number) => ({
+            id: item.id || i,
+            title: item.title,
+            description: item.description,
+            iconColor: ICON_COLORS[i % ICON_COLORS.length],
+            icon: renderFeatureIcon(item),
+          }));
           setWhyItems(mapped);
+        } else {
+          setWhyItems([]);
         }
       } catch (err) {
         console.error("Error loading Why Choose Us API:", err);
+        setWhyItems([]);
+      } finally {
+        if (isMounted) setLoading(false);
       }
     }
 
@@ -195,8 +96,27 @@ export function WhyChooseUs() {
     };
   }, []);
 
+  if (loading) {
+    return (
+      <section id="why-choose-us" className="relative overflow-hidden bg-white px-5 py-10 sm:px-8">
+        <div className="relative mx-auto max-w-[1320px]">
+          <div className="text-center">
+            <div className="mx-auto h-4 w-28 animate-pulse rounded bg-slate-200" />
+            <div className="mx-auto mt-4 h-10 w-80 animate-pulse rounded bg-slate-200" />
+          </div>
+          <div className="mt-14 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+            {[1, 2, 3, 4, 5, 6].map((i) => (
+              <div key={i} className="h-36 animate-pulse rounded-[18px] border border-slate-100 bg-slate-50 p-6" />
+            ))}
+          </div>
+        </div>
+      </section>
+    );
+  }
 
-  const displayList = whyItems.length > 0 ? whyItems : defaultList;
+  if (whyItems.length === 0) {
+    return null;
+  }
 
   return (
     <section
@@ -243,9 +163,9 @@ export function WhyChooseUs() {
 
         {/* Feature cards */}
         <div className="mt-14 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-          {displayList.map((feature: any, index: number) => (
+          {whyItems.map((feature: any, index: number) => (
             <ScrollReveal
-              key={feature.title}
+              key={feature.id || feature.title}
               variant="fade-in-up"
               delay={index * 100}
               duration={1300}
