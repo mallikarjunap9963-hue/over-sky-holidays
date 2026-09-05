@@ -99,25 +99,31 @@ export function PopupContact() {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 30 }}
             transition={{ type: "spring", duration: 0.6, bounce: 0.25 }}
-            className="relative w-full max-w-[950px] overflow-hidden rounded-[30px] bg-white shadow-2xl flex flex-col lg:flex-row pointer-events-auto items-stretch"
+            className="relative w-full max-w-[950px] max-h-[94vh] overflow-y-auto lg:overflow-hidden rounded-[26px] sm:rounded-[30px] bg-white shadow-2xl flex flex-col lg:flex-row pointer-events-auto items-stretch"
           >
             {/* Close Modal Button */}
             <button
               onClick={() => setIsOpen(false)}
-              className="absolute right-4 top-4 z-20 flex h-9 w-9 items-center justify-center rounded-full bg-slate-100/80 text-slate-500 hover:bg-red-50 hover:text-red-500 transition-colors cursor-pointer shadow-sm"
+              aria-label="Close modal"
+              className="absolute right-3.5 top-3.5 z-20 flex h-9 w-9 items-center justify-center rounded-full bg-slate-100/90 text-slate-600 hover:bg-red-50 hover:text-red-500 transition-colors cursor-pointer shadow-md backdrop-blur-sm"
             >
               <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
 
-            {/* Left Side: Visual Image Box (lg:col-span-5 equivalent / 42% width) */}
-            <div className="relative w-full lg:w-[42%] min-h-[220px] lg:min-h-full overflow-hidden flex flex-col justify-end">
-              {/* Travel Art background */}
-              <div
-                className="absolute inset-0 bg-no-repeat bg-cover bg-left"
-                style={{ backgroundImage: "url('/enquiry-image.png')" }}
-              />
+            {/* Visual Image Box: Top on mobile (< lg), Left on desktop (lg:+) */}
+            <div className="relative w-full lg:w-[42%] min-h-[190px] h-[210px] sm:h-[240px] lg:h-auto lg:min-h-full overflow-hidden shrink-0">
+              <picture className="w-full h-full block">
+                {/* Desktop: lg and up (42% width vertical panel) */}
+                <source media="(min-width: 1024px)" srcSet="/enquiry-image.png" />
+                {/* Mobile: under 1024px */}
+                <img
+                  src="/enquiry-mobile.png"
+                  alt="Open Sky Holidays Enquiry"
+                  className="w-full h-full object-cover object-center"
+                />
+              </picture>
             </div>
 
             {/* Right Side: Contact Form Box (lg:col-span-7 equivalent / 58% width) */}
