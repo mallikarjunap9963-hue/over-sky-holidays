@@ -1,7 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ScrollReveal } from '../components/ui/ScrollReveal';
 import { enquiriesApi } from '../api/enquiriesApi';
+import { contentApi } from '../api/contentApi';
+import { formatImageUrl } from '../api/imageHelper';
+import type { ApiContactSection, ApiPageBanner } from '../api/types';
 import { Loader2, AlertCircle } from 'lucide-react';
 import breadcrumbImg from '../assets/breadcrumb.png';
 
@@ -13,6 +16,8 @@ export function Contact({ variant = 'full' }: ContactProps) {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [contact, setContact] = useState<ApiContactSection | null>(null);
+  const [banner, setBanner] = useState<ApiPageBanner | null>(null);
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
@@ -23,6 +28,45 @@ export function Contact({ variant = 'full' }: ContactProps) {
     tourType: 'Domestic Tour',
     message: ''
   });
+
+  useEffect(() => {
+    let isMounted = true;
+    async function loadContactData() {
+      try {
+        const [contactRes, bannerRes] = await Promise.all([
+          contentApi.getContactSectionActive(),
+          contentApi.getPageBanner('contact'),
+        ]);
+
+        if (!isMounted) return;
+
+        if (contactRes.isLive && contactRes.contact) {
+          setContact(contactRes.contact);
+        }
+
+        if (bannerRes.isLive && bannerRes.banner) {
+          setBanner(bannerRes.banner);
+        }
+      } catch (err) {
+        console.error("Failed to load contact section API:", err);
+      }
+    }
+
+    loadContactData();
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  const phone = contact?.phone || "+91 99081 17712";
+  const phoneClean = phone.replace(/[^0-9+]/g, '');
+  const email = contact?.email || "info@openskyholidays.com";
+  const address = contact?.address || "#1-11-110, Shyamlal Building, Begumpet, Hyderabad - 500018";
+  const mapLink = contact?.map_link || "https://www.google.com/maps/search/?api=1&query=Shyamlal+Building+Begumpet+Hyderabad+500018";
+  const whatsappNum = (contact?.whatsapp_number || contact?.phone || "919908117712").replace(/[^0-9]/g, '');
+  const mapSrc = contact?.map_embed_url?.match(/src="([^"]+)"/)?.[1] || "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3806.5186641775836!2d78.45524677516599!3d17.43485748346061!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb90b9b3e944cd%3A0xc665e7178cf2338c!2sShyamlal%20Building!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin";
+  const bannerImg = formatImageUrl(banner?.image_url || banner?.image || banner?.banner_image, breadcrumbImg);
+  const bannerTitle = banner?.title || "Contact Us";
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -113,7 +157,7 @@ export function Contact({ variant = 'full' }: ContactProps) {
           {/* Background Image */}
           <div className="absolute inset-0 -z-20">
             <img
-              src={breadcrumbImg}
+              src={bannerImg}
               alt="Open Sky Holidays Contact Page"
               className="h-full w-full object-cover object-center"
             />
@@ -148,20 +192,18 @@ export function Contact({ variant = 'full' }: ContactProps) {
                   </svg>
 
                   <span className="font-jost text-[11px] font-bold uppercase tracking-[0.2em] text-white">
-                    Open Sky Holidays
+                    {banner?.label || "Open Sky Holidays"}
                   </span>
                 </div>
 
                 {/* Page Title */}
                 <h1 className="font-rubik text-[38px] font-black leading-[1.08] text-white sm:text-[48px] lg:text-[58px]">
-                  Contact Us
+                  {bannerTitle}
                 </h1>
 
                 {/* Description */}
                 <p className="mt-2.5 max-w-[570px] font-jost text-[14px] leading-7 text-white/75 sm:text-[15px]">
-                  Start planning your perfect holiday with our travel experts.
-                  Contact us for customized packages, destination guidance and
-                  complete travel assistance.
+                  {banner?.description || "Start planning your perfect holiday with our travel experts. Contact us for customized packages, destination guidance and complete travel assistance."}
                 </p>
 
                 {/* Breadcrumb */}
@@ -199,7 +241,7 @@ export function Contact({ variant = 'full' }: ContactProps) {
                   </svg>
 
                   <span className="font-jost text-[13px] font-semibold text-[#fbb03b]">
-                    Contact Us
+                    {banner?.breadcrumb_title || "Contact Us"}
                   </span>
                 </nav>
               </div>
@@ -253,7 +295,7 @@ export function Contact({ variant = 'full' }: ContactProps) {
               {/* Card 1: Phone / Call */}
               <ScrollReveal variant="fade-in-up" delay={100} duration={1200}>
                 <a
-                  href="tel:+919908117712"
+                  href={`tel:${phoneClean}`}
                   className="group relative flex flex-col items-center text-center p-6 rounded-2xl bg-white border border-slate-200/80 shadow-[0_10px_30px_rgba(0,0,0,0.04)] transition-all duration-300 hover:-translate-y-1.5 hover:border-[#0853a4]/30 hover:shadow-[0_20px_40px_rgba(8,83,164,0.08)] h-full"
                 >
                   <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-[#0853a4] to-[#042d5c] text-white shadow-md shadow-[#0853a4]/20 transition-transform duration-500 group-hover:scale-110 mb-4">
@@ -268,7 +310,7 @@ export function Contact({ variant = 'full' }: ContactProps) {
                     For Instant Support & Booking
                   </p>
                   <span className="mt-3 font-rubik text-[15px] font-bold text-[#0853a4]">
-                    +91 99081 17712
+                    {phone}
                   </span>
                 </a>
               </ScrollReveal>
@@ -276,7 +318,7 @@ export function Contact({ variant = 'full' }: ContactProps) {
               {/* Card 2: Email */}
               <ScrollReveal variant="fade-in-up" delay={200} duration={1200}>
                 <a
-                  href="mailto:info@openskyholidays.com"
+                  href={`mailto:${email}`}
                   className="group relative flex flex-col items-center text-center p-6 rounded-2xl bg-white border border-slate-200/80 shadow-[0_10px_30px_rgba(0,0,0,0.04)] transition-all duration-300 hover:-translate-y-1.5 hover:border-[#0853a4]/30 hover:shadow-[0_20px_40px_rgba(8,83,164,0.08)] h-full"
                 >
                   <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-[#fbb03b] to-[#f39c12] text-slate-900 shadow-md shadow-[#fbb03b]/20 transition-transform duration-500 group-hover:scale-110 mb-4">
@@ -291,7 +333,7 @@ export function Contact({ variant = 'full' }: ContactProps) {
                     Send Us Your Travel Plan
                   </p>
                   <span className="mt-3 font-rubik text-[14px] font-bold text-[#0853a4] break-all">
-                    info@openskyholidays.com
+                    {email}
                   </span>
                 </a>
               </ScrollReveal>
@@ -299,7 +341,7 @@ export function Contact({ variant = 'full' }: ContactProps) {
               {/* Card 3: Office Address */}
               <ScrollReveal variant="fade-in-up" delay={300} duration={1200}>
                 <a
-                  href="https://www.google.com/maps/search/?api=1&query=Shyamlal+Building+Begumpet+Hyderabad+500018"
+                  href={mapLink}
                   target="_blank"
                   rel="noreferrer"
                   className="group relative flex flex-col items-center text-center p-6 rounded-2xl bg-white border border-slate-200/80 shadow-[0_10px_30px_rgba(0,0,0,0.04)] transition-all duration-300 hover:-translate-y-1.5 hover:border-[#0853a4]/30 hover:shadow-[0_20px_40px_rgba(8,83,164,0.08)] h-full"
@@ -314,7 +356,7 @@ export function Contact({ variant = 'full' }: ContactProps) {
                     Our Location
                   </h3>
                   <p className="mt-1 font-jost text-[12.5px] text-slate-500 leading-snug">
-                    #1-11-110, Shyamlal Building, Begumpet, Hyderabad - 500018
+                    {address}
                   </p>
                   <span className="mt-3 font-rubik text-[13px] font-semibold text-emerald-600 flex items-center gap-1">
                     <span>View On Map</span>
@@ -326,7 +368,7 @@ export function Contact({ variant = 'full' }: ContactProps) {
               {/* Card 4: WhatsApp Direct */}
               <ScrollReveal variant="fade-in-up" delay={400} duration={1200}>
                 <a
-                  href="https://wa.me/919908117712?text=Hi%20Open%20Sky%20Holidays%2C%20I%20want%20to%20inquire%20about%20a%20tour%20package."
+                  href={`https://wa.me/${whatsappNum}?text=Hi%20Open%20Sky%20Holidays%2C%20I%20want%20to%20inquire%20about%20a%20tour%20package.`}
                   target="_blank"
                   rel="noreferrer"
                   className="group relative flex flex-col items-center text-center p-6 rounded-2xl bg-white border border-slate-200/80 shadow-[0_10px_30px_rgba(0,0,0,0.04)] transition-all duration-300 hover:-translate-y-1.5 hover:border-[#25d366]/40 hover:shadow-[0_20px_40px_rgba(37,211,102,0.12)] h-full"
@@ -668,14 +710,14 @@ export function Contact({ variant = 'full' }: ContactProps) {
               </div>
               <div className="text-center md:text-left">
                 <p className="font-rubik text-[14px] font-bold text-[#100c08]">Our Office Location</p>
-                <p className="font-jost text-[12.5px] text-slate-500">#1-11-110, Shyamlal Building, Begumpet, Hyderabad - 500018</p>
+                <p className="font-jost text-[12.5px] text-slate-500">{address}</p>
               </div>
             </div>
 
             {/* Map iframe */}
             <iframe
               title="Open Sky Holidays Office Location"
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3806.5186641775836!2d78.45524677516599!3d17.43485748346061!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb90b9b3e944cd%3A0xc665e7178cf2338c!2sShyamlal%20Building!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
+              src={mapSrc}
               className="h-[300px] w-full sm:h-[400px] lg:h-[450px]"
               style={{ border: 0 }}
               allowFullScreen

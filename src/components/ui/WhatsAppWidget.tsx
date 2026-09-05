@@ -2,14 +2,39 @@ import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X } from 'lucide-react';
 
+import { contentApi } from '../../api/contentApi';
+
 export function WhatsAppWidget() {
   const [isOpen, setIsOpen] = useState(false);
   const [showTooltip, setShowTooltip] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+  const [phone, setPhone] = useState("919908117712");
   const widgetRef = useRef<HTMLDivElement>(null);
-  const phoneNumber = "919908117712"; // Used for the wa.me link
   const companyName = "Open Sky Holidays";
   const defaultMessage = encodeURIComponent("Hello Open Sky Holidays! I would like to inquire about tour packages and travel details. Please assist me.");
+
+  useEffect(() => {
+    let isMounted = true;
+    async function loadPhone() {
+      try {
+        const res = await contentApi.getContactSectionActive();
+        if (isMounted && res.contact) {
+          const num = res.contact.whatsapp_number || res.contact.phone;
+          if (num) {
+            setPhone(num.replace(/[^0-9]/g, ''));
+          }
+        }
+      } catch (err) {
+        console.error("Failed to load WhatsApp contact number:", err);
+      }
+    }
+    loadPhone();
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  const phoneNumber = phone;
 
   useEffect(() => {
     const handleScroll = () => {

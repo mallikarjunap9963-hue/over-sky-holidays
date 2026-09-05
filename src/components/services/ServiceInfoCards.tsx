@@ -29,11 +29,11 @@ export function ServiceInfoCards({ documents, whyChooseUs }: ServiceInfoCardsPro
             </h3>
             
             <ul className="space-y-3.5">
-              {documents.map((doc, index) => (
+              {(documents || []).map((doc, index) => (
                 <ScrollReveal 
                   key={index} 
                   variant="fade-in-up" 
-                  delay={index * 100}
+                  delay={index * 100} 
                   duration={1000}
                   className="flex items-start gap-3"
                 >
@@ -69,8 +69,8 @@ export function ServiceInfoCards({ documents, whyChooseUs }: ServiceInfoCardsPro
           </h3>
           
           <div className="space-y-5">
-            {whyChooseUs.map((item, index) => {
-              const IconComp = chooseIconMap[item.iconType];
+            {(whyChooseUs || []).map((item, index) => {
+              const IconComp = (item.iconType && chooseIconMap[item.iconType]) || Users;
               
               return (
                 <ScrollReveal 

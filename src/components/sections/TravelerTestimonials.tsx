@@ -1,12 +1,12 @@
 import { useEffect, useMemo, useState } from "react"
 import type { ReviewSource } from "../../types"
-import { reviewTabs } from "../../data"
+import { reviewTabs, travelerReviews as defaultReviews } from "../../data"
 import { contentApi } from "../../api/contentApi"
 import { ReviewSourceIcon } from "../icons/Icons"
 import { ScrollReveal } from "../ui/ScrollReveal"
 
 export function TravelerTestimonials() {
-  const [reviewsList, setReviewsList] = useState<any[]>([])
+  const [reviewsList, setReviewsList] = useState<any[]>(defaultReviews)
   const [activeReviewTab, setActiveReviewTab] = useState<ReviewSource>("All Reviews")
   const [reviewSlide, setReviewSlide] = useState(0)
 

@@ -1,30 +1,52 @@
 import { useState, useEffect } from 'react';
 import { ScrollReveal } from '../ui/ScrollReveal';
 import { contentApi } from '../../api/contentApi';
+import { formatImageUrl } from '../../api/imageHelper';
 import aboutUsImg from '../../assets/about us img.png';
 import aboutUs2ndImg from '../../assets/about us 2nd img.png';
 import aboutUs3rdImg from '../../assets/about us 3 rd img.png';
 
 export function AboutStory() {
-  const [aboutData, setAboutData] = useState<any>(null);
+  const [storyData, setStoryData] = useState<any>(null);
 
   useEffect(() => {
     let isMounted = true;
-    async function loadAbout() {
+    async function loadStory() {
       try {
-        const res = await contentApi.getAboutSectionActive();
-        if (isMounted && res.about) {
-          setAboutData(res.about);
+        const res = await contentApi.getOurStories();
+        if (isMounted && res.isLive && res.story) {
+          setStoryData(res.story);
+          return;
+        }
+
+        // Fallback to active about section
+        const aboutRes = await contentApi.getAboutSectionActive();
+        if (isMounted && aboutRes.isLive && aboutRes.about) {
+          setStoryData(aboutRes.about);
         }
       } catch (err) {
-        console.error("Failed to load about section API:", err);
+        console.error("Failed to load story API:", err);
       }
     }
-    loadAbout();
+    loadStory();
     return () => {
       isMounted = false;
     };
   }, []);
+
+  const heading = storyData?.heading || storyData?.title || "Crafting Unforgettable Journeys Since 2020.";
+  const description = storyData?.description || "Established in 2020, Open Sky Holidays has dedicated itself to transforming standard trips into deeply personalized, lifelong travel memories. Starting as a localized tours operator, our commitment to quality quickly expanded our horizon.<br>Today, we stand as one of India's trusted, comprehensive travel agencies. We are proud to offer seamlessly integrated domestic & international holiday packages, flight bookings, premium hotels, passport support, and visa solutions.";
+
+  const img1 = formatImageUrl(storyData?.images?.[0] || storyData?.image_one_url, aboutUsImg);
+  const img2 = formatImageUrl(storyData?.images?.[1] || storyData?.image_two_url, aboutUs2ndImg);
+  const img3 = formatImageUrl(storyData?.images?.[2] || storyData?.image_three_url, aboutUs3rdImg);
+
+  const features = Array.isArray(storyData?.features) && storyData.features.length > 0
+    ? storyData.features
+    : [
+        { heading: "100% Customized", sub_heading: "Tailored to your budget" },
+        { heading: "End-To-End Care", sub_heading: "From flight to destination" },
+      ];
 
   return (
     <section
@@ -43,26 +65,41 @@ export function AboutStory() {
           <ScrollReveal variant="fade-in-left" delay={50} duration={1200} className="relative">
             <div className="grid grid-cols-2 gap-4 h-[420px] sm:h-[465px]">
               {/* Tall 1st image */}
-              <div className="overflow-hidden rounded-2xl shadow-lg border border-slate-100 h-full w-full">
+              <div className="overflow-hidden rounded-2xl shadow-lg border border-slate-100 h-full w-full bg-slate-100">
                 <img
-                  src={aboutData?.image_one_url || aboutUsImg}
+                  src={img1}
                   alt="Open Sky Holidays Team"
+                  onError={(e) => {
+                    if (e.currentTarget.src !== aboutUsImg) {
+                      e.currentTarget.src = aboutUsImg;
+                    }
+                  }}
                   className="h-full w-full object-cover object-center transition duration-700 hover:scale-105"
                 />
               </div>
               {/* Stacked 2nd & 3rd images */}
               <div className="flex flex-col gap-4 h-full">
-                <div className="overflow-hidden rounded-2xl shadow-md border border-slate-100 flex-1 min-h-0">
+                <div className="overflow-hidden rounded-2xl shadow-md border border-slate-100 flex-1 min-h-0 bg-slate-100">
                   <img
-                    src={aboutData?.image_two_url || aboutUs2ndImg}
+                    src={img2}
                     alt="Open Sky Holidays Travel Consultation"
+                    onError={(e) => {
+                      if (e.currentTarget.src !== aboutUs2ndImg) {
+                        e.currentTarget.src = aboutUs2ndImg;
+                      }
+                    }}
                     className="h-full w-full object-cover transition duration-700 hover:scale-105"
                   />
                 </div>
-                <div className="overflow-hidden rounded-2xl shadow-md border border-slate-100 flex-1 min-h-0">
+                <div className="overflow-hidden rounded-2xl shadow-md border border-slate-100 flex-1 min-h-0 bg-slate-100">
                   <img
-                    src={aboutData?.image_three_url || aboutUs3rdImg}
+                    src={img3}
                     alt="Open Sky Holidays Travel Essentials"
+                    onError={(e) => {
+                      if (e.currentTarget.src !== aboutUs3rdImg) {
+                        e.currentTarget.src = aboutUs3rdImg;
+                      }
+                    }}
                     className="h-full w-full object-cover transition duration-700 hover:scale-105"
                   />
                 </div>
@@ -85,42 +122,30 @@ export function AboutStory() {
 
             <ScrollReveal variant="fade-in-right" delay={200} duration={1300}>
               <h2 className="font-rubik text-[30px] font-extrabold leading-[1.2] tracking-tight text-[#100c08] sm:text-[38px] lg:text-[44px]">
-                {aboutData?.title || "Crafting Unforgettable Journeys Since 2020."}
+                {heading}
               </h2>
             </ScrollReveal>
 
             <ScrollReveal variant="fade-in-right" delay={350} duration={1300}>
-              <div className="flex flex-col gap-4 font-jost text-[15.5px] leading-relaxed text-slate-600">
-                <p>
-                  {aboutData?.description ||
-                    "Established in 2020, Open Sky Holidays has dedicated itself to transforming standard trips into deeply personalized, lifelong travel memories. Starting as a localized tours operator, our commitment to quality quickly expanded our horizon."}
-                </p>
-                {aboutData?.sub_description && (
-                  <p>{aboutData.sub_description}</p>
-                )}
-              </div>
+              <div
+                className="flex flex-col gap-4 font-jost text-[15.5px] leading-relaxed text-slate-600"
+                dangerouslySetInnerHTML={{ __html: description.replace(/\n/g, '<br/>') }}
+              />
             </ScrollReveal>
 
             <ScrollReveal variant="fade-in-right" delay={500} duration={1300}>
               <div className="mt-2 grid grid-cols-2 gap-4 font-rubik">
-                <div className="flex items-start gap-3">
-                  <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-blue-50 text-[#0853a4] mt-0.5">
-                    ✓
-                  </span>
-                  <div>
-                    <h4 className="text-[14px] font-bold text-slate-800">100% Customized</h4>
-                    <p className="text-[12px] text-slate-500">Tailored to your budget</p>
+                {features.map((item: any, idx: number) => (
+                  <div key={idx} className="flex items-start gap-3">
+                    <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-blue-50 text-[#0853a4] mt-0.5 text-xs font-bold">
+                      ✓
+                    </span>
+                    <div>
+                      <h4 className="text-[14px] font-bold text-slate-800">{item.heading || item.title}</h4>
+                      <p className="text-[12px] text-slate-500">{item.sub_heading || item.description}</p>
+                    </div>
                   </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-blue-50 text-[#0853a4] mt-0.5">
-                    ✓
-                  </span>
-                  <div>
-                    <h4 className="text-[14px] font-bold text-slate-800">End-To-End Care</h4>
-                    <p className="text-[12px] text-slate-500">From flight to destination</p>
-                  </div>
-                </div>
+                ))}
               </div>
             </ScrollReveal>
           </div>

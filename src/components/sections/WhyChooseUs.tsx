@@ -1,36 +1,51 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, type ReactNode } from 'react';
 import { contentApi } from '../../api/contentApi';
+import { formatImageUrl } from '../../api/imageHelper';
 import { ScrollReveal } from '../ui/ScrollReveal';
+
+function renderFeatureIcon(item: any, fallbackIcon: ReactNode): ReactNode {
+  if (item.image_url) {
+    return (
+      <img
+        src={formatImageUrl(item.image_url)}
+        alt={item.title || 'Icon'}
+        className="h-12 w-12 object-contain"
+      />
+    );
+  }
+
+  if (item.icon && typeof item.icon === 'string') {
+    const rawIcon = item.icon.trim();
+    if (
+      rawIcon.startsWith('http://') ||
+      rawIcon.startsWith('https://') ||
+      rawIcon.startsWith('/') ||
+      rawIcon.startsWith('data:image')
+    ) {
+      return (
+        <img
+          src={formatImageUrl(rawIcon)}
+          alt={item.title || 'Icon'}
+          className="h-12 w-12 object-contain"
+        />
+      );
+    }
+
+    if (rawIcon.includes('fa-')) {
+      return (
+        <i
+          className={`${rawIcon} text-[38px] leading-none`}
+          aria-hidden="true"
+        />
+      );
+    }
+  }
+
+  return fallbackIcon;
+}
 
 export function WhyChooseUs() {
   const [whyItems, setWhyItems] = useState<any[]>([]);
-
-  useEffect(() => {
-    let isMounted = true;
-    async function loadWhyChooseUs() {
-      try {
-        const res = await contentApi.getWhyChooseSectionsActive();
-        if (isMounted && res.isLive && res.items.length > 0) {
-          const mapped = res.items.map((item: any) => ({
-            title: item.title,
-            description: item.description,
-            iconColor: "text-[#0853a4]",
-            icon: item.image_url ? (
-              <img src={item.image_url} alt={item.title} className="h-14 w-14 object-contain" />
-            ) : null,
-          }));
-          setWhyItems(mapped);
-        }
-      } catch (err) {
-        console.error("Error loading Why Choose Us API:", err);
-      }
-    }
-
-    loadWhyChooseUs();
-    return () => {
-      isMounted = false;
-    };
-  }, []);
 
   const defaultList = [
     {
@@ -148,6 +163,39 @@ export function WhyChooseUs() {
     },
   ];
 
+  useEffect(() => {
+    let isMounted = true;
+    async function loadWhyChooseUs() {
+      try {
+        const res = await contentApi.getWhyChooseSectionsActive();
+        if (isMounted && res.isLive && res.items.length > 0) {
+          const mapped = res.items.map((item: any, i: number) => {
+            const fallback = defaultList.find(
+              (d) => d.title.toLowerCase().trim() === (item.title || '').toLowerCase().trim()
+            ) || defaultList[i % defaultList.length];
+
+            return {
+              id: item.id || i,
+              title: item.title || fallback.title,
+              description: item.description || fallback.description,
+              iconColor: fallback.iconColor || "text-[#0853a4]",
+              icon: renderFeatureIcon(item, fallback.icon),
+            };
+          });
+          setWhyItems(mapped);
+        }
+      } catch (err) {
+        console.error("Error loading Why Choose Us API:", err);
+      }
+    }
+
+    loadWhyChooseUs();
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+
   const displayList = whyItems.length > 0 ? whyItems : defaultList;
 
   return (
@@ -205,7 +253,7 @@ export function WhyChooseUs() {
               <article className="group relative h-full overflow-hidden rounded-[18px] border border-slate-100 bg-white p-6 shadow-[0_10px_30px_rgba(0,0,0,0.04)] transition-all duration-300 hover:-translate-y-1.5 hover:border-[#0853a4]/20 hover:shadow-[0_20px_40px_rgba(8,83,164,0.08)] sm:p-8">
                 <div className="flex flex-col gap-6 sm:flex-row sm:items-center font-jost">
                   <div
-                    className={`flex shrink-0 items-center justify-center ${feature.iconColor || 'text-[#0853a4]'} transition duration-500 group-hover:rotate-[6deg] group-hover:scale-105`}
+                    className={`flex h-14 w-14 shrink-0 items-center justify-center ${feature.iconColor || 'text-[#0853a4]'} transition duration-500 group-hover:rotate-[6deg] group-hover:scale-105`}
                   >
                     {feature.icon}
                   </div>

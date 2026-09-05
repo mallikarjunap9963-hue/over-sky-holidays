@@ -1,9 +1,32 @@
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ScrollReveal } from '../components/ui/ScrollReveal';
 import { Blogs } from '../components/sections/Blogs';
+import { contentApi } from '../api/contentApi';
+import type { ApiPageBanner } from '../api/types';
+import { formatImageUrl } from '../api/imageHelper';
 import breadcrumbImg from '../assets/breadcrumb.png';
 
 export function BlogsPage() {
+  const [banner, setBanner] = useState<ApiPageBanner | null>(null);
+
+  useEffect(() => {
+    let isMounted = true;
+    contentApi.getPageBanner('blogs')
+      .then((res) => {
+        if (isMounted && res.banner) setBanner(res.banner);
+      })
+      .catch((err) => {
+        console.warn('Failed to load blogs banner:', err);
+      });
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  const bannerImg = banner?.image_url || (banner?.image ? formatImageUrl(banner.image) : breadcrumbImg);
+
   return (
     <>
       {/* ================= PROFESSIONAL BREADCRUMB BANNER ================= */}
@@ -14,8 +37,8 @@ export function BlogsPage() {
         {/* Background Image */}
         <div className="absolute inset-0 -z-20">
           <img
-            src={breadcrumbImg}
-            alt="Open Sky Holidays Blogs Page"
+            src={bannerImg}
+            alt={banner?.title || "Open Sky Holidays Blogs Page"}
             className="h-full w-full object-cover object-center"
           />
         </div>
@@ -29,8 +52,6 @@ export function BlogsPage() {
         {/* Decorative Circle */}
         <div className="pointer-events-none absolute -right-24 -top-28 h-[340px] w-[340px] rounded-full border border-white/10" />
         <div className="pointer-events-none absolute -right-10 -top-16 h-[240px] w-[240px] rounded-full border border-white/10" />
-
-
 
         <div className="relative mx-auto flex min-h-[220px] max-w-[1320px] items-center px-5 py-10 sm:min-h-[250px] sm:px-8 lg:min-h-[280px] lg:px-10">
           <ScrollReveal variant="fade-in-up" duration={1000}>
@@ -49,18 +70,18 @@ export function BlogsPage() {
                 </svg>
 
                 <span className="font-jost text-[11px] font-bold uppercase tracking-[0.2em] text-white">
-                  Travel Stories
+                  {banner?.label || 'Travel Stories'}
                 </span>
               </div>
 
               {/* Page Title */}
               <h1 className="font-rubik text-[38px] font-black leading-[1.08] text-white sm:text-[48px] lg:text-[58px]">
-                Blogs & Articles
+                {banner?.title || 'Blogs & Articles'}
               </h1>
 
               {/* Description */}
               <p className="mt-2.5 max-w-[570px] font-jost text-[14px] leading-7 text-white/75 sm:text-[15px]">
-                Stay inspired with our travel stories, expert tips, and destination guides to plan your next unforgettable adventure.
+                {banner?.description || 'Stay inspired with our travel stories, expert tips, and destination guides to plan your next unforgettable adventure.'}
               </p>
 
               {/* Breadcrumb */}

@@ -2,6 +2,9 @@ import { useState, useEffect } from "react"
 import { Link, useSearchParams } from "react-router-dom"
 import { MapPin, ArrowRight, AlertCircle } from "lucide-react"
 import { toursApi } from "../api/toursApi"
+import { contentApi } from "../api/contentApi"
+import { formatImageUrl } from "../api/imageHelper"
+import type { ApiPageBanner } from "../api/types"
 import { ScrollReveal } from "../components/ui/ScrollReveal"
 import { TourGridSkeleton } from "../components/ui/Skeletons"
 import breadcrumbImg from "../assets/breadcrumb.png"
@@ -13,6 +16,27 @@ export function DomesticToursPage() {
   const [tours, setTours] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [banner, setBanner] = useState<ApiPageBanner | null>(null);
+
+  useEffect(() => {
+    let isMounted = true;
+    async function loadBanner() {
+      try {
+        const res = await contentApi.getPageBanner('tours-domestic');
+        if (isMounted && res.banner) {
+          setBanner(res.banner);
+        }
+      } catch (err) {
+        console.error("Failed to load domestic tours banner:", err);
+      }
+    }
+    loadBanner();
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  const bannerImg = formatImageUrl(banner?.image_url || banner?.image || banner?.banner_image, breadcrumbImg);
 
   useEffect(() => {
     let isMounted = true;
@@ -65,11 +89,12 @@ export function DomesticToursPage() {
         {/* Background Image */}
         <div className="absolute inset-0 -z-20">
           <img
-            src={breadcrumbImg}
+            src={bannerImg}
             alt="Explore India - Domestic Tours"
             className="h-full w-full object-cover object-center"
           />
         </div>
+
 
         {/* Dark Left, Clear Right Overlay */}
         <div className="absolute inset-0 -z-10 bg-gradient-to-r from-black/85 via-black/40 to-transparent" />

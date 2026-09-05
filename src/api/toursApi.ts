@@ -3,52 +3,81 @@ import type { ApiTour, ApiTourType, ApiTourInquiryPayload, ApiResponse } from '.
 import { mapTourFromApi } from './mappers';
 
 export const toursApi = {
-  // Get all tours with optional filters
+  // Fetch single page of tours
   async getTours(params?: {
     tour_type_id?: number;
     search?: string;
     page?: number;
     per_page?: number;
-  }): Promise<{ tours: ReturnType<typeof mapTourFromApi>[]; raw: ApiTour[]; isLive: boolean; error?: string }> {
+  }): Promise<{ tours: ReturnType<typeof mapTourFromApi>[]; raw: ApiTour[]; isLive: boolean; error?: string; meta?: any }> {
     const res = await apiClient.get<ApiTour[]>('/tours', params);
     const dataList = Array.isArray(res.data) ? res.data : (Array.isArray((res.data as any)?.data) ? (res.data as any).data : []);
     if (res.success && dataList.length >= 0) {
       const mapped = dataList.map(mapTourFromApi);
-      return { tours: mapped, raw: dataList, isLive: true };
+      return { tours: mapped, raw: dataList, isLive: true, meta: (res as any).meta };
     }
     return { tours: [], raw: [], isLive: false, error: res.message || 'Failed to fetch tours' };
   },
 
-  // Get Domestic Tours strictly by tour_type
-  async getDomesticTours(): Promise<{ tours: ReturnType<typeof mapTourFromApi>[]; isLive: boolean; error?: string }> {
-    const res = await apiClient.get<ApiTour[]>('/tours', { per_page: 100 });
-    const dataList = Array.isArray(res.data) ? res.data : (Array.isArray((res.data as any)?.data) ? (res.data as any).data : []);
-    if (res.success) {
-      const filtered = dataList.filter((t: any) => {
-        const typeId = t.tour_type_id ?? t.tour_type?.id;
-        const typeSlug = t.tour_type?.slug?.toLowerCase() || '';
-        const typeName = t.tour_type?.name?.toLowerCase() || '';
-        return typeId === 2 || typeSlug === 'domestic-tours' || typeName.includes('domestic');
-      });
-      return { tours: filtered.map(mapTourFromApi), isLive: true };
+  // Fetch ALL tours across all pages
+  async getAllTours(): Promise<{ tours: ReturnType<typeof mapTourFromApi>[]; raw: ApiTour[]; isLive: boolean; error?: string }> {
+    try {
+      const firstRes = await this.getTours({ page: 1 });
+      if (!firstRes.isLive) {
+        return { tours: [], raw: [], isLive: false, error: firstRes.error };
+      }
+
+      let allRaw = [...firstRes.raw];
+      const lastPage = firstRes.meta?.last_page || 1;
+
+      if (lastPage > 1) {
+        const pagePromises = [];
+        for (let p = 2; p <= lastPage; p++) {
+          pagePromises.push(this.getTours({ page: p }));
+        }
+        const restResults = await Promise.all(pagePromises);
+        restResults.forEach((r) => {
+          if (r.isLive && r.raw.length > 0) {
+            allRaw.push(...r.raw);
+          }
+        });
+      }
+
+      const mapped = allRaw.map(mapTourFromApi);
+      return { tours: mapped, raw: allRaw, isLive: true };
+    } catch (err: any) {
+      return { tours: [], raw: [], isLive: false, error: err.message || 'Failed to load all tours' };
     }
-    return { tours: [], isLive: false, error: res.message || 'Failed to fetch domestic tours' };
   },
 
-  // Get International Tours strictly by tour_type
-  async getInternationalTours(): Promise<{ tours: ReturnType<typeof mapTourFromApi>[]; isLive: boolean; error?: string }> {
-    const res = await apiClient.get<ApiTour[]>('/tours', { per_page: 100 });
-    const dataList = Array.isArray(res.data) ? res.data : (Array.isArray((res.data as any)?.data) ? (res.data as any).data : []);
-    if (res.success) {
-      const filtered = dataList.filter((t: any) => {
+  // Get Domestic Tours (type_id: 5 or slug 'domestic')
+  async getDomesticTours(): Promise<{ tours: ReturnType<typeof mapTourFromApi>[]; isLive: boolean; error?: string }> {
+    const res = await this.getAllTours();
+    if (res.isLive) {
+      const filtered = res.raw.filter((t: any) => {
         const typeId = t.tour_type_id ?? t.tour_type?.id;
         const typeSlug = t.tour_type?.slug?.toLowerCase() || '';
         const typeName = t.tour_type?.name?.toLowerCase() || '';
-        return typeId === 3 || typeSlug === 'international-tours' || typeName.includes('international');
+        return typeId === 5 || typeSlug.includes('domestic') || typeName.includes('domestic');
       });
       return { tours: filtered.map(mapTourFromApi), isLive: true };
     }
-    return { tours: [], isLive: false, error: res.message || 'Failed to fetch international tours' };
+    return { tours: [], isLive: false, error: res.error || 'Failed to fetch domestic tours' };
+  },
+
+  // Get International Tours (type_id: 6 or slug 'international')
+  async getInternationalTours(): Promise<{ tours: ReturnType<typeof mapTourFromApi>[]; isLive: boolean; error?: string }> {
+    const res = await this.getAllTours();
+    if (res.isLive) {
+      const filtered = res.raw.filter((t: any) => {
+        const typeId = t.tour_type_id ?? t.tour_type?.id;
+        const typeSlug = t.tour_type?.slug?.toLowerCase() || '';
+        const typeName = t.tour_type?.name?.toLowerCase() || '';
+        return typeId === 6 || typeSlug.includes('international') || typeName.includes('international');
+      });
+      return { tours: filtered.map(mapTourFromApi), isLive: true };
+    }
+    return { tours: [], isLive: false, error: res.error || 'Failed to fetch international tours' };
   },
 
   // Get single tour details by ID or slug
@@ -57,13 +86,13 @@ export const toursApi = {
     if (!isNaN(Number(idOrSlug))) {
       const res = await apiClient.get<ApiTour>(`/tours/${idOrSlug}`);
       const rawData = (res.data as any)?.data || res.data;
-      if (res.success && rawData && rawData.title) {
+      if (res.success && rawData && (rawData.title || rawData.id)) {
         return { tour: mapTourFromApi(rawData), isLive: true };
       }
     }
 
     // 2. Fetch full tours list and match by slug or ID
-    const listRes = await this.getTours({ per_page: 100 });
+    const listRes = await this.getAllTours();
     if (listRes.isLive && listRes.raw.length > 0) {
       const normQuery = String(idOrSlug).toLowerCase().trim();
       const found = listRes.raw.find((t) => {
@@ -94,7 +123,14 @@ export const toursApi = {
 
   // Submit specific tour booking inquiry
   async submitTourInquiry(payload: ApiTourInquiryPayload): Promise<ApiResponse> {
-    return apiClient.post('/tour-inquiries', payload);
+    return apiClient.post('/tour-inquiries', {
+      tour_id: Number(payload.tour_id),
+      name: payload.name.trim(),
+      phone: payload.phone.trim(),
+      email: payload.email.trim(),
+      travel_date: payload.travel_date.trim(),
+      travelers: Number(payload.travelers) || 1,
+    });
   },
 };
 

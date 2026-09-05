@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
 import { contentApi } from "../../api/contentApi"
+import { formatImageUrl } from "../../api/imageHelper"
 import { ScrollReveal } from "../ui/ScrollReveal"
 import { BookingModal } from "../ui/BookingModal"
 
@@ -152,6 +153,16 @@ const ArrowIcon = () => (
   </svg>
 )
 
+function getServiceLink(title: string): string {
+  const t = title.toLowerCase();
+  if (t.includes('domestic')) return '/tours/domestic';
+  if (t.includes('international')) return '/tours/international';
+  if (t.includes('visa')) return '/services/visa-assistance';
+  if (t.includes('flight')) return '/services/flight-tickets';
+  if (t.includes('passport')) return '/services/passport-services';
+  return '/contact';
+}
+
 function FeaturedServiceCard({
   service,
   index,
@@ -198,7 +209,7 @@ function FeaturedServiceCard({
           </p>
 
           <Link
-            to="/contact"
+            to={getServiceLink(service.title)}
             className="mt-5 inline-flex items-center gap-2 font-rubik text-[12px] font-bold uppercase tracking-[0.1em] text-white transition-colors duration-300 hover:text-[#fbb03b]"
           >
             Explore Service
@@ -256,7 +267,7 @@ function CompactServiceCard({
           </p>
 
           <Link
-            to="/contact"
+            to={getServiceLink(service.title)}
             aria-label={`Learn more about ${service.title}`}
             className="mt-4 inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/30 text-white transition-all duration-300 hover:border-[#fbb03b] hover:bg-[#fbb03b] hover:text-[#102f50]"
           >
@@ -283,7 +294,7 @@ export function AboutServices() {
             title: item.title || services[i % services.length].title,
             subtitle: item.subtitle || item.sub_title || services[i % services.length].subtitle,
             description: item.description || services[i % services.length].description,
-            image: item.image_url || item.image || services[i % services.length].image,
+            image: formatImageUrl(item.image_url || item.image, services[i % services.length].image),
             icon: services[i % services.length].icon,
             featured: i < 2,
           }))

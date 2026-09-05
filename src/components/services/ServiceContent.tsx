@@ -32,7 +32,7 @@ export function ServiceContent({ data, subtitle }: ServiceContentProps) {
           </ScrollReveal>
 
           <div className="grid sm:grid-cols-2 gap-4">
-            {data.features.map((feature, index) => (
+            {(data?.features || []).map((feature, index) => (
               <ScrollReveal 
                 key={index}
                 variant="fade-in-up"
@@ -51,7 +51,7 @@ export function ServiceContent({ data, subtitle }: ServiceContentProps) {
         <ScrollReveal variant="fade-in-left" duration={1400} className="relative mt-10 lg:mt-0">
           <div className="rounded-2xl overflow-hidden shadow-2xl relative">
             <img
-              src={data.sideImage}
+              src={data?.sideImage || 'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?q=80&w=2069&auto=format&fit=crop'}
               alt="Service representation"
               className="w-full h-auto object-cover max-h-[500px] transition-transform duration-700 hover:scale-105"
             />

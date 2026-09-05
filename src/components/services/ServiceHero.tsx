@@ -8,13 +8,13 @@ interface ServiceHeroProps {
   heroImage?: string;
 }
 
-export function ServiceHero({ title, subtitle }: ServiceHeroProps) {
+export function ServiceHero({ title, subtitle, heroImage }: ServiceHeroProps) {
   return (
     <section className="relative isolate overflow-hidden bg-[#100c08]">
       {/* Background Image */}
       <div className="absolute inset-0 -z-20">
         <img
-          src={breadcrumbImg}
+          src={heroImage || breadcrumbImg}
           alt={title}
           className="h-full w-full object-cover object-center"
         />

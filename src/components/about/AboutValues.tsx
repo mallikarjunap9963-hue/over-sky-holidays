@@ -1,6 +1,8 @@
+import { useState, useEffect } from 'react';
 import { ScrollReveal } from '../ui/ScrollReveal';
+import { contentApi } from '../../api/contentApi';
 
-const values = [
+const defaultValues = [
   {
     title: 'Integrity',
     desc: 'We operate with complete honesty — no hidden fees, no misleading itineraries, just clear and ethical service.',
@@ -28,6 +30,40 @@ const values = [
 ];
 
 export function AboutValues() {
+  const [valuesList, setValuesList] = useState(defaultValues);
+
+  useEffect(() => {
+    let isMounted = true;
+    async function loadValues() {
+      try {
+        const res = await contentApi.getAboutOurCoreValues();
+        if (isMounted && res.isLive && res.values.length > 0) {
+          const emojis = ['🤝', '⭐', '💡', '❤️'];
+          const colors = [
+            'from-blue-50 to-blue-100/50 border-blue-100',
+            'from-amber-50 to-amber-100/50 border-amber-100',
+            'from-purple-50 to-purple-100/50 border-purple-100',
+            'from-rose-50 to-rose-100/50 border-rose-100',
+          ];
+
+          const mapped = res.values.map((v, i) => ({
+            title: v.title,
+            desc: v.description,
+            emoji: emojis[i % emojis.length],
+            color: colors[i % colors.length],
+          }));
+          setValuesList(mapped);
+        }
+      } catch (err) {
+        console.error("Failed to load core values:", err);
+      }
+    }
+    loadValues();
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
   return (
     <section
       id="our-values"
@@ -61,17 +97,30 @@ export function AboutValues() {
           </ScrollReveal>
         </div>
 
-        {/* Values Grid */}
+        {/* 4 Values grid */}
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {values.map((val, index) => (
-            <ScrollReveal key={val.title} variant="fade-in-up" delay={100 * index} duration={1200}>
+          {valuesList.map((val, index) => (
+            <ScrollReveal
+              key={val.title}
+              variant="fade-in-up"
+              delay={350 + 100 * index}
+              duration={1200}
+            >
               <div
-                className={`group flex flex-col gap-4 rounded-3xl border bg-gradient-to-br p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-md ${val.color}`}
+                className={`group relative flex flex-col gap-4 rounded-3xl border bg-gradient-to-br p-7 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl ${val.color}`}
               >
-                <div className="text-[36px] leading-none">{val.emoji}</div>
+                {/* Emoji Icon */}
+                <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-white text-2xl shadow-md transition-transform duration-300 group-hover:scale-110">
+                  {val.emoji}
+                </div>
+
                 <div>
-                  <h3 className="font-rubik text-[18px] font-bold text-[#100c08] mb-1.5">{val.title}</h3>
-                  <p className="font-jost text-[13.5px] leading-relaxed text-slate-600">{val.desc}</p>
+                  <h3 className="font-rubik text-[20px] font-bold text-[#100c08]">
+                    {val.title}
+                  </h3>
+                  <p className="mt-2 font-jost text-[14px] leading-relaxed text-slate-600">
+                    {val.desc}
+                  </p>
                 </div>
               </div>
             </ScrollReveal>

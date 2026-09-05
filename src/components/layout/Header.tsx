@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { PhoneIcon, MenuIcon, CloseIcon, ChevronDownIcon } from '../icons/Icons';
 import logo from '../../assets/logo-removebg-preview.png';
+import { contentApi } from '../../api/contentApi';
+import type { ApiContactSection } from '../../api/types';
 
 const menuItems = [
   { label: "HOME", href: "/" },
@@ -31,7 +33,29 @@ export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const [scrolled, setScrolled] = useState(false);
+  const [contact, setContact] = useState<ApiContactSection | null>(null);
   const { pathname } = useLocation();
+
+  useEffect(() => {
+    let isMounted = true;
+    async function loadContact() {
+      try {
+        const res = await contentApi.getContactSectionActive();
+        if (isMounted && res.contact) {
+          setContact(res.contact);
+        }
+      } catch (err) {
+        console.error("Failed to load active contact in header:", err);
+      }
+    }
+    loadContact();
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  const phoneDisplay = contact?.phone || "+91 99081 17712";
+  const phoneTel = phoneDisplay.replace(/[^0-9+]/g, '');
 
   const isPathActive = (href: string) => {
     if (href === "/") {
@@ -162,7 +186,7 @@ export function Header() {
 
           {/* Call / Book CTA (Visible >= 1024px / lg) */}
           <div className="hidden items-center gap-3 lg:flex lg:gap-4 xl:gap-6">
-            <a href="tel:+919908117712" className="flex items-center gap-2.5 xl:gap-3">
+            <a href={`tel:${phoneTel}`} className="flex items-center gap-2.5 xl:gap-3">
               <span className="text-[#0853a4]">
                 <PhoneIcon className="h-7 w-7 lg:h-8 lg:w-8 xl:h-9 xl:w-9" />
               </span>
@@ -173,7 +197,7 @@ export function Header() {
                 </span>
 
                 <span className="block text-[15px] lg:text-[16px] xl:text-[18px] font-extrabold leading-tight text-[#0853a4] 2xl:text-[20px] font-rubik">
-                  +91 99081 17712
+                  {phoneDisplay}
                 </span>
               </span>
             </a>
@@ -192,7 +216,7 @@ export function Header() {
           <div className="flex items-center gap-3 lg:hidden">
             {/* Quick Call Icon Button (Always visible on mobile/tablet for instant support) */}
             <a
-              href="tel:+919908117712"
+              href={`tel:${phoneTel}`}
               className="flex items-center justify-center h-10 w-10 rounded-full bg-[#0853a4]/10 hover:bg-[#0853a4]/20 text-[#0853a4] transition-colors focus:outline-none focus:ring-2 focus:ring-[#0853a4]/30"
               aria-label="Call Inquiry"
             >

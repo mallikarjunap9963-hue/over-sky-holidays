@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ScrollReveal } from '../ui/ScrollReveal';
 import { contentApi } from '../../api/contentApi';
+import { formatImageUrl } from '../../api/imageHelper';
 import aboutUsWhyChooseUsImg from '../../assets/about us -why choose us.png';
 
 const defaultReasons = [
@@ -47,23 +48,31 @@ const defaultReasons = [
 ];
 
 export function AboutWhyUs() {
+  const [whyData, setWhyData] = useState<any>(null);
   const [reasons, setReasons] = useState<any[]>(defaultReasons);
 
   useEffect(() => {
     let isMounted = true;
     async function loadWhyUs() {
       try {
-        const res = await contentApi.getWhyChooseSectionsActive();
-        if (isMounted && res.isLive && res.items.length > 0) {
-          const mapped = res.items.map((item: any, i: number) => ({
-            title: item.heading || item.title || defaultReasons[i % defaultReasons.length].title,
-            desc: item.description || item.sub_heading || defaultReasons[i % defaultReasons.length].desc,
-            icon: defaultReasons[i % defaultReasons.length].icon,
-          }));
-          setReasons(mapped);
+        const res = await contentApi.getAboutWhyChooseUsActive();
+        if (isMounted && res.isLive && res.whyUs) {
+          setWhyData(res.whyUs);
+          if (Array.isArray(res.whyUs.features) && res.whyUs.features.length > 0) {
+            const mapped = res.whyUs.features.map((item: any, i: number) => ({
+              title: item.title || defaultReasons[i % defaultReasons.length].title,
+              desc: item.description || defaultReasons[i % defaultReasons.length].desc,
+              icon: item.icon && typeof item.icon === 'string' && item.icon.includes('fa-') ? (
+                <i className={`${item.icon.trim()} text-lg`} aria-hidden="true" />
+              ) : (
+                defaultReasons[i % defaultReasons.length].icon
+              ),
+            }));
+            setReasons(mapped);
+          }
         }
       } catch (err) {
-        console.error("Error loading why choose us API:", err);
+        console.error("Error loading why choose us active API:", err);
       }
     }
     loadWhyUs();
@@ -71,6 +80,14 @@ export function AboutWhyUs() {
       isMounted = false;
     };
   }, []);
+
+  const title = whyData?.title || "Setting Standard for Trust and Comfort.";
+  const subtitle = whyData?.subtitle || "Why Choose Us";
+  const description = whyData?.description || "We believe that traveling shouldn't be stressful. We ensure every segment of your journey—from flights to accommodation and ground transportation—is organized with precise dedication.";
+  const image = formatImageUrl(whyData?.image_url || whyData?.image, aboutUsWhyChooseUsImg);
+  const badgeTitle = whyData?.badge_title || "Trusted by 15,000+";
+  const badgeSubtitle = whyData?.badge_subtitle || "Happy travelers worldwide";
+
   return (
     <section
       id="why-choose-us"
@@ -89,20 +106,20 @@ export function AboutWhyUs() {
               <div className="flex items-center gap-2">
                 <span className="h-[1.5px] w-6 bg-[#0853a4]" />
                 <p className="font-satisfy text-[24px] font-normal capitalize text-[#0853a4]">
-                  Why Choose Us
+                  {subtitle}
                 </p>
               </div>
             </ScrollReveal>
 
             <ScrollReveal variant="fade-in-left" delay={200} duration={1300}>
               <h2 className="font-rubik text-[30px] font-extrabold leading-[1.2] tracking-tight text-[#100c08] sm:text-[38px] lg:text-[44px]">
-                Setting Standard for Trust and Comfort.
+                {title}
               </h2>
             </ScrollReveal>
 
             <ScrollReveal variant="fade-in-left" delay={350} duration={1300}>
               <p className="font-jost text-[15.5px] leading-relaxed text-slate-600">
-                We believe that traveling shouldn't be stressful. We ensure every segment of your journey—from flights to accommodation and ground transportation—is organized with precise dedication.
+                {description}
               </p>
             </ScrollReveal>
 
@@ -126,7 +143,7 @@ export function AboutWhyUs() {
             <ScrollReveal variant="fade-in-left" delay={850} duration={1200}>
               <Link
                 to="/contact"
-                className="btn-primary mt-2 min-h-[46px] rounded-[6px] px-7 text-[14px] font-bold shadow-[0_12px_24px_rgba(8,83,164,0.18)] font-rubik gap-2"
+                className="btn-primary mt-2 min-h-[46px] rounded-[6px] px-7 text-[14px] font-bold shadow-[0_12px_24px_rgba(8,83,164,0.18)] font-rubik gap-2 inline-flex items-center"
               >
                 Get in Touch
                 <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2.5">
@@ -141,8 +158,13 @@ export function AboutWhyUs() {
           <ScrollReveal variant="fade-in-right" delay={200} duration={1400} className="relative">
             <div className="overflow-hidden rounded-3xl border border-slate-100 shadow-lg">
               <img
-                src={aboutUsWhyChooseUsImg}
+                src={image}
                 alt="Open Sky Holidays Why Choose Us"
+                onError={(e) => {
+                  if (e.currentTarget.src !== aboutUsWhyChooseUsImg) {
+                    e.currentTarget.src = aboutUsWhyChooseUsImg;
+                  }
+                }}
                 className="h-[400px] w-full object-cover transition duration-700 hover:scale-105 sm:h-[480px]"
               />
             </div>
@@ -154,8 +176,8 @@ export function AboutWhyUs() {
                 </svg>
               </div>
               <div>
-                <p className="font-rubik text-[14px] font-bold text-[#100c08]">Trusted by 15,000+</p>
-                <p className="font-jost text-[12px] text-slate-500">Happy travelers worldwide</p>
+                <p className="font-rubik text-[14px] font-bold text-[#100c08]">{badgeTitle}</p>
+                <p className="font-jost text-[12px] text-slate-500">{badgeSubtitle}</p>
               </div>
             </div>
             {/* Decorative corner */}

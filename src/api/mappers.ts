@@ -6,34 +6,91 @@ import type {
   ApiHero,
 } from './types';
 import { formatImageUrl } from './imageHelper';
+export { formatImageUrl };
 import defaultBreadcrumb from '../assets/breadcrumb.png';
 
 export function mapTourFromApi(tour: ApiTour) {
   const thumbnail = tour.thumbnail_url || tour.thumbnail || '';
   const formattedImage = formatImageUrl(thumbnail, defaultBreadcrumb);
 
-  // Extract places covered from features
-  const placesCovered = (tour.features || [])
-    .filter((f) => f.type === 'place_covered')
-    .map((f) => f.title);
+  // 1. Extract raw places covered from backend shapes (tour.places_covered, tour.tour_features, or tour.features)
+  const rawPlacesCovered: any[] = (Array.isArray(tour.places_covered) && tour.places_covered.length > 0)
+    ? tour.places_covered
+    : (Array.isArray(tour.tour_features) && tour.tour_features.length > 0)
+      ? tour.tour_features.filter((f: any) => f?.type === 'place_covered')
+      : (Array.isArray(tour.features) && tour.features.length > 0 && typeof tour.features[0] === 'object')
+        ? (tour.features as any[]).filter((f: any) => f?.type === 'place_covered')
+        : [];
 
-  // Extract package inclusions
-  const inclusions = (tour.features || [])
-    .filter((f) => f.type === 'package_inclusion')
-    .map((f) => f.title);
+  const placesCovered = rawPlacesCovered.map((place: any, index: number) => ({
+    id: place.id ? String(place.id) : `${place.title || 'place'}-${index}`,
+    name: place.title || place.name || '',
+    title: place.title || place.name || '',
+    image: formatImageUrl(place.image_url || place.image, formattedImage),
+    description: place.description || `Explore ${place.title || place.name} during your ${tour.title} tour.`,
+  }));
+
+  // Extract raw string locations (from tour.features, tour.highlights, or mapped places)
+  const stringFeatures: string[] = (Array.isArray(tour.features) && tour.features.length > 0 && typeof tour.features[0] === 'string')
+    ? (tour.features as string[])
+    : (Array.isArray(tour.highlights) && tour.highlights.length > 0 && typeof tour.highlights[0] === 'string')
+      ? (tour.highlights as string[])
+      : placesCovered.map((p) => p.name).filter(Boolean);
+
+  const locations = stringFeatures.length > 0
+    ? stringFeatures
+    : (placesCovered.length > 0 ? placesCovered.map((p) => p.name) : [tour.country || tour.title]);
+
+  // 2. Extract package inclusions from backend shapes (tour.package_inclusions, tour.tour_features, or tour.detail?.inclusions)
+  const rawPackageInclusions: any[] = (Array.isArray(tour.package_inclusions) && tour.package_inclusions.length > 0)
+    ? tour.package_inclusions
+    : (Array.isArray(tour.tour_features) && tour.tour_features.length > 0)
+      ? tour.tour_features.filter((f: any) => f?.type === 'package_inclusion')
+      : (Array.isArray(tour.features) && tour.features.length > 0 && typeof tour.features[0] === 'object')
+        ? (tour.features as any[]).filter((f: any) => f?.type === 'package_inclusion')
+        : (Array.isArray(tour.detail?.inclusions) && tour.detail!.inclusions!.length > 0)
+          ? tour.detail!.inclusions!
+          : [];
+
+  const packageInclusions = rawPackageInclusions.map((item: any, index: number) => {
+    if (typeof item === 'string') {
+      return {
+        id: `${item}-${index}`,
+        title: item,
+        description: item,
+      };
+    }
+    return {
+      id: item.id ? String(item.id) : `${item.title || 'inc'}-${index}`,
+      title: item.title || item.name || '',
+      description: item.description || item.title || '',
+      icon: item.icon || null,
+    };
+  });
+
+  const inclusionsStrings = rawPackageInclusions.map((item: any) => {
+    if (typeof item === 'string') return item;
+    return item.title && item.description && item.title !== item.description
+      ? `${item.title}: ${item.description}`
+      : (item.title || item.description || '');
+  }).filter(Boolean);
 
   // Extract highlights
-  const highlights = (tour.features || [])
-    .filter((f) => f.type === 'tour_highlight' || f.type === 'place_covered')
-    .map((f) => ({
-      title: f.title,
-      description: f.description || `Explore ${f.title} during your ${tour.title} tour.`,
-      image: formatImageUrl(f.image_url || f.image, formattedImage),
-    }));
+  const rawHighlights = (Array.isArray(tour.tour_features) && tour.tour_features.length > 0)
+    ? tour.tour_features.filter((f: any) => f?.type === 'tour_highlight' || f?.type === 'place_covered')
+    : (Array.isArray(tour.features) && tour.features.length > 0 && typeof tour.features[0] === 'object')
+      ? (tour.features as any[]).filter((f: any) => f?.type === 'tour_highlight' || f?.type === 'place_covered')
+      : [];
 
-  const locations = placesCovered.length > 0
+  const highlights = placesCovered.length > 0
     ? placesCovered
-    : [tour.country || tour.title];
+    : rawHighlights.map((f: any) => ({
+        id: f.id ? String(f.id) : f.title,
+        title: f.title,
+        name: f.title,
+        description: f.description || `Explore ${f.title} during your ${tour.title} tour.`,
+        image: formatImageUrl(f.image_url || f.image, formattedImage),
+      }));
 
   // Map gallery images
   const galleryImages = (tour.gallery || []).map((img) => {
@@ -41,8 +98,9 @@ export function mapTourFromApi(tour: ApiTour) {
     return formatImageUrl(img.url || img.image, formattedImage);
   });
 
-  const tourTypeSlug = tour.tour_type?.slug || '';
-  const isDomestic = tour.tour_type_id === 2 || tourTypeSlug.includes('domestic');
+  const tourTypeSlug = tour.tour_type?.slug?.toLowerCase() || '';
+  const tourTypeName = tour.tour_type?.name?.toLowerCase() || '';
+  const isDomestic = tour.tour_type_id === 5 || tour.tour_type_id === 2 || tourTypeSlug.includes('domestic') || tourTypeName.includes('domestic');
 
   return {
     id: tour.id,
@@ -58,10 +116,17 @@ export function mapTourFromApi(tour: ApiTour) {
     tourType: tour.tour_type?.name || (isDomestic ? 'Domestic Tours' : 'International Tours'),
     detail: {
       heading: tour.detail?.heading || 'About This Tour',
-      about: tour.detail?.description || tour.detail?.about || '',
+      about: tour.detail?.description || tour.detail?.about || `Discover the wonder of ${tour.title}. Experience unforgettable sightseeing, curated comfort, and personalized travel hospitality with Open Sky Holidays.`,
       inclusions: (tour.detail?.inclusions && tour.detail.inclusions.length > 0)
         ? tour.detail.inclusions
-        : inclusions,
+        : (inclusionsStrings.length > 0 ? inclusionsStrings : [
+            'Accommodation on Twin Sharing Basis',
+            'Daily Breakfast and Selected Dinners',
+            'All Transfers and Sightseeing by AC Vehicle',
+            'Pickup and Drop Services',
+            '24/7 Travel Assistance Support',
+          ]),
+      packageInclusions,
       exclusions: tour.detail?.exclusions || [
         'Personal Expenses',
         'Airfare / Train Tickets unless specified',
@@ -70,6 +135,10 @@ export function mapTourFromApi(tour: ApiTour) {
       highlights,
       gallery: galleryImages.length > 0 ? galleryImages : [formattedImage],
     },
+    placesCovered,
+    places_covered: rawPlacesCovered,
+    packageInclusions,
+    package_inclusions: rawPackageInclusions,
     features: tour.features || [],
   };
 }
@@ -137,35 +206,60 @@ export function mapBlogFromApi(blog: ApiBlog) {
   };
 }
 
+// Helper to safely convert array-like objects or values into arrays
+function toSafeArray<T = any>(val: any): T[] {
+  if (!val) return [];
+  if (Array.isArray(val)) return val;
+  if (typeof val === 'object') return Object.values(val);
+  if (typeof val === 'string') {
+    try {
+      const parsed = JSON.parse(val);
+      if (Array.isArray(parsed)) return parsed;
+      if (typeof parsed === 'object' && parsed !== null) return Object.values(parsed);
+    } catch {
+      return [val as any];
+    }
+  }
+  return [];
+}
+
 export function mapServiceFromApi(service: ApiService) {
   const heroImage = formatImageUrl(service.about_image_url || service.about_image);
 
+  // Safely extract collections (backend sometimes returns features as objects: { "0": {...}, "${index}": {...} })
+  const rawFeatures = toSafeArray<any>(service.features);
+  const rawProcessSteps = toSafeArray<any>(service.process_steps);
+  const rawServiceItems = toSafeArray<any>(service.service_items);
+  const rawDocuments = toSafeArray<any>(service.documents);
+  const rawWhyChoose = toSafeArray<any>(service.why_choose_items);
+  const rawStats = toSafeArray<any>(service.stats);
+
   // Map highlights
-  const highlights = (service.features || []).map((f, i) => {
+  const highlights = rawFeatures.map((f, i) => {
     const icons: Array<'user' | 'list' | 'clock' | 'shield' | 'headset'> = [
       'user', 'list', 'clock', 'shield', 'headset'
     ];
     return {
-      title: f.title,
-      desc: f.description,
+      title: f.title || f.name || `Feature ${i + 1}`,
+      desc: f.description || f.desc || '',
       iconType: icons[i % icons.length],
     };
   });
 
   // Map process steps
-  const processSteps = (service.process_steps || []).map((step, i) => {
+  const processSteps = rawProcessSteps.map((step, i) => {
     const iconTypes: Array<'chat' | 'document' | 'edit' | 'card' | 'hourglass' | 'check'> = [
       'chat', 'document', 'edit', 'card', 'hourglass', 'check'
     ];
     return {
-      title: step.title,
-      description: step.description,
+      title: step.title || step.name || `Step ${i + 1}`,
+      description: step.description || step.desc || '',
       iconType: iconTypes[i % iconTypes.length],
     };
   });
 
   // Map why choose items
-  const whyChooseUs = (service.why_choose_items || []).filter(Boolean).map((item, i) => {
+  const whyChooseUs = rawWhyChoose.filter(Boolean).map((item, i) => {
     const icons: Array<'agent' | 'user' | 'building' | 'price' | 'support' | 'clock'> = [
       'agent', 'user', 'building', 'price', 'support', 'clock'
     ];
@@ -174,6 +268,14 @@ export function mapServiceFromApi(service: ApiService) {
       iconType: icons[i % icons.length],
     };
   });
+
+  const serviceItems = rawServiceItems.map((item) =>
+    typeof item === 'string' ? item : (item.title || item.name || String(item))
+  );
+
+  const documents = rawDocuments.filter(Boolean).map((item) =>
+    typeof item === 'string' ? item : (item.title || item.name || String(item))
+  );
 
   return {
     id: service.slug || String(service.id),
@@ -191,8 +293,8 @@ export function mapServiceFromApi(service: ApiService) {
     content: {
       title: service.about_title || `${service.title} For Your Journey`,
       description: service.about_description || 'We make travel processing simple and stress-free. Our experienced team provides end-to-end support.',
-      features: (service.service_items && service.service_items.length > 0)
-        ? service.service_items
+      features: serviceItems.length > 0
+        ? serviceItems
         : [
             `${service.title} Guidance`,
             'Online Application & Verification',
@@ -209,8 +311,8 @@ export function mapServiceFromApi(service: ApiService) {
       { title: 'Processing', description: 'We process your request with high priority.', iconType: 'edit' as const },
       { title: 'Completion', description: 'Receive your confirmation and start your journey!', iconType: 'check' as const },
     ],
-    documents: (service.documents && service.documents.filter(Boolean).length > 0)
-      ? service.documents.filter(Boolean) as string[]
+    documents: documents.length > 0
+      ? documents
       : [
           'Valid Government ID',
           'Passport / Relevant Travel Documents',
@@ -222,6 +324,19 @@ export function mapServiceFromApi(service: ApiService) {
       { title: 'Transparent pricing, no hidden charges', iconType: 'price' as const },
       { title: 'Timely updates and 24/7 dedicated support', iconType: 'support' as const },
     ],
+    cta: {
+      title: service.cta_title || 'Ready To Start Your Journey?',
+      description: service.cta_description || `Let us take care of your ${service.title ? service.title.toLowerCase() : 'travel process'} while you focus on making unforgettable memories.`,
+      image: formatImageUrl(service.cta_background_image_url || service.cta_background_image, 'https://images.unsplash.com/photo-1506929562872-bb421503ef21?q=80&w=2068&auto=format&fit=crop'),
+      stats: rawStats.length > 0
+        ? rawStats
+        : [
+            { number: '10,000+', label: 'Visas Processed' },
+            { number: '25+', label: 'Countries Covered' },
+            { number: '98%', label: 'Success Rate' },
+          ],
+    },
+    raw: service,
   };
 }
 

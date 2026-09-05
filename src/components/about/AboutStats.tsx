@@ -135,15 +135,37 @@ export function AboutStats() {
     let isMounted = true
     async function loadCounters() {
       try {
-        const res = await contentApi.getCounters()
+        const res = await contentApi.getCountersActive()
         if (isMounted && res.isLive && res.counters.length > 0) {
           const icons = [Plane, Palmtree, Globe2, BusFront]
-          const mapped = res.counters.map((item: any, i: number) => ({
-            value: Number(item.count || item.number || item.value) || 100,
-            suffix: item.suffix || "+",
-            label: item.title || item.label || item.name || "Achievement",
-            icon: icons[i % icons.length],
-          }))
+          const mapped = res.counters.map((item: any, i: number) => {
+            const valStr = String(item.value || '').trim()
+            const nameStr = String(item.name || '').trim()
+
+            let numeric = 100
+            let label = "Achievement"
+            let suffix = "+"
+
+            const valDigits = valStr.replace(/[^0-9]/g, '')
+            const nameDigits = nameStr.replace(/[^0-9]/g, '')
+
+            if (valDigits.length > 0 && isNaN(Number(nameStr.replace(/\+/g, '')))) {
+              numeric = parseInt(valDigits, 10)
+              label = nameStr.replace(/\+/g, '').trim()
+              suffix = (valStr.includes('+') || nameStr.includes('+')) ? '+' : ''
+            } else if (nameDigits.length > 0) {
+              numeric = parseInt(nameDigits, 10)
+              label = valStr.replace(/\+/g, '').trim()
+              suffix = (valStr.includes('+') || nameStr.includes('+')) ? '+' : ''
+            }
+
+            return {
+              value: numeric,
+              suffix,
+              label,
+              icon: icons[i % icons.length],
+            }
+          })
           setStatsList(mapped)
         }
       } catch (err) {
@@ -155,6 +177,7 @@ export function AboutStats() {
       isMounted = false
     }
   }, [])
+
 
   useEffect(() => {
     const currentSection = sectionRef.current

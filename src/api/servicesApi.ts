@@ -25,10 +25,12 @@ export const servicesApi = {
         return (
           sSlug === normalizedQuery ||
           String(s.serviceId) === normalizedQuery ||
-          (normalizedQuery === 'passport' && (sSlug.includes('passport') || sTitle.includes('passport'))) ||
-          (normalizedQuery === 'passport-services' && (sSlug.includes('passport') || sTitle.includes('passport'))) ||
-          (normalizedQuery === 'flight-tickets' && (sSlug.includes('flight') || sTitle.includes('flight'))) ||
-          (normalizedQuery === 'visa' && (sSlug.includes('visa') || sTitle.includes('visa')))
+          sSlug.includes(normalizedQuery) ||
+          normalizedQuery.includes(sSlug) ||
+          sTitle.includes(normalizedQuery) ||
+          (normalizedQuery.includes('passport') && sSlug.includes('passport')) ||
+          (normalizedQuery.includes('flight') && sSlug.includes('flight')) ||
+          (normalizedQuery.includes('visa') && sSlug.includes('visa'))
         );
       });
 

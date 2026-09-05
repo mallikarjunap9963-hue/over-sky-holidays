@@ -42,8 +42,8 @@ export function ServiceProcess({ steps, title }: ServiceProcessProps) {
           <div className="absolute top-[45px] left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#0853a4]/20 to-transparent hidden md:block" />
 
           <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-8 relative z-10">
-            {steps.map((step, index) => {
-              const IconComponent = iconMap[step.iconType];
+            {(steps || []).map((step, index) => {
+              const IconComponent = (step.iconType && iconMap[step.iconType]) || CheckCircle;
               const stepNumber = (index + 1).toString().padStart(2, '0');
               
               return (

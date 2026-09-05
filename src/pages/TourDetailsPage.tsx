@@ -6,6 +6,7 @@ import {
 } from "react"
 import { Link, useParams } from "react-router-dom"
 import { toursApi } from "../api/toursApi"
+import { formatImageUrl } from "../api/imageHelper"
 
 import { getPlaceImage } from "../data/placeImages"
 import type { BookingFormData } from "../types/tours"
@@ -92,50 +93,74 @@ export default function TourDetailsPage() {
   const placesCovered = useMemo(() => {
     if (!tour) return []
 
-    // If backend features has place_covered items
-    if (Array.isArray(tour.features) && tour.features.length > 0) {
-      const placesFromFeatures = tour.features.filter((f: any) => f.type === "place_covered")
+    // 1. Direct mapped placesCovered from tour
+    if (Array.isArray(tour.placesCovered) && tour.placesCovered.length > 0) {
+      return tour.placesCovered.map((place: any, index: number) => ({
+        id: place.id || `${place.name || place.title}-${index}`,
+        name: place.name || place.title,
+        image: place.image || getPlaceImage(place.name || place.title || "") || tour.image || "",
+        description: place.description || `Explore ${place.name || place.title} during your ${tourName} tour.`,
+      }))
+    }
+
+    // 2. Direct places_covered from backend
+    if (Array.isArray(tour.places_covered) && tour.places_covered.length > 0) {
+      return tour.places_covered.map((place: any, index: number) => ({
+        id: place.id ? String(place.id) : `${place.title || place.name}-${index}`,
+        name: place.title || place.name,
+        image: formatImageUrl(place.image_url || place.image, getPlaceImage(place.title || "") || tour.image || ""),
+        description: place.description || `Explore ${place.title || place.name} during your ${tourName} tour.`,
+      }))
+    }
+
+    // 3. Features if array of objects
+    if (Array.isArray(tour.features) && tour.features.length > 0 && typeof tour.features[0] === "object") {
+      const placesFromFeatures = tour.features.filter((f: any) => f?.type === "place_covered")
       if (placesFromFeatures.length > 0) {
         return placesFromFeatures.map((place: any, index: number) => ({
-          id: `${place.title}-${index}`,
+          id: place.id ? String(place.id) : `${place.title}-${index}`,
           name: place.title,
-          image: place.image_url || getPlaceImage(place.title || "") || tour.image || "",
+          image: formatImageUrl(place.image_url || place.image, getPlaceImage(place.title || "") || tour.image || ""),
           description: place.description || `Explore ${place.title} during your ${tourName} tour.`,
         }))
       }
     }
 
+    // 4. Detail highlights
     if (detail && Array.isArray(detail.highlights) && detail.highlights.length > 0) {
       return detail.highlights.map((place: any, index: number) => {
-        const mappedImg = getPlaceImage(place.title || "")
+        const title = place.name || place.title || (typeof place === "string" ? place : "")
+        const mappedImg = getPlaceImage(title || "")
         return {
-          id: `${place.title}-${index}`,
-          name: place.title,
+          id: place.id || `${title}-${index}`,
+          name: title,
           image:
-            mappedImg ||
             (typeof place.image === "string" && place.image ? place.image : "") ||
+            mappedImg ||
             detail.gallery?.[index] ||
             tour.image ||
             "",
           description:
             place.description ||
-            `Explore ${place.title} during your ${tourName} tour.`,
+            `Explore ${title} during your ${tourName} tour.`,
         }
       })
     }
 
+    // 5. Locations fallback
     if (Array.isArray(tour.locations) && tour.locations.length > 0) {
-      return tour.locations.map((location: string, index: number) => {
-        const mappedImg = getPlaceImage(location || "")
+      return tour.locations.map((location: any, index: number) => {
+        const locStr = typeof location === "string" ? location : location?.name || location?.title || String(location)
+        const mappedImg = getPlaceImage(locStr || "")
         return {
-          id: `${location}-${index}`,
-          name: location,
+          id: `${locStr}-${index}`,
+          name: locStr,
           image:
             mappedImg ||
             detail?.gallery?.[index] ||
             tour.image ||
             "",
-          description: `Visit and explore ${location} during this tour.`,
+          description: `Visit and explore ${locStr} during this tour.`,
         }
       })
     }
@@ -156,19 +181,39 @@ export default function TourDetailsPage() {
   }, [tour, detail, placesCovered])
 
   const packageInclusions = useMemo(() => {
-    if (!detail?.inclusions || !Array.isArray(detail.inclusions)) {
+    // Priority: tour.packageInclusions > tour.package_inclusions > detail.packageInclusions > detail.inclusions
+    const inclusionsSource =
+      (Array.isArray(tour?.packageInclusions) && tour.packageInclusions.length > 0 && tour.packageInclusions) ||
+      (Array.isArray(tour?.package_inclusions) && tour.package_inclusions.length > 0 && tour.package_inclusions) ||
+      (Array.isArray(detail?.packageInclusions) && detail.packageInclusions.length > 0 && detail.packageInclusions) ||
+      (Array.isArray(detail?.inclusions) && detail.inclusions.length > 0 && detail.inclusions) ||
+      []
+
+    if (inclusionsSource.length === 0) {
       return []
     }
 
-    return detail.inclusions
-      .map((item: string, index: number) => ({
-        id: `${item}-${index}`,
-        title: getInclusionTitle(item),
-        description: item,
-        icon: getInclusionIcon(item),
-      }))
-      .slice(0, 6)
-  }, [detail])
+    return inclusionsSource.map((item: any, index: number) => {
+      if (typeof item === "string") {
+        return {
+          id: `${item}-${index}`,
+          title: getInclusionTitle(item),
+          description: item,
+          icon: getInclusionIcon(item),
+        }
+      }
+
+      // Backend object with title and description
+      const title = item.title || getInclusionTitle(item.description || "")
+      const description = item.description || item.title || ""
+      return {
+        id: item.id ? String(item.id) : `${title}-${index}`,
+        title: title,
+        description: description,
+        icon: getInclusionIcon(title + " " + description),
+      }
+    })
+  }, [tour, detail])
 
   const updateBookingField = (
     field: keyof BookingFormData,
@@ -244,7 +289,7 @@ export default function TourDetailsPage() {
   }
 
 
-  if (!tour || !detail) {
+  if (!tour) {
     return (
       <main className="flex min-h-[70vh] flex-col items-center justify-center bg-white px-5 text-center font-jost">
         <h1 className="text-3xl font-black text-[#0853a4] font-rubik">

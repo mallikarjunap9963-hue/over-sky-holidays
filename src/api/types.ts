@@ -53,6 +53,7 @@ export interface ApiTourDetail {
   description?: string;
   about?: string;
   inclusions?: string[];
+  packageInclusions?: Array<{ id: string | number; title: string; description: string; icon?: any }>;
   exclusions?: string[];
   gallery?: string[];
   gallery_count?: number;
@@ -74,7 +75,11 @@ export interface ApiTour {
   status?: boolean;
   detail?: ApiTourDetail;
   gallery?: (string | { url?: string; image?: string })[];
-  features?: ApiTourFeature[];
+  features?: ApiTourFeature[] | string[];
+  tour_features?: ApiTourFeature[];
+  package_inclusions?: ApiTourFeature[];
+  places_covered?: ApiTourFeature[];
+  highlights?: string[] | ApiTourFeature[];
   created_at?: string;
   updated_at?: string;
 }
@@ -155,6 +160,11 @@ export interface ApiService {
   process_steps?: ApiServiceProcessStep[];
   documents?: string[];
   why_choose_items?: string[];
+  cta_title?: string;
+  cta_description?: string;
+  cta_background_image?: string;
+  cta_background_image_url?: string;
+  stats?: Array<{ number: string; label: string }>;
   status?: boolean;
   created_at?: string;
   updated_at?: string;
@@ -241,6 +251,8 @@ export interface ApiWhyChooseSection {
   id: number;
   title: string;
   description: string;
+  icon?: string | null;
+  image_url?: string | null;
   background_color?: string | null;
   text_color?: string | null;
   sort_order?: number;
@@ -306,3 +318,85 @@ export interface ApiTourInquiryPayload {
   travel_date: string; // YYYY-MM-DD
   travelers: number;
 }
+
+export interface ApiSocialLink {
+  name?: string;
+  platform?: string;
+  url?: string;
+  link?: string;
+  icon?: string;
+}
+
+export interface ApiTopHeader {
+  id: number;
+  email: string;
+  tagline?: string;
+  button_text?: string;
+  button_url?: string;
+  social_links?: ApiSocialLink[];
+  status?: boolean;
+  created_at?: string;
+  updated_at?: string;
+}
+
+export interface ApiContactSection {
+  id: number;
+  phone: string;
+  email: string;
+  address: string;
+  map_link?: string;
+  whatsapp_number?: string;
+  map_embed_url?: string;
+  status?: boolean;
+  created_at?: string;
+  updated_at?: string;
+}
+
+export interface ApiOfferBanner {
+  id: number;
+  title: string;
+  discount_text?: string;
+  subtitle?: string;
+  image?: string;
+  image_url?: string;
+  status?: boolean;
+  created_at?: string;
+  updated_at?: string;
+}
+
+export interface ApiOurStory {
+  id: number;
+  heading: string;
+  description: string;
+  images?: Array<{ id?: number; image?: string; image_url?: string; url?: string }>;
+  features?: Array<{ title?: string; text?: string; description?: string }>;
+  status?: boolean;
+  created_at?: string;
+  updated_at?: string;
+}
+
+export interface ApiAboutWhyChooseUs {
+  id: number;
+  title: string;
+  subtitle?: string;
+  description: string;
+  image?: string;
+  image_url?: string;
+  features?: Array<{
+    title: string;
+    icon?: string;
+    description: string;
+  }>;
+  badge_title?: string;
+  badge_subtitle?: string;
+  status?: string | boolean;
+}
+
+export interface ApiAboutCoreValue {
+  id: number;
+  title: string;
+  icon?: string;
+  description: string;
+  status?: boolean | string;
+}
+

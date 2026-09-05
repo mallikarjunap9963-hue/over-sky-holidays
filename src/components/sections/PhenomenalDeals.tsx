@@ -1,7 +1,61 @@
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ScrollReveal } from '../ui/ScrollReveal';
+import { contentApi } from '../../api/contentApi';
+import { formatImageUrl } from '../../api/imageHelper';
+import type { ApiOfferBanner } from '../../api/types';
 
 export function PhenomenalDeals() {
+  const [banners, setBanners] = useState<ApiOfferBanner[]>([]);
+
+  useEffect(() => {
+    let isMounted = true;
+    async function loadBanners() {
+      try {
+        const res = await contentApi.getOfferBanners();
+        if (isMounted && res.isLive && res.banners.length > 0) {
+          // Sort or sort by ID ascending
+          const sorted = [...res.banners].sort((a, b) => a.id - b.id);
+          setBanners(sorted);
+        }
+      } catch (err) {
+        console.error("Failed to load offer banners:", err);
+      }
+    }
+    loadBanners();
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  // Use banners from API or sensible defaults
+  const b1 = banners[0] || {
+    title: "Savings Worldwide",
+    discount_text: "20% Off",
+    subtitle: "Discover Great Deals",
+    image: "https://images.unsplash.com/photo-1526772662000-3f88f10405ff?auto=format&fit=crop&w=1200&q=90",
+  };
+
+  const b2 = banners[1] || {
+    title: "Couple Tour",
+    discount_text: "50% Off",
+    subtitle: "4 Days In Switzerland",
+    image: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=1400&q=90",
+  };
+
+  const b3 = banners[2] || {
+    title: "Honeymoon Tour",
+    discount_text: "40% Off",
+    subtitle: "2 Countries & 15 Locations",
+    image: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=900&q=90",
+  };
+
+  const b4 = banners[3] || {
+    title: "Savings Worldwide",
+    discount_text: "50% Off",
+    subtitle: "For Your First Book",
+    image: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1300&q=90",
+  };
 
   return (
     <>
@@ -12,7 +66,6 @@ export function PhenomenalDeals() {
       >
         {/* Decorative background */}
         <div className="pointer-events-none absolute -left-32 top-10 h-80 w-80 rounded-full bg-[#0853a4]/5 blur-3xl" />
-
         <div className="pointer-events-none absolute -right-32 bottom-0 h-96 w-96 rounded-full bg-[#fbb03b]/5 blur-3xl" />
 
         <div className="relative mx-auto max-w-[1320px]">
@@ -44,8 +97,8 @@ export function PhenomenalDeals() {
             >
               <article className="group relative min-h-[490px] overflow-hidden rounded-[7px] h-full">
                 <img
-                  src="https://images.unsplash.com/photo-1526772662000-3f88f10405ff?auto=format&fit=crop&w=1200&q=90"
-                  alt="Traveler enjoying a mountain holiday"
+                  src={formatImageUrl(b1.image_url || b1.image, "https://images.unsplash.com/photo-1526772662000-3f88f10405ff?auto=format&fit=crop&w=1200&q=90")}
+                  alt={b1.title}
                   loading="lazy"
                   className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-110"
                 />
@@ -58,20 +111,20 @@ export function PhenomenalDeals() {
                 {/* Bottom offer content */}
                 <div className="absolute inset-x-0 bottom-0 z-10 px-7 pb-4 text-center text-white font-jost">
                   <p className="font-satisfy text-[18px] font-normal capitalize">
-                    Savings Worldwide
+                    {b1.title}
                   </p>
 
                   <h3 className="mt-3 font-rubik text-[38px] font-bold leading-none text-[#fbb03b]">
-                    20% Off
+                    {b1.discount_text || "20% Off"}
                   </h3>
 
                   <p className="mt-3 text-[15px] font-semibold">
-                    Discover Great Deals
+                    {b1.subtitle || "Discover Great Deals"}
                   </p>
 
                   <Link
                     to="/contact"
-                    className="btn-primary mt-6 min-h-[44px] rounded-[6px] px-6 text-[13px] font-bold shadow-[0_12px_24px_rgba(8,83,164,0.18)] font-rubik"
+                    className="btn-primary mt-6 min-h-[44px] rounded-[6px] px-6 text-[13px] font-bold shadow-[0_12px_24px_rgba(8,83,164,0.18)] font-rubik inline-flex items-center justify-center"
                   >
                     Book Now
                   </Link>
@@ -89,8 +142,8 @@ export function PhenomenalDeals() {
               >
                 <article className="group relative min-h-[235px] overflow-hidden rounded-[7px]">
                   <img
-                    src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=1400&q=90"
-                    alt="Couple enjoying a kayaking tour"
+                    src={formatImageUrl(b2.image_url || b2.image, "https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=1400&q=90")}
+                    alt={b2.title}
                     loading="lazy"
                     className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-110"
                   />
@@ -102,16 +155,16 @@ export function PhenomenalDeals() {
                     <div className="flex h-full items-end justify-between gap-5">
                       <div>
                         <p className="font-satisfy text-[16px] font-normal capitalize">
-                          Couple Tour
+                          {b2.title}
                         </p>
 
                         <h3 className="mt-1 font-rubik text-[19px] font-semibold">
-                          4 Days In Switzerland
+                          {b2.subtitle || "4 Days In Switzerland"}
                         </h3>
                       </div>
 
                       <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-[#fbb03b] text-center font-rubik text-[16px] font-bold leading-tight text-[#100c08]">
-                        50%
+                        {b2.discount_text?.split(" ")[0] || "50%"}
                         <span className="block text-[11px]">Off</span>
                       </div>
                     </div>
@@ -133,8 +186,8 @@ export function PhenomenalDeals() {
 
                   <div className="absolute -right-12 bottom-[-130px] h-[280px] w-[280px] overflow-hidden rounded-full">
                     <img
-                      src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=900&q=90"
-                      alt="International honeymoon destination"
+                      src={formatImageUrl(b3.image_url || b3.image, "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=900&q=90")}
+                      alt={b3.title}
                       loading="lazy"
                       className="h-full w-full object-cover transition duration-700 group-hover:scale-110"
                     />
@@ -142,20 +195,20 @@ export function PhenomenalDeals() {
 
                   <div className="relative z-10 flex h-full max-w-[60%] flex-col justify-center px-7 py-8 text-white sm:px-9 font-jost">
                     <p className="font-satisfy text-[17px] font-normal capitalize">
-                      Honeymoon Tour
+                      {b3.title}
                     </p>
 
                     <h3 className="mt-3 font-rubik text-[25px] font-semibold">
-                      Enjoy 40% Off
+                      {b3.discount_text ? `Enjoy ${b3.discount_text}` : "Enjoy 40% Off"}
                     </h3>
 
                     <p className="mt-3 text-[12px] font-medium text-white/85">
-                      2 Countries &amp; 15 Locations
+                      {b3.subtitle || "2 Countries & 15 Locations"}
                     </p>
 
                     <Link
                       to="/contact"
-                      className="btn-primary mt-6 min-h-[44px] w-fit rounded-[6px] px-6 text-[13px] font-bold shadow-[0_12px_24px_rgba(8,83,164,0.18)] font-rubik"
+                      className="btn-primary mt-6 min-h-[44px] w-fit rounded-[6px] px-6 text-[13px] font-bold shadow-[0_12px_24px_rgba(8,83,164,0.18)] font-rubik inline-flex items-center justify-center"
                     >
                       Book Now
                     </Link>
@@ -177,21 +230,21 @@ export function PhenomenalDeals() {
                   <div className="flex items-start justify-between gap-5 font-jost">
                     <div>
                       <p className="font-satisfy text-[16px] font-normal text-[#100c08] capitalize">
-                        Savings Worldwide
+                        {b4.title}
                       </p>
 
                       <h3 className="mt-2 font-rubik text-[38px] font-bold leading-none text-[#100c08]">
-                        50% Off
+                        {b4.discount_text || "50% Off"}
                       </h3>
 
                       <p className="mt-3 text-[12px] font-semibold text-[#100c08]">
-                        For Your First Book
+                        {b4.subtitle || "For Your First Book"}
                       </p>
                     </div>
 
                     <Link
                       to="/contact"
-                      className="btn-primary mt-8 min-h-[43px] shrink-0 rounded-[6px] px-6 text-[13px] font-bold shadow-[0_12px_24px_rgba(8,83,164,0.18)] font-rubik"
+                      className="btn-primary mt-8 min-h-[43px] shrink-0 rounded-[6px] px-6 text-[13px] font-bold shadow-[0_12px_24px_rgba(8,83,164,0.18)] font-rubik inline-flex items-center justify-center"
                     >
                       Book Now
                     </Link>
@@ -201,8 +254,8 @@ export function PhenomenalDeals() {
                 {/* Bottom image */}
                 <div className="absolute inset-x-0 bottom-0 h-[330px] overflow-hidden [clip-path:polygon(0_16%,100%_0,100%_100%,0_100%)]">
                   <img
-                    src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1300&q=90"
-                    alt="Family holiday beside a peaceful lake"
+                    src={formatImageUrl(b4.image_url || b4.image, "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1300&q=90")}
+                    alt={b4.title}
                     loading="lazy"
                     className="h-full w-full object-cover transition duration-700 group-hover:scale-110"
                   />
@@ -220,7 +273,7 @@ export function PhenomenalDeals() {
           <ScrollReveal variant="fade-in-up" delay={700} duration={1300} className="mt-12 text-center">
             <Link
               to="/tours/domestic"
-              className="btn-primary rounded-[6px] min-h-[52px] px-9 text-[14px] font-bold shadow-[0_12px_30px_rgba(8,83,164,0.22)]"
+              className="btn-primary rounded-[6px] min-h-[52px] px-9 text-[14px] font-bold shadow-[0_12px_30px_rgba(8,83,164,0.22)] inline-flex items-center justify-center"
             >
               View All Special Offers
               <svg
@@ -241,4 +294,3 @@ export function PhenomenalDeals() {
     </>
   );
 }
-

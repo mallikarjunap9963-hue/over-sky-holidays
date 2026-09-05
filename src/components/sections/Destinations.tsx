@@ -1,12 +1,14 @@
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ScrollReveal } from '../ui/ScrollReveal';
+import { toursApi } from '../../api/toursApi';
 
-const destinationCards = [
+const defaultDestinationCards = [
   {
     title: 'Goa',
     image:
       'https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=900&q=85',
-    href: '/tours/domestic',
+    href: '/tours/domestic?destination=Goa',
     layoutClass: 'lg:col-span-4 md:col-span-6',
     tours: '30 Tours',
   },
@@ -14,7 +16,7 @@ const destinationCards = [
     title: 'Dubai',
     image:
       'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1200&q=85',
-    href: '/tours/international',
+    href: '/tours/international?destination=Dubai',
     layoutClass: 'lg:col-span-4 md:col-span-6',
     tours: '25 Tours',
   },
@@ -22,7 +24,7 @@ const destinationCards = [
     title: 'Bangkok',
     image:
       'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaHJwKE_qh33v0rPkR003M_xWSz-fF5rjt1vDAa5mpeA&s=10',
-    href: '/tours/international',
+    href: '/tours/international?destination=Bangkok',
     layoutClass: 'lg:col-span-4 md:col-span-6',
     tours: '20 Tours',
   },
@@ -30,7 +32,7 @@ const destinationCards = [
     title: 'Jammu & Kashmir',
     image:
       'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-EQLYdL1GB_kgbtH8XXXuuc2vgzlkdwsTmTwfsUCzBg&s=10',
-    href: '/tours/domestic',
+    href: '/tours/domestic?destination=Kashmir',
     layoutClass: 'lg:col-span-5 md:col-span-6',
     tours: '18 Tours',
   },
@@ -38,13 +40,47 @@ const destinationCards = [
     title: 'Singapore',
     image:
       'https://images.unsplash.com/photo-1525625293386-3f8f99389edd?auto=format&fit=crop&w=900&q=85',
-    href: '/tours/international',
+    href: '/tours/international?destination=Singapore',
     layoutClass: 'lg:col-span-3 md:col-span-6',
     tours: '15 Tours',
   },
 ];
 
 export function Destinations() {
+  const [destinationCards, setDestinationCards] = useState(defaultDestinationCards);
+
+  useEffect(() => {
+    let isMounted = true;
+    async function loadDestinations() {
+      try {
+        const res = await toursApi.getAllTours();
+        if (!isMounted || !res.isLive || res.tours.length === 0) return;
+
+        const dynamicCards = defaultDestinationCards.map((d) => {
+          const matching = res.tours.filter((t: any) =>
+            t.title.toLowerCase().includes(d.title.toLowerCase()) ||
+            (t.country && t.country.toLowerCase().includes(d.title.toLowerCase())) ||
+            (t.locations && t.locations.some((l: string) => l.toLowerCase().includes(d.title.toLowerCase())))
+          );
+          const count = matching.length > 0 ? matching.length : parseInt(d.tours, 10);
+          const img = matching[0]?.image || d.image;
+          return {
+            ...d,
+            tours: `${count} Tour${count === 1 ? '' : 's'}`,
+            image: img,
+          };
+        });
+        setDestinationCards(dynamicCards);
+      } catch (err) {
+        console.error("Failed to load dynamic destinations:", err);
+      }
+    }
+    loadDestinations();
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
   return (
     <>
       <section

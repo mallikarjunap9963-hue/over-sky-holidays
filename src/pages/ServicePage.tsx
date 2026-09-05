@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { servicesApi } from '../api/servicesApi';
+import { contentApi } from '../api/contentApi';
+import type { ApiPageBanner } from '../api/types';
+import { formatImageUrl } from '../api/imageHelper';
 import { ServiceHero } from '../components/services/ServiceHero';
 import { ServiceHighlights } from '../components/services/ServiceHighlights';
 import { ServiceContent } from '../components/services/ServiceContent';
@@ -14,6 +17,7 @@ export function ServicePage() {
   const activeId = id || 'passport-services';
 
   const [service, setService] = useState<any>(null);
+  const [banner, setBanner] = useState<ApiPageBanner | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -28,8 +32,24 @@ export function ServicePage() {
       setLoading(true);
       setError(null);
       try {
-        const res = await servicesApi.getServiceById(activeId);
+        const candidateSlug = activeId.startsWith('services-')
+          ? activeId
+          : `services-${activeId.replace('-services', '')}`;
+
+        const [res, bannerRes] = await Promise.all([
+          servicesApi.getServiceById(activeId),
+          contentApi.getPageBanner(candidateSlug).catch(() => null),
+        ]);
+
         if (!isMounted) return;
+
+        if (bannerRes && bannerRes.banner) {
+          setBanner(bannerRes.banner);
+        } else {
+          // Try fetching without prefix
+          const altBanner = await contentApi.getPageBanner(activeId).catch(() => null);
+          if (isMounted && altBanner && altBanner.banner) setBanner(altBanner.banner);
+        }
 
         if (res.service) {
           setService(res.service);
@@ -79,14 +99,41 @@ export function ServicePage() {
     );
   }
 
+  const dynamicHeroImg = banner?.image_url || (banner?.image ? formatImageUrl(banner.image) : service.heroImage);
 
   return (
     <div className="bg-white min-h-screen">
       <ServiceHero 
-        title={service.title} 
-        subtitle={service.subtitle} 
-        heroImage={service.heroImage} 
+        title={banner?.title || service.title} 
+        subtitle={banner?.description || service.subtitle} 
+        heroImage={dynamicHeroImg} 
       />
+
+      {/* Service Switcher Navigation Tabs */}
+      <div className="border-b border-slate-100 bg-slate-50/80 py-3.5 backdrop-blur-sm sticky top-[72px] z-30 shadow-xs">
+        <div className="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-10 flex items-center justify-center gap-2 sm:gap-3 flex-wrap">
+          {[
+            { id: 'visa', slug: 'visa', label: 'Visa Assistance' },
+            { id: 'flight', slug: 'flight-tickets', label: 'Flight Tickets' },
+            { id: 'passport', slug: 'passport-services', label: 'Passport Services' },
+          ].map((tab) => {
+            const isCurrent = activeId.toLowerCase().includes(tab.id);
+            return (
+              <Link
+                key={tab.id}
+                to={`/services/${tab.slug}`}
+                className={`rounded-full px-4 sm:px-5 py-2 text-xs sm:text-[13px] font-bold tracking-wider uppercase font-rubik transition-all duration-300 ${
+                  isCurrent
+                    ? 'bg-[#0853a4] text-white shadow-md shadow-[#0853a4]/25 scale-105'
+                    : 'bg-white text-slate-700 hover:bg-slate-200/80 border border-slate-200/80'
+                }`}
+              >
+                {tab.label}
+              </Link>
+            );
+          })}
+        </div>
+      </div>
       
       <ServiceHighlights highlights={service.highlights} />
       
@@ -99,7 +146,7 @@ export function ServicePage() {
         whyChooseUs={service.whyChooseUs} 
       />
       
-      <ServiceCTA />
+      <ServiceCTA cta={service.cta} />
     </div>
   );
 }

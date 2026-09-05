@@ -1,8 +1,37 @@
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ScrollReveal } from '../ui/ScrollReveal';
 import breadcrumbImg from '../../assets/breadcrumb.png';
+import { contentApi } from '../../api/contentApi';
+import { formatImageUrl } from '../../api/imageHelper';
+import type { ApiPageBanner } from '../../api/types';
 
 export function AboutHero() {
+  const [banner, setBanner] = useState<ApiPageBanner | null>(null);
+
+  useEffect(() => {
+    let isMounted = true;
+    async function loadBanner() {
+      try {
+        const res = await contentApi.getPageBanner('about');
+        if (isMounted && res.isLive && res.banner) {
+          setBanner(res.banner);
+        }
+      } catch (err) {
+        console.error("Failed to load about page banner:", err);
+      }
+    }
+    loadBanner();
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  const bannerImg = formatImageUrl(banner?.image_url || banner?.image || banner?.banner_image, breadcrumbImg);
+  const title = banner?.title || "About Us";
+  const label = banner?.label || "Who We Are";
+  const description = banner?.description || banner?.subtitle || "Crafting unforgettable journeys since 2020 — Your trusted travel partner for domestic & international adventures.";
+
   return (
     <>
       {/* ================= PROFESSIONAL BREADCRUMB BANNER ================= */}
@@ -13,7 +42,7 @@ export function AboutHero() {
         {/* Background Image */}
         <div className="absolute inset-0 -z-20">
           <img
-            src={breadcrumbImg}
+            src={bannerImg}
             alt="Open Sky Holidays About Us Page"
             className="h-full w-full object-cover object-center"
           />
@@ -28,8 +57,6 @@ export function AboutHero() {
         {/* Decorative Circle */}
         <div className="pointer-events-none absolute -right-24 -top-28 h-[340px] w-[340px] rounded-full border border-white/10" />
         <div className="pointer-events-none absolute -right-10 -top-16 h-[240px] w-[240px] rounded-full border border-white/10" />
-
-
 
         <div className="relative mx-auto flex min-h-[220px] max-w-[1320px] items-center px-5 py-10 sm:min-h-[250px] sm:px-8 lg:min-h-[280px] lg:px-10">
           <ScrollReveal variant="fade-in-up" duration={1000}>
@@ -49,18 +76,18 @@ export function AboutHero() {
                 </svg>
 
                 <span className="font-jost text-[11px] font-bold uppercase tracking-[0.2em] text-white">
-                  Who We Are
+                  {label}
                 </span>
               </div>
 
               {/* Page Title */}
               <h1 className="font-rubik text-[38px] font-black leading-[1.08] text-white sm:text-[48px] lg:text-[58px]">
-                About Us
+                {title}
               </h1>
 
               {/* Description */}
               <p className="mt-2.5 max-w-[570px] font-jost text-[14px] leading-7 text-white/75 sm:text-[15px]">
-                Crafting unforgettable journeys since 2020 — Your trusted travel partner for domestic & international adventures.
+                {description}
               </p>
 
               {/* Breadcrumb */}
@@ -98,7 +125,7 @@ export function AboutHero() {
                 </svg>
 
                 <span className="font-jost text-[13px] font-semibold text-[#fbb03b]">
-                  About Us
+                  {title}
                 </span>
               </nav>
             </div>

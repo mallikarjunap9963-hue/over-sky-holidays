@@ -30,7 +30,8 @@ export interface TourDetail {
   description?: string;
   overview?: string;
   itinerary?: Array<{ day: number; title: string; description: string }> | string;
-  inclusions?: string[] | string;
+  inclusions?: string[] | string | TourFeature[];
+  packageInclusions?: TourFeature[];
   exclusions?: string[] | string;
   gallery?: string[];
   status?: boolean | string;
@@ -52,7 +53,11 @@ export interface Tour {
   status: boolean | string;
   detail?: TourDetail;
   gallery?: Array<{ id: number; image: string; image_url?: string }>;
-  features?: TourFeature[];
+  features?: TourFeature[] | string[];
+  tour_features?: TourFeature[];
+  package_inclusions?: TourFeature[];
+  places_covered?: TourFeature[];
+  highlights?: string[] | TourFeature[];
   locations?: string[];
   created_at?: string;
   updated_at?: string;
@@ -82,6 +87,20 @@ export interface Service {
   id: number;
   title: string;
   slug: string;
+  about_title?: string;
+  about_description?: string;
+  about_image?: string;
+  about_image_url?: string;
+  features?: Array<{ icon?: string; title: string; description: string }>;
+  service_items?: string[];
+  process_steps?: Array<{ icon?: string; title: string; description: string }>;
+  documents?: string[];
+  why_choose_items?: string[];
+  cta_title?: string;
+  cta_description?: string;
+  cta_background_image?: string;
+  cta_background_image_url?: string;
+  stats?: Array<{ number: string; label: string }>;
   short_description?: string;
   description?: string;
   image?: string;
@@ -98,6 +117,7 @@ export interface Blog {
   content?: string;
   short_description?: string;
   image?: string;
+  
   image_url?: string;
   category_id?: number;
   category_name?: string;

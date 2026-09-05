@@ -1,12 +1,70 @@
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { socialLinks } from '../../data';
 import { PhoneIcon, LocationIcon } from '../icons/Icons';
 import logo from '../../assets/logo-removebg-preview.png';
+import { contentApi } from '../../api/contentApi';
+import { toursApi } from '../../api/toursApi';
+import type { ApiContactSection } from '../../api/types';
 
 export function Footer() {
+  const [contact, setContact] = useState<ApiContactSection | null>(null);
+  const [popularTours, setPopularTours] = useState<Array<{ label: string; href: string }>>([
+    { label: "Goa Beach Tour", href: "/tour/domestic/4" },
+    { label: "Kullu & Manali", href: "/tour/domestic/5" },
+    { label: "Kerala Tour", href: "/tour/domestic/2" },
+    { label: "Dubai Tour", href: "/tour/international/15" },
+    { label: "Island Escape", href: "/tour/international/27" },
+    { label: "Santorini Escape", href: "/tour/international/23" },
+  ]);
+
+  useEffect(() => {
+    let isMounted = true;
+    async function loadFooterData() {
+      try {
+        const [contactRes, toursRes] = await Promise.all([
+          contentApi.getContactSectionActive(),
+          toursApi.getAllTours(),
+        ]);
+
+        if (!isMounted) return;
+
+        if (contactRes.isLive && contactRes.contact) {
+          setContact(contactRes.contact);
+        }
+
+        if (toursRes.isLive && toursRes.tours.length > 0) {
+          const links = toursRes.tours.slice(0, 6).map((t: any) => {
+            const cat = t.category || (t.tour_type_id === 6 ? "international" : "domestic");
+            return {
+              label: t.title,
+              href: `/tour/${cat}/${t.id}`,
+            };
+          });
+          if (links.length > 0) {
+            setPopularTours(links);
+          }
+        }
+      } catch (err) {
+        console.error("Failed to load footer data:", err);
+      }
+    }
+
+    loadFooterData();
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
+
+  const phone = contact?.phone || "+91 99081 17712";
+  const phoneClean = phone.replace(/[^0-9+]/g, '');
+  const email = contact?.email || "info@openskyholidays.com";
+  const address = contact?.address || "#1-11-110, Shyamlal Building, Begumpet, Hyderabad - 500 018";
+  const mapLink = contact?.map_link || "https://www.google.com/maps/search/?api=1&query=Shyamlal+Building+Begumpet+Hyderabad+500018";
 
   return (
     <>
@@ -78,15 +136,15 @@ export function Footer() {
                   { label: "Services", href: "/services" },
                   { label: "Blogs", href: "/blogs" },
                   { label: "Contact Us", href: "/contact" },
-                ].map((item) => (
-                  <li key={item.label}>
+                ].map((link) => (
+                  <li key={link.label}>
                     <Link
-                      to={item.href}
+                      to={link.href}
                       onClick={scrollToTop}
                       className="group flex items-center gap-3 text-[14px] text-white/80 transition hover:translate-x-1 hover:text-[#fbb03b]"
                     >
                       <span className="h-1.5 w-1.5 rounded-full bg-[#fbb03b] transition group-hover:bg-[#fbb03b]" />
-                      {item.label}
+                      {link.label}
                     </Link>
                   </li>
                 ))}
@@ -102,14 +160,7 @@ export function Footer() {
               <span className="mt-3 block h-[3px] w-12 rounded-full bg-[#fbb03b]" />
 
               <ul className="mt-6 space-y-3.5">
-                {[
-                  { label: "Goa", href: "/tour/domestic/3" },
-                  { label: "Kullu - Manali & Shimla", href: "/tour/domestic/4" },
-                  { label: "Kerala", href: "/tour/domestic/1" },
-                  { label: "Dubai", href: "/tour/international/1" },
-                  { label: "Maldives", href: "/tour/international/11" },
-                  { label: "Singapore & Malaysia", href: "/tour/international/2" },
-                ].map((tour) => (
+                {popularTours.map((tour) => (
                   <li key={tour.label}>
                     <Link
                       to={tour.href}
@@ -133,7 +184,7 @@ export function Footer() {
               <div className="mt-6 space-y-5">
                 {/* PHONE */}
                 <a
-                  href="tel:+919908117712"
+                  href={`tel:${phoneClean}`}
                   className="group flex items-start gap-4"
                 >
                   <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white/10 text-white transition group-hover:bg-white group-hover:text-[#0853a4]">
@@ -146,14 +197,14 @@ export function Footer() {
                     </span>
 
                     <span className="mt-1 block text-[15px] font-semibold text-white font-rubik">
-                      +91 99081 17712
+                      {phone}
                     </span>
                   </span>
                 </a>
 
                 {/* EMAIL */}
                 <a
-                  href="mailto:info@openskyholidays.com"
+                  href={`mailto:${email}`}
                   className="group flex items-start gap-4"
                 >
                   <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white/10 text-white transition group-hover:bg-white group-hover:text-[#0853a4]">
@@ -175,14 +226,14 @@ export function Footer() {
                     </span>
 
                     <span className="mt-1 block break-all text-[15px] font-semibold text-white font-rubik">
-                      info@openskyholidays.com
+                      {email}
                     </span>
                   </span>
                 </a>
 
                 {/* ADDRESS */}
                 <a
-                  href="https://www.google.com/maps/search/?api=1&query=Shyamlal+Building+Begumpet+Hyderabad+500018"
+                  href={mapLink}
                   target="_blank"
                   rel="noreferrer"
                   className="group flex items-start gap-4"
@@ -197,7 +248,7 @@ export function Footer() {
                     </span>
 
                     <span className="mt-1 block text-[14px] leading-6 text-white font-rubik">
-                      #1-11-110, Shyamlal Building, Begumpet, Hyderabad - 500 018
+                      {address}
                     </span>
                   </span>
                 </a>
@@ -221,13 +272,12 @@ export function Footer() {
               >
                 Privacy Policy
               </Link>
-
               <Link
                 to="/contact"
                 onClick={scrollToTop}
                 className="text-[13px] text-white/85 transition hover:text-[#fbb03b]"
               >
-                Terms & Conditions
+                Terms of Service
               </Link>
             </div>
           </div>
