@@ -8,6 +8,7 @@ export function AboutUs() {
   const [activeAboutTab, setActiveAboutTab] = useState<'mission' | 'customer'>('mission');
   const [customerCount, setCustomerCount] = useState(0);
   const [aboutData, setAboutData] = useState<any>(null);
+  const [targetCount, setTargetCount] = useState<number>(10000);
   const sectionRef = useRef<HTMLElement>(null);
   const hasAnimated = useRef(false);
 
@@ -15,9 +16,23 @@ export function AboutUs() {
     let isMounted = true;
     async function loadAboutSection() {
       try {
-        const res = await contentApi.getAboutSectionActive();
-        if (isMounted && res.isLive && res.about) {
-          setAboutData(res.about);
+        const [aboutRes, counterRes] = await Promise.all([
+          contentApi.getAboutSectionActive(),
+          contentApi.getCountersActive(),
+        ]);
+        if (!isMounted) return;
+        if (aboutRes.isLive && aboutRes.about) {
+          setAboutData(aboutRes.about);
+        }
+        if (counterRes.isLive && counterRes.counters.length > 0) {
+          const cust = counterRes.counters.find((c: any) =>
+            (c.name && c.name.toLowerCase().includes('customer')) ||
+            (c.value && String(c.value).includes('10'))
+          ) || counterRes.counters[0];
+          const valDigits = String(cust?.value || cust?.name || '').replace(/[^0-9]/g, '');
+          if (valDigits) {
+            setTargetCount(parseInt(valDigits, 10));
+          }
         }
       } catch (err) {
         console.error("Error loading about section:", err);
@@ -39,7 +54,6 @@ export function AboutUs() {
         if (entry.isIntersecting && !hasAnimated.current) {
           hasAnimated.current = true;
 
-          const targetCount = 10250;
           const duration = 1600;
           let startTime: number | null = null;
 

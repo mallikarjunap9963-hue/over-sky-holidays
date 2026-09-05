@@ -1,8 +1,9 @@
+import { useEffect, useRef, useState } from 'react';
 import { PhoneCall } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { ScrollReveal } from '../ui/ScrollReveal';
 import { animate, useInView } from 'framer-motion';
-import { useEffect, useRef } from 'react';
+import { contentApi } from '../../api/contentApi';
 
 function AnimatedCounter({ from, to, suffix, duration = 2.5 }: { from: number, to: number, suffix: string, duration?: number }) {
   const nodeRef = useRef<HTMLSpanElement>(null);
@@ -36,13 +37,28 @@ interface ServiceCTAProps {
 }
 
 export function ServiceCTA({ cta }: ServiceCTAProps = {}) {
-  const defaultStats = [
-    { number: '10,000+', label: 'Visas Processed' },
-    { number: '25+', label: 'Countries Covered' },
-    { number: '98%', label: 'Success Rate' },
-  ];
+  const [liveStats, setLiveStats] = useState<Array<{ number: string; label: string }>>([]);
 
-  const statsList = (Array.isArray(cta?.stats) && cta.stats.length > 0) ? cta.stats : defaultStats;
+  useEffect(() => {
+    let isMounted = true;
+    if (!cta?.stats || cta.stats.length === 0) {
+      contentApi.getCountersActive().then((res) => {
+        if (isMounted && res.isLive && res.counters.length > 0) {
+          setLiveStats(
+            res.counters.slice(0, 3).map((c: any) => ({
+              number: String(c.value || c.name || '') + (String(c.value).includes('+') ? '' : '+'),
+              label: c.name || c.value || 'Accomplishment',
+            }))
+          );
+        }
+      }).catch((err) => console.error("Error loading counters in ServiceCTA:", err));
+    }
+    return () => {
+      isMounted = false;
+    };
+  }, [cta?.stats]);
+
+  const statsList = (Array.isArray(cta?.stats) && cta.stats.length > 0) ? cta.stats : liveStats;
 
   return (
     <section className="mx-auto max-w-[1440px] px-6 lg:px-10 mb-20 overflow-hidden">

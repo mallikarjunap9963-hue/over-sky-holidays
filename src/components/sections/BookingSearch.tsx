@@ -100,7 +100,7 @@ export function BookingSearch() {
 
   const typeOptions = [
     "All Types",
-    ...(tourTypesList.length > 0 ? tourTypesList : ["Family Tour", "Couple Tour", "Group Tour", "Corporate Tour", "Customized Tour"]),
+    ...tourTypesList,
   ];
 
   const categoryOptions = [
