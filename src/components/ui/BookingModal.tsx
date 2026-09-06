@@ -52,7 +52,7 @@ export function BookingModal({ isOpen, onClose }: BookingModalProps) {
           <button
             onClick={onClose}
             aria-label="Close booking form"
-            className="absolute right-4 top-4 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-slate-100 text-slate-500 transition-colors duration-200 hover:bg-slate-200 hover:text-slate-700"
+            className="absolute right-3 top-3 sm:right-4 sm:top-4 z-20 flex h-8 w-8 items-center justify-center rounded-full bg-black/40 text-white backdrop-blur-md transition-all hover:bg-black/60 sm:bg-slate-100 sm:text-slate-500 sm:hover:bg-slate-200 sm:hover:text-slate-700 cursor-pointer shadow-md"
           >
             <X size={16} />
           </button>
@@ -62,6 +62,14 @@ export function BookingModal({ isOpen, onClose }: BookingModalProps) {
             className="overflow-y-auto"
             style={{ maxHeight: "calc(100dvh - 48px)" }}
           >
+            {/* Mobile Banner: ONLY in mobile view */}
+            <div className="block sm:hidden w-full aspect-[16/9] overflow-hidden bg-[#0e74b3] shrink-0 border-b border-slate-100">
+              <img
+                src="/form-mobile-banner.jpg"
+                alt="Open Sky Holidays - The World Is Waiting"
+                className="w-full h-full object-cover block"
+              />
+            </div>
             <BookNowForm />
           </div>
         </div>

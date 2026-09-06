@@ -1,8 +1,40 @@
-import { useRef, useState, useEffect, Suspense } from 'react';
+import { Component, type ReactNode, useRef, useState, useEffect, Suspense, useMemo } from 'react';
 import { Canvas, useFrame, useLoader, useThree } from '@react-three/fiber';
 import { OrbitControls, Html, Sphere, Float } from '@react-three/drei';
 import { useNavigate } from 'react-router-dom';
 import * as THREE from 'three';
+
+interface GlobeErrorBoundaryProps {
+  children: ReactNode;
+  fallback?: ReactNode;
+}
+
+interface GlobeErrorBoundaryState {
+  hasError: boolean;
+}
+
+class GlobeErrorBoundary extends Component<GlobeErrorBoundaryProps, GlobeErrorBoundaryState> {
+  constructor(props: GlobeErrorBoundaryProps) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError() {
+    return { hasError: true };
+  }
+
+  componentDidCatch(error: any) {
+    console.warn('AnimatedGlobe failed to render:', error);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return this.props.fallback || null;
+    }
+    return this.props.children;
+  }
+}
+
 const GLOBE_RADIUS = 2.5;
 
 // Convert Lat/Lon to 3D Cartesian coordinates
@@ -17,7 +49,48 @@ function getPosFromLatLon(lat: number, lon: number, radius: number) {
   return new THREE.Vector3(x, y, z);
 }
 
-const locations = [
+export interface GlobeLocationItem {
+  id: string;
+  name: string;
+  desc: string;
+  lat: number;
+  lon: number;
+  isHub: boolean;
+  img: string;
+}
+
+const COUNTRY_COORDS: Record<string, { lat: number; lon: number }> = {
+  'uae': { lat: 25.2048, lon: 55.2708 },
+  'dubai': { lat: 25.2048, lon: 55.2708 },
+  'india': { lat: 22.5937, lon: 78.9629 },
+  'argentina': { lat: -38.4161, lon: -63.6167 },
+  'australia': { lat: -25.2744, lon: 133.7751 },
+  'china': { lat: 35.8617, lon: 104.1954 },
+  'brazil': { lat: -14.2350, lon: -51.9253 },
+  'canada': { lat: 56.1304, lon: -106.3468 },
+  'germany': { lat: 51.1657, lon: 10.4515 },
+  'singapore': { lat: 1.3521, lon: 103.8198 },
+  'thailand': { lat: 15.8700, lon: 100.9925 },
+  'maldives': { lat: 3.2028, lon: 73.2207 },
+  'malaysia': { lat: 4.2105, lon: 101.9758 },
+  'indonesia': { lat: -0.7893, lon: 113.9213 },
+  'bali': { lat: -8.4095, lon: 115.1889 },
+  'sri lanka': { lat: 7.8731, lon: 80.7718 },
+  'japan': { lat: 36.2048, lon: 138.2529 },
+  'france': { lat: 46.2276, lon: 2.2137 },
+  'italy': { lat: 41.8719, lon: 12.5674 },
+  'switzerland': { lat: 46.8182, lon: 8.2275 },
+  'united kingdom': { lat: 55.3781, lon: -3.4360 },
+  'uk': { lat: 55.3781, lon: -3.4360 },
+  'usa': { lat: 37.0902, lon: -95.7129 },
+  'united states': { lat: 37.0902, lon: -95.7129 },
+  'vietnam': { lat: 14.0583, lon: 108.2772 },
+  'nepal': { lat: 28.3949, lon: 84.1240 },
+  'egypt': { lat: 26.8206, lon: 30.8025 },
+  'turkey': { lat: 38.9637, lon: 35.2433 },
+};
+
+const DEFAULT_LOCATIONS: GlobeLocationItem[] = [
   { id: 'hyderabad', name: 'Hyderabad', desc: 'Main Hub', lat: 17.3850, lon: 78.4867, isHub: true, img: '' },
   { id: 'india', name: 'India', desc: 'Domestic', lat: 22.5937, lon: 78.9629, isHub: false, img: '' },
   { id: 'uae', name: 'UAE', desc: 'International', lat: 25.2048, lon: 55.2708, isHub: false, img: '' },
@@ -26,16 +99,13 @@ const locations = [
   { id: 'thailand', name: 'Thailand', desc: 'International', lat: 15.5000, lon: 98.5000, isHub: false, img: '' },
 ];
 
-// Precompute local positions of all pins to check visibility dynamically
-const locationLocalPositions = locations.map(loc => getPosFromLatLon(loc.lat, loc.lon, GLOBE_RADIUS));
-
 // Single animated flight route & country landing tag
 function FlightRoute({
   destination,
   isLanded,
   onCountryClick
 }: {
-  destination: typeof locations[0];
+  destination: GlobeLocationItem;
   isLanded: boolean;
   onCountryClick: (name: string) => void;
 }) {
@@ -112,22 +182,28 @@ function FlightRoute({
 
 function GlobeGroup({
   onCountryClick,
-  landedCount
+  landedCount,
+  globeLocations
 }: {
   onCountryClick: (name: string) => void;
   landedCount: number;
+  globeLocations: GlobeLocationItem[];
 }) {
   const specMap = useLoader(THREE.TextureLoader, '/earth-specular.jpg');
   const groupRef = useRef<THREE.Group>(null);
 
   const speedRef = useRef(0.0015);
 
+  const localPositions = useMemo(() => {
+    return globeLocations.map(loc => getPosFromLatLon(loc.lat, loc.lon, GLOBE_RADIUS));
+  }, [globeLocations]);
+
   useFrame((state) => {
     if (groupRef.current) {
       let maxDot = -1;
       const camNormal = state.camera.position.clone().normalize();
 
-      for (const localPos of locationLocalPositions) {
+      for (const localPos of localPositions) {
         const worldPos = localPos.clone().applyMatrix4(groupRef.current.matrixWorld);
         const dot = worldPos.normalize().dot(camNormal);
         if (dot > maxDot) maxDot = dot;
@@ -140,7 +216,7 @@ function GlobeGroup({
     }
   });
 
-  const countryLocations = locations.filter(l => !l.isHub);
+  const countryLocations = globeLocations.filter(l => !l.isHub);
 
   return (
     <group ref={groupRef} rotation={[0, -3.25, 0]}>
@@ -220,11 +296,49 @@ function ResponsiveCamera() {
   return null;
 }
 
-export function AnimatedGlobe() {
+export interface AnimatedGlobeProps {
+  locations?: Array<{ id?: number | string; location_name?: string; name?: string }>;
+  destinationsSubtitle?: string;
+}
+
+export function AnimatedGlobe({ locations: propLocations, destinationsSubtitle }: AnimatedGlobeProps = {}) {
   const navigate = useNavigate();
   const containerRef = useRef<HTMLDivElement>(null);
   const [inView, setInView] = useState(false);
   const [landedCount, setLandedCount] = useState(0);
+
+  const globeLocations = useMemo(() => {
+    if (!propLocations || propLocations.length === 0) {
+      return DEFAULT_LOCATIONS;
+    }
+
+    const seen = new Set<string>();
+    const list: GlobeLocationItem[] = [
+      { id: 'hyderabad', name: 'Hyderabad', desc: 'Main Hub', lat: 17.3850, lon: 78.4867, isHub: true, img: '' },
+    ];
+    seen.add('hyderabad');
+
+    for (const item of propLocations) {
+      const rawName = (item.location_name || item.name || '').trim();
+      if (!rawName) continue;
+      const lower = rawName.toLowerCase();
+      if (seen.has(lower)) continue;
+      seen.add(lower);
+
+      const coords = COUNTRY_COORDS[lower] || { lat: 20.0, lon: 40.0 };
+      list.push({
+        id: String(item.id || rawName),
+        name: rawName,
+        desc: lower === 'india' ? 'Domestic' : 'International',
+        lat: coords.lat,
+        lon: coords.lon,
+        isHub: false,
+        img: '',
+      });
+    }
+
+    return list.length > 1 ? list : DEFAULT_LOCATIONS;
+  }, [propLocations]);
 
   // Trigger when section comes into viewport
   useEffect(() => {
@@ -249,7 +363,7 @@ export function AnimatedGlobe() {
     if (!inView) return;
 
     let current = 0;
-    const totalCount = locations.filter(l => !l.isHub).length;
+    const totalCount = globeLocations.filter(l => !l.isHub).length;
 
     const interval = setInterval(() => {
       current += 1;
@@ -261,7 +375,7 @@ export function AnimatedGlobe() {
     }, 240);
 
     return () => clearInterval(interval);
-  }, [inView]);
+  }, [inView, globeLocations]);
 
   const handleCountryClick = (countryName: string) => {
     if (countryName === 'India') {
@@ -284,49 +398,52 @@ export function AnimatedGlobe() {
             Explore Our <span className="text-[#0853a4]">Destinations</span>
           </p>
           <p className="font-jost text-[9px] sm:text-[11px] font-semibold text-slate-500 mt-0.5 uppercase tracking-widest">
-            Click any country to view tours
+            {destinationsSubtitle || "Click any country to view tours"}
           </p>
         </div>
       </div>
 
-      <Canvas
-        camera={{ position: [0, 0.6, 7.05], fov: 45 }}
-        gl={{ antialias: true, alpha: true }}
-      >
-        <ResponsiveCamera />
-        <ambientLight intensity={1.5} />
-        <directionalLight position={[10, 10, 5]} intensity={1} color="#ffffff" />
-        <directionalLight position={[-10, -10, -5]} intensity={0.5} color="#0853a4" />
+      <GlobeErrorBoundary>
+        <Canvas
+          camera={{ position: [0, 0.6, 7.05], fov: 45 }}
+          gl={{ antialias: true, alpha: true }}
+        >
+          <ResponsiveCamera />
+          <ambientLight intensity={1.5} />
+          <directionalLight position={[10, 10, 5]} intensity={1} color="#ffffff" />
+          <directionalLight position={[-10, -10, -5]} intensity={0.5} color="#0853a4" />
 
-        {/* Subtle background particles */}
-        <Float speed={2} rotationIntensity={0.5} floatIntensity={1}>
-          <points>
-            <bufferGeometry>
-              <float32BufferAttribute
-                attach="attributes-position"
-                args={[new Float32Array(300).map(() => (Math.random() - 0.5) * 15), 3]}
-              />
-            </bufferGeometry>
-            <pointsMaterial size={0.05} color="#0853a4" transparent opacity={0.4} sizeAttenuation />
-          </points>
-        </Float>
+          {/* Subtle background particles */}
+          <Float speed={2} rotationIntensity={0.5} floatIntensity={1}>
+            <points>
+              <bufferGeometry>
+                <float32BufferAttribute
+                  attach="attributes-position"
+                  args={[new Float32Array(300).map(() => (Math.random() - 0.5) * 15), 3]}
+                />
+              </bufferGeometry>
+              <pointsMaterial size={0.05} color="#0853a4" transparent opacity={0.4} sizeAttenuation />
+            </points>
+          </Float>
 
-        <Suspense fallback={null}>
-          <GlobeGroup
-            onCountryClick={handleCountryClick}
-            landedCount={landedCount}
+          <Suspense fallback={null}>
+            <GlobeGroup
+              onCountryClick={handleCountryClick}
+              landedCount={landedCount}
+              globeLocations={globeLocations}
+            />
+          </Suspense>
+          <OrbitControls
+            enableZoom={false}
+            enablePan={false}
+            autoRotate={false}
+            enableDamping={true}
+            dampingFactor={0.05}
+            minPolarAngle={Math.PI / 2.15}
+            maxPolarAngle={Math.PI / 2.15}
           />
-        </Suspense>
-        <OrbitControls
-          enableZoom={false}
-          enablePan={false}
-          autoRotate={false}
-          enableDamping={true}
-          dampingFactor={0.05}
-          minPolarAngle={Math.PI / 2.15}
-          maxPolarAngle={Math.PI / 2.15}
-        />
-      </Canvas>
+        </Canvas>
+      </GlobeErrorBoundary>
     </div>
   );
 }

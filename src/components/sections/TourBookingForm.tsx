@@ -33,7 +33,17 @@ export default function TourBookingForm({
 
   return (
     <aside className="lg:sticky lg:top-24">
-      <div className="rounded-[28px] border border-slate-200 bg-white p-6 shadow-[0_25px_80px_rgba(15,42,91,0.18)] md:p-8">
+      <div className="overflow-hidden rounded-[28px] border border-slate-200 bg-white shadow-[0_25px_80px_rgba(15,42,91,0.18)]">
+        {/* Mobile Banner: ONLY in mobile view */}
+        <div className="block lg:hidden w-full aspect-[16/9] overflow-hidden bg-[#0e74b3] shrink-0 border-b border-slate-100">
+          <img
+            src="/form-mobile-banner.jpg"
+            alt="Open Sky Holidays - The World Is Waiting"
+            className="w-full h-full object-cover block"
+          />
+        </div>
+
+        <div className="p-6 md:p-8">
         {submitted ? (
           <div className="py-8 text-center">
             <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-emerald-100 text-emerald-600">
@@ -169,6 +179,7 @@ export default function TourBookingForm({
             </p>
           </>
         )}
+        </div>
       </div>
     </aside>
   )

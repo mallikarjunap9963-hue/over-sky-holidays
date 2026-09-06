@@ -97,7 +97,7 @@ export function PhenomenalDeals() {
                   />
 
                   {/* Gradient Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0853a4]/95 via-[#0853a4]/40 to-black/20" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-black/20 transition-colors duration-300 group-hover:from-black/95" />
 
                   {/* Inner border */}
                   <div className="pointer-events-none absolute inset-3 rounded-[6px] border border-white/50" />

@@ -2,21 +2,54 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { contentApi } from '../../api/contentApi';
 import { ScrollReveal } from '../ui/ScrollReveal';
+import { HeroSkeleton } from '../ui/Skeletons';
+
+// Curated default fallback slides in case the remote API is slow or unavailable
+const FALLBACK_HERO_SLIDES = [
+  {
+    id: 'fallback-1',
+    title: 'Explore The World With Open Sky Holidays',
+    description: 'Discover breathtaking destinations, personalized travel packages, and unforgettable experiences curated just for you.',
+    image: '/hero.jpg',
+    buttonText: 'Explore More',
+    buttonLink: '/tours/domestic',
+  },
+  {
+    id: 'fallback-2',
+    title: 'Unforgettable Journeys Await You',
+    description: 'Immerse yourself in world-class domestic and international holiday experiences designed for wanderers.',
+    image: '/hero2.jpg',
+    buttonText: 'Explore More',
+    buttonLink: '/tours/international',
+  },
+];
 
 export function Hero() {
   const [heroSlides, setHeroSlides] = useState<any[]>([]);
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     let isMounted = true;
     async function loadHeroes() {
       try {
         const res = await contentApi.getHeroes();
-        if (isMounted && res.heroes && res.heroes.length > 0) {
-          setHeroSlides(res.heroes);
+        if (isMounted) {
+          if (res.heroes && res.heroes.length > 0) {
+            setHeroSlides(res.heroes);
+          } else {
+            setHeroSlides(FALLBACK_HERO_SLIDES);
+          }
         }
       } catch (err) {
         console.error("Error fetching hero slides:", err);
+        if (isMounted) {
+          setHeroSlides(FALLBACK_HERO_SLIDES);
+        }
+      } finally {
+        if (isMounted) {
+          setIsLoading(false);
+        }
       }
     }
     loadHeroes();
@@ -26,7 +59,7 @@ export function Hero() {
   }, []);
 
   useEffect(() => {
-    if (heroSlides.length === 0) return;
+    if (heroSlides.length <= 1) return;
     const intervalId = window.setInterval(() => {
       setCurrentSlide((previous) => (previous + 1) % heroSlides.length);
     }, 4000);
@@ -34,18 +67,19 @@ export function Hero() {
     return () => window.clearInterval(intervalId);
   }, [heroSlides]);
 
-  const activeSlide = heroSlides[currentSlide] || heroSlides[0];
+  if (isLoading && heroSlides.length === 0) {
+    return <HeroSkeleton />;
+  }
 
-  if (!activeSlide) return null;
+  const activeSlide = heroSlides[currentSlide] || heroSlides[0] || FALLBACK_HERO_SLIDES[0];
 
   return (
     <>
       {/* HERO SECTION */}
       <div className="relative w-full h-[calc(100vh-212px)] lg:h-[calc(100vh-199px)] min-h-[480px] lg:min-h-[320px] overflow-hidden bg-[#100c08] shadow-[0_30px_80px_rgba(16,12,8,0.15)]">
         {heroSlides.map((slide, index) => (
-
           <div
-            key={slide.id}
+            key={slide.id || index}
             className={`absolute inset-0 bg-cover bg-center transition-all duration-1000 ${currentSlide === index
               ? "visible scale-100 opacity-100"
               : "invisible scale-105 opacity-0"
@@ -76,30 +110,32 @@ export function Hero() {
           <ScrollReveal variant="fade-in-up" delay={900} duration={1550}>
             <div className="mt-7 flex justify-center">
               <Link
-                to="/tours/domestic"
+                to={activeSlide.buttonLink || "/tours/domestic"}
                 className="btn-primary min-h-[46px] sm:min-h-[52px] min-w-[150px] sm:min-w-[170px] rounded-[6px] text-sm sm:text-base shadow-[0_10px_24px_rgba(8,83,164,0.18)]"
               >
-                Explore More
+                {activeSlide.buttonText || "Explore More"}
               </Link>
             </div>
           </ScrollReveal>
         </div>
 
         {/* SLIDER DOTS */}
-        <ScrollReveal variant="fade-in" delay={1150} duration={1500} className="absolute bottom-9 left-1/2 z-20 hidden -translate-x-1/2 items-center gap-2 sm:flex">
-          {heroSlides.map((slide, index) => (
-            <button
-              key={slide.id || index}
-              type="button"
-              onClick={() => setCurrentSlide(index)}
-              className={`h-1.5 rounded-full transition-all ${currentSlide === index
-                ? "w-10 bg-[#0853a4]"
-                : "w-5 bg-white/55 hover:bg-white"
-                }`}
-              aria-label={`Go to slide ${index + 1}`}
-            />
-          ))}
-        </ScrollReveal>
+        {heroSlides.length > 1 && (
+          <ScrollReveal variant="fade-in" delay={1150} duration={1500} className="absolute bottom-9 left-1/2 z-20 hidden -translate-x-1/2 items-center gap-2 sm:flex">
+            {heroSlides.map((slide, index) => (
+              <button
+                key={slide.id || index}
+                type="button"
+                onClick={() => setCurrentSlide(index)}
+                className={`h-1.5 rounded-full transition-all ${currentSlide === index
+                  ? "w-10 bg-[#0853a4]"
+                  : "w-5 bg-white/55 hover:bg-white"
+                  }`}
+                aria-label={`Go to slide ${index + 1}`}
+              />
+            ))}
+          </ScrollReveal>
+        )}
 
       </div>
 

@@ -16,17 +16,21 @@ export default function RecommendedTours({
   currentTour,
 }: RecommendedToursProps) {
   const [allTours, setAllTours] = useState<any[]>([])
+  const [loading, setLoading] = useState<boolean>(true)
 
   useEffect(() => {
     let isMounted = true
     async function loadRecommended() {
       try {
-        const res = await toursApi.getTours({ per_page: 50 })
+        setLoading(true)
+        const res = await toursApi.getAllTours()
         if (isMounted && res.tours) {
           setAllTours(res.tours)
         }
       } catch (err) {
         console.error("Error loading recommended tours:", err)
+      } finally {
+        if (isMounted) setLoading(false)
       }
     }
     loadRecommended()
@@ -51,6 +55,27 @@ export default function RecommendedTours({
     const pool = sameCategory.length > 0 ? sameCategory : filtered
     return pool.slice(0, 3)
   }, [allTours, currentTourId, currentCategory, currentTour])
+
+  if (loading) {
+    return (
+      <section className="py-10 sm:py-12 bg-slate-50 font-jost border-t border-slate-200/60">
+        <div className="mx-auto max-w-[1320px] px-5 sm:px-8 lg:px-10">
+          <div className="mb-8 border-b border-slate-200/80 pb-4">
+            <div className="h-7 w-48 rounded bg-slate-200 animate-pulse" />
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[0, 1, 2].map((idx) => (
+              <div key={idx} className="h-80 rounded-2xl bg-white p-4 border border-slate-200/80 animate-pulse">
+                <div className="aspect-[16/10] w-full rounded-xl bg-slate-200" />
+                <div className="mt-4 h-5 w-3/4 rounded bg-slate-200" />
+                <div className="mt-2 h-4 w-1/2 rounded bg-slate-100" />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    )
+  }
 
   if (recommendedList.length === 0) return null
 

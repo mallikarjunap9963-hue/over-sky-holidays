@@ -115,14 +115,14 @@ export function Header() {
           }`}
       >
         <div
-          className="mx-auto flex max-w-[1540px] items-center justify-between gap-4 px-4 sm:px-6 lg:px-8 xl:px-10 transition-all duration-350 ease-out min-h-[70px] md:min-h-[80px]"
+          className="mx-auto flex max-w-[1540px] items-center justify-between gap-2 sm:gap-4 pl-2 pr-3 sm:px-6 lg:px-8 xl:px-10 transition-all duration-350 ease-out min-h-[64px] sm:min-h-[70px] md:min-h-[80px]"
         >
           {/* Logo link */}
-          <Link to="/" className="shrink-0 flex items-center">
+          <Link to="/" className="shrink-0 flex items-center -ml-0.5">
             <img
               src={logo}
               alt="Open Sky Holidays"
-              className="w-auto object-contain transition-all duration-350 ease-out h-[70px] md:h-[80px]"
+              className="w-auto object-contain transition-all duration-350 ease-out h-[54px] sm:h-[68px] md:h-[80px]"
             />
           </Link>
 
@@ -213,20 +213,20 @@ export function Header() {
           </div>
 
           {/* Mobile & Tablet CTA Buttons + Hamburger Button (Visible < 1024px / lg) */}
-          <div className="flex items-center gap-3 lg:hidden">
+          <div className="flex items-center gap-2 sm:gap-3 lg:hidden shrink-0">
             {/* Quick Call Icon Button (Always visible on mobile/tablet for instant support) */}
             <a
               href={`tel:${phoneTel}`}
-              className="flex items-center justify-center h-10 w-10 rounded-full bg-[#0853a4]/10 hover:bg-[#0853a4]/20 text-[#0853a4] transition-colors focus:outline-none focus:ring-2 focus:ring-[#0853a4]/30"
+              className="flex items-center justify-center h-9 w-9 sm:h-10 sm:w-10 rounded-full bg-[#0853a4]/10 hover:bg-[#0853a4]/20 text-[#0853a4] transition-colors focus:outline-none focus:ring-2 focus:ring-[#0853a4]/30 shrink-0"
               aria-label="Call Inquiry"
             >
-              <PhoneIcon className="h-5 w-5" />
+              <PhoneIcon className="h-4 w-4 sm:h-5 sm:w-5" />
             </a>
 
-            {/* Quick Book Now Button (Visible starting from sm / 640px width) */}
+            {/* Quick Book Now Button (In one line, no wrapping) */}
             <Link
               to="/contact"
-              className="hidden sm:inline-flex btn-primary min-h-[38px] rounded-[6px] px-4 text-[12.5px] font-bold shadow-[0_8px_16px_rgba(8,83,164,0.12)] font-rubik items-center justify-center transition-all"
+              className="inline-flex btn-primary min-h-[34px] sm:min-h-[38px] rounded-[6px] px-2.5 sm:px-4 text-[12px] sm:text-[12.5px] font-bold shadow-[0_8px_16px_rgba(8,83,164,0.12)] font-rubik items-center justify-center transition-all whitespace-nowrap shrink-0"
             >
               Book Now
             </Link>
@@ -235,7 +235,7 @@ export function Header() {
             <button
               type="button"
               onClick={() => setMobileMenuOpen((previous) => !previous)}
-              className="text-[#100c08] p-2 hover:text-[#0853a4] transition-colors focus:outline-none focus:ring-2 focus:ring-[#0853a4]/30 rounded-lg"
+              className="text-[#100c08] p-1.5 sm:p-2 hover:text-[#0853a4] transition-colors focus:outline-none focus:ring-2 focus:ring-[#0853a4]/30 rounded-lg shrink-0"
               aria-label="Toggle navigation"
               aria-expanded={mobileMenuOpen}
             >

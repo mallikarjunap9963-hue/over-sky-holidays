@@ -406,8 +406,17 @@ export function Contact({ variant = 'full' }: ContactProps) {
             {/* Self-contained Box container housing both Image (Left) and Form (Right) */}
             <div className="bg-white rounded-[32px] border border-slate-200/60 shadow-[0_20px_60px_rgba(15,23,42,0.06)] grid grid-cols-1 lg:grid-cols-12 overflow-hidden items-stretch">
 
-              {/* Left Side: Visual Image Box (lg:col-span-6) */}
-              <div className="lg:col-span-6 relative min-h-[260px] lg:min-h-full flex flex-col justify-end overflow-hidden border-b lg:border-b-0 lg:border-r border-slate-100">
+              {/* Mobile Top Visual Banner: ONLY on mobile (< lg) */}
+              <div className="block lg:hidden w-full aspect-[16/9] overflow-hidden bg-[#0e74b3] shrink-0 border-b border-slate-100">
+                <img
+                  src="/form-mobile-banner.jpg"
+                  alt="Open Sky Holidays - The World Is Waiting"
+                  className="w-full h-full object-cover block"
+                />
+              </div>
+
+              {/* Desktop Left Side: Visual Image Box (lg:col-span-6) */}
+              <div className="hidden lg:flex lg:col-span-6 relative min-h-full flex-col justify-end overflow-hidden border-r border-slate-100">
                 {/* Image background inside the left box */}
                 <div
                   className="absolute inset-0 bg-no-repeat bg-cover bg-left"

@@ -125,58 +125,61 @@ export function Footer() {
               </div>
             </div>
 
-            {/* QUICK LINKS */}
-            <div>
-              <h3 className="font-rubik text-[20px] font-bold text-white">Quick Links</h3>
+            {/* QUICK LINKS & POPULAR TOURS: in 1 row on mobile (2 columns), individual columns on tablet/desktop */}
+            <div className="grid grid-cols-2 gap-4 sm:gap-8 md:contents">
+              {/* QUICK LINKS */}
+              <div>
+                <h3 className="font-rubik text-[18px] sm:text-[20px] font-bold text-white">Quick Links</h3>
 
-              <span className="mt-3 block h-[3px] w-12 rounded-full bg-[#fbb03b]" />
+                <span className="mt-2.5 sm:mt-3 block h-[3px] w-10 sm:w-12 rounded-full bg-[#fbb03b]" />
 
-              <ul className="mt-6 space-y-3.5">
-                {[
-                  { label: "Home", href: "/" },
-                  { label: "About Us", href: "/about" },
-                  { label: "Domestic Tours", href: "/tours/domestic" },
-                  { label: "International Tours", href: "/tours/international" },
-                  { label: "Services", href: "/services" },
-                  { label: "Blogs", href: "/blogs" },
-                  { label: "Contact Us", href: "/contact" },
-                ].map((link) => (
-                  <li key={link.label}>
-                    <Link
-                      to={link.href}
-                      onClick={scrollToTop}
-                      className="group flex items-center gap-3 text-[14px] text-white/80 transition hover:translate-x-1 hover:text-[#fbb03b]"
-                    >
-                      <span className="h-1.5 w-1.5 rounded-full bg-[#fbb03b] transition group-hover:bg-[#fbb03b]" />
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
+                <ul className="mt-4 sm:mt-6 space-y-3 sm:space-y-3.5">
+                  {[
+                    { label: "Home", href: "/" },
+                    { label: "About Us", href: "/about" },
+                    { label: "Domestic Tours", href: "/tours/domestic" },
+                    { label: "International Tours", href: "/tours/international" },
+                    { label: "Services", href: "/services" },
+                    { label: "Blogs", href: "/blogs" },
+                    { label: "Contact Us", href: "/contact" },
+                  ].map((link) => (
+                    <li key={link.label}>
+                      <Link
+                        to={link.href}
+                        onClick={scrollToTop}
+                        className="group flex items-center gap-2.5 sm:gap-3 text-[13px] sm:text-[14px] text-white/80 transition hover:translate-x-1 hover:text-[#fbb03b]"
+                      >
+                        <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#fbb03b] transition group-hover:bg-[#fbb03b]" />
+                        <span className="leading-snug">{link.label}</span>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
 
-            {/* POPULAR TOURS */}
-            <div>
-              <h3 className="font-rubik text-[20px] font-bold text-white">
-                Popular Tours
-              </h3>
+              {/* POPULAR TOURS */}
+              <div>
+                <h3 className="font-rubik text-[18px] sm:text-[20px] font-bold text-white">
+                  Popular Tours
+                </h3>
 
-              <span className="mt-3 block h-[3px] w-12 rounded-full bg-[#fbb03b]" />
+                <span className="mt-2.5 sm:mt-3 block h-[3px] w-10 sm:w-12 rounded-full bg-[#fbb03b]" />
 
-              <ul className="mt-6 space-y-3.5">
-                {popularTours.map((tour) => (
-                  <li key={tour.label}>
-                    <Link
-                      to={tour.href}
-                      onClick={scrollToTop}
-                      className="group flex items-center gap-3 text-[14px] text-white/80 transition hover:translate-x-1 hover:text-[#fbb03b]"
-                    >
-                      <span className="h-1.5 w-1.5 rounded-full bg-[#fbb03b] transition group-hover:bg-[#fbb03b]" />
-                      {tour.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
+                <ul className="mt-4 sm:mt-6 space-y-3 sm:space-y-3.5">
+                  {popularTours.map((tour) => (
+                    <li key={tour.label}>
+                      <Link
+                        to={tour.href}
+                        onClick={scrollToTop}
+                        className="group flex items-center gap-2.5 sm:gap-3 text-[13px] sm:text-[14px] text-white/80 transition hover:translate-x-1 hover:text-[#fbb03b]"
+                      >
+                        <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#fbb03b] transition group-hover:bg-[#fbb03b]" />
+                        <span className="leading-snug">{tour.label}</span>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
 
             {/* CONTACT DETAILS */}

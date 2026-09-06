@@ -80,6 +80,27 @@ function SmallCardGlobe({ activeActivity }: { activeActivity: string }) {
   );
 }
 
+function extractYouTubeVideoId(url?: string): string | null {
+  if (!url) return null;
+  const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?.*v=|embed\/|v\/|shorts\/))([a-zA-Z0-9_-]{11})/i);
+  if (match && match[1]) {
+    return match[1];
+  }
+  if (/^[a-zA-Z0-9_-]{11}$/.test(url.trim())) {
+    return url.trim();
+  }
+  return null;
+}
+
+const DEFAULT_ACTIVITY_VIDEOS: Record<string, string> = {
+  'Surfing': 'gWZ8PwO0CkQ',
+  'Rafting': 'ysBwcUUeSfc',
+  'Ski touring': '5iUzg23gjr4',
+  'Bungee Jumping': 'gZfIqwqDvCk',
+  'Paragliding': 'I6VpZ3bnnKI',
+  'Zip lining': 'L_LUpnjgPso',
+};
+
 export function ExploreActivities() {
   const [activitiesList, setActivitiesList] = useState<any[]>([]);
   const [activeActivity, setActiveActivity] = useState<string>("");
@@ -130,6 +151,12 @@ export function ExploreActivities() {
 
   const selectedActivity = activitiesList.find((activity) => activity.name === activeActivity) ?? activitiesList[0];
   const sectionContainerRef = useRef<HTMLDivElement>(null);
+
+  const rawVideoLink = selectedActivity?.videoLink || '';
+  const isDirectVideo = Boolean(rawVideoLink && (rawVideoLink.endsWith('.mp4') || rawVideoLink.endsWith('.webm')));
+  const activeVideoId = extractYouTubeVideoId(rawVideoLink) ||
+    DEFAULT_ACTIVITY_VIDEOS[selectedActivity?.name] ||
+    'gWZ8PwO0CkQ';
 
   // Smooth GSAP staggered entrance on middle card contents when activity changes
   useEffect(() => {
@@ -379,32 +406,22 @@ export function ExploreActivities() {
               <div className="flex items-center justify-between px-6 py-4 bg-gradient-to-b from-black/80 via-black/50 to-transparent absolute top-0 left-0 right-0 z-20 pointer-events-none">
                 <div className="flex items-center gap-4 pointer-events-auto">
                   <span className="text-white font-rubik text-[16px] sm:text-[18px] font-semibold tracking-wide drop-shadow-md">
-                    {selectedActivity.name} YouTube Adventure
+                    {selectedActivity.name} Video Adventure
                   </span>
 
-                  <a
-                    href={`https://www.youtube.com/watch?v=${
-                      activeActivity === 'Zip lining'
-                        ? 'L_LUpnjgPso'
-                        : activeActivity === 'Paragliding'
-                        ? '3P1CnWI62Ik'
-                        : activeActivity === 'Bungee Jumping'
-                        ? '668nUCeBHyY'
-                        : activeActivity === 'Ski touring'
-                        ? 'linlz7-Pnvw'
-                        : activeActivity === 'Rafting'
-                        ? 'ScMzIvxBSi4'
-                        : '7m16dFI1AF8'
-                    }`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 rounded-full bg-[#ff0000]/90 hover:bg-[#ff0000] px-3.5 py-1 text-[12px] font-semibold text-white shadow-sm transition"
-                  >
-                    <span>Watch on YouTube</span>
-                    <svg viewBox="0 0 20 20" fill="currentColor" className="w-3.5 h-3.5">
-                      <path fillRule="evenodd" d="M5.22 14.78a.75.75 0 001.06 0l7.22-7.22v5.69a.75.75 0 001.5 0v-7.5a.75.75 0 00-.75-.75h-7.5a.75.75 0 000 1.5h5.69l-7.22 7.22a.75.75 0 000 1.06z" clipRule="evenodd" />
-                    </svg>
-                  </a>
+                  {activeVideoId && (
+                    <a
+                      href={`https://www.youtube.com/watch?v=${activeVideoId}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 rounded-full bg-[#ff0000]/90 hover:bg-[#ff0000] px-3.5 py-1 text-[12px] font-semibold text-white shadow-sm transition"
+                    >
+                      <span>Watch on YouTube</span>
+                      <svg viewBox="0 0 20 20" fill="currentColor" className="w-3.5 h-3.5">
+                        <path fillRule="evenodd" d="M5.22 14.78a.75.75 0 001.06 0l7.22-7.22v5.69a.75.75 0 001.5 0v-7.5a.75.75 0 00-.75-.75h-7.5a.75.75 0 000 1.5h5.69l-7.22 7.22a.75.75 0 000 1.06z" clipRule="evenodd" />
+                      </svg>
+                    </a>
+                  )}
                 </div>
 
                 <button
@@ -425,27 +442,24 @@ export function ExploreActivities() {
                 </button>
               </div>
 
-              {/* Responsive YouTube Video Container using nocookie embed to prevent browser privacy blocks */}
+              {/* Responsive Video Container */}
               <div className="relative aspect-video w-full bg-black">
-                <iframe
-                  className="absolute inset-0 h-full w-full border-none"
-                  src={`https://www.youtube-nocookie.com/embed/${
-                    activeActivity === 'Zip lining'
-                      ? 'L_LUpnjgPso'
-                      : activeActivity === 'Paragliding'
-                      ? '3P1CnWI62Ik'
-                      : activeActivity === 'Bungee Jumping'
-                      ? '668nUCeBHyY'
-                      : activeActivity === 'Ski touring'
-                      ? 'linlz7-Pnvw'
-                      : activeActivity === 'Rafting'
-                      ? 'ScMzIvxBSi4'
-                      : '7m16dFI1AF8'
-                  }?autoplay=1&rel=0&modestbranding=1`}
-                  title="Travel Adventure YouTube Video"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                />
+                {isDirectVideo ? (
+                  <video
+                    src={selectedActivity.videoLink}
+                    controls
+                    autoPlay
+                    className="absolute inset-0 h-full w-full object-contain"
+                  />
+                ) : (
+                  <iframe
+                    className="absolute inset-0 h-full w-full border-none"
+                    src={`https://www.youtube-nocookie.com/embed/${activeVideoId}?autoplay=1&rel=0&modestbranding=1`}
+                    title={`${selectedActivity.name} Adventure Video`}
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  />
+                )}
               </div>
             </div>
           </div>,

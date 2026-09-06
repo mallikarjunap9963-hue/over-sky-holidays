@@ -2,7 +2,7 @@ import { apiClient } from './apiClient';
 import type { ApiTour, ApiTourType, ApiTourInquiryPayload, ApiResponse } from './types';
 import { mapTourFromApi } from './mappers';
 
-export const toursApi = {
+const toursApiBase = {
   // Fetch single page of tours
   async getTours(params?: {
     tour_type_id?: number;
@@ -18,36 +18,64 @@ export const toursApi = {
     }
     return { tours: [], raw: [], isLive: false, error: res.message || 'Failed to fetch tours' };
   },
+};
 
-  // Fetch ALL tours across all pages
-  async getAllTours(): Promise<{ tours: ReturnType<typeof mapTourFromApi>[]; raw: ApiTour[]; isLive: boolean; error?: string }> {
-    try {
-      const firstRes = await this.getTours({ page: 1 });
-      if (!firstRes.isLive) {
-        return { tours: [], raw: [], isLive: false, error: firstRes.error };
-      }
+// In-memory cache and promise deduplicator
+let cachedAllTours: { tours: ReturnType<typeof mapTourFromApi>[]; raw: ApiTour[]; isLive: boolean; error?: string } | null = null;
+let inFlightAllToursPromise: Promise<{ tours: ReturnType<typeof mapTourFromApi>[]; raw: ApiTour[]; isLive: boolean; error?: string }> | null = null;
+let lastAllToursFetchTime = 0;
+const TOURS_CACHE_TTL_MS = 60000; // 60 seconds
 
-      let allRaw = [...firstRes.raw];
-      const lastPage = firstRes.meta?.last_page || 1;
+export const toursApi = {
+  ...toursApiBase,
 
-      if (lastPage > 1) {
-        const pagePromises = [];
-        for (let p = 2; p <= lastPage; p++) {
-          pagePromises.push(this.getTours({ page: p }));
-        }
-        const restResults = await Promise.all(pagePromises);
-        restResults.forEach((r) => {
-          if (r.isLive && r.raw.length > 0) {
-            allRaw.push(...r.raw);
-          }
-        });
-      }
-
-      const mapped = allRaw.map(mapTourFromApi);
-      return { tours: mapped, raw: allRaw, isLive: true };
-    } catch (err: any) {
-      return { tours: [], raw: [], isLive: false, error: err.message || 'Failed to load all tours' };
+  // Fetch ALL tours across all pages with deduplication and caching
+  async getAllTours(forceRefresh = false): Promise<{ tours: ReturnType<typeof mapTourFromApi>[]; raw: ApiTour[]; isLive: boolean; error?: string }> {
+    const now = Date.now();
+    if (!forceRefresh && cachedAllTours && (now - lastAllToursFetchTime < TOURS_CACHE_TTL_MS)) {
+      return cachedAllTours;
     }
+
+    if (!forceRefresh && inFlightAllToursPromise) {
+      return inFlightAllToursPromise;
+    }
+
+    inFlightAllToursPromise = (async () => {
+      try {
+        const firstRes = await toursApiBase.getTours({ page: 1 });
+        if (!firstRes.isLive) {
+          return { tours: [], raw: [], isLive: false, error: firstRes.error };
+        }
+
+        let allRaw = [...firstRes.raw];
+        const lastPage = firstRes.meta?.last_page || 1;
+
+        if (lastPage > 1) {
+          const pagePromises = [];
+          for (let p = 2; p <= lastPage; p++) {
+            pagePromises.push(toursApiBase.getTours({ page: p }));
+          }
+          const restResults = await Promise.all(pagePromises);
+          restResults.forEach((r) => {
+            if (r.isLive && r.raw.length > 0) {
+              allRaw.push(...r.raw);
+            }
+          });
+        }
+
+        const mapped = allRaw.map(mapTourFromApi);
+        const result = { tours: mapped, raw: allRaw, isLive: true };
+        cachedAllTours = result;
+        lastAllToursFetchTime = Date.now();
+        return result;
+      } catch (err: any) {
+        return { tours: [], raw: [], isLive: false, error: err.message || 'Failed to load all tours' };
+      } finally {
+        inFlightAllToursPromise = null;
+      }
+    })();
+
+    return inFlightAllToursPromise;
   },
 
   // Get Domestic Tours (type_id: 5 or slug 'domestic')

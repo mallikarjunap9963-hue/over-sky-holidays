@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { enquiriesApi } from '../../api/enquiriesApi';
-import { Loader2, AlertCircle } from 'lucide-react';
+import { Loader2, AlertCircle, User, Mail, Phone, MapPin, X, CheckCircle2 } from 'lucide-react';
 
 export function PopupContact() {
   const [isOpen, setIsOpen] = useState(false);
@@ -23,11 +23,30 @@ export function PopupContact() {
     return () => clearTimeout(timer);
   }, []);
 
+  // Listen for custom trigger event so buttons across the site can trigger it
+  useEffect(() => {
+    const handleOpen = () => setIsOpen(true);
+    window.addEventListener('open-enquiry-popup', handleOpen);
+    return () => window.removeEventListener('open-enquiry-popup', handleOpen);
+  }, []);
+
+  // Prevent background scrolling while popup is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isOpen]);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
-    if (!formData.name || !formData.phone || !formData.email) {
-      setError('Please fill in all required fields.');
+    if (!formData.name.trim() || !formData.phone.trim() || !formData.email.trim()) {
+      setError('Please fill in your name, phone number, and email.');
       return;
     }
 
@@ -38,19 +57,18 @@ export function PopupContact() {
     setLoading(true);
     try {
       const res = await enquiriesApi.submitEnquiry({
-        name: formData.name,
-        email: formData.email,
-        phone: formData.phone,
+        name: formData.name.trim(),
+        email: formData.email.trim(),
+        phone: formData.phone.trim(),
         travel_date: formattedDate,
-        destination: 'General Holiday Enquiry',
+        destination: formData.description.trim() || 'General Holiday Enquiry',
         travelers: 2,
         tour_type: 'Domestic Tour',
-        message: formData.description || undefined,
+        message: formData.description.trim() || undefined,
       });
 
       if (res.success || res.status) {
         setSubmitted(true);
-        // Automatically reset and close after submission
         setTimeout(() => {
           setIsOpen(false);
           setTimeout(() => {
@@ -61,8 +79,8 @@ export function PopupContact() {
               email: '',
               description: ''
             });
-          }, 500);
-        }, 3500);
+          }, 400);
+        }, 3200);
       } else {
         if (res.errors) {
           const firstErr = Object.values(res.errors)[0]?.[0];
@@ -79,123 +97,138 @@ export function PopupContact() {
     }
   };
 
-
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4">
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center p-3 sm:p-5">
           {/* Backdrop overlay */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setIsOpen(false)}
-            className="absolute inset-0 bg-[#100c08]/65 backdrop-blur-[4px] cursor-pointer"
+            className="absolute inset-0 bg-[#100c08]/70 backdrop-blur-[5px] cursor-pointer"
           />
 
-          {/* Modal Content Container */}
+          {/* Modal Container */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.95, y: 30 }}
+            initial={{ opacity: 0, scale: 0.93, y: 24 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95, y: 30 }}
-            transition={{ type: "spring", duration: 0.6, bounce: 0.25 }}
-            className="relative w-full max-w-[950px] max-h-[94vh] overflow-y-auto lg:overflow-hidden rounded-[26px] sm:rounded-[30px] bg-white shadow-2xl flex flex-col lg:flex-row pointer-events-auto items-stretch"
+            exit={{ opacity: 0, scale: 0.93, y: 24 }}
+            transition={{ type: "spring", duration: 0.5, bounce: 0.2 }}
+            className="relative w-full max-w-[420px] lg:max-w-[880px] max-h-[92dvh] overflow-y-auto overflow-x-hidden rounded-2xl sm:rounded-[28px] bg-white shadow-2xl flex flex-col lg:flex-row pointer-events-auto items-stretch border border-white/20"
           >
             {/* Close Modal Button */}
             <button
+              type="button"
               onClick={() => setIsOpen(false)}
-              aria-label="Close modal"
-              className="absolute right-3.5 top-3.5 z-20 flex h-9 w-9 items-center justify-center rounded-full bg-slate-100/90 text-slate-600 hover:bg-red-50 hover:text-red-500 transition-colors cursor-pointer shadow-md backdrop-blur-sm"
+              aria-label="Close"
+              className="absolute right-3 top-3 z-30 flex h-8 w-8 items-center justify-center rounded-full bg-black/45 text-white backdrop-blur-md transition-all hover:bg-black/70 hover:scale-105 cursor-pointer shadow-md lg:bg-slate-100 lg:text-slate-600 lg:hover:bg-red-50 lg:hover:text-red-500"
             >
-              <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-              </svg>
+              <X className="h-4 w-4" strokeWidth={2.5} />
             </button>
 
-            {/* Visual Image Box: Top on mobile (< lg), Left on desktop (lg:+) */}
-            <div className="relative w-full lg:w-[42%] min-h-[190px] h-[210px] sm:h-[240px] lg:h-auto lg:min-h-full overflow-hidden shrink-0">
-              <picture className="w-full h-full block">
-                {/* Desktop: lg and up (42% width vertical panel) */}
-                <source media="(min-width: 1024px)" srcSet="/enquiry-image.png" />
-                {/* Mobile: under 1024px */}
-                <img
-                  src="/enquiry-mobile.png"
-                  alt="Open Sky Holidays Enquiry"
-                  className="w-full h-full object-cover object-center"
-                />
-              </picture>
+            {/* ================= MOBILE TOP BANNER ================= */}
+            {/* 100% FULL UNCONSTRAINED IMAGE: ZERO CROPPING, NO GRADIENT OVERLAY */}
+            <div className="relative w-full aspect-[16/9] overflow-hidden lg:hidden bg-[#0e74b3] shrink-0">
+              <img
+                src="/form-mobile-banner.jpg"
+                alt="Open Sky Holidays - The World Is Waiting"
+                className="h-full w-full object-cover block"
+              />
             </div>
 
-            {/* Right Side: Contact Form Box (lg:col-span-7 equivalent / 58% width) */}
-            <div className="w-full lg:w-[58%] p-5 sm:p-7 font-jost flex flex-col justify-center bg-gradient-to-br from-sky-50/60 via-white to-blue-50/40 relative overflow-hidden">
-              {/* Soft sky-like background decorative blurs */}
-              <div className="absolute top-0 right-0 h-40 w-40 rounded-full bg-sky-200/25 blur-3xl pointer-events-none" />
-              <div className="absolute bottom-4 left-4 h-36 w-36 rounded-full bg-blue-200/20 blur-3xl pointer-events-none" />
+            {/* ================= DESKTOP LEFT SIDE ================= */}
+            <div className="relative hidden lg:block lg:w-[42%] min-h-full overflow-hidden bg-slate-900 shrink-0">
+              <img
+                src="/enquiry-image.png"
+                alt="Open Sky Holidays"
+                className="h-full w-full object-cover object-left"
+              />
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-white/10 pointer-events-none" />
+            </div>
+
+            {/* ================= RIGHT / MAIN FORM BOX ================= */}
+            <div className="w-full lg:w-[58%] p-4 sm:p-6 lg:p-7 font-jost flex flex-col justify-center bg-gradient-to-br from-sky-50/50 via-white to-blue-50/30 relative">
+              {/* Soft decorative background blurs */}
+              <div className="absolute top-0 right-0 h-32 w-32 rounded-full bg-sky-200/20 blur-3xl pointer-events-none" />
+              <div className="absolute bottom-2 left-2 h-28 w-28 rounded-full bg-blue-200/20 blur-3xl pointer-events-none" />
 
               {submitted ? (
-                <div className="flex flex-col items-center justify-center py-20 text-center animate-[scaleIn_0.35s_ease-out]">
-                  <div className="flex h-14 w-14 items-center justify-center rounded-full bg-[#25d366]/10 border border-[#25d366]/30 text-[#25d366] mb-4">
-                    <svg className="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="3">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                    </svg>
+                <div className="flex flex-col items-center justify-center py-10 sm:py-14 text-center animate-[scaleIn_0.35s_ease-out]">
+                  <div className="flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-full bg-[#25d366]/15 border border-[#25d366]/30 text-[#25d366] mb-3">
+                    <CheckCircle2 className="h-7 w-7 sm:h-8 sm:w-8" strokeWidth={2.5} />
                   </div>
-                  <h3 className="font-rubik text-[22px] font-bold text-slate-900">Inquiry Received!</h3>
-                  <p className="mt-2 text-slate-500 max-w-[320px] text-[14px]">
-                    Thank you, <span className="text-[#0853a4] font-bold">{formData.name}</span>! Our travel expert will contact you shortly.
+                  <h3 className="font-rubik text-[20px] sm:text-[22px] font-bold text-slate-900">
+                    Enquiry Received!
+                  </h3>
+                  <p className="mt-1.5 text-slate-600 max-w-[280px] text-[13px] sm:text-[14px] leading-relaxed">
+                    Thank you, <span className="text-[#0853a4] font-bold">{formData.name}</span>! Our travel expert will call you shortly with custom plans.
                   </p>
                 </div>
               ) : (
-                <div>
-                  {/* Top Book Now Flight Badge */}
-                  <div className="flex items-center justify-center gap-2 text-[10px] font-bold uppercase tracking-widest text-[#0853a4] font-rubik">
-                    <span>✈</span>
-                    <span>Book Now</span>
-                    <span>✈</span>
+                <div className="relative z-10">
+                  {/* Top Badge */}
+                  <div className="text-center">
+                    <span className="inline-flex items-center gap-1.5 rounded-full bg-[#0853a4]/10 border border-[#0853a4]/15 px-3 py-1 text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-[#0853a4] font-rubik">
+                      <span>✈</span>
+                      <span>Instant Travel Enquiry</span>
+                    </span>
+
+                    {/* Heading */}
+                    <h3 className="mt-1.5 font-rubik text-[19px] sm:text-[23px] lg:text-[24px] font-black leading-tight text-[#100c08]">
+                      Get In Touch With Us
+                    </h3>
+
+                    {/* Subheading */}
+                    <p className="mt-0.5 text-[12px] sm:text-[12.5px] text-slate-500 leading-snug">
+                      Plan your dream holiday with our verified travel specialists.
+                    </p>
                   </div>
 
-                  {/* Form Heading */}
-                  <h3 className="text-center mt-1 font-rubik text-[22px] sm:text-[26px] font-black text-[#100c08]">
-                    Get In Touch With Us
-                  </h3>
-
-                  {/* Subheading text */}
-                  <p className="text-center mt-1 text-[12.5px] text-slate-500 max-w-[400px] mx-auto leading-relaxed">
-                    Fill in the details below and we'll get back to you with the travel options.
-                  </p>
-
                   {error && (
-                    <div className="mt-3 flex items-start gap-2 rounded-xl border border-red-200 bg-red-50 p-2.5 text-xs text-red-700 font-jost">
-                      <AlertCircle size={15} className="mt-0.5 shrink-0 text-red-500" />
+                    <div className="mt-2.5 flex items-center gap-2 rounded-lg border border-red-200 bg-red-50 px-2.5 py-1.5 text-xs text-red-700 font-jost">
+                      <AlertCircle size={14} className="shrink-0 text-red-500" />
                       <span>{error}</span>
                     </div>
                   )}
 
-                  {/* Form Fields */}
-                  <form onSubmit={handleSubmit} className="mt-5 space-y-4">
-
-                    {/* Name Input */}
+                  {/* Reduced, Compact Form */}
+                  <form onSubmit={handleSubmit} className="mt-3.5 space-y-2.5 sm:space-y-3">
+                    {/* Name Field */}
                     <div className="relative group">
-                      <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-[#0853a4] transition-colors z-10">
-                        <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                        </svg>
+                      <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-[#0853a4] transition-colors pointer-events-none">
+                        <User size={15} />
                       </span>
                       <input
                         type="text"
                         required
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        placeholder="Your Name *"
-                        className="w-full h-[42px] pl-9.5 pr-3 rounded-lg border border-slate-200 bg-slate-50/50 text-[#100c08] placeholder:text-slate-500 outline-none focus:border-[#0853a4] focus:bg-white focus:ring-4 focus:ring-[#0853a4]/5 transition-all text-[14px]"
+                        placeholder="Your Full Name *"
+                        className="w-full h-[38px] sm:h-[40px] pl-9 pr-3 rounded-lg border border-slate-200/90 bg-white text-[#100c08] placeholder:text-slate-400 outline-none focus:border-[#0853a4] focus:ring-2 focus:ring-[#0853a4]/10 transition-all text-[13px] sm:text-[13.5px] shadow-2xs"
                       />
                     </div>
 
-                    {/* Email Input */}
+                    {/* Phone Field */}
                     <div className="relative group">
-                      <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-[#0853a4] transition-colors z-10">
-                        <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                        </svg>
+                      <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-[#0853a4] transition-colors pointer-events-none">
+                        <Phone size={15} />
+                      </span>
+                      <input
+                        type="tel"
+                        required
+                        value={formData.phone}
+                        onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                        placeholder="Phone Number / WhatsApp *"
+                        className="w-full h-[38px] sm:h-[40px] pl-9 pr-3 rounded-lg border border-slate-200/90 bg-white text-[#100c08] placeholder:text-slate-400 outline-none focus:border-[#0853a4] focus:ring-2 focus:ring-[#0853a4]/10 transition-all text-[13px] sm:text-[13.5px] shadow-2xs"
+                      />
+                    </div>
+
+                    {/* Email Field */}
+                    <div className="relative group">
+                      <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-[#0853a4] transition-colors pointer-events-none">
+                        <Mail size={15} />
                       </span>
                       <input
                         type="email"
@@ -203,40 +236,21 @@ export function PopupContact() {
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         placeholder="Email Address *"
-                        className="w-full h-[42px] pl-9.5 pr-3 rounded-lg border border-slate-200 bg-slate-50/50 text-[#100c08] placeholder:text-slate-500 outline-none focus:border-[#0853a4] focus:bg-white focus:ring-4 focus:ring-[#0853a4]/5 transition-all text-[14px]"
+                        className="w-full h-[38px] sm:h-[40px] pl-9 pr-3 rounded-lg border border-slate-200/90 bg-white text-[#100c08] placeholder:text-slate-400 outline-none focus:border-[#0853a4] focus:ring-2 focus:ring-[#0853a4]/10 transition-all text-[13px] sm:text-[13.5px] shadow-2xs"
                       />
                     </div>
 
-                    {/* Phone Number Input */}
+                    {/* Destination / Requirements (Compact 1-Line instead of 3-line textarea) */}
                     <div className="relative group">
-                      <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-[#0853a4] transition-colors z-10">
-                        <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.94.725l.548 2.2a1 1 0 01-.321.988l-1.305.98a10.582 10.582 0 004.872 4.872l.98-1.305a1 1 0 01.988-.321l2.2.548a1 1 0 01.725.94V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                        </svg>
+                      <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-[#0853a4] transition-colors pointer-events-none">
+                        <MapPin size={15} />
                       </span>
                       <input
-                        type="tel"
-                        required
-                        value={formData.phone}
-                        onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                        placeholder="Phone Number *"
-                        className="w-full h-[42px] pl-9.5 pr-3 rounded-lg border border-slate-200 bg-slate-50/50 text-[#100c08] placeholder:text-slate-500 outline-none focus:border-[#0853a4] focus:bg-white focus:ring-4 focus:ring-[#0853a4]/5 transition-all text-[14px]"
-                      />
-                    </div>
-
-                    {/* Description Input */}
-                    <div className="relative group">
-                      <span className="absolute left-3 top-3 text-slate-400 group-focus-within:text-[#0853a4] transition-colors z-10">
-                        <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                        </svg>
-                      </span>
-                      <textarea
+                        type="text"
                         value={formData.description}
                         onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                        placeholder="Your Message/Inquiry (Optional)"
-                        rows={3}
-                        className="w-full pl-9.5 pr-3 py-2.5 rounded-lg border border-slate-200 bg-slate-50/50 text-[#100c08] placeholder:text-slate-500 outline-none focus:border-[#0853a4] focus:bg-white focus:ring-4 focus:ring-[#0853a4]/5 transition-all text-[14px] resize-none"
+                        placeholder="Destination or Notes (Optional)"
+                        className="w-full h-[38px] sm:h-[40px] pl-9 pr-3 rounded-lg border border-slate-200/90 bg-white text-[#100c08] placeholder:text-slate-400 outline-none focus:border-[#0853a4] focus:ring-2 focus:ring-[#0853a4]/10 transition-all text-[13px] sm:text-[13.5px] shadow-2xs"
                       />
                     </div>
 
@@ -244,7 +258,7 @@ export function PopupContact() {
                     <button
                       type="submit"
                       disabled={loading}
-                      className="btn-primary w-full min-h-[44px] mt-2 rounded-[6px] text-[14px] font-bold shadow-[0_12px_24px_rgba(8,83,164,0.18)] font-rubik cursor-pointer gap-2 disabled:opacity-60 flex items-center justify-center"
+                      className="btn-primary w-full min-h-[40px] sm:min-h-[44px] mt-1 rounded-lg text-[13px] sm:text-[14px] font-bold shadow-[0_8px_20px_rgba(8,83,164,0.22)] font-rubik cursor-pointer gap-2 disabled:opacity-60 flex items-center justify-center tracking-wide"
                     >
                       {loading ? (
                         <>
@@ -254,7 +268,7 @@ export function PopupContact() {
                       ) : (
                         <>
                           <span>SUBMIT ENQUIRY</span>
-                          <svg className="h-4 w-4 transform rotate-45 z-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
+                          <svg className="h-4 w-4 transform rotate-45" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
                           </svg>
                         </>
@@ -262,31 +276,21 @@ export function PopupContact() {
                     </button>
                   </form>
 
-
-                  {/* Footer features row */}
-                  <div className="mt-4 pt-3.5 border-t border-slate-100 grid grid-cols-3 gap-2 text-center text-[#100c08] font-rubik">
-                    {/* Feature 1 */}
-                    <div className="flex flex-col items-center">
-                      <svg className="h-4 w-4 text-[#0853a4] mb-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                      </svg>
-                      <span className="text-[10px] font-bold leading-tight">Best Price Guarantee</span>
+                  {/* Compact Sleek Trust Row */}
+                  <div className="mt-3.5 pt-2.5 border-t border-slate-200/70 flex items-center justify-around text-center text-[#100c08] font-rubik text-[10px] sm:text-[11px]">
+                    <div className="flex items-center gap-1 text-slate-700">
+                      <span className="text-[#0853a4] font-bold">✓</span>
+                      <span>Best Price</span>
                     </div>
-
-                    {/* Feature 2 */}
-                    <div className="flex flex-col items-center">
-                      <svg className="h-4 w-4 text-[#0853a4] mb-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z" />
-                      </svg>
-                      <span className="text-[10px] font-bold leading-tight">24/7 Customer Support</span>
+                    <div className="h-3 w-px bg-slate-200" />
+                    <div className="flex items-center gap-1 text-slate-700">
+                      <span className="text-[#0853a4] font-bold">✓</span>
+                      <span>24/7 Support</span>
                     </div>
-
-                    {/* Feature 3 */}
-                    <div className="flex flex-col items-center">
-                      <svg className="h-4 w-4 text-[#0853a4] mb-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
-                      </svg>
-                      <span className="text-[10px] font-bold leading-tight">Customized Itineraries</span>
+                    <div className="h-3 w-px bg-slate-200" />
+                    <div className="flex items-center gap-1 text-slate-700">
+                      <span className="text-[#0853a4] font-bold">✓</span>
+                      <span>Custom Plans</span>
                     </div>
                   </div>
 

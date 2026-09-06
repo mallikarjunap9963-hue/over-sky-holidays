@@ -239,12 +239,15 @@ export interface ApiAboutSection {
   id: number;
   main_heading: string;
   mission_title?: string;
+  mission_icon?: string;
   focus_title?: string;
+  focus_icon?: string;
   description?: string;
   customer_count?: number;
+  destinations_subtitle?: string;
   status?: boolean;
   globe_locations?: Array<{ id: number; location_name: string }>;
-  customer_avatars?: string[];
+  customer_avatars?: Array<{ id?: number; image_url?: string; url?: string } | string>;
 }
 
 export interface ApiWhyChooseSection {

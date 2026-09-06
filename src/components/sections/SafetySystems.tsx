@@ -25,6 +25,27 @@ export function SafetySystems() {
     let isMounted = true;
     async function loadProcesses() {
       try {
+        const supportRes = await contentApi.getTravelSupportActive();
+        if (!isMounted) return;
+
+        if (supportRes.isLive && Array.isArray(supportRes.items) && supportRes.items.length > 0) {
+          // Sort by ID ascending: 1 (Our Facility) -> 2 (Complete Assistance)
+          const sorted = [...supportRes.items].sort((a, b) => (Number(a.id) || 0) - (Number(b.id) || 0));
+          const mapped: ProcessSlide[] = sorted.map((item: any, i: number) => ({
+            id: item.id || i,
+            subtitle: item.small_heading || "Our Facility",
+            title: item.heading || "Finest Safety Systems",
+            description: item.description || "",
+            points: Array.isArray(item.features)
+              ? item.features.map((f: any) => (typeof f === 'object' ? f.text || f.title || '' : String(f))).filter(Boolean)
+              : (Array.isArray(item.promises) ? item.promises.map((p: any) => p.text || String(p)) : []),
+            image: formatImageUrl(item.image_url || item.image, DEFAULT_SLIDE_IMAGES[i % DEFAULT_SLIDE_IMAGES.length]),
+          }));
+          setSlides(mapped);
+          return;
+        }
+
+        // Fallback to our processes if travel support is empty
         const res = await contentApi.getOurProcessesActive();
         if (!isMounted) return;
 
@@ -44,7 +65,7 @@ export function SafetySystems() {
           setSlides([]);
         }
       } catch (err) {
-        console.error("Error loading processes API:", err);
+        console.error("Error loading travel support API:", err);
         setSlides([]);
       } finally {
         if (isMounted) setLoading(false);

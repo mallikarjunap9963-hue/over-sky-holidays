@@ -23,8 +23,11 @@ export function AboutUs() {
         if (!isMounted) return;
         if (aboutRes.isLive && aboutRes.about) {
           setAboutData(aboutRes.about);
+          if (aboutRes.about.customer_count) {
+            setTargetCount(aboutRes.about.customer_count);
+          }
         }
-        if (counterRes.isLive && counterRes.counters.length > 0) {
+        if (counterRes.isLive && counterRes.counters.length > 0 && !aboutRes.about?.customer_count) {
           const cust = counterRes.counters.find((c: any) =>
             (c.name && c.name.toLowerCase().includes('customer')) ||
             (c.value && String(c.value).includes('10'))
@@ -43,6 +46,12 @@ export function AboutUs() {
       isMounted = false;
     };
   }, []);
+
+  useEffect(() => {
+    if (hasAnimated.current) {
+      setCustomerCount(targetCount);
+    }
+  }, [targetCount]);
 
   useEffect(() => {
     const sectionEl = sectionRef.current;
@@ -84,8 +93,15 @@ export function AboutUs() {
     observer.observe(sectionEl);
 
     return () => observer.disconnect();
-  }, []);
+  }, [targetCount]);
 
+  const customerAvatars: string[] = (aboutData?.customer_avatars && Array.isArray(aboutData.customer_avatars) && aboutData.customer_avatars.length > 0)
+    ? aboutData.customer_avatars.map((item: any) => typeof item === 'string' ? item : (item.image_url || item.url || item.path || '')).filter(Boolean)
+    : [
+        'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=100&q=80',
+        'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=100&q=80',
+        'https://images.unsplash.com/photo-1531123897727-8f129e1688ce?auto=format&fit=crop&w=100&q=80',
+      ];
 
   return (
     <>
@@ -136,7 +152,7 @@ export function AboutUs() {
             {/* Main heading */}
             <ScrollReveal variant="fade-in-left" delay={200} duration={1300}>
               <h2 className="font-rubik text-[26px] sm:text-[32px] md:text-[36px] lg:text-[38px] xl:text-[42px] font-bold leading-[1.2] tracking-[-0.015em] text-[#100c08]">
-                {aboutData?.title || "Let's know About Our Journey For Open Sky Holidays."}
+                {aboutData?.main_heading || aboutData?.title || "Let's know About Our Journey For Open Sky Holidays."}
               </h2>
             </ScrollReveal>
 
@@ -157,7 +173,7 @@ export function AboutUs() {
                       <path d="m16 8 4-4M17 4h3v3" />
                     </svg>
                   </span>
-                  Mission &amp; Vision
+                  {aboutData?.mission_title || "Mission & Vision"}
                 </button>
 
                 <button
@@ -174,7 +190,7 @@ export function AboutUs() {
                       <path d="m8.5 13 3.5 2 3.5-2" />
                     </svg>
                   </span>
-                  Focus On Customer
+                  {aboutData?.focus_title || "Focus On Customer"}
                 </button>
               </div>
             </ScrollReveal>
@@ -189,11 +205,8 @@ export function AboutUs() {
                   </p>
                 ) : (
                   <p>
-                    Every traveler has different expectations, budgets and interests.
-                    Our team listens carefully and creates customized holiday packages
-                    for families, couples, groups and corporate travelers. From the
-                    first inquiry until the journey is completed, we provide safe
-                    arrangements and dependable travel assistance.
+                    {aboutData?.focus_description ||
+                      "Every traveler has different expectations, budgets and interests. Our team listens carefully and creates customized holiday packages for families, couples, groups and corporate travelers. From the first inquiry until the journey is completed, we provide safe arrangements and dependable travel assistance."}
                   </p>
                 )}
               </div>
@@ -213,13 +226,9 @@ export function AboutUs() {
                 <div className="flex items-center gap-3">
                   {/* Stacked avatars */}
                   <div className="flex -space-x-3">
-                    {[
-                      'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=100&q=80',
-                      'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=100&q=80',
-                      'https://images.unsplash.com/photo-1531123897727-8f129e1688ce?auto=format&fit=crop&w=100&q=80',
-                    ].map((src, i) => (
+                    {customerAvatars.slice(0, 4).map((src, i) => (
                       <img
-                        key={src}
+                        key={src + i}
                         src={src}
                         alt={`Customer ${i + 1}`}
                         className="h-10 w-10 sm:h-11 sm:w-11 rounded-full border-[3px] border-white object-cover shadow"
@@ -240,7 +249,10 @@ export function AboutUs() {
 
           {/* ===== RIGHT: 3D ANIMATED GLOBE ===== */}
           <ScrollReveal variant="fade-in-right" delay={200} duration={1450} className="relative w-full flex items-center justify-center lg:col-span-6 xl:col-span-6 overflow-visible">
-            <AnimatedGlobe />
+            <AnimatedGlobe
+              locations={aboutData?.globe_locations}
+              destinationsSubtitle={aboutData?.destinations_subtitle}
+            />
           </ScrollReveal>
         </div>
       </section>

@@ -140,6 +140,8 @@ export function mapTourFromApi(tour: ApiTour) {
     packageInclusions,
     package_inclusions: rawPackageInclusions,
     features: tour.features || [],
+    state: (tour as any).state || '',
+    city: (tour as any).city || '',
   };
 }
 

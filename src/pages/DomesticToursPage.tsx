@@ -64,6 +64,8 @@ export function DomesticToursPage() {
             (tour) =>
               tour.title.toLowerCase().includes(query) ||
               (tour.country && tour.country.toLowerCase().includes(query)) ||
+              (tour.state && tour.state.toLowerCase().includes(query)) ||
+              (tour.city && tour.city.toLowerCase().includes(query)) ||
               (tour.locations && tour.locations.some((l: string) => l.toLowerCase().includes(query)))
           );
         }

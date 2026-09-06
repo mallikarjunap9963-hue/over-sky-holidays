@@ -170,15 +170,15 @@ export function WhyChooseUs() {
               delay={index * 100}
               duration={1300}
             >
-              <article className="group relative h-full overflow-hidden rounded-[18px] border border-slate-100 bg-white p-6 shadow-[0_10px_30px_rgba(0,0,0,0.04)] transition-all duration-300 hover:-translate-y-1.5 hover:border-[#0853a4]/20 hover:shadow-[0_20px_40px_rgba(8,83,164,0.08)] sm:p-8">
-                <div className="flex flex-col gap-6 sm:flex-row sm:items-center font-jost">
+              <article className="group relative h-full overflow-hidden rounded-[18px] border border-slate-100 bg-white p-6 shadow-[0_10px_30px_rgba(0,0,0,0.04)] transition-all duration-300 hover:-translate-y-1.5 hover:border-[#0853a4]/20 hover:shadow-[0_20px_40px_rgba(8,83,164,0.08)] sm:p-8 flex flex-col items-center text-center">
+                <div className="flex flex-col items-center text-center font-jost w-full">
                   <div
-                    className={`flex h-14 w-14 shrink-0 items-center justify-center ${feature.iconColor || 'text-[#0853a4]'} transition duration-500 group-hover:rotate-[6deg] group-hover:scale-105`}
+                    className={`mx-auto flex h-14 w-14 shrink-0 items-center justify-center ${feature.iconColor || 'text-[#0853a4]'} transition duration-500 group-hover:rotate-[6deg] group-hover:scale-105`}
                   >
                     {feature.icon}
                   </div>
 
-                  <div>
+                  <div className="mt-4">
                     <h3 className="font-rubik text-[21px] font-semibold leading-tight text-[#100c08] transition group-hover:text-[#0853a4] sm:text-[22px]">
                       {feature.title}
                     </h3>
