@@ -39,7 +39,7 @@ export function BlogsPage() {
           <img
             src={bannerImg}
             alt={banner?.title || "Open Sky Holidays Blogs Page"}
-            className="h-full w-full object-cover object-center"
+            className="h-full w-full object-cover object-[78%_center] sm:object-center"
           />
         </div>
 

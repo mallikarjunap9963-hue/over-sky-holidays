@@ -159,7 +159,7 @@ export function Contact({ variant = 'full' }: ContactProps) {
             <img
               src={bannerImg}
               alt="Open Sky Holidays Contact Page"
-              className="h-full w-full object-cover object-center"
+              className="h-full w-full object-cover object-[78%_center] sm:object-center"
             />
           </div>
 

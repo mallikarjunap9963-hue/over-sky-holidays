@@ -104,7 +104,7 @@ export function BlogDetailsPage() {
           <img
             src={breadcrumbImg}
             alt={post.title}
-            className="h-full w-full object-cover object-center"
+            className="h-full w-full object-cover object-[78%_center] sm:object-center"
           />
         </div>
 

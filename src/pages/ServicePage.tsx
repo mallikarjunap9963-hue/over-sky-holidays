@@ -109,32 +109,7 @@ export function ServicePage() {
         heroImage={dynamicHeroImg} 
       />
 
-      {/* Service Switcher Navigation Tabs */}
-      <div className="border-b border-slate-100 bg-slate-50/80 py-3.5 backdrop-blur-sm sticky top-[72px] z-30 shadow-xs">
-        <div className="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-10 flex items-center justify-center gap-2 sm:gap-3 flex-wrap">
-          {[
-            { id: 'visa', slug: 'visa', label: 'Visa Assistance' },
-            { id: 'flight', slug: 'flight-tickets', label: 'Flight Tickets' },
-            { id: 'passport', slug: 'passport-services', label: 'Passport Services' },
-          ].map((tab) => {
-            const isCurrent = activeId.toLowerCase().includes(tab.id);
-            return (
-              <Link
-                key={tab.id}
-                to={`/services/${tab.slug}`}
-                className={`rounded-full px-4 sm:px-5 py-2 text-xs sm:text-[13px] font-bold tracking-wider uppercase font-rubik transition-all duration-300 ${
-                  isCurrent
-                    ? 'bg-[#0853a4] text-white shadow-md shadow-[#0853a4]/25 scale-105'
-                    : 'bg-white text-slate-700 hover:bg-slate-200/80 border border-slate-200/80'
-                }`}
-              >
-                {tab.label}
-              </Link>
-            );
-          })}
-        </div>
-      </div>
-      
+      {/* Floating Highlights Card in the Breadcrumb */}
       <ServiceHighlights highlights={service.highlights} />
       
       <ServiceContent data={service.content} subtitle={service.title} />

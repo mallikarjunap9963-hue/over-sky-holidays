@@ -236,17 +236,69 @@ export function mapServiceFromApi(service: ApiService) {
   const rawWhyChoose = toSafeArray<any>(service.why_choose_items);
   const rawStats = toSafeArray<any>(service.stats);
 
-  // Map highlights
-  const highlights = rawFeatures.map((f, i) => {
-    const icons: Array<'user' | 'list' | 'clock' | 'shield' | 'headset'> = [
-      'user', 'list', 'clock', 'shield', 'headset'
-    ];
+  const defaultVisaHighlights = [
+    { title: "Expert Guidance", desc: "From start to successful approval", iconType: "user" as const },
+    { title: "High Success Rate", desc: "Maximum visa approval ratio", iconType: "list" as const },
+    { title: "Save Time", desc: "Fast & efficient process", iconType: "clock" as const },
+    { title: "Secure & Reliable", desc: "Your documents are safe with us", iconType: "shield" as const },
+    { title: "24/7 Support", desc: "We're here to help you anytime", iconType: "headset" as const },
+  ];
+
+  const defaultFlightHighlights = [
+    { title: "Best Fares", desc: "Competitive pricing on all routes", iconType: "list" as const },
+    { title: "Global Reach", desc: "Connecting 500+ destinations", iconType: "shield" as const },
+    { title: "Instant Booking", desc: "Fast & confirmed tickets", iconType: "clock" as const },
+    { title: "Flexible Dates", desc: "Easy rescheduling options", iconType: "user" as const },
+    { title: "24/7 Support", desc: "Assistance at every step", iconType: "headset" as const },
+  ];
+
+  const defaultPassportHighlights = [
+    { title: "Expert Review", desc: "Error-free application filing", iconType: "user" as const },
+    { title: "Quick Processing", desc: "Fast-track appointment booking", iconType: "clock" as const },
+    { title: "End-to-End", desc: "From form filling to dispatch", iconType: "list" as const },
+    { title: "Secure Handling", desc: "Strict data privacy", iconType: "shield" as const },
+    { title: "24/7 Support", desc: "Always available for queries", iconType: "headset" as const },
+  ];
+
+  const serviceSlug = (service.slug || service.title || '').toLowerCase();
+  const baseDefaults = serviceSlug.includes('flight')
+    ? defaultFlightHighlights
+    : serviceSlug.includes('passport')
+      ? defaultPassportHighlights
+      : defaultVisaHighlights;
+
+  // Map highlights from backend features field
+  const backendHighlights = rawFeatures.map((f, i) => {
+    const iconStr = (f.icon || '').toLowerCase();
+    let iconType: 'user' | 'list' | 'clock' | 'shield' | 'headset' = 'user';
+    if (iconStr.includes('list') || iconStr.includes('clip') || iconStr.includes('check')) iconType = 'list';
+    else if (iconStr.includes('clock') || iconStr.includes('time') || iconStr.includes('hour')) iconType = 'clock';
+    else if (iconStr.includes('shield') || iconStr.includes('lock') || iconStr.includes('secu')) iconType = 'shield';
+    else if (iconStr.includes('headset') || iconStr.includes('phone') || iconStr.includes('support')) iconType = 'headset';
+    else if (iconStr.includes('user') || iconStr.includes('agent') || iconStr.includes('person')) iconType = 'user';
+    else {
+      const iconTypes: Array<'user' | 'list' | 'clock' | 'shield' | 'headset'> = ['user', 'list', 'clock', 'shield', 'headset'];
+      iconType = iconTypes[i % iconTypes.length];
+    }
     return {
       title: f.title || f.name || `Feature ${i + 1}`,
       desc: f.description || f.desc || '',
-      iconType: icons[i % icons.length],
+      iconType,
     };
   });
+
+  // If backend has 5 full highlights, use them; otherwise merge backend items with baseDefaults so all 5 slots are populated
+  const highlights = [...backendHighlights];
+  if (highlights.length < 5) {
+    const existingTitles = new Set(highlights.map(h => (h.title || '').toLowerCase()));
+    for (const def of baseDefaults) {
+      if (highlights.length >= 5) break;
+      if (!existingTitles.has(def.title.toLowerCase())) {
+        highlights.push(def);
+        existingTitles.add(def.title.toLowerCase());
+      }
+    }
+  }
 
   // Map process steps
   const processSteps = rawProcessSteps.map((step, i) => {

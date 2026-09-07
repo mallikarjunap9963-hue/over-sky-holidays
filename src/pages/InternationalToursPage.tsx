@@ -122,7 +122,7 @@ export function InternationalToursPage() {
           <img
             src={bannerImg}
             alt="International Tours Hero"
-            className="h-full w-full object-cover object-center"
+            className="h-full w-full object-cover object-[78%_center] sm:object-center"
           />
         </div>
 

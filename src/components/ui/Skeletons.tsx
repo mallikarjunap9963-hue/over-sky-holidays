@@ -196,33 +196,31 @@ export function BlogDetailsSkeleton() {
 // Homepage Hero Skeleton Loader
 export function HeroSkeleton() {
   return (
-    <div className="relative w-full h-[calc(100vh-212px)] lg:h-[calc(100vh-199px)] min-h-[480px] lg:min-h-[320px] overflow-hidden bg-[#100c08] shadow-[0_30px_80px_rgba(16,12,8,0.15)] flex items-center justify-center">
+    <div className="relative w-full h-[calc(100vh-212px)] lg:h-[calc(100vh-199px)] min-h-[480px] lg:min-h-[320px] overflow-hidden bg-slate-100/80 flex items-center justify-center border-b border-slate-200/50">
       {/* Background Animated Shimmer Gradient */}
-      <div className="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-800/80 to-slate-900 animate-pulse" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-950/30 via-transparent to-black/60" />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/20" />
+      <div className="absolute inset-0 bg-gradient-to-r from-slate-100 via-white to-slate-100 animate-pulse" />
 
       {/* Hero Content Skeleton */}
       <div className="relative z-10 mx-auto flex h-full max-w-[1200px] w-full flex-col items-center justify-center px-5 py-4 pb-10 sm:pb-14 lg:pb-20 text-center sm:px-8 lg:px-10">
         {/* Title Skeleton Lines */}
-        <div className="h-8 sm:h-12 lg:h-14 w-3/4 max-w-[720px] rounded-lg bg-white/15 animate-pulse" />
-        <div className="mt-3 h-7 sm:h-10 lg:h-12 w-1/2 max-w-[480px] rounded-lg bg-white/10 animate-pulse" />
+        <div className="h-8 sm:h-12 lg:h-14 w-3/4 max-w-[720px] rounded-lg bg-slate-300/80 animate-pulse" />
+        <div className="mt-3 h-7 sm:h-10 lg:h-12 w-1/2 max-w-[480px] rounded-lg bg-slate-200 animate-pulse" />
 
         {/* Subtitle / Description Lines */}
-        <div className="mt-5 sm:mt-6 h-4 sm:h-5 w-4/5 max-w-[620px] rounded bg-white/10 animate-pulse" />
-        <div className="mt-2 h-4 sm:h-5 w-3/5 max-w-[440px] rounded bg-white/10 animate-pulse" />
+        <div className="mt-5 sm:mt-6 h-4 sm:h-5 w-4/5 max-w-[620px] rounded bg-slate-200 animate-pulse" />
+        <div className="mt-2 h-4 sm:h-5 w-3/5 max-w-[440px] rounded bg-slate-200/80 animate-pulse" />
 
         {/* CTA Button Skeleton */}
         <div className="mt-8 flex justify-center">
-          <div className="h-[46px] sm:h-[52px] w-[150px] sm:w-[170px] rounded-[6px] bg-[#0853a4]/50 animate-pulse shadow-lg" />
+          <div className="h-[46px] sm:h-[52px] w-[150px] sm:w-[170px] rounded-[6px] bg-slate-300 animate-pulse shadow-sm" />
         </div>
       </div>
 
       {/* Slider Dots Skeleton */}
       <div className="absolute bottom-9 left-1/2 z-20 hidden -translate-x-1/2 items-center gap-2 sm:flex">
-        <div className="h-1.5 w-10 rounded-full bg-[#0853a4]/60 animate-pulse" />
-        <div className="h-1.5 w-5 rounded-full bg-white/20 animate-pulse" />
-        <div className="h-1.5 w-5 rounded-full bg-white/20 animate-pulse" />
+        <div className="h-1.5 w-10 rounded-full bg-slate-400/60 animate-pulse" />
+        <div className="h-1.5 w-5 rounded-full bg-slate-300/80 animate-pulse" />
+        <div className="h-1.5 w-5 rounded-full bg-slate-300/80 animate-pulse" />
       </div>
     </div>
   );

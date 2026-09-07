@@ -61,7 +61,7 @@ export function ServiceCTA({ cta }: ServiceCTAProps = {}) {
   const statsList = (Array.isArray(cta?.stats) && cta.stats.length > 0) ? cta.stats : liveStats;
 
   return (
-    <section className="mx-auto max-w-[1440px] px-6 lg:px-10 mb-20 overflow-hidden">
+    <section className="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-10 mb-20 overflow-hidden">
       <ScrollReveal variant="fade-in-up" duration={1400} className="relative rounded-2xl overflow-hidden shadow-2xl">
         
         {/* Background Image */}
@@ -71,53 +71,57 @@ export function ServiceCTA({ cta }: ServiceCTAProps = {}) {
             alt="Travel Journey"
             className="w-full h-full object-cover object-center opacity-100"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#031d47]/80 via-[#031d47]/50 to-[#031d47]/10" />
+          <div className="absolute inset-0 bg-gradient-to-b lg:bg-gradient-to-r from-[#031d47]/95 via-[#031d47]/75 to-[#031d47]/35 lg:from-[#031d47]/85 lg:via-[#031d47]/50 lg:to-[#031d47]/15" />
         </div>
 
-        <div className="relative z-10 w-full p-8 md:p-12 lg:p-16 flex flex-col lg:flex-row items-center justify-between gap-10">
+        <div className="relative z-10 w-full p-5 sm:p-8 md:p-12 lg:p-16 flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-12">
           
           {/* Left Text */}
-          <div className="lg:w-1/2 flex flex-col">
-            <h2 className="text-3xl md:text-[42px] font-extrabold text-white mb-4 font-jost leading-tight">
+          <div className="w-full lg:w-1/2 flex flex-col">
+            <h2 className="text-2xl sm:text-3xl md:text-[42px] font-extrabold text-white mb-4 font-jost leading-tight">
               {cta?.title || "Ready To Start Your Journey?"}
             </h2>
-            <p className="text-white/90 text-[15.5px] leading-relaxed font-rubik mb-8 max-w-lg">
+            <p className="text-white/90 text-[14.5px] sm:text-[15.5px] leading-relaxed font-rubik mb-6 sm:mb-8 max-w-lg">
               {cta?.description || "Let us take care of your travel process while you focus on making unforgettable memories."}
             </p>
             <Link 
               to="/contact"
-              className="inline-flex items-center gap-2 bg-white text-[#031d47] px-8 py-3.5 rounded-md font-bold font-jost hover:bg-[#0853a4] hover:text-white transition-all duration-300 w-max shadow-lg"
+              className="inline-flex items-center gap-2 bg-white text-[#031d47] px-6 sm:px-8 py-3 sm:py-3.5 rounded-md font-bold font-jost hover:bg-[#0853a4] hover:text-white transition-all duration-300 w-max shadow-lg"
             >
               <PhoneCall className="w-5 h-5" />
               Contact Our Expert
             </Link>
           </div>
 
-          {/* Right Stats */}
-          <div className="lg:w-1/2 flex flex-wrap lg:flex-nowrap items-center justify-end gap-8 lg:gap-12 w-full">
-            {statsList.map((stat, idx) => {
-              const numMatch = (stat.number || '').match(/^([\d,]+)(.*)$/);
-              const numericVal = numMatch ? parseInt(numMatch[1].replace(/,/g, ''), 10) : null;
-              const suffix = numMatch ? numMatch[2] : '';
+          {/* Right Stats - Full Width on Mobile with No Overlap */}
+          <div className="w-full lg:w-auto mt-4 lg:mt-0">
+            <div className="w-full grid grid-cols-3 divide-x divide-white/20 bg-black/45 backdrop-blur-md rounded-2xl border border-white/20 py-3.5 px-1.5 sm:px-4 sm:py-5 text-center shadow-xl lg:w-auto lg:bg-transparent lg:border-none lg:backdrop-blur-none lg:p-0 lg:shadow-none lg:flex lg:items-center lg:gap-10 lg:text-left">
+              {statsList.map((stat, idx) => {
+                const numMatch = (stat.number || '').match(/^([\d,]+)(.*)$/);
+                const numericVal = numMatch ? parseInt(numMatch[1].replace(/,/g, ''), 10) : null;
+                const suffix = numMatch ? numMatch[2] : '';
 
-              return (
-                <div key={idx} className="flex items-center gap-8 lg:gap-12">
-                  <ScrollReveal variant="fade-in-up" delay={200 * (idx + 1)} className="flex flex-col text-white w-28 lg:w-32">
-                    <span className="text-3xl lg:text-4xl font-black font-jost">
-                      {numericVal !== null && !isNaN(numericVal) ? (
-                        <AnimatedCounter from={0} to={numericVal} suffix={suffix} duration={2.5} />
-                      ) : (
-                        stat.number
-                      )}
-                    </span>
-                    <span className="text-white/80 font-rubik text-sm mt-1">{stat.label}</span>
-                  </ScrollReveal>
-                  {idx < statsList.length - 1 && (
-                    <div className="w-px h-12 bg-white/20 hidden lg:block" />
-                  )}
-                </div>
-              );
-            })}
+                return (
+                  <div key={idx} className="flex flex-col items-center justify-center px-1 sm:px-3 text-center min-w-0 lg:flex-row lg:items-center lg:gap-10 lg:text-left lg:px-0">
+                    <div className="flex flex-col items-center lg:items-start min-w-0 w-full">
+                      <span className="text-[17px] sm:text-2xl lg:text-4xl font-black font-jost text-white drop-shadow-sm tracking-tight whitespace-nowrap">
+                        {numericVal !== null && !isNaN(numericVal) ? (
+                          <AnimatedCounter from={0} to={numericVal} suffix={suffix} duration={2.5} />
+                        ) : (
+                          stat.number
+                        )}
+                      </span>
+                      <span className="text-white/85 font-rubik text-[11px] sm:text-xs lg:text-sm mt-1 leading-tight text-center lg:text-left">
+                        {stat.label}
+                      </span>
+                    </div>
+                    {idx < statsList.length - 1 && (
+                      <div className="w-px h-12 bg-white/20 hidden lg:block" />
+                    )}
+                  </div>
+                );
+              })}
+            </div>
           </div>
           
         </div>

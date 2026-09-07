@@ -16,28 +16,26 @@ export function ServiceHero({ title, subtitle, heroImage }: ServiceHeroProps) {
         <img
           src={heroImage || breadcrumbImg}
           alt={title}
-          className="h-full w-full object-cover object-center"
+          className="h-full w-full object-cover object-[78%_center] sm:object-center"
         />
       </div>
 
       {/* Dark Left, Clear Right Overlay */}
-      <div className="absolute inset-0 -z-10 bg-gradient-to-r from-black/85 via-black/40 to-transparent" />
+      <div className="absolute inset-0 -z-10 bg-gradient-to-r from-black/90 via-black/55 to-black/15 sm:to-black/30" />
 
-      {/* Bottom Gradient */}
-      <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-black/40 to-transparent" />
+      {/* Bottom Subtle Gradient */}
+      <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-black/60 to-transparent pointer-events-none" />
 
-      {/* Decorative Circle */}
+      {/* Decorative Circles */}
       <div className="pointer-events-none absolute -right-24 -top-28 h-[340px] w-[340px] rounded-full border border-white/10" />
       <div className="pointer-events-none absolute -right-10 -top-16 h-[240px] w-[240px] rounded-full border border-white/10" />
 
-
-
-      <div className="relative mx-auto flex min-h-[220px] max-w-[1320px] items-center px-5 py-10 sm:min-h-[250px] sm:px-8 lg:min-h-[280px] lg:px-10">
+      <div className="relative mx-auto flex min-h-[260px] max-w-[1360px] items-center px-5 pt-10 pb-20 sm:min-h-[290px] sm:px-8 sm:pb-24 lg:min-h-[330px] lg:px-10 lg:pb-28">
         <ScrollReveal variant="fade-in-up" duration={1000}>
-          <div className="max-w-[680px]">
-            <div className="flex flex-wrap items-center gap-4 mb-4">
+          <div className="max-w-[720px]">
+            <div className="flex flex-wrap items-center gap-3 sm:gap-4 mb-4">
               {/* Small Label */}
-              <div className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 backdrop-blur-md">
+              <div className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 sm:py-2 backdrop-blur-md">
                 <svg
                   viewBox="0 0 24 24"
                   className="h-4 w-4 text-[#fbb03b]"
@@ -58,7 +56,7 @@ export function ServiceHero({ title, subtitle, heroImage }: ServiceHeroProps) {
               {/* Breadcrumb */}
               <nav
                 aria-label="Breadcrumb"
-                className="inline-flex items-center gap-2 rounded-xl border border-white/20 bg-white/10 px-4 py-2 backdrop-blur-md shadow-sm"
+                className="inline-flex items-center gap-2 rounded-xl border border-white/20 bg-white/10 px-4 py-1.5 sm:py-2 backdrop-blur-md shadow-sm"
               >
                 <Link
                   to="/"
@@ -95,30 +93,16 @@ export function ServiceHero({ title, subtitle, heroImage }: ServiceHeroProps) {
             </div>
 
             {/* Page Title */}
-            <h1 className="font-rubik text-[38px] font-black leading-[1.08] text-white sm:text-[48px] lg:text-[58px]">
+            <h1 className="font-rubik text-[34px] font-black leading-[1.08] text-white sm:text-[46px] lg:text-[54px]">
               {title}
             </h1>
 
             {/* Description */}
-            <p className="mt-2.5 max-w-[570px] font-jost text-[14px] leading-7 text-white/75 sm:text-[15px] whitespace-pre-line pb-8">
+            <p className="mt-2.5 max-w-[620px] font-jost text-[14px] leading-relaxed text-white/80 sm:text-[15px] whitespace-pre-line">
               {subtitle}
             </p>
           </div>
         </ScrollReveal>
-      </div>
-
-      {/* Bottom White Curve */}
-      <div className="absolute -bottom-[1px] left-0 w-full overflow-hidden leading-none z-10">
-        <svg
-          viewBox="0 0 1440 55"
-          preserveAspectRatio="none"
-          className="block h-[30px] w-full sm:h-[42px] lg:h-[55px]"
-        >
-          <path
-            d="M0,36 C260,58 420,3 720,27 C1010,50 1180,5 1440,25 L1440,55 L0,55 Z"
-            fill="white"
-          />
-        </svg>
       </div>
     </section>
   );
