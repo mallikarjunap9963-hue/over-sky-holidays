@@ -2,16 +2,19 @@ import { useState, useEffect } from 'react';
 import { ScrollReveal } from '../ui/ScrollReveal';
 import { contentApi } from '../../api/contentApi';
 import { formatImageUrl } from '../../api/imageHelper';
+import { AboutStorySkeleton } from '../ui/Skeletons';
 import aboutUsImg from '../../assets/about us img.png';
 import aboutUs2ndImg from '../../assets/about us 2nd img.png';
 import aboutUs3rdImg from '../../assets/about us 3 rd img.png';
 
 export function AboutStory() {
   const [storyData, setStoryData] = useState<any>(null);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     let isMounted = true;
     async function loadStory() {
+      setLoading(true);
       try {
         const res = await contentApi.getOurStories();
         if (isMounted && res.isLive && res.story) {
@@ -26,6 +29,10 @@ export function AboutStory() {
         }
       } catch (err) {
         console.error("Failed to load story API:", err);
+      } finally {
+        if (isMounted) {
+          setLoading(false);
+        }
       }
     }
     loadStory();
@@ -34,8 +41,8 @@ export function AboutStory() {
     };
   }, []);
 
-  if (!storyData) {
-    return null;
+  if (loading && !storyData) {
+    return <AboutStorySkeleton />;
   }
 
   const heading = storyData.heading || storyData.title || "";

@@ -76,39 +76,43 @@ export function Hero() {
   return (
     <>
       {/* HERO SECTION */}
-      <div className="relative w-full h-[calc(100vh-212px)] lg:h-[calc(100vh-199px)] min-h-[480px] lg:min-h-[320px] overflow-hidden bg-[#100c08] shadow-[0_30px_80px_rgba(16,12,8,0.15)]">
+      <div className="relative w-full min-h-[560px] sm:min-h-[520px] lg:min-h-[480px] h-[calc(100vh-180px)] sm:h-[calc(100vh-200px)] lg:h-[calc(100vh-199px)] max-h-[720px] overflow-hidden bg-[#100c08] shadow-[0_30px_80px_rgba(16,12,8,0.15)] flex items-center justify-center">
         {heroSlides.map((slide, index) => (
           <div
             key={slide.id || index}
-            className={`absolute inset-0 bg-cover bg-center transition-all duration-1000 ${currentSlide === index
+            className={`absolute inset-0 transition-all duration-1000 ${currentSlide === index
               ? "visible scale-100 opacity-100"
               : "invisible scale-105 opacity-0"
               }`}
-            style={{
-              backgroundImage: `url("${slide.image}")`,
-            }}
-          />
+          >
+            <img
+              src={slide.image}
+              alt={slide.title || "Open Sky Holidays"}
+              className="h-full w-full object-cover object-left sm:object-center pointer-events-none select-none"
+              loading={index === 0 ? "eager" : "lazy"}
+            />
+          </div>
         ))}
 
-        <div className="absolute inset-0 bg-black/[0.30]" />
+        <div className="absolute inset-0 bg-black/[0.32]" />
 
-        <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-black/5" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/10" />
 
-        <div className="relative z-10 mx-auto flex h-full max-w-[1200px] flex-col items-center justify-center px-5 py-4 pb-10 sm:pb-14 lg:pb-20 text-center sm:px-8 lg:px-10">
+        <div className="relative z-10 mx-auto flex h-full max-w-[1200px] w-full flex-col items-center justify-center px-4 py-8 pb-14 sm:pb-16 lg:pb-20 text-center sm:px-8 lg:px-10">
           <ScrollReveal variant="fade-in-up" delay={400} duration={1450}>
-            <h1 className="max-w-none text-[26px] sm:text-[38px] lg:text-[48px] xl:text-[52px] font-extrabold leading-tight tracking-[-0.02em] text-white font-rubik whitespace-normal md:whitespace-nowrap">
+            <h1 className="max-w-[860px] text-[24px] min-[380px]:text-[27px] sm:text-[38px] lg:text-[48px] xl:text-[52px] font-extrabold leading-[1.25] tracking-[-0.02em] text-white font-rubik whitespace-normal">
               {activeSlide.title}
             </h1>
           </ScrollReveal>
 
           <ScrollReveal variant="fade-in-up" delay={650} duration={1500}>
-            <p className="mt-4 max-w-[680px] text-[13px] sm:text-[15.5px] font-normal leading-relaxed text-white/80 font-jost">
+            <p className="mt-3.5 sm:mt-4 max-w-[680px] text-[13px] sm:text-[15.5px] font-normal leading-relaxed text-white/90 font-jost px-1">
               {activeSlide.description}
             </p>
           </ScrollReveal>
 
           <ScrollReveal variant="fade-in-up" delay={900} duration={1550}>
-            <div className="mt-7 flex justify-center">
+            <div className="mt-6 sm:mt-7 flex justify-center">
               <Link
                 to={activeSlide.buttonLink || "/tours/domestic"}
                 className="btn-primary min-h-[46px] sm:min-h-[52px] min-w-[150px] sm:min-w-[170px] rounded-[6px] text-sm sm:text-base shadow-[0_10px_24px_rgba(8,83,164,0.18)]"

@@ -196,12 +196,12 @@ export function BlogDetailsSkeleton() {
 // Homepage Hero Skeleton Loader
 export function HeroSkeleton() {
   return (
-    <div className="relative w-full h-[calc(100vh-212px)] lg:h-[calc(100vh-199px)] min-h-[480px] lg:min-h-[320px] overflow-hidden bg-slate-100/80 flex items-center justify-center border-b border-slate-200/50">
+    <div className="relative w-full min-h-[560px] sm:min-h-[520px] lg:min-h-[480px] h-[calc(100vh-180px)] sm:h-[calc(100vh-200px)] lg:h-[calc(100vh-199px)] max-h-[720px] overflow-hidden bg-slate-100/80 flex items-center justify-center border-b border-slate-200/50">
       {/* Background Animated Shimmer Gradient */}
       <div className="absolute inset-0 bg-gradient-to-r from-slate-100 via-white to-slate-100 animate-pulse" />
 
       {/* Hero Content Skeleton */}
-      <div className="relative z-10 mx-auto flex h-full max-w-[1200px] w-full flex-col items-center justify-center px-5 py-4 pb-10 sm:pb-14 lg:pb-20 text-center sm:px-8 lg:px-10">
+      <div className="relative z-10 mx-auto flex h-full max-w-[1200px] w-full flex-col items-center justify-center px-4 py-8 pb-14 sm:pb-16 lg:pb-20 text-center sm:px-8 lg:px-10">
         {/* Title Skeleton Lines */}
         <div className="h-8 sm:h-12 lg:h-14 w-3/4 max-w-[720px] rounded-lg bg-slate-300/80 animate-pulse" />
         <div className="mt-3 h-7 sm:h-10 lg:h-12 w-1/2 max-w-[480px] rounded-lg bg-slate-200 animate-pulse" />
@@ -223,6 +223,64 @@ export function HeroSkeleton() {
         <div className="h-1.5 w-5 rounded-full bg-slate-300/80 animate-pulse" />
       </div>
     </div>
+  );
+}
+
+// Our Story Section Skeleton Loader
+export function AboutStorySkeleton() {
+  return (
+    <section className="relative overflow-hidden bg-white px-5 py-10 sm:px-8">
+      <div className="relative mx-auto max-w-[1320px]">
+        <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
+          {/* Story Images collage skeleton (Left) */}
+          <div className="grid grid-cols-2 gap-4 h-[420px] sm:h-[465px]">
+            {/* Tall 1st image skeleton */}
+            <div className="overflow-hidden rounded-2xl bg-slate-200 animate-pulse h-full w-full" />
+            {/* Stacked 2nd & 3rd images skeleton */}
+            <div className="flex flex-col gap-4 h-full">
+              <div className="overflow-hidden rounded-2xl bg-slate-200 animate-pulse flex-1" />
+              <div className="overflow-hidden rounded-2xl bg-slate-200 animate-pulse flex-1" />
+            </div>
+          </div>
+
+          {/* Story Text content skeleton (Right) */}
+          <div className="flex flex-col gap-5">
+            {/* Section label skeleton */}
+            <div className="flex items-center gap-2">
+              <div className="h-[2px] w-6 bg-slate-300 animate-pulse" />
+              <div className="h-6 w-28 rounded bg-slate-300 animate-pulse" />
+            </div>
+
+            {/* Heading skeleton */}
+            <div className="space-y-3">
+              <div className="h-9 sm:h-11 w-4/5 rounded-lg bg-slate-300 animate-pulse" />
+              <div className="h-8 sm:h-10 w-3/5 rounded-lg bg-slate-200 animate-pulse" />
+            </div>
+
+            {/* Description lines skeleton */}
+            <div className="space-y-2.5 pt-2">
+              <div className="h-4 w-full rounded bg-slate-200 animate-pulse" />
+              <div className="h-4 w-11/12 rounded bg-slate-200 animate-pulse" />
+              <div className="h-4 w-4/5 rounded bg-slate-200 animate-pulse" />
+              <div className="h-4 w-2/3 rounded bg-slate-200 animate-pulse" />
+            </div>
+
+            {/* Features grid skeleton */}
+            <div className="mt-4 grid grid-cols-2 gap-4">
+              {Array.from({ length: 4 }).map((_, idx) => (
+                <div key={idx} className="flex items-start gap-3">
+                  <div className="h-5 w-5 shrink-0 rounded-full bg-slate-300 animate-pulse" />
+                  <div className="space-y-1.5 flex-1">
+                    <div className="h-4 w-24 rounded bg-slate-300 animate-pulse" />
+                    <div className="h-3 w-32 rounded bg-slate-200 animate-pulse" />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   );
 }
 
